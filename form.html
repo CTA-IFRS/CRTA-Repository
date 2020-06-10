@@ -7,10 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
+    <!-- <link rel="stylesheet" href="node_modules/bootstrap/compiler/bootstrap.css"> -->
+    <!-- <link rel="stylesheet" href="node_modules/bootstrap/compiler/style.css"> -->
+    <!-- <link rel="stylesheet" href="node_modules/fontawesome/css/all.css" > -->
+    <!-- <link rel="stylesheet" href="node_modules/bootstrap-social/bootstrap-social.css" > -->
 <style>
 div {
   padding: 30px;
@@ -54,19 +58,13 @@ div {
           </li>
 
         </ul>
+            
+  </li>
+</ul>
 
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="navDrop">
-              Contato
-            </a>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Email</a>
-              <a class="dropdown-item" href="#">Facebook</a>
-              <a class="dropdown-item" href="#">Instagram</a>
-              <a class="dropdown-item" href="#">YouTube</a>
-            </div>
-          </li>
+          <a href="https://www.facebook.com/acessibilidadevirtual"><img border="0" src="imgs/Faceboo.png" /></a>
+            <a href="https://www.youtube.com/user/AcessibilidadeCanal"><img border="0" src="imgs/YouTub.png" /></a>
         </ul>
         <form class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2" type="search" placeholder="buscar..." aria-label="Buscar">
@@ -85,13 +83,25 @@ div {
 </div>
 
     <!-- FORMULARIO -->
-
+  <div class="container">
 <form>
       <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12"  align="center">
   <div class="container">
   <div class="form-group">
     <label for="exampleFormControlInput1">Email</label>
     <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="nome@exemplo.com">
+  </div>
+  <div class="row">
+    <div class="col">
+      <input type="text" class="form-control" placeholder="Nome">
+    </div>
+    <div class="col">
+      <input type="text" class="form-control" placeholder="Telefone">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlInput1">Instituição</label>
+    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="">
   </div>
   <div class="form-group">
     <label for="exampleFormControlSelect1">Tipo de tecnologia</label>
@@ -103,6 +113,15 @@ div {
       <option>Outro</option>
     </select>
   </div>
+  <label for="exampleFormControlInput1">Possui patente?  </label>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="opcao1">
+  <label class="form-check-label" for="inlineRadio1">Sim</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="opcao2">
+  <label class="form-check-label" for="inlineRadio2">Não</label>
+</div>
 
   <div class="form-group">
     <label for="exampleFormControlTextarea1">Descrição</label>
@@ -113,18 +132,13 @@ div {
     <label for="exampleFormControlFile1">Anexar um arquivo(programa, foto...)</label>
     <input type="file" class="form-control-file" id="exampleFormControlFile1">
   </div>
-<label for="exampleFormControlInput1">Possui patente?  </label>
-<div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="opcao1">
-  <label class="form-check-label" for="inlineRadio1">Sim</label>
-</div>
-<div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="opcao2">
-  <label class="form-check-label" for="inlineRadio2">Não</label>
-</div>
+<button type="submit" class="btn btn-primary">Enviar</button>
 </form>
 
   
+</div>
+</div>
+</form>
 </div>
 
 <!-- Footer -->
@@ -168,10 +182,9 @@ div {
             <li><a class="text-light" href="#">Equipe</a></li>
 
           </ul>
-            <a href="https://twitter.com/intent/tweet?text=Reposit%C3%B3rio%20de%20TA&url=https%3A%2F%2Fcta.ifrs.edu.br%2Frepositorio-de-ta%2F"><img border="0" src="imgs/Twitter.png" /></a>
-            <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcta.ifrs.edu.br%2Frepositorio-de-ta%2F"><img border="0" src="imgs/Facebook.png" /></a>
-            <a href="https://pinterest.com/pin/create/button/?url=https%3A%2F%2Fcta.ifrs.edu.br%2Frepositorio-de-ta%2F&media=&description=Reposit%C3%B3rio%20de%20TA"><img border="0" src="imgs/Pinterest.png" /></a>
-            <a href="https://www.youtube.com/channel/UC9AocLjTaptEncfi_p2V5nA"><img border="0" src="imgs/YouTube.png" /></a>
+
+          
+
         </div>
         <div class="col-12 col-md">
          <img src="imgs/Logo IF.png" href="https://ifrs.edu.br/"> <small class="d-block mb-3 text-light">&copy; 2020</small>
