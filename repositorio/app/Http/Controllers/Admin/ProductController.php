@@ -10,6 +10,8 @@ use App\Traits\UploadTrait;
 
 class ProductController extends Controller
 {
+    use UploadTrait;
+
     private $product;
 
     public function __construct(Product $product)
@@ -24,7 +26,14 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = $this->product->paginate(10);
+        $user = auth()->user();
+
+        if(!$user->store()->exists()) {
+            flash('É preciso criar uma loja para cadastrar produtos!')->warning();
+            return redirect()->route('admin.stores.index');
+        }
+
+        $products = $user->store->products()->paginate(10);
 
         return view('admin.products.index', compact('products'));
     }
@@ -47,24 +56,25 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductRequest $request) //
+    public function store(ProductRequest $request)
     {
-
         $data = $request->all();
+        $categories = $request->get('categories', null);
+
+        //$data['price'] = formatPriceToDatabase($data['price']);
 
         $store = auth()->user()->store;
         $product = $store->products()->create($data);
 
-        $product->categories()->sync($data['categories']);
+        $product->categories()->sync($categories);
 
-        if ($request->hasFile('photos')) {
-            $images = $this->imageUpload($request, 'image');
+        if($request->hasFile('photos')) {
+            $images = $this->imageUpload($request->file('photos'), 'image');
 
-            //inserção de fotos na base
             $product->photos()->createMany($images);
         }
 
-        Flash('Produto criado com sucesso!')->success();
+        flash('Produto Criado com Sucesso!')->success();
         return redirect()->route('admin.products.index');
     }
 
@@ -76,7 +86,6 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-
     }
 
     /**
@@ -90,9 +99,9 @@ class ProductController extends Controller
         $product = $this->product->findOrFail($product);
         $categories = \App\Category::all(['id', 'name']);
 
-
         return view('admin.products.edit', compact('product', 'categories'));
     }
+
     /**
      * Update the specified resource in storage.
      *
@@ -103,18 +112,21 @@ class ProductController extends Controller
     public function update(ProductRequest $request, $product)
     {
         $data = $request->all();
+        $categories = $request->get('categories', null);
 
         $product = $this->product->find($product);
         $product->update($data);
-        $product->categories()->sync($data['categories']);
 
-        if ($request->hasFile('photos')) {
-            $images = $this->imageUpload($request, 'image');
+        if(!is_null($categories))
+            $product->categories()->sync($categories);
+
+        if($request->hasFile('photos')) {
+            $images = $this->imageUpload($request->file('photos'), 'image');
 
             $product->photos()->createMany($images);
         }
 
-        Flash('Produto Editado com sucesso!')->success();
+        flash('Produto Atualizado com Sucesso!')->success();
         return redirect()->route('admin.products.index');
     }
 
@@ -129,9 +141,7 @@ class ProductController extends Controller
         $product = $this->product->find($product);
         $product->delete();
 
-        Flash('Produto Removido com sucesso!')->success();
+        flash('Produto Removido com Sucesso!')->success();
         return redirect()->route('admin.products.index');
     }
-
-
 }
