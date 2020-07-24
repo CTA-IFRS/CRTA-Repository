@@ -1,5 +1,5 @@
 <?php $__env->startSection('content'); ?>
-<a href="<?php echo e(route('admin.stores.create')); ?>" class="btn btn-lg btn-primary">Cadastrar TA</a>
+<a href="<?php echo e(route('admin.stores.create')); ?>" class="btn btn-lg btn-primary">Cadastrar repositorioA</a>
 <table class="table table-striped">
     <thead>
     <tr>

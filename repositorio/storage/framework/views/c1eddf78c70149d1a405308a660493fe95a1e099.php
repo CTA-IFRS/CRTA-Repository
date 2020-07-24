@@ -81,9 +81,17 @@ endif;
 unset($__errorArgs, $__bag); ?>
         </div>
 
+        <div class="form-group">
+            <label>Categorias</label>
+            <select name="categories[]" id="" class="form-control"multiple>
+                <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <option value="<?php echo e($category->id); ?>"><?php echo e($category->name); ?></option>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </select>
+        </div>
 
         <div class="form-group">
-            <label>Preço</label>
+            <label>Arquivos</label>
             <input type="text" name="price" class="form-control <?php $__errorArgs = ['price'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -108,13 +116,9 @@ endif;
 unset($__errorArgs, $__bag); ?>
         </div>
 
-        <div class="form-group">
-            <label>Categorias</label>
-            <select name="categories[]" id="" class="form-control"multiple>
-                <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <option value="<?php echo e($category->id); ?>"><?php echo e($category->name); ?></option>
-            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-            </select>
+        <<div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Possui patente</label>
         </div>
 
         <div class="form-group">
@@ -122,10 +126,10 @@ unset($__errorArgs, $__bag); ?>
             <input type="file" name="photos[]" class="form-control" multiple>
         </div>
 
-        <div class="form-group">
-            <label>Slug</label>
-            <input type="text" name="slug" class="form-control" value="<?php echo e(old('slug')); ?>">
-        </div>
+
+
+
+
 
 
 

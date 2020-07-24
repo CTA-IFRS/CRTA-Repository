@@ -1,13 +1,13 @@
 <?php $__env->startSection('content'); ?>
-<a href="<?php echo e(route('admin.products.create')); ?>" class="btn btn-lg btn-primary">Cadastrar produto</a>
+<a href="<?php echo e(route('admin.products.create')); ?>" class="btn btn-lg btn-primary">Cadastrar TA</a>
 <table class="table table-striped">
     <thead>
     <tr>
         <th>#</th>
-        <th>nome</th>
-        <th>Preco</th>
-        <th>Loja</th>
+        <th>Nome</th>
         <th>Opções</th>
+        <th></th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -15,8 +15,8 @@
         <tr>
             <td><?php echo e($p->id); ?></td>
             <td><?php echo e($p->name); ?></td>
-            <td>R$ <?php echo e(number_format($p->price, 2, ',', '.')); ?></td>
-            <td><?php echo e($p->store->name); ?></td>
+
+
             <td>
                 <div class="btn-group">
                     <a href="<?php echo e(route('admin.products.edit', ['product'=> $p->id])); ?>" class="btn btn-sm btn-primary">EDITAR</a>

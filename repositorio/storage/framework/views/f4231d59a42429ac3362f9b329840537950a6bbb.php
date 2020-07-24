@@ -1,11 +1,11 @@
 <?php $__env->startSection('content'); ?>
-    <h1>Editar Loja</h1>
+    <h1>Editar repositorio</h1>
     <form action="<?php echo e(route('admin.stores.update', ['store'=>$store->id])); ?>" method="post" enctype="multipart/form-data">
         <?php echo csrf_field(); ?>
         <?php echo method_field("PUT"); ?>
 
         <div class="form-group">
-            <label>Nome Loja</label>
+            <label>Nome</label>
             <input type="text" name="name" class="form-control" value="<?php echo e($store->name); ?>">
         </div>
 
@@ -15,12 +15,12 @@
         </div>
 
         <div class="form-group">
-            <label>Telefone</label>
+            <label>Instituição</label>
             <input type="text" name="phone" class="form-control" value="<?php echo e($store->phone); ?>">
         </div>
 
         <div class="form-group">
-            <label>Celular whatsapp</label>
+            <label>Arquivo</label>
             <input type="text" name="mobile_phone" class="form-control" value="<?php echo e($store->mobile_phone); ?>">
         </div>
 
@@ -28,14 +28,14 @@
             <p>
                 <img src="<?php echo e(asset('storage/' . $store->logo)); ?>" alt="">
             </p>
-            <label>Fotos de produto</label>
+            <label>Fotos</label>
             <input type="file" name="logo" class="form-control">
         </div>
 
-        <div class="form-group">
-            <label>Slug</label>
-            <input type="text" name="slug" class="form-control" value="<?php echo e($store->slug); ?>">
-        </div>
+
+
+
+
 
 
         <div>
