@@ -13,12 +13,12 @@ class ProductPhotoController extends Controller
     {
         $photoName = $request->get('photoName');
 
-        //Removo dos arquivos
+        //Remove dos arquivos
         if(Storage::disk('public')->exists($photoName)) {
             Storage::disk('public')->delete($photoName);
         }
 
-        //Removo a imagem do banco
+        //Remove a imagem do banco
         $removePhoto = ProductPhoto::where('image', $photoName);
 
         $productId   = $removePhoto->first()->product_id;
