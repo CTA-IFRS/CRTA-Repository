@@ -18,7 +18,7 @@
                             {{$product->description}}
                         </p>
                         <a href="{{route('product.single', ['slug' => $product->slug])}}" class="btn btn-primary">
-                            Ver Produto
+                            Ver TA
                         </a>
                     </div>
                 </div>
