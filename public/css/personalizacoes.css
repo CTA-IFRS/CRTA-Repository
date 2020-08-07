@@ -1,0 +1,75 @@
+/* Customizacoes sobre elementos especificos*/
+
+/*Ajustes sobre o corpo da página
+*
+/*Adiciona espaço para que a navbar secundária permaneça fixa no topo da tela sem sobrepor o conteúdo*/
+body { padding-top: 100px; /*50px é a altura padrão das navbars no bootstrap, como temos duas precisamos de 100px*/ }
+/*
+*******************************************************/
+
+/************* Banner da tela principal **************/
+.banner{
+	background: url(/imagens/fundoMenuPrincipal.jpg) scroll center no-repeat;
+ 	background-size: cover;
+}
+/***************************/
+
+/*****Customização dos Menus *****
+*
+*
+/**Ajusta o menu de navegação principal para que, ao colapsar, expanda seus itens por sobre a página**/
+.menuTelaPrincipal{
+	position: absolute!important;
+	width: 100%!important;
+	z-index: 20;
+	top: 50px;
+}
+/**Ajusta a cor do bg-primary para uma das cores temas escolhidas para o projeto**/
+.bg-primary{
+	background-color: #3E67B1!important;
+}
+/**Muda a cor para a outra cor do tema ao clicar ou passar por cima do botão de exibir menu (quando a barra está colapsada)**/
+button.bg-primary:hover, button.bg-primary:focus {
+    background-color: #21376C!important;
+}
+/**Muda a cor das letras dos itens do menu para aumentar o contraste*/
+.navbar-dark .navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 1);
+}
+/**Ajusta a cor do bg-secondary para uma das cores escolhidas para o projeto**/
+.bg-secondary{
+	background-color: #21376C!important;
+}
+/**Muda a cor para a outra cor do tema ao clicar ou passar por cima do botão de exibir menu (quando a barra está colapsada)**/
+button.bg-secondary:hover, button.bg-secondary:focus {
+    background-color: #3E67B1!important;
+}
+/*
+*
+/*******	Fim da customização dos menus *******/
+
+
+/*********** Diferentes opacidades porque o Bootstrap não definiu
+*
+*/
+.opacidade-0 {
+  opacity:0!important;
+}
+.opacidade-2 {
+  opacity:0.2!important;
+}
+.opacidade-4 {
+  opacity:0.4!important;
+}
+.opacidade-6 {
+  opacity:0.6!important;
+}
+.opacidade-8 {
+  opacity:0.8!important;
+}
+.opacity-10 {
+  opacity:1!important;
+}
+/**
+*
+********** Fim das classes de opacidade*****/
