@@ -17,11 +17,18 @@ class RouteServiceProvider extends ServiceProvider
     protected $namespace = 'App\Http\Controllers';
 
     /**
-     * The path to the "home" route for your application.
+     * Define o caminho para tela inicial do usuário logado
      *
      * @var string
      */
-    public const HOME = '/';
+    public const HOME = '/painelUsuario';
+
+    /**
+     * Define o caminho para tela inicial do sistema.
+     *
+     * @var string
+     */
+    public const PAGINA_INICIAL = '/';
 
     /**
      * Define your route model bindings, pattern filters, etc.

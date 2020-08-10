@@ -1,11 +1,13 @@
-@extends('layouts.app')
+@extends('layouts.siteLayout')
 
-@section('content')
-<div class="container">
+@section('titulo','RETACE teste session')
+
+@section('conteudo')
+<div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+                <div class="card-header">{{ __('Painel do Usuário') }}</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -14,7 +16,8 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
+                    {{ __('Você está logado!') }}
+                    
                 </div>
             </div>
         </div>

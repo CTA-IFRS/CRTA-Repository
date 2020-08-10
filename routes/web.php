@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 // syntax: 'ControllerName@MethodName'
 
 Route::get('/', 'NavegacaoController@inicio');
+Route::get('/semIcone', 'NavegacaoController@inicioSemIcone');
+
+Auth::routes();
 Route::get('/entrar', 'NavegacaoController@login');
 Route::get('/registrar', 'NavegacaoController@cadastroUsuario');
-Auth::routes();
+Route::get('/painelUsuario', 'HomeController@index');

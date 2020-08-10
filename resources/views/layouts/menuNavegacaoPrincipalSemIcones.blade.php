@@ -18,10 +18,10 @@
       	</ul>
       	<ul class="navbar-nav navbar-right col-xs-3">
       		<li class="nav-item my-2 my-lg-0">
-        		<a class="nav-link" href="https://www.facebook.com/ctaifrs/"><img class="iconePequeno" src="{{url('/imagens/f_logo_white.png')}}" alt="Facebook"/></a>
+        		<a class="nav-link" href="https://www.facebook.com/ctaifrs/"><u>Facebook</u></a>
       		</li>
       		<li class="nav-item my-2 my-lg-0">
-        		<a class="nav-link" href="https://www.youtube.com/c/CTA-IFRS/"><img class="iconePequeno pt-1" src="{{url('/imagens/youtube_social_icon_white.png')}}" alt="YouTube"/></a>
+        		<a class="nav-link" href="https://www.youtube.com/c/CTA-IFRS/"><u>YouTube</u></a>
       		</li>
       	</ul>
 	</div>

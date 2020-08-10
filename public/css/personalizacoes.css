@@ -1,11 +1,21 @@
 /* Customizacoes sobre elementos especificos*/
 
 /*Ajustes sobre o corpo da página
-*
 /*Adiciona espaço para que a navbar secundária permaneça fixa no topo da tela sem sobrepor o conteúdo*/
 body { padding-top: 100px; /*50px é a altura padrão das navbars no bootstrap, como temos duas precisamos de 100px*/ }
 /*
 *******************************************************/
+
+/*Sobrescreve as cores dos botões normalmente utilizados em formulários
+*/
+.btn-primary{
+  background-color: #3E67B1!important;
+  border-color: #3E67B1!important; 
+}
+
+.btn-primary:hover{
+  filter: brightness(115%);
+}
 
 /************* Banner da tela principal **************/
 .banner{
@@ -17,6 +27,13 @@ body { padding-top: 100px; /*50px é a altura padrão das navbars no bootstrap, 
 /*****Customização dos Menus *****
 *
 *
+/**Define um tamanho adequado para o botão das redes sociais aparecerem nos menus**/
+.iconePequeno{
+    background: none;
+    border: none;
+    max-width: 32px;
+}
+
 /**Ajusta o menu de navegação principal para que, ao colapsar, expanda seus itens por sobre a página**/
 .menuTelaPrincipal{
 	position: absolute!important;
@@ -24,22 +41,27 @@ body { padding-top: 100px; /*50px é a altura padrão das navbars no bootstrap, 
 	z-index: 20;
 	top: 50px;
 }
+
 /**Ajusta a cor do bg-primary para uma das cores temas escolhidas para o projeto**/
 .bg-primary{
 	background-color: #3E67B1!important;
 }
+
 /**Muda a cor para a outra cor do tema ao clicar ou passar por cima do botão de exibir menu (quando a barra está colapsada)**/
 button.bg-primary:hover, button.bg-primary:focus {
     background-color: #21376C!important;
 }
+
 /**Muda a cor das letras dos itens do menu para aumentar o contraste*/
 .navbar-dark .navbar-nav .nav-link {
   color: rgba(255, 255, 255, 1);
 }
+
 /**Ajusta a cor do bg-secondary para uma das cores escolhidas para o projeto**/
 .bg-secondary{
 	background-color: #21376C!important;
 }
+
 /**Muda a cor para a outra cor do tema ao clicar ou passar por cima do botão de exibir menu (quando a barra está colapsada)**/
 button.bg-secondary:hover, button.bg-secondary:focus {
     background-color: #3E67B1!important;
@@ -47,6 +69,8 @@ button.bg-secondary:hover, button.bg-secondary:focus {
 /*
 *
 /*******	Fim da customização dos menus *******/
+
+
 
 
 /*********** Diferentes opacidades porque o Bootstrap não definiu

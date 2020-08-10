@@ -17,6 +17,16 @@ class NavegacaoController extends Controller{
 	}
 
 	/** 
+	 * Exibe a tela inicial com texto ao invés dos ícones das redes sociais
+	 *
+	 *	@return \Illuminate\Contracts\Support\Renderable
+	 */	
+	public function inicioSemIcone(){
+		return view('inicioSemIcone');
+	}
+
+
+	/** 
 	 * Exibe a tela de login 
 	 *
 	 *	@return \Illuminate\Contracts\Support\Renderable
@@ -33,5 +43,14 @@ class NavegacaoController extends Controller{
 	 */	
 	public function cadastroUsuario(){
 		return view('auth.register');
-	}	
+	}
+
+	/** 
+	 * Exibe a tela do painel do usuário
+	 *
+	 *	@return \Illuminate\Contracts\Support\Renderable
+	 */	
+	public function painelUsuario(){
+		return view('painelUsuario');
+	}		
 }
