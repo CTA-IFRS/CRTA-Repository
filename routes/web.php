@@ -23,3 +23,8 @@ Auth::routes();
 Route::get('/entrar', 'NavegacaoController@login');
 Route::get('/registrar', 'NavegacaoController@cadastroUsuario');
 Route::get('/painelUsuario', 'HomeController@index');
+
+Route::get('recursoTA',function(){
+	$recursoTA = App\RecursoTA::first();
+	echo $recursoTA;
+});
