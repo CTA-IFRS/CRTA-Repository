@@ -37,7 +37,7 @@ class NavegacaoController extends Controller{
 
 
 	/** 
-	 * Exibe a tela de cadastro 
+	 * Exibe a tela de cadastro de usuário
 	 *
 	 *	@return \Illuminate\Contracts\Support\Renderable
 	 */	
@@ -52,5 +52,14 @@ class NavegacaoController extends Controller{
 	 */	
 	public function painelUsuario(){
 		return view('painelUsuario');
+	}		
+
+	/** 
+	 * Exibe a tela de cadastro de Tecnologia Assistiva
+	 *
+	 *	@return \Illuminate\Contracts\Support\Renderable
+	 */	
+	public function cadastroTA(){
+		return view('cadastrarTA');
 	}		
 }
