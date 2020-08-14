@@ -29,3 +29,6 @@ Route::get('recursoTA',function(){
 	$recursoTA = App\RecursoTA::first();
 	echo $recursoTA;
 });
+
+//Routes para controllers que irão processar forms devem ser nomeadas
+Route::post('salvaTA','RecursoTAController@salvarRecursoTA')->name('salvaTA');

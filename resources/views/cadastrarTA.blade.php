@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Cadastrar Tecnologia Assistiva') }}</div>
 
                 <div class="card-body">
-                    <form method="POST">
+                    <form method="POST" action="{{ route('salvaTA') }}">
                         @csrf
                         <div class="form-group row">
                             <label for="titulo" class="col-md-4 col-form-label text-md-right">{{ __('Título') }}</label>
@@ -19,20 +19,20 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="descricao" class="col-md-4 col-form-label text-md-right">{{ __('Descrição') }}</label>
+                            <label for="descricao" class="col-md-4 col-form-label text-md-right">{{ __('Breve descrição') }}</label>
                             <div class="col-md-6">
-                                <textarea class="form-control" id="descricao" name="descricao" maxlength="1020"></textarea>
+                                <textarea class="form-control" id="descricao" name="descricao" maxlength="1020" required></textarea>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <div class="offset-md-4 col-md-8">
                                 <div class="form-check-inline col-md-4 ">
-                                    <input class="form-check-input" type="radio" id="produtoComercial" name="produtoComercial" value="" checked>
+                                    <input class="form-check-input" type="radio" id="produtoComercial" name="produtoComercial" value="true">
                                     <label for="produtoComercial" class="form-check-label">{{ __('Produto comercial') }}</label>
                                 </div>
                                 <div class="form-check-inline col-md-4 ">                            
-                                    <input class="form-check-input" type="radio" id="produtoNaoComercial" name="produtoNaoComercial" value="">
+                                    <input class="form-check-input" type="radio" id="produtoNaoComercial" name="produtoComercial" value="false">
                                     <label for="produtoNaoComercial" class="form-check-label">{{ __('Produto não comercial') }}</label>
                                 </div>
                             </div>
@@ -41,7 +41,7 @@
                         <div class="form-group row">
                             <label for="siteFabricante" class="col-md-4 col-form-label text-md-right">{{ __('Site do fabricante') }}</label>
                             <div class="col-md-6">
-                                <input id="siteFabricante" type="text" class="form-control" name="siteFabricante">
+                                <input id="siteFabricante" type="text" class="form-control" name="siteFabricante" required>
                             </div>
                         </div>
 
@@ -60,6 +60,15 @@
                             </div>
                         </div>
                     </form>
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                        </ul>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>
