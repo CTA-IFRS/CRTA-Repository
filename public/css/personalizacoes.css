@@ -70,7 +70,13 @@ button.bg-secondary:hover, button.bg-secondary:focus {
 *
 /*******	Fim da customização dos menus *******/
 
+/** Classe para sinalizar campos obrigatórios de formulários**/
+.form-group.required .col-form-label:after { 
+   content:"*";
+   color:red;
+}
 
+/*************************************************************/
 
 
 /*********** Diferentes opacidades porque o Bootstrap não definiu

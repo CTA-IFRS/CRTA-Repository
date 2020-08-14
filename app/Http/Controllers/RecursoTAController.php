@@ -20,9 +20,9 @@ class RecursoTAController extends Controller
     	], [
       		'titulo.required' => 'É preciso informar um título para a Tecnologia Assistiva',
       		'titulo.max' => 'O título deve ter menos de 256 caracteres',
-      		'descricao'  => 'Descreva brevemente o que está cadastrando',
-      		'siteFabricante' => 'Informe um site do fabricante ou instituição',
-      		'produtoComercial' => 'Marque se o produto é comercial ou não',
+      		'descricao.required'  => 'Descreva brevemente o que está cadastrando',
+      		'siteFabricante.required' => 'Informe um site do fabricante ou instituição',
+      		'produtoComercial.required' => 'Marque se é um produto comercial ou não',
       		'licenca.max' => 'Informe a licença em usando menos de 256 caracteres'
     	]);
 
@@ -38,5 +38,7 @@ class RecursoTAController extends Controller
 
    		//Cria no DB
    		RecursoTA::create($novoRecurso);
+
+   		return redirect('recursosTA');
     }
 }

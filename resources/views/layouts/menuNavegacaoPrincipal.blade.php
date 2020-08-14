@@ -13,7 +13,7 @@
         		<a class="nav-link" href="#"><u>Aprender</u></a>
       		</li>
       		<li class="nav-item">
-        		<a class="nav-link" href="#"><u>Contribuir</u></a>
+        		<a class="nav-link" href="{{url('/cadastrarTA')}}"><u>Contribuir</u></a>
       		</li>
       	</ul>
       	<ul class="navbar-nav navbar-right col-xs-3">
