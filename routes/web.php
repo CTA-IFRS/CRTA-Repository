@@ -23,7 +23,7 @@ Auth::routes();
 Route::get('/entrar', 'NavegacaoController@login');
 Route::get('/registrar', 'NavegacaoController@cadastroUsuario');
 Route::get('/painelUsuario', 'HomeController@index');
-Route::get('/cadastrarTA','NavegacaoController@cadastroTA');
+Route::get('/cadastrarTA','RecursoTAController@create');
 
 Route::get('recursosTA',function(){
 	$recursoTA = App\RecursoTA::all();
@@ -31,4 +31,4 @@ Route::get('recursosTA',function(){
 });
 
 //Routes para controllers que irão processar forms devem ser nomeadas
-Route::post('salvaTA','RecursoTAController@salvarRecursoTA')->name('salvaTA');
+Route::post('salvaTA','RecursoTAController@store')->name('salvaTA');

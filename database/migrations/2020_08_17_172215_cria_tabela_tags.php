@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CriaRecursosTA extends Migration
+class CriaTabelaTags extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class CriaRecursosTA extends Migration
      */
     public function up()
     {
-        Schema::create('recursos_ta', function (Blueprint $table) {
+        Schema::create('tags', function (Blueprint $table) {
             $table->id();
-            $table->string('titulo');
-            $table->string('descricao');
-            $table->boolean('produto_comercial');
-            $table->string('site_fabricante');
-            $table->string('licenca')->nullable(true);
-            $table->boolean('publicacao_autorizada')->default(false);
+            $table->string('nome')->nullable(false);
+            $table->string('descricao')->nullable(false);
             $table->timestamps();
             $table->engine = 'InnoDB';
         });
@@ -33,6 +29,6 @@ class CriaRecursosTA extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('recursos_ta');
+        Schema::dropIfExists('tags');
     }
 }
