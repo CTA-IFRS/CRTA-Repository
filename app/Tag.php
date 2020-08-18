@@ -22,6 +22,6 @@ class Tag extends Model
      */
     public function recursosTA()
     {
-        return $this->belongsToMany('App\RecursoTA');
+        return $this->belongsToMany('App\RecursoTA','recusrso_ta_tag','recurso_ta','tag');
     }    
 }

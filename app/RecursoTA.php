@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class RecursoTA extends Model
+class RecursoTa extends Model
 {
 
 /**
@@ -30,6 +30,6 @@ class RecursoTA extends Model
      */
     public function tags()
     {
-        return $this->belongsToMany('App\Tag');
+        return $this->belongsToMany('App\Tag','recurso_ta_tag','recurso_ta_id','tag_id');
     }
 }
