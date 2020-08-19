@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\RecursoTA;
 use App\Tag;
+use App\Video;
 
 class RecursoTAController extends Controller
 {
     public function store(Request $request) {
-
+      
+      //Expressão regular para validar a url dos videos
+      $urlRegex = "";
 
     	//Valida os campos submetidos no formulario
     	$this->validate($request, [
@@ -18,7 +21,9 @@ class RecursoTAController extends Controller
         	'siteFabricante' => 'required|max:2048',
         	'produtoComercial' => 'required',
         	'licenca' => 'nullable|max:255',
-          'tags[]' => 'required',
+          'tags.*' => 'required|min:1',
+          'videos.*' => ['regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
+
     	], [
       		'titulo.required' => 'É preciso informar um título para a Tecnologia Assistiva',
       		'titulo.max' => 'O título deve ter menos de 256 caracteres',
@@ -27,9 +32,9 @@ class RecursoTAController extends Controller
       		'produtoComercial.required' => 'Marque se é um produto comercial ou não',
       		'licenca.max' => 'Informe a licença em usando menos de 256 caracteres',
           'tags[].required' => 'Marque ao menos uma categoria para o recurso',
+          'videos[].regex'=>'Informe um endereço válido',
     	]);
-
-    	//Caso esteja tudo ok, prepara para criar no DB
+      //Caso esteja tudo ok, prepara para criar no DB
 
       $recursoTA = new RecursoTA();
       $recursoTA->titulo = request('titulo');
@@ -42,10 +47,19 @@ class RecursoTAController extends Controller
 
       $recursoTA->tags()->attach(Tag::find(request('tags')));
 
+      if(!empty(request('videos'))){
+              $novoVideo = new Video();
+              foreach (request('videos') as $video) {
+                        $novoVideo->url = $video;
+                        $novoVideo->destaque = 0;
+                        $recursoTA = $recursoTA->videos()->save($novoVideo);
+              }
+      }
+
    		return redirect('recursosTA');
     }
 
-    /* Popula o form com as tags cadastradas para depois encaminhar para a view do formulário
+    /* Antes de exibir a view, popula o form com as tags cadastradas
      *
      *  @return \Illuminate\Http\Response
      */

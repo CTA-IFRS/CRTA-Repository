@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class RecursoTa extends Model
 {
 
-/**
+    /**
      * The model's default values for attributes.
      *
      * @var array
@@ -31,5 +31,14 @@ class RecursoTa extends Model
     public function tags()
     {
         return $this->belongsToMany('App\Tag','recurso_ta_tag','recurso_ta_id','tag_id');
+    }
+
+    /**
+     * Retorna os videos associados ao recurso.
+     * Estabelece uma parte da relação 1:* (Eloquent ORM)
+     */
+    public function videos()
+    {
+        return $this->hasMany('App\Video');
     }
 }

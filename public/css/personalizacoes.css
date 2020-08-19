@@ -76,6 +76,13 @@ button.bg-secondary:hover, button.bg-secondary:focus {
    color:red;
 }
 
+/**Classe para posicionar o botão dentro de um input field***/
+.botao-dentro-input{
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+}
 /*************************************************************/
 
 
