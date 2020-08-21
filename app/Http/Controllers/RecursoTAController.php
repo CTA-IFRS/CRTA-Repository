@@ -20,10 +20,9 @@ class RecursoTAController extends Controller
         	'descricao' => 'required|max:1020',
         	'siteFabricante' => 'required|max:2048',
         	'produtoComercial' => 'required',
-        	'licenca' => 'nullable|max:255',
+        	'licenca' => 'required_if:produtoComercial,true|max:255',
           'tags[].*' => 'required|min:1',
-          //'videos[].*' => ['regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
-
+          'videos[].*' => ['regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
     	], [
       		'titulo.required' => 'É preciso informar um título para a Tecnologia Assistiva',
       		'titulo.max' => 'O título deve ter menos de 256 caracteres',
@@ -31,15 +30,25 @@ class RecursoTAController extends Controller
       		'siteFabricante.required' => 'Informe um site do fabricante ou instituição',
       		'produtoComercial.required' => 'Marque se é um produto comercial ou não',
       		'licenca.max' => 'Informe a licença em usando menos de 256 caracteres',
+          'licenca.required_if' => 'Informe a licença de distribuição desse recurso',
           'tags[].required' => 'Marque ao menos uma categoria para o recurso',
+          'videos[].regex' => 'Endereço inválido, fora dos padrões',
     	]);
       //Caso esteja tudo ok, prepara para criar no DB
+      $isProdutoComercial = (int)filter_var(request('produtoComercial'), FILTER_VALIDATE_BOOLEAN);
+
       $recursoTA = new RecursoTA();
       $recursoTA->titulo = request('titulo');
       $recursoTA->descricao = request('descricao');
-      $recursoTA->produto_comercial = request('produtoComercial');
+
+      $recursoTA->produto_comercial = $isProdutoComercial;
+      if($isProdutoComercial){
+        $recursoTA->licenca = request('licenca');
+      }else{
+        $recursoTA->licenca = null;
+      }
+
       $recursoTA->site_fabricante = request('siteFabricante');
-      $recursoTA->licenca = request('licenca');
       $recursoTA->publicacao_autorizada = false;
       $recursoTA->save();
 
@@ -51,7 +60,7 @@ class RecursoTAController extends Controller
               foreach (request('videos') as $video) {
                 $novoVideo = new Video();
                 $novoVideo->url = $video['url'];
-                $novoVideo->destaque = $video['destaque'];
+                $novoVideo->destaque = (int)filter_var($video['destaque'], FILTER_VALIDATE_BOOLEAN);
                 array_push($videoUrls,$novoVideo);           
               }
           $recursoTA->videos()->saveMany($videoUrls);
