@@ -12,14 +12,14 @@ class Video extends Model
      * @var array
      */
     protected $fillable = [
-    	'destaque',
-    	'url'
+    	'url',
+    	'destaque'
     ];
 
     public function recursoTA()
     {
 
-        return $this->belongsTo(RecursoTA::class);
+        return $this->belongsTo('App\RecursoTA');
 
     }
 }

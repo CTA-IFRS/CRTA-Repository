@@ -83,6 +83,16 @@ button.bg-secondary:hover, button.bg-secondary:focus {
   top: 50%;
   transform: translateY(-50%);
 }
+
+/**Classe para dar destaque a item**/
+.destaque{
+  background-color: #ECF83BB3!important;
+}
+
+/**Muda o cursor para indicar que é clicável**/
+.cursor-pointer{
+  cursor:pointer;
+}
 /*************************************************************/
 
 

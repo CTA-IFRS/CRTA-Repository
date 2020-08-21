@@ -10,7 +10,7 @@ use App\Video;
 class RecursoTAController extends Controller
 {
     public function store(Request $request) {
-      
+      //return print_r($_POST);
       //Expressão regular para validar a url dos videos
       $urlRegex = "";
 
@@ -21,8 +21,8 @@ class RecursoTAController extends Controller
         	'siteFabricante' => 'required|max:2048',
         	'produtoComercial' => 'required',
         	'licenca' => 'nullable|max:255',
-          'tags.*' => 'required|min:1',
-          'videos.*' => ['regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
+          'tags[].*' => 'required|min:1',
+          //'videos[].*' => ['regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
 
     	], [
       		'titulo.required' => 'É preciso informar um título para a Tecnologia Assistiva',
@@ -32,10 +32,8 @@ class RecursoTAController extends Controller
       		'produtoComercial.required' => 'Marque se é um produto comercial ou não',
       		'licenca.max' => 'Informe a licença em usando menos de 256 caracteres',
           'tags[].required' => 'Marque ao menos uma categoria para o recurso',
-          'videos[].regex'=>'Informe um endereço válido',
     	]);
       //Caso esteja tudo ok, prepara para criar no DB
-
       $recursoTA = new RecursoTA();
       $recursoTA->titulo = request('titulo');
       $recursoTA->descricao = request('descricao');
@@ -47,13 +45,16 @@ class RecursoTAController extends Controller
 
       $recursoTA->tags()->attach(Tag::find(request('tags')));
 
-      if(!empty(request('videos'))){
-              $novoVideo = new Video();
+      if(!empty(request('videos'))){             
+              $videoUrls = array();
+              $debug = "";
               foreach (request('videos') as $video) {
-                        $novoVideo->url = $video;
-                        $novoVideo->destaque = 0;
-                        $recursoTA = $recursoTA->videos()->save($novoVideo);
+                $novoVideo = new Video();
+                $novoVideo->url = $video['url'];
+                $novoVideo->destaque = $video['destaque'];
+                array_push($videoUrls,$novoVideo);           
               }
+          $recursoTA->videos()->saveMany($videoUrls);
       }
 
    		return redirect('recursosTA');
