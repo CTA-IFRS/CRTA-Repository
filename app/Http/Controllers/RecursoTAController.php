@@ -6,11 +6,12 @@ use Illuminate\Http\Request;
 use App\RecursoTA;
 use App\Tag;
 use App\Video;
+use App\Arquivo;
 
 class RecursoTAController extends Controller
 {
     public function store(Request $request) {
-      //return print_r($_POST);
+
       //Expressão regular para validar a url dos videos
       $urlRegex = "";
 
@@ -23,6 +24,7 @@ class RecursoTAController extends Controller
         	'licenca' => 'required_if:produtoComercial,true|max:255',
           'tags[].*' => 'required|min:1',
           'videos[].*' => ['regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
+          'arquivos[].*' => 'mimes:doc,docx,pdf,xls,xlsx,txt',
     	], [
       		'titulo.required' => 'É preciso informar um título para a Tecnologia Assistiva',
       		'titulo.max' => 'O título deve ter menos de 256 caracteres',
@@ -33,7 +35,9 @@ class RecursoTAController extends Controller
           'licenca.required_if' => 'Informe a licença de distribuição desse recurso',
           'tags[].required' => 'Marque ao menos uma categoria para o recurso',
           'videos[].regex' => 'Endereço inválido, fora dos padrões',
+          'arquivos' => 'Formato inválido'
     	]);
+      
       //Caso esteja tudo ok, prepara para criar no DB
       $isProdutoComercial = (int)filter_var(request('produtoComercial'), FILTER_VALIDATE_BOOLEAN);
 
@@ -56,7 +60,6 @@ class RecursoTAController extends Controller
 
       if(!empty(request('videos'))){             
               $videoUrls = array();
-              $debug = "";
               foreach (request('videos') as $video) {
                 $novoVideo = new Video();
                 $novoVideo->url = $video['url'];
@@ -64,6 +67,17 @@ class RecursoTAController extends Controller
                 array_push($videoUrls,$novoVideo);           
               }
           $recursoTA->videos()->saveMany($videoUrls);
+      }
+
+      if(!empty(request('arquivos'))){
+        $arquivos = array();
+        $novoArquivo = new Arquivo();
+        foreach (request('arquivos') as $arquivo) {
+          $novoArquivo->nome = $arquivo->getClientOriginalName();
+          $novoArquivo->descricao = "";
+          $novoArquivo->formato = $arquivo->getClientOriginalExtension();
+          $novoArquivo->tamanho = $arquivo->getSize();
+        }
       }
 
    		return redirect('recursosTA');

@@ -41,4 +41,13 @@ class RecursoTa extends Model
     {
         return $this->hasMany('App\Video');
     }
+
+    /**
+     * Retorna os arquivos associados ao recurso.
+     * Estabelece uma parte da relação 1:* (Eloquent ORM)
+     */
+    public function arquivos()
+    {
+        return $this->hasMany('App\Arquivo');
+    }
 }

@@ -114,7 +114,13 @@
                                 </ul>
                             </div>                        
                         </div>
-                        <div class="form-group row mb-0" role="group">
+                        <div class="form-group row custom-file col-md-12" role="group" aria-labelledby="arquivos associados">
+                            <label for="arquivos" class="offset-md-4 custom-file-label col-form-label col-md-8">{{__('Associar arquivos ao recurso:')}}</label>
+                            <div>
+                                <input type="file" class="custom-file-input" id="arquivos" name="arquivos[]" multiple>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-0 mt-4" role="group">
                             <div class="col-md-2 offset-md-10 ">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Cadastrar') }}
