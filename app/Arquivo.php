@@ -14,6 +14,7 @@ class Arquivo extends Model
     protected $fillable = [
     	'nome',
     	'descricao',
+    	'conteudo',
     	'formato',
     	'tamanho'
     ];

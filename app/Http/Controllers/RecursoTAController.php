@@ -68,16 +68,18 @@ class RecursoTAController extends Controller
               }
           $recursoTA->videos()->saveMany($videoUrls);
       }
-
       if(!empty(request('arquivos'))){
         $arquivos = array();
-        $novoArquivo = new Arquivo();
         foreach (request('arquivos') as $arquivo) {
+          $novoArquivo = new Arquivo();
           $novoArquivo->nome = $arquivo->getClientOriginalName();
           $novoArquivo->descricao = "";
+          $novoArquivo->conteudo= base64_encode(file_get_contents($arquivo->getRealPath()));
           $novoArquivo->formato = $arquivo->getClientOriginalExtension();
           $novoArquivo->tamanho = $arquivo->getSize();
+          array_push($arquivos,$novoArquivo);
         }
+        $recursoTA->arquivos()->saveMany($arquivos);
       }
 
    		return redirect('recursosTA');

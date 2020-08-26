@@ -20,6 +20,7 @@
         @yield('conteudo')
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}"></script>
+        <script src="{{ __('https://use.fontawesome.com/9193d17150.js')}}"></script>
         @yield('scripts')
     </body>
 </html>
