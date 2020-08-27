@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
     <head>
         <!-- A página que herdar esse layout deverá indicar o título -->
     	<title>@yield('titulo')</title>

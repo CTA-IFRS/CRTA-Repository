@@ -10,6 +10,7 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('salvaTA') }}" enctype="multipart/form-data">
                         @csrf
+                        <h3>Informações básicas</h3>
                         <div class="form-group required row" role="group" aria-labelledby="titulo">
                             <label for="titulo" class="col-md-4 col-form-label text-md-right">{{ __('Título') }}</label>
                             <div class="col-md-8">
@@ -48,12 +49,12 @@
                             </div>
                             @error('produtoComercial')
                             <span class="invalid-feedback offset-md-4 col-md-8" role="alert">
-                               <strong>{{ $message }}</strong>
-                           </span>
-                           @enderror
-                       </div>
+                             <strong>{{ $message }}</strong>
+                         </span>
+                         @enderror
+                     </div>
 
-                       <div class="form-group required row" role="group" aria-labelledby="siteFabricante">
+                     <div class="form-group required row" role="group" aria-labelledby="siteFabricante">
                         <label for="siteFabricante" class="col-md-4 col-form-label text-md-right">{{ __('Site do fabricante') }}</label>
                         <div class="col-md-8">
                             <input id="siteFabricante" type="text" class="form-control @error('siteFabricante') is-invalid @enderror" name="siteFabricante" value="{{ old('siteFabricante') }}">
@@ -81,8 +82,8 @@
                         <label for="tags" class="col-md-4 col-form-label text-md-right">{{ __('Tags') }}</label>
                         <div class="col-md-8">
                             <div class="custom-control custom-checkbox">
-                               @foreach($tags as $tag)
-                               <div class="form-check-inline col-md-4 ">                            
+                             @foreach($tags as $tag)
+                             <div class="form-check-inline col-md-4 ">                            
                                 <input name="tags[]" title="$tag->descricao" type="checkbox" class="custom-control-input @error('tags[]') is-invalid @enderror" id="{{$tag->id}}" value="{{$tag->id}}">
                                 <label class="custom-control-label" for="{{$tag->id}}">{{$tag->nome}}</label>
                             </div>
@@ -95,7 +96,9 @@
                     </span>
                     @enderror
                 </div>
-
+                <hr>
+                <h3>Vídeos relacionados</h3>
+                <p> Informe o endereço (url) de vídeos sobre a tecnologia assistiva</p>
                 <div id="divVideos" class="form-group row" role="group" aria-labelledby="videos">
                     <label for="urlVideo" class="col-md-4 col-form-label text-md-right">{{ __('Adicionar vídeo') }}</label>
                     <div class="col-md-8 form-inline">
@@ -110,22 +113,56 @@
                     <div class="offset-md-4 col-md-8 mt-3">
                         <label for="videos">{{__('Vídeos a serem cadastrados para este recurso:')}}</label>
                         <ul id="videos" class="list-group text-center">
-                            <li id="avisoListaVazia" class="list-group-item">Não foram adicionados vídeos</li>
+                            <li id="avisoListaVazia" class="list-group-item">Não serão adicionados vídeos</li>
                         </ul>
                     </div>                        
                 </div>
-                <div class="form-group row custom-file" role="group" aria-labelledby="arquivos associados">
-                    <label for="arquivos" class="offset-md-4 custom-file-label col-form-label col-md-8">{{__('Associar arquivos ao recurso:')}}</label>
-                    <div>
+                <hr>
+                <h3>Arquivos</h3>
+                <p> Carregue, a partir do seu computador, arquivos relacionados à tecnologia assistiva no formato doc, docx, pdf, txt e XXXXXXX </p>
+                <div id="divArquivos" class="form-group row" role="group" aria-labelledby="arquivos associados">
+                    <div class="custom-file">
+                        <label for="arquivos" class="offset-md-4 col-md-7 custom-file-label">{{__('Associar arquivos ao recurso')}}</label>
                         <input type="file" class="custom-file-input" id="arquivos" name="arquivos[]" multiple>
                     </div>
                     <div class="offset-md-4 col-md-8 mt-3">
-                        <label for="arquivos">{{__('Arquivos a serem associados a este recurso:')}}</label>
+                        <label for="listaArquivos">{{__('Arquivos a serem associados a este recurso:')}}</label>
                         <ul id="listaArquivos" class="list-group text-center">
-                            <li id="avisoListaVazia" class="list-group-item">Não foram adicionados arquivos</li>
+                            <li id="avisoListaVazia" class="list-group-item">Não serão adicionados arquivos</li>
                         </ul>
                     </div> 
                 </div>
+                <hr>
+                <h3>Manuais</h3>
+                <p> Carregue, a partir do seu computador, manuais da tecnologia assistiva no formato doc, docx, pdf XXXXX</p>
+                <div id="divManuais" class="form-group row" role="group" aria-labelledby="manuais associados">
+                    <div class="custom-file">
+                        <label for="manuais" class="offset-md-4 col-md-7 custom-file-label">{{__('Associar manuais ao recurso')}}</label>
+                        <input type="file" accept="application/pdf" class="custom-file-input" id="manuais" name="manuais[]" multiple>
+                    </div>
+                    <div class="offset-md-4 col-md-8 mt-3">
+                        <label for="listaManuais">{{__('Manuais a serem associados:')}}</label>
+                        <ul id="listaManuais" class="list-group text-center">
+                            <li id="avisoListaVazia" class="list-group-item">Não serão adicionados manuais</li>
+                        </ul>
+                    </div> 
+                </div>
+                <hr>
+                <h3>Fotos</h3>
+                <p>Carregue pelo menos uma foto sobre a tecnologia assistiva no formato png ou jpg</p>
+                <div id="divFotos" class="form-group row" role="group" aria-labelledby="fotos do recurso">
+                    <div class="custom-file">
+                        <label for="fotos" class="offset-md-4 col-md-7 custom-file-label">{{__('Cadastrar fotos da tecnologia assistiva')}}</label>
+                        <input type="file" class="custom-file-input" id="fotos" name="fotos[]" multiple>
+                    </div>
+                    <div class="offset-md-4 col-md-8 mt-3">
+                        <label for="listaFotos">{{__('Fotos a serem cadastradas:')}}</label>
+                        <ul id="listaFotos" class="list-group text-center">
+                            <li id="avisoListaVazia" class="list-group-item">Cadastre ao menos uma foto</li>
+                        </ul>
+                    </div> 
+                </div>
+                <hr>
                 <div class="form-group row mb-0 mt-4" role="group">
                     <div class="col-md-2 offset-md-10 ">
                         <button type="submit" class="btn btn-primary">
@@ -204,7 +241,7 @@
         $(this).closest('li').addClass('destaque');
     });
 
-        /** Lista os documentos escolhidos no input file para fornecer feedback ao usuário**/
+        /** Lista os arquivos escolhidos no input file para fornecer feedback ao usuário**/
         $("input[id=arquivos]").on("change", function () {
 
             $('ul[id=listaArquivos]').empty();
@@ -216,6 +253,21 @@
             });
             if( $('#listaArquivos li').length===0){
                 $('#listaArquivos').append('<li id="avisoListaVazia" class="list-group-item">Não foram adicionados arquivos</li>');
+            }
+        });
+
+        /** Lista os arquivos escolhidos no input file para fornecer feedback ao usuário**/
+        $("input[id=manuais]").on("change", function () {
+
+            $('ul[id=listaManuais]').empty();
+
+            var manuais = $("input[id=manuais]").prop("files")
+            var nomes = $.map(manuais, function (val) { return val.name; });
+            $.each(nomes, function (i, nome) {
+                $("#listaManuais").append('<li class="list-group-item"><i class="fa fa-file mr-2" aria-hidden="true"></i>'+nome+'</li>');
+            });
+            if( $('#listaManuais li').length===0){
+                $('#listaManuais').append('<li id="avisoListaVazia" class="list-group-item">Não serão adicionados manuais</li>');
             }
         });
     });

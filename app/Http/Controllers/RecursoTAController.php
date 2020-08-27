@@ -7,6 +7,7 @@ use App\RecursoTA;
 use App\Tag;
 use App\Video;
 use App\Arquivo;
+use App\Manual;
 
 class RecursoTAController extends Controller
 {
@@ -25,6 +26,7 @@ class RecursoTAController extends Controller
           'tags[].*' => 'required|min:1',
           'videos[].*' => ['regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
           'arquivos[].*' => 'mimes:doc,docx,pdf,xls,xlsx,txt',
+          'manuais[].*' => 'mimes:pdf',
     	], [
       		'titulo.required' => 'É preciso informar um título para a Tecnologia Assistiva',
       		'titulo.max' => 'O título deve ter menos de 256 caracteres',
@@ -35,7 +37,8 @@ class RecursoTAController extends Controller
           'licenca.required_if' => 'Informe a licença de distribuição desse recurso',
           'tags[].required' => 'Marque ao menos uma categoria para o recurso',
           'videos[].regex' => 'Endereço inválido, fora dos padrões',
-          'arquivos' => 'Formato inválido'
+          'arquivos[].mimes' => 'Formato do arquivo é inválido',
+          'manuais[].mimes' => 'O arquivo deve estar no formato PDF',
     	]);
       
       //Caso esteja tudo ok, prepara para criar no DB
@@ -71,15 +74,35 @@ class RecursoTAController extends Controller
       if(!empty(request('arquivos'))){
         $arquivos = array();
         foreach (request('arquivos') as $arquivo) {
+          $nomeArquivoCarregado = time().'_'.$arquivo->getClientOriginalName();
+          $caminhoArquivoCarregado = $arquivo->storeAs('uploads',$nomeArquivoCarregado,'public');
+
           $novoArquivo = new Arquivo();
-          $novoArquivo->nome = $arquivo->getClientOriginalName();
+          $novoArquivo->nome = $nomeArquivoCarregado;
           $novoArquivo->descricao = "";
-          $novoArquivo->conteudo= base64_encode(file_get_contents($arquivo->getRealPath()));
+          $novoArquivo->caminhoArquivo= $caminhoArquivoCarregado;
           $novoArquivo->formato = $arquivo->getClientOriginalExtension();
           $novoArquivo->tamanho = $arquivo->getSize();
           array_push($arquivos,$novoArquivo);
         }
         $recursoTA->arquivos()->saveMany($arquivos);
+      }
+
+      if(!empty(request('manuais'))){
+        $manuais = array();
+        foreach (request('manuais') as $manual) {
+          $nomeArquivoManual = time().'_'.$manual->getClientOriginalName();
+          $caminhoArquivoManual = $manual->storeAs('uploads',$nomeArquivoManual,'public');
+
+          $novoManual = new Manual();
+          $novoManual->nome = $nomeArquivoManual;
+          $novoManual->descricao = "";
+          $novoManual->caminhoArquivo = $caminhoArquivoManual;
+          $novoManual->formato = $manual->getClientOriginalExtension();
+          $novoManual->link = "";
+          array_push($manuais,$novoManual);
+        }
+        $recursoTA->manuais()->saveMany($manuais);
       }
 
    		return redirect('recursosTA');

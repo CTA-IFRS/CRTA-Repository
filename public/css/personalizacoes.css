@@ -16,7 +16,6 @@ body { padding-top: 100px; /*50px é a altura padrão das navbars no bootstrap, 
 .btn-primary:hover{
   filter: brightness(115%);
 }
-
 /************* Banner da tela principal **************/
 .banner{
 	background: url(/imagens/fundoMenuPrincipal.jpg) scroll center no-repeat;
@@ -24,6 +23,11 @@ body { padding-top: 100px; /*50px é a altura padrão das navbars no bootstrap, 
 }
 /***************************/
 
+.custom-file-label::after{
+  content:"Procurar" !important;
+  background-color: #3E67B1!important;
+  color: white;
+}
 /*****Customização dos Menus *****
 *
 *

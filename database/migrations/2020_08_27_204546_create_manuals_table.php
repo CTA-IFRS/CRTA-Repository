@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateArquivosTable extends Migration
+class CreateManualsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateArquivosTable extends Migration
      */
     public function up()
     {
-        Schema::create('arquivos', function (Blueprint $table) {
+        Schema::create('manuals', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
             $table->string('descricao');
             $table->string('caminhoArquivo');
             $table->string('formato');
-            $table->integer('tamanho');
+            $table->string('link');
             $table->biginteger('recurso_ta_id')->nullable(false);
             $table->timestamps();
         });
@@ -32,6 +32,6 @@ class CreateArquivosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('arquivos');
+        Schema::dropIfExists('manuals');
     }
 }
