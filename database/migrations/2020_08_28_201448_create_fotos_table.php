@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateManualsTable extends Migration
+class CreateFotosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateManualsTable extends Migration
      */
     public function up()
     {
-        Schema::create('manuals', function (Blueprint $table) {
+        Schema::create('fotos', function (Blueprint $table) {
             $table->id();
-            $table->string('nome');
-            $table->string('descricao');
+            $table->boolean('destaque');
+            $table->string('texto_alternativo');
             $table->string('caminho_arquivo');
-            $table->string('formato');
-            $table->string('link');
             $table->biginteger('recurso_ta_id')->nullable(false);
             $table->timestamps();
         });
@@ -32,6 +30,6 @@ class CreateManualsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('manuals');
+        Schema::dropIfExists('fotos');
     }
 }

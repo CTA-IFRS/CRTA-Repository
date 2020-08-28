@@ -1,5 +1,5 @@
 @extends('layouts.siteLayout')
-@section('titulo','RETACE Formulário de Cadastro do Usuário')
+@section('titulo','RETACE Cadastrar Tecnologia Assistiva')
 @section('conteudo')
 <div class="container mt-5">
     <div class="row justify-content-center">

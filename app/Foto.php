@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Arquivo extends Model
+class Foto extends Model
 {
     /**
      * The model's default values for attributes.
@@ -12,11 +12,9 @@ class Arquivo extends Model
      * @var array
      */
     protected $fillable = [
-    	'nome',
-    	'descricao',
-    	'caminho_arquivo',
-    	'formato',
-    	'tamanho'
+    	'destaque',
+    	'texto_alternativo',
+    	'caminho_arquivo'
     ];
 
     public function recursoTA()
@@ -24,5 +22,5 @@ class Arquivo extends Model
 
         return $this->belongsTo('App\RecursoTA');
 
-    }
+    }	
 }

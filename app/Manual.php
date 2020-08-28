@@ -14,7 +14,7 @@ class Manual extends Model
     protected $fillable = [
     	'nome',
     	'descricao',
-    	'caminhoArquivo',
+    	'caminho_arquivo',
     	'formato', //permite tornar menos hardcoded caso o requisito do sistema evolua para além de pdf
     	'link'
     ];

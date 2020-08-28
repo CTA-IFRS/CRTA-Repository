@@ -17,7 +17,7 @@ class CreateArquivosTable extends Migration
             $table->id();
             $table->string('nome');
             $table->string('descricao');
-            $table->string('caminhoArquivo');
+            $table->string('caminho_arquivo');
             $table->string('formato');
             $table->integer('tamanho');
             $table->biginteger('recurso_ta_id')->nullable(false);
