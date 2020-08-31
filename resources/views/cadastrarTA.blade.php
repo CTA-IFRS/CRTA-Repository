@@ -49,12 +49,12 @@
                             </div>
                             @error('produtoComercial')
                             <span class="invalid-feedback offset-md-4 col-md-8" role="alert">
-                             <strong>{{ $message }}</strong>
-                         </span>
-                         @enderror
-                     </div>
+                               <strong>{{ $message }}</strong>
+                           </span>
+                           @enderror
+                       </div>
 
-                     <div class="form-group required row" role="group" aria-labelledby="siteFabricante">
+                       <div class="form-group required row" role="group" aria-labelledby="siteFabricante">
                         <label for="siteFabricante" class="col-md-4 col-form-label text-md-right">{{ __('Site do fabricante') }}</label>
                         <div class="col-md-8">
                             <input id="siteFabricante" type="text" class="form-control @error('siteFabricante') is-invalid @enderror" name="siteFabricante" value="{{ old('siteFabricante') }}">
@@ -81,14 +81,7 @@
                     <div class="form-group required row" role="group" aria-labelledby="tags">
                         <label for="tags" class="col-md-4 col-form-label text-md-right">{{ __('Tags') }}</label>
                         <div class="col-md-8">
-                            <div class="custom-control custom-checkbox">
-                             @foreach($tags as $tag)
-                             <div class="form-check-inline col-md-4 ">                            
-                                <input name="tags[]" title="$tag->descricao" type="checkbox" class="custom-control-input @error('tags[]') is-invalid @enderror" id="{{$tag->id}}" value="{{$tag->id}}">
-                                <label class="custom-control-label" for="{{$tag->id}}">{{$tag->nome}}</label>
-                            </div>
-                            @endforeach
-                        </div>
+                        <input class="form-control" type="text" name="tags" id="tags" autocomplete="on">
                     </div>
                     @error('tags[]')
                     <span class="invalid-feedback" role="alert">
@@ -270,6 +263,15 @@
                 $('#listaManuais').append('<li id="avisoListaVazia" class="list-group-item">Não serão adicionados manuais</li>');
             }
         });
+
+        //Autocompletar sugerindo tags já cadastradas
+        $( function() {
+            var tagsJaCadastradas = @json($tags);
+            $( "#tags" ).autocomplete({
+              source: tagsJaCadastradas
+          });
+            $('input[name=tags]').attr('autocomplete','on');
+        } );
     });
 </script> 
 @endsection

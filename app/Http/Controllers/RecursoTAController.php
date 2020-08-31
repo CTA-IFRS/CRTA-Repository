@@ -114,8 +114,10 @@ class RecursoTAController extends Controller
      */
     public function create(){
 
-      $tags = Tag::all(['id','nome','descricao']);
-      return view('cadastrarTA',compact('tags'));
+      //$tags = Tag::all(['id','nome','descricao']);
+      $tags = Tag::all(['nome'])->pluck('nome');
+      //return view('cadastrarTA',compact('tags'));
+      return view('cadastrarTA')->with("tags",$tags);
     }
 
     /* Lista todos os Recursos de Tecnologia Assistiva e seus dados associados

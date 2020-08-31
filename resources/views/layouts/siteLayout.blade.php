@@ -21,6 +21,7 @@
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}"></script>
         <script src="{{ __('https://use.fontawesome.com/9193d17150.js')}}"></script>
+        <script src="{{ __('https://code.jquery.com/ui/1.12.1/jquery-ui.js')}}"></script>
         @yield('scripts')
     </body>
 </html>
