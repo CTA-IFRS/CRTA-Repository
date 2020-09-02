@@ -81,9 +81,10 @@
                     <div class="form-group required row" role="group" aria-labelledby="tags">
                         <label for="tags" class="col-md-4 col-form-label text-md-right">{{ __('Tags') }}</label>
                         <div class="col-md-8">
-                        <input class="form-control" type="text" name="tags" id="tags" autocomplete="on">
+                        <!--<input class="form-control" type="text" name="tags" id="tags" autocomplete="on">-->
+                        <input type="text" class="form-control" name="tags" id="tags"/>
                     </div>
-                    @error('tags[]')
+                    @error('tags')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -263,15 +264,22 @@
                 $('#listaManuais').append('<li id="avisoListaVazia" class="list-group-item">Não serão adicionados manuais</li>');
             }
         });
-
+        /*
         //Autocompletar sugerindo tags já cadastradas
         $( function() {
-            var tagsJaCadastradas = @json($tags);
+            var tagsJaCadastradas = 
             $( "#tags" ).autocomplete({
               source: tagsJaCadastradas
           });
             $('input[name=tags]').attr('autocomplete','on');
-        } );
+        } );*/
+        $('input[name="tags"]').amsifySuggestags({
+            suggestions: @json($tags),
+            defaultTagClass: 'tagChip',
+            noSuggestionMsg: 'Tag não encontrada, tecle enter para criar uma nova',
+        });
+
+        $('input[class="amsify-suggestags-input"]').attr("placeholder","Digite aqui");
     });
 </script> 
 @endsection

@@ -23,7 +23,7 @@ class RecursoTAController extends Controller
      'siteFabricante' => 'required|max:2048',
      'produtoComercial' => 'required',
      'licenca' => 'required_if:produtoComercial,true|max:255',
-     'tags[].*' => 'required|min:1',
+     'tags' => 'required',
      'videos[].*' => ['regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
      'arquivos[].*' => 'mimes:doc,docx,pdf,xls,xlsx,txt',
      'manuais[].*' => 'mimes:pdf',
@@ -35,7 +35,7 @@ class RecursoTAController extends Controller
     'produtoComercial.required' => 'Marque se é um produto comercial ou não',
     'licenca.max' => 'Informe a licença em usando menos de 256 caracteres',
     'licenca.required_if' => 'Informe a licença de distribuição desse recurso',
-    'tags[].required' => 'Marque ao menos uma categoria para o recurso',
+    'tags.required' => 'Informe ao menos uma tag',
     'videos[].regex' => 'Endereço inválido, fora dos padrões',
     'arquivos[].mimes' => 'Formato do arquivo é inválido',
     'manuais[].mimes' => 'O arquivo deve estar no formato PDF',
@@ -59,7 +59,27 @@ class RecursoTAController extends Controller
     $recursoTA->publicacao_autorizada = false;
     $recursoTA->save();
 
-    $recursoTA->tags()->attach(Tag::find(request('tags')));
+    $tagsInformadas = request('tags');
+    $arrayTagsInformadas = explode(",",$tagsInformadas);
+    $tagsNoBanco = Tag::all();
+
+    $arrayIdsTags = array();
+    $teste = "";
+    foreach($arrayTagsInformadas as $tagInformada){
+      $tagBuscada = new Tag();
+      $tagBuscada->nome = $tagInformada;
+      if($tagsNoBanco->contains('nome',$tag)){
+          $teste .= Tag::where('nome',$tagInformada)->first()->pluck('nome');
+          $teste.= "__".$tagInformada."----";
+         array_push($arrayIdsTags,Tag::where('nome',$tagInformada)->first()->pluck('nome'));
+      }else{
+
+      }
+    }
+    return print_r($teste);
+    return print_r($arrayIdsTags);
+
+    $recursoTA->tags()->attach(Tag::where('nome',$arrayTags)->get());
 
     if(!empty(request('videos'))){             
       $videoUrls = array();

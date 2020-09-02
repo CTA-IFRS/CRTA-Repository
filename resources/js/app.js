@@ -5,6 +5,7 @@
  */
 
 require('./bootstrap');
+require('../../node_modules/suggestags');
 
 window.Vue = require('vue');
 
