@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\RecursoTA;
 use App\Tag;
 use App\Video;
@@ -59,27 +60,24 @@ class RecursoTAController extends Controller
     $recursoTA->publicacao_autorizada = false;
     $recursoTA->save();
 
-    $tagsInformadas = request('tags');
-    $arrayTagsInformadas = explode(",",$tagsInformadas);
-    $tagsNoBanco = Tag::all();
+    /**Processamento de Tags para inserção no DB**/
+    /** Transforma a string com as tags recebidas em array**/
+    $arrayTagsInformadas = explode(",",request('tags'));
 
     $arrayIdsTags = array();
-    $teste = "";
+    //Pesquisa no DB se a tag existe ou não, para montar o array de IDs necessários para a relação *:*
     foreach($arrayTagsInformadas as $tagInformada){
-      $tagBuscada = new Tag();
-      $tagBuscada->nome = $tagInformada;
-      if($tagsNoBanco->contains('nome',$tag)){
-          $teste .= Tag::where('nome',$tagInformada)->first()->pluck('nome');
-          $teste.= "__".$tagInformada."----";
-         array_push($arrayIdsTags,Tag::where('nome',$tagInformada)->first()->pluck('nome'));
+      if(Tag::where('nome', $tagInformada)->exists()){
+         array_push($arrayIdsTags,Tag::where('nome',$tagInformada)->get()->pluck('id')->get(0));
       }else{
-
+         $novaTag = new Tag();
+         $novaTag->nome = $tagInformada;
+         $novaTag->publicacao_autorizada = false;
+         $novaTag->save();
+         array_push($arrayIdsTags,$novaTag->id);
       }
     }
-    return print_r($teste);
-    return print_r($arrayIdsTags);
-
-    $recursoTA->tags()->attach(Tag::where('nome',$arrayTags)->get());
+    $recursoTA->tags()->attach($arrayIdsTags);
 
     if(!empty(request('videos'))){             
       $videoUrls = array();
@@ -91,6 +89,7 @@ class RecursoTAController extends Controller
       }
       $recursoTA->videos()->saveMany($videoUrls);
     }
+    /** TODO: Exemplo para quando implementar o salvamento de fotos
     if(!empty(request('arquivos'))){
       $arquivos = array();
       foreach (request('arquivos') as $arquivo) {
@@ -106,24 +105,36 @@ class RecursoTAController extends Controller
         array_push($arquivos,$novoArquivo);
       }
       $recursoTA->arquivos()->saveMany($arquivos);
+    }**/
+    if(!empty(request('arquivos'))){
+      $arquivoUrls = array();
+      foreach (request('arquivos') as $arquivo) {
+        $novoArquivo = new Arquivo();
+        $novoArquivo->url = $arquivo['url'];
+        $novoArquivo->nome = $arquivo['nome'];
+        $novoArquivo->descricao = $arquivo['descricao'];
+        $novoArquivo->formato = $arquivo['formato'];
+        $novoArquivo->tamanho = (float)filter_var($arquivo['tamanho'], FILTER_VALIDATE_FLOAT);
+        array_push($arquivoUrls,$novoArquivo);
+      }
+      $recursoTA->arquivos()->saveMany($arquivoUrls);
     }
 
     if(!empty(request('manuais'))){
-      $manuais = array();
+      $manualUrls = array();
       foreach (request('manuais') as $manual) {
-        $nomeArquivoManual = time().'_'.$manual->getClientOriginalName();
-        $caminhoArquivoManual = $manual->storeAs('uploads',$nomeArquivoManual,'public');
-
         $novoManual = new Manual();
-        $novoManual->nome = $nomeArquivoManual;
-        $novoManual->descricao = "";
-        $novoManual->caminhoArquivo = $caminhoArquivoManual;
-        $novoManual->formato = $manual->getClientOriginalExtension();
-        $novoManual->link = "";
-        array_push($manuais,$novoManual);
+        $novoManual->url = $arquivo['url'];
+        $novoManual->nome = $arquivo['nome'];
+        $novoManual->descricao = $arquivo['descricao'];
+        $novoManual->formato = $arquivo['formato'];
+        $novoManual->tamanho = (float)filter_var($formato['tamanho'], FILTER_VALIDATE_FLOAT);
+        array_push($manualUrls,$novoManual);
       }
-      $recursoTA->manuais()->saveMany($manuais);
+      $recursoTA->manuais()->saveMany($manualUrls);
     }
+
+    /*TODO: Alterar os modelos e migrations para os novos valores**/
 
     return redirect('recursosTA');
   }

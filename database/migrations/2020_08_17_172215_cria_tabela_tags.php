@@ -17,6 +17,7 @@ class CriaTabelaTags extends Migration
             $table->id();
             $table->string('nome')->nullable(false);
             $table->string('descricao')->nullable(false);
+            $table->boolean('publicacao_autorizada')->default(false);
             $table->timestamps();
             $table->engine = 'InnoDB';
         });

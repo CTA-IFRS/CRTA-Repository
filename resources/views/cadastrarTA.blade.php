@@ -49,12 +49,12 @@
                             </div>
                             @error('produtoComercial')
                             <span class="invalid-feedback offset-md-4 col-md-8" role="alert">
-                               <strong>{{ $message }}</strong>
-                           </span>
-                           @enderror
-                       </div>
+                             <strong>{{ $message }}</strong>
+                         </span>
+                         @enderror
+                     </div>
 
-                       <div class="form-group required row" role="group" aria-labelledby="siteFabricante">
+                     <div class="form-group required row" role="group" aria-labelledby="siteFabricante">
                         <label for="siteFabricante" class="col-md-4 col-form-label text-md-right">{{ __('Site do fabricante') }}</label>
                         <div class="col-md-8">
                             <input id="siteFabricante" type="text" class="form-control @error('siteFabricante') is-invalid @enderror" name="siteFabricante" value="{{ old('siteFabricante') }}">
@@ -81,93 +81,104 @@
                     <div class="form-group required row" role="group" aria-labelledby="tags">
                         <label for="tags" class="col-md-4 col-form-label text-md-right">{{ __('Tags') }}</label>
                         <div class="col-md-8">
-                        <!--<input class="form-control" type="text" name="tags" id="tags" autocomplete="on">-->
-                        <input type="text" class="form-control" name="tags" id="tags"/>
+                            <input type="text" class="form-control @error('tags') is-invalid @enderror" name="tags" id="tags"/>
+                            @error('tags')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
                     </div>
-                    @error('tags')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                </div>
-                <hr>
-                <h3>Vídeos relacionados</h3>
-                <p> Informe o endereço (url) de vídeos sobre a tecnologia assistiva</p>
-                <div id="divVideos" class="form-group row" role="group" aria-labelledby="videos">
-                    <label for="urlVideo" class="col-md-4 col-form-label text-md-right">{{ __('Adicionar vídeo') }}</label>
-                    <div class="col-md-8 form-inline">
-                        <input id="urlVideo" type="url"  class="w-75 form-control @error('videos[]') is-invalid @enderror" name="video" value="{{ old('video') }}">
-                        <button id="btnAdicionarVideo" type="button" class="w-25 btn btn-primary">{{ __('Adicionar') }}</button>
-                        @error('videos[]')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
+                    <hr>
+                    <h3>Vídeos relacionados</h3>
+                    <p> Informe o endereço (url) de vídeos sobre a tecnologia assistiva</p>
+                    <div id="divVideos" class="form-group row" role="group" aria-labelledby="videos">
+                        <label for="urlVideo" class="col-md-4 col-form-label text-md-right">{{ __('Adicionar vídeo') }}</label>
+                        <div class="col-md-8 form-inline">
+                            <input id="urlVideo" type="url"  class="w-75 form-control @error('videos[]') is-invalid @enderror" name="video" value="{{ old('video') }}">
+                            <button id="btnAdicionarVideo" type="button" class="w-25 btn btn-primary">{{ __('Adicionar') }}</button>
+                            @error('videos[]')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                        <div class="offset-md-4 col-md-8 mt-3">
+                            <label for="videos">{{__('Vídeos a serem cadastrados para este recurso:')}}</label>
+                            <ul id="videos" class="list-group text-center">
+                                <li id="avisoListaVazia" class="list-group-item">Não serão adicionados vídeos</li>
+                            </ul>
+                        </div>                        
                     </div>
-                    <div class="offset-md-4 col-md-8 mt-3">
-                        <label for="videos">{{__('Vídeos a serem cadastrados para este recurso:')}}</label>
-                        <ul id="videos" class="list-group text-center">
-                            <li id="avisoListaVazia" class="list-group-item">Não serão adicionados vídeos</li>
-                        </ul>
-                    </div>                        
-                </div>
-                <hr>
-                <h3>Arquivos</h3>
-                <p> Carregue, a partir do seu computador, arquivos relacionados à tecnologia assistiva no formato doc, docx, pdf, txt e XXXXXXX </p>
-                <div id="divArquivos" class="form-group row" role="group" aria-labelledby="arquivos associados">
-                    <div class="custom-file">
-                        <label for="arquivos" class="offset-md-4 col-md-7 custom-file-label">{{__('Associar arquivos ao recurso')}}</label>
-                        <input type="file" class="custom-file-input" id="arquivos" name="arquivos[]" multiple>
+                    <hr>
+                    <h3>Arquivos</h3>
+                    <p> Informe, se houver, endereços (url) para acessar arquivos relacionados ao recurso a ser cadastrado </p>
+                    <div id="divArquivos" class="form-group row" role="group" aria-labelledby="arquivos associados">
+                        <label for="urlArquivo" class="col-md-4 col-form-label text-md-right">{{ __('Adicionar arquivo') }}</label>
+                        <div class="col-md-8 form-inline">
+                            <input id="urlArquivo" type="url"  class="w-75 form-control @error('arquivos[]') is-invalid @enderror" name="arquivo" value="{{ old('arquivo') }}">
+                            <button id="btnAdicionarArquivo" type="button" class="w-25 btn btn-primary">{{ __('Adicionar') }}</button>
+                            @error('arquivos[]')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                        <div class="offset-md-1 col-md-10 mt-3">
+                            <label for="arquivos">{{__('Arquivos a serem cadastrados para este recurso:')}}</label>
+                            <ul id="arquivos" class="list-group text-center">
+                                <li id="avisoListaVazia" class="list-group-item">Não serão adicionados arquivos</li>
+                            </ul>
+                        </div>                                          
                     </div>
-                    <div class="offset-md-4 col-md-8 mt-3">
-                        <label for="listaArquivos">{{__('Arquivos a serem associados a este recurso:')}}</label>
-                        <ul id="listaArquivos" class="list-group text-center">
-                            <li id="avisoListaVazia" class="list-group-item">Não serão adicionados arquivos</li>
-                        </ul>
-                    </div> 
-                </div>
-                <hr>
-                <h3>Manuais</h3>
-                <p> Carregue, a partir do seu computador, manuais da tecnologia assistiva no formato doc, docx, pdf XXXXX</p>
-                <div id="divManuais" class="form-group row" role="group" aria-labelledby="manuais associados">
-                    <div class="custom-file">
-                        <label for="manuais" class="offset-md-4 col-md-7 custom-file-label">{{__('Associar manuais ao recurso')}}</label>
-                        <input type="file" accept="application/pdf" class="custom-file-input" id="manuais" name="manuais[]" multiple>
+                    <hr>
+                    <h3>Manuais</h3>
+                    <p> Informe, se houver, endereços (url) para acessar manuais relacionados ao recurso a ser cadastrado </p>
+                    <div id="divManuais" class="form-group row" role="group" aria-labelledby="manuais associados">
+                        <label for="urlManual" class="col-md-4 col-form-label text-md-right">{{ __('Adicionar manual') }}</label>
+                        <div class="col-md-8 form-inline">
+                            <input id="urlManual" type="url"  class="w-75 form-control @error('manuais[]') is-invalid @enderror" name="manual" value="{{ old('manual') }}">
+                            <button id="btnAdicionarManual" type="button" class="w-25 btn btn-primary">{{ __('Adicionar') }}</button>
+                            @error('manuais[]')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                        <div class="offset-md-1 col-md-10 mt-3">
+                            <label for="manuais">{{__('Manuais a serem cadastrados para este recurso:')}}</label>
+                            <ul id="manuais" class="list-group text-center">
+                                <li id="avisoListaVazia" class="list-group-item">Não serão adicionados manuais</li>
+                            </ul>
+                        </div> 
                     </div>
-                    <div class="offset-md-4 col-md-8 mt-3">
-                        <label for="listaManuais">{{__('Manuais a serem associados:')}}</label>
-                        <ul id="listaManuais" class="list-group text-center">
-                            <li id="avisoListaVazia" class="list-group-item">Não serão adicionados manuais</li>
-                        </ul>
-                    </div> 
-                </div>
-                <hr>
-                <h3>Fotos</h3>
-                <p>Carregue pelo menos uma foto sobre a tecnologia assistiva no formato png ou jpg</p>
-                <div id="divFotos" class="form-group row" role="group" aria-labelledby="fotos do recurso">
-                    <div class="custom-file">
-                        <label for="fotos" class="offset-md-4 col-md-7 custom-file-label">{{__('Cadastrar fotos da tecnologia assistiva')}}</label>
-                        <input type="file" class="custom-file-input" id="fotos" name="fotos[]" multiple>
+                    <hr>
+                    <h3>Fotos</h3>
+                    <p>Carregue pelo menos uma foto sobre a tecnologia assistiva no formato png ou jpg</p>
+                    <div id="divFotos" class="form-group row" role="group" aria-labelledby="fotos do recurso">
+                        <div class="custom-file">
+                            <label for="fotos" class="offset-md-4 col-md-7 custom-file-label">{{__('Cadastrar fotos da tecnologia assistiva')}}</label>
+                            <input type="file" class="custom-file-input" id="fotos" name="fotos[]" multiple>
+                        </div>
+                        <div class="offset-md-4 col-md-8 mt-3">
+                            <label for="listaFotos">{{__('Fotos a serem cadastradas:')}}</label>
+                            <ul id="listaFotos" class="list-group text-center">
+                                <li id="avisoListaVazia" class="list-group-item">Cadastre ao menos uma foto</li>
+                            </ul>
+                        </div> 
                     </div>
-                    <div class="offset-md-4 col-md-8 mt-3">
-                        <label for="listaFotos">{{__('Fotos a serem cadastradas:')}}</label>
-                        <ul id="listaFotos" class="list-group text-center">
-                            <li id="avisoListaVazia" class="list-group-item">Cadastre ao menos uma foto</li>
-                        </ul>
-                    </div> 
-                </div>
-                <hr>
-                <div class="form-group row mb-0 mt-4" role="group">
-                    <div class="col-md-2 offset-md-10 ">
-                        <button type="submit" class="btn btn-primary">
-                            {{ __('Cadastrar') }}
-                        </button>
+                    <hr>
+                    <div class="form-group row mb-0 mt-4" role="group">
+                        <div class="col-md-2 offset-md-10 ">
+                            <button type="submit" class="btn btn-primary">
+                                {{ __('Cadastrar') }}
+                            </button>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 </div>
 </div>
 @endsection
@@ -206,10 +217,10 @@
         }else{
             $('#urlVideo').addClass("is-invalid");
         }
-    });
+        });
 
-        /**Remove a url ao clicar na lixeira**/
-        $(document).on('click', '.fa-trash', function (evento) {
+        /**Remove a url do video ao clicar na lixeira**/
+        $('#divVideos').on('click', '.fa-trash', function (evento) {
 
             evento.preventDefault();
             $(this).closest('li').remove();
@@ -220,59 +231,78 @@
         });
 
         /**Seleciona uma das urls como favorita**/
-        $(document).on('click', '.fa-star', function (evento) {
+        $('#divVideos').on('click', '.fa-star', function (evento) {
             evento.preventDefault();
 
-        //Itera sobre os destaques da lista procurando desfazer a antiga indicação, se houver
-        $('[name^="videos"][name$="[destaque]"]').each(function(i,elemento){
-            if(elemento.value==='true'){
-                elemento.value ='false';
-                $(elemento).closest('li').removeClass('destaque');
-            }
-        });
-
-        $(this).closest('li').find('[name^="videos"][name$="[destaque]"]').val('true');
-        $(this).closest('li').addClass('destaque');
-    });
-
-        /** Lista os arquivos escolhidos no input file para fornecer feedback ao usuário**/
-        $("input[id=arquivos]").on("change", function () {
-
-            $('ul[id=listaArquivos]').empty();
-
-            var arquivos = $("input[id=arquivos]").prop("files")
-            var nomes = $.map(arquivos, function (val) { return val.name; });
-            $.each(nomes, function (i, nome) {
-                $("#listaArquivos").append('<li class="list-group-item"><i class="fa fa-file mr-2" aria-hidden="true"></i>'+nome+'</li>');
+            //Itera sobre os destaques da lista procurando desfazer a antiga indicação, se houver
+            $('[name^="videos"][name$="[destaque]"]').each(function(i,elemento){
+                if(elemento.value==='true'){
+                    elemento.value ='false';
+                    $(elemento).closest('li').removeClass('destaque');
+                }
             });
-            if( $('#listaArquivos li').length===0){
-                $('#listaArquivos').append('<li id="avisoListaVazia" class="list-group-item">Não foram adicionados arquivos</li>');
+
+            $(this).closest('li').find('[name^="videos"][name$="[destaque]"]').val('true');
+            $(this).closest('li').addClass('destaque');
+        });
+
+
+        /**Adiciona a url do input arquivo para a lista de urls**/
+        $('#btnAdicionarArquivo').click(function(){
+        //Remove o aviso de lista vazia quando adicionar o primeiro item;
+            if ($('#arquivos').find('#avisoListaVazia').length) {
+                $('#arquivos').find('#avisoListaVazia').remove();
+            }
+        
+            if($('#urlArquivo').val().length!='0'){
+                if(isUrlValid($('#urlArquivo').val())){
+                    $("#arquivos").append('<li class="list-group-item"><div class="row"><a href="'+$('#urlArquivo').val()+'" class="mx-4">'+$('#urlArquivo').val()+'</a><i class="fa fa-trash"></i><input name="arquivos['+contadorUrls+'][url]" class="form-control" type="hidden" value="'+$('#urlArquivo').val()+'"/></div><div class="row mt-2"><input name="arquivos['+contadorUrls+'][nome]" class="form-control" type="text" placeholder="Nome do arquivo"/></div><div class="row mt-2"><input name="arquivos['+contadorUrls+'][descricao]" class="form-control" type="text" placeholder="Descreva o conteúdo do arquivo"/></div><div class="row mt-2"><input name="arquivos['+contadorUrls+'][formato]" class="form-control" type="text" placeholder="Formato/extensão do arquivo"/></div><div class="row mt-2"><input name="arquivos['+contadorUrls+'][tamanho]" class="form-control" type="text" placeholder="Tamanho do arquivo (em Megabytes)"/></div></li>');
+                    contadorUrls++;
+                }
+            }else{
+             $('#urlArquivo').addClass("is-invalid");
             }
         });
 
-        /** Lista os arquivos escolhidos no input file para fornecer feedback ao usuário**/
-        $("input[id=manuais]").on("change", function () {
+        /**Remove da lista a url do arquivo ao clicar na lixeira**/
+        $('#divArquivos').on('click', '.fa-trash', function (evento) {
 
-            $('ul[id=listaManuais]').empty();
+            evento.preventDefault();
+            $(this).closest('li').remove();
 
-            var manuais = $("input[id=manuais]").prop("files")
-            var nomes = $.map(manuais, function (val) { return val.name; });
-            $.each(nomes, function (i, nome) {
-                $("#listaManuais").append('<li class="list-group-item"><i class="fa fa-file mr-2" aria-hidden="true"></i>'+nome+'</li>');
-            });
-            if( $('#listaManuais li').length===0){
-                $('#listaManuais').append('<li id="avisoListaVazia" class="list-group-item">Não serão adicionados manuais</li>');
+            if ($('#arquivos li').length === 0) {
+                $("#arquivos").append('<li id="avisoListaVazia" class="list-group-item">Não serão adicionados vídeos </li>');
             }
         });
-        /*
-        //Autocompletar sugerindo tags já cadastradas
-        $( function() {
-            var tagsJaCadastradas = 
-            $( "#tags" ).autocomplete({
-              source: tagsJaCadastradas
-          });
-            $('input[name=tags]').attr('autocomplete','on');
-        } );*/
+
+        /**Adiciona a url do input manual para a lista de urls**/
+        $('#btnAdicionarManual').click(function(){
+        //Remove o aviso de lista vazia quando adicionar o primeiro item;
+            if ($('#manuais').find('#avisoListaVazia').length) {
+                $('#manuais').find('#avisoListaVazia').remove();
+            }
+        
+            if($('#urlManual').val().length!='0'){
+                if(isUrlValid($('#urlManual').val())){
+                    $("#manuais").append('<li class="list-group-item"><div class="row"><a href="'+$('#urlManual').val()+'" class="mx-4">'+$('#urlManual').val()+'</a><i class="fa fa-trash"></i><input name="manuais['+contadorUrls+'][url]" class="form-control" type="hidden" value="'+$('#urlManual').val()+'"/></div><div class="row mt-2"><input name="manuais['+contadorUrls+'][nome]" class="form-control" type="text" placeholder="Nome do manual"/></div><div class="row mt-2"><input name="manuais['+contadorUrls+'][descricao]" class="form-control" type="text" placeholder="Descreva a finalidade do manual"/></div><div class="row mt-2"><input name="manuais['+contadorUrls+'][formato]" class="form-control" type="text" placeholder="Formato/extensão do manual"/></div><div class="row mt-2"><input name="manuais['+contadorUrls+'][tamanho]" class="form-control" type="text" placeholder="Tamanho do manual (em Megabytes)"/></div></li>');
+                    contadorUrls++;
+                }
+            }else{
+             $('#urlManual').addClass("is-invalid");
+            }
+        });
+
+        /**Remove da lista a url do manual ao clicar na lixeira**/
+        $('#divManuais').on('click', '.fa-trash', function (evento) {
+
+            evento.preventDefault();
+            $(this).closest('li').remove();
+
+            if ($('#manuais li').length === 0) {
+                $("#manuais").append('<li id="avisoListaVazia" class="list-group-item">Não serão adicionados manuais </li>');
+            }
+        });
+
         $('input[name="tags"]').amsifySuggestags({
             suggestions: @json($tags),
             defaultTagClass: 'tagChip',
