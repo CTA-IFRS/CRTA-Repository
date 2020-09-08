@@ -12,9 +12,8 @@ class Arquivo extends Model
      * @var array
      */
     protected $fillable = [
+        'url',
     	'nome',
-    	'descricao',
-    	'caminho_arquivo',
     	'formato',
     	'tamanho'
     ];

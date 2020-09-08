@@ -9,6 +9,7 @@ use App\Tag;
 use App\Video;
 use App\Arquivo;
 use App\Manual;
+use App\Foto;
 
 class RecursoTAController extends Controller
 {
@@ -41,7 +42,6 @@ class RecursoTAController extends Controller
     'arquivos[].mimes' => 'Formato do arquivo é inválido',
     'manuais[].mimes' => 'O arquivo deve estar no formato PDF',
   ]);
-
       //Caso esteja tudo ok, prepara para criar no DB
     $isProdutoComercial = (int)filter_var(request('produtoComercial'), FILTER_VALIDATE_BOOLEAN);
 
@@ -89,30 +89,34 @@ class RecursoTAController extends Controller
       }
       $recursoTA->videos()->saveMany($videoUrls);
     }
-    /** TODO: Exemplo para quando implementar o salvamento de fotos
-    if(!empty(request('arquivos'))){
-      $arquivos = array();
-      foreach (request('arquivos') as $arquivo) {
-        $nomeArquivoCarregado = time().'_'.$arquivo->getClientOriginalName();
-        $caminhoArquivoCarregado = $arquivo->storeAs('uploads',$nomeArquivoCarregado,'public');
 
-        $novoArquivo = new Arquivo();
-        $novoArquivo->nome = $nomeArquivoCarregado;
-        $novoArquivo->descricao = "";
-        $novoArquivo->caminhoArquivo= $caminhoArquivoCarregado;
-        $novoArquivo->formato = $arquivo->getClientOriginalExtension();
-        $novoArquivo->tamanho = $arquivo->getSize();
-        array_push($arquivos,$novoArquivo);
+    if(!empty(request('fotos'))){
+
+      $fotos = array();
+      foreach (request('fotos') as $foto) {
+        //Torna o nome aleatorio para evitar colisão, evitar possibilidade de bugs futuros
+        $novoNomeFoto = time().'_'.$foto->getClientOriginalName();
+        //Salva a foto no servidor, na pasta uploads
+        $caminhoFoto = $foto->storeAs('uploads',$novoNomeFoto,'public');
+        $novaFoto = new Foto();
+        $novaFoto->caminho_arquivo= $caminhoFoto;
+        if($foto->getClientOriginalName()==request('fotoDestaque')){
+          $novaFoto->destaque = true;
+        }else{
+          $novaFoto->destaque = false;
+        }
+        $novaFoto->texto_alternativo = request(str_replace('.','_',str_replace(' ','_',$foto->getClientOriginalName())));
+        array_push($fotos,$novaFoto);
       }
-      $recursoTA->arquivos()->saveMany($arquivos);
-    }**/
+      $recursoTA->fotos()->saveMany($fotos);
+    }
+
     if(!empty(request('arquivos'))){
       $arquivoUrls = array();
       foreach (request('arquivos') as $arquivo) {
         $novoArquivo = new Arquivo();
         $novoArquivo->url = $arquivo['url'];
         $novoArquivo->nome = $arquivo['nome'];
-        $novoArquivo->descricao = $arquivo['descricao'];
         $novoArquivo->formato = $arquivo['formato'];
         $novoArquivo->tamanho = (float)filter_var($arquivo['tamanho'], FILTER_VALIDATE_FLOAT);
         array_push($arquivoUrls,$novoArquivo);
@@ -124,11 +128,10 @@ class RecursoTAController extends Controller
       $manualUrls = array();
       foreach (request('manuais') as $manual) {
         $novoManual = new Manual();
-        $novoManual->url = $arquivo['url'];
-        $novoManual->nome = $arquivo['nome'];
-        $novoManual->descricao = $arquivo['descricao'];
-        $novoManual->formato = $arquivo['formato'];
-        $novoManual->tamanho = (float)filter_var($formato['tamanho'], FILTER_VALIDATE_FLOAT);
+        $novoManual->url = $manual['url'];
+        $novoManual->nome = $manual['nome'];
+        $novoManual->formato = $manual['formato'];
+        $novoManual->tamanho = (float) $manual['tamanho'];
         array_push($manualUrls,$novoManual);
       }
       $recursoTA->manuais()->saveMany($manualUrls);
@@ -145,9 +148,7 @@ class RecursoTAController extends Controller
      */
     public function create(){
 
-      //$tags = Tag::all(['id','nome','descricao']);
       $tags = Tag::all(['nome'])->pluck('nome');
-      //return view('cadastrarTA',compact('tags'));
       return view('cadastrarTA')->with("tags",$tags);
     }
 

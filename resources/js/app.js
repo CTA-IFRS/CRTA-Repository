@@ -6,6 +6,10 @@
 
 require('./bootstrap');
 require('../../node_modules/suggestags');
+require('../../node_modules/bootstrap-fileinput');
+require('../../node_modules/bootstrap-fileinput/themes/fa/theme.js');
+require('../../node_modules/bootstrap-fileinput/themes/explorer-fa/theme.js');
+require('../../node_modules/bootstrap-fileinput/js/locales/pt-BR.js')
 
 window.Vue = require('vue');
 

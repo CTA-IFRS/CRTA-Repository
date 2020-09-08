@@ -16,7 +16,6 @@ class CriaTabelaTags extends Migration
         Schema::create('tags', function (Blueprint $table) {
             $table->id();
             $table->string('nome')->nullable(false);
-            $table->string('descricao')->nullable(false);
             $table->boolean('publicacao_autorizada')->default(false);
             $table->timestamps();
             $table->engine = 'InnoDB';

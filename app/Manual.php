@@ -12,11 +12,10 @@ class Manual extends Model
      * @var array
      */
     protected $fillable = [
+        'url',
     	'nome',
-    	'descricao',
-    	'caminho_arquivo',
-    	'formato', //permite tornar menos hardcoded caso o requisito do sistema evolua para além de pdf
-    	'link'
+    	'formato',
+    	'tamanho'
     ];
 
     public function recursoTA()

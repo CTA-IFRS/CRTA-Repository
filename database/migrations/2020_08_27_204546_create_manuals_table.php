@@ -16,10 +16,9 @@ class CreateManualsTable extends Migration
         Schema::create('manuals', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
-            $table->string('descricao');
-            $table->string('caminho_arquivo');
+            $table->string('url')->nullable(false);
             $table->string('formato');
-            $table->string('link');
+            $table->float('tamanho');
             $table->biginteger('recurso_ta_id')->nullable(false);
             $table->timestamps();
         });
