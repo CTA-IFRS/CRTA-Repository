@@ -161,4 +161,15 @@ class RecursoTAController extends Controller
       $recursosTA = RecursoTA::all();
       return view('listaRecursosTA',['recursosTA' => $recursosTA]);
     }
+
+
+    /* Lista e pagina os recursos ta
+    *
+    *   @return \Illuminate\Http\Response
+    */
+
+    public function listaComPaginacao(){
+      $recursosTA = RecursoTA::paginate(15);
+      return view('testeCards',['recursosTA' => $recursosTA]);
+    }
   }

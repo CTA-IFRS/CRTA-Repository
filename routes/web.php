@@ -25,6 +25,8 @@ Route::get('/registrar', 'NavegacaoController@cadastroUsuario');
 Route::get('/painelUsuario', 'HomeController@index');
 Route::get('/cadastrarTA','RecursoTAController@create');
 Route::get('/listarTA','RecursoTAController@retrieveAll');
+Route::get('/testeCards','RecursoTAController@listaComPaginacao');
+
 
 Route::get('recursosTA',function(){
 	$recursoTA = App\RecursoTA::all();
