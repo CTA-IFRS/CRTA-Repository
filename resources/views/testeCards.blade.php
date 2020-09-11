@@ -9,9 +9,9 @@
 		<div class="col mb-4">
 			<div class="card"> <!--style="min-width: 18rem;"-->
 				@foreach($recursoTA->fotos as $foto)
-				@if($foto->destaque==true)
-				<img class="card-img-top" src="{{Storage::url('public/'.$foto->caminho_arquivo)}}" alt="{{$foto->texto_alternativo}}">
-				@endif
+					@if($foto->destaque==true)
+					<img class="card-img-top" src="{{Storage::url('public/'.$foto->caminho_arquivo)}}" alt="{{$foto->texto_alternativo}}">
+					@endif
 				@endforeach
 				<div class="card-body">
 					<h3 class="card-title"><a href="#" class="card-link">{{ $recursoTA->titulo }}</a></h3>
@@ -21,9 +21,8 @@
 					{{__("Avaliação pelos usuários")}}
 				</div>
 			</div>
-					</div>
-
-			@endforeach
+		</div>
+		@endforeach
 
 		<div class="row mt-2">
 			{{$recursosTA->links()}}

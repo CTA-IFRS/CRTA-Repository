@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use App\RecursoTA;
 use App\Tag;
 use App\Video;
@@ -14,22 +14,23 @@ use App\Foto;
 class RecursoTAController extends Controller
 {
   public function store(Request $request) {
-
-      //Expressão regular para validar a url dos videos
-    $urlRegex = "";
-
     	//Valida os campos submetidos no formulario
-    $this->validate($request, [
+
+    $regras = [
      'titulo' => 'required|max:255',
      'descricao' => 'required|max:1020',
      'siteFabricante' => 'required|max:2048',
      'produtoComercial' => 'required',
      'licenca' => 'required_if:produtoComercial,true|max:255',
      'tags' => 'required',
-     'videos[].*' => ['regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
-     'arquivos[].*' => 'mimes:doc,docx,pdf,xls,xlsx,txt',
-     'manuais[].*' => 'mimes:pdf',
-   ], [
+     'videos.*.url' => ['sometimes','regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
+     'arquivos.*.*' => 'sometimes | required',
+     'arquivos.*.url' => ['sometimes','regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
+     'manuais.*.*' => 'sometimes | required',
+     'manuais.*.url' => ['sometimes','regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
+   ];
+
+   $mensagens = [
     'titulo.required' => 'É preciso informar um título para a Tecnologia Assistiva',
     'titulo.max' => 'O título deve ter menos de 256 caracteres',
     'descricao.required'  => 'Descreva brevemente o que está cadastrando',
@@ -39,9 +40,25 @@ class RecursoTAController extends Controller
     'licenca.required_if' => 'Informe a licença de distribuição desse recurso',
     'tags.required' => 'Informe ao menos uma tag',
     'videos[].regex' => 'Endereço inválido, fora dos padrões',
-    'arquivos[].mimes' => 'Formato do arquivo é inválido',
-    'manuais[].mimes' => 'O arquivo deve estar no formato PDF',
-  ]);
+    'arquivos.*.nome.required' => 'Informe o nome do arquivo',
+    'arquivos.*.formato.required' => 'Informe o formato do arquivo',
+    'arquivos.*.tamanho.required' => 'Informe o tamanho do arquivo (em Megabytes)',
+    'arquivos.*.url.required' => 'Informe o endereço de acesso ao arquivo',
+    'arquivos.*.url.regex' => 'O endereço de acesso ao arquivo é inválido',
+    'manuais.*.nome.required' => 'Informe o nome do manual',
+    'manuais.*.formato.required' => 'Informe o formato do manual',
+    'manuais.*.tamanho.required' => 'Informe o tamanho do manual (em Megabytes)',
+    'manuais.*.url.required' => 'Informe o endereço de acesso ao manual',
+    'manuais.*.url.regex' => 'O endereço de acesso ao arquivo é inválido',
+  ];
+
+    $validador = Validator::make($request->all(),$regras,$mensagens);
+
+    //Retorna mensagens de validação no formato JSON caso haja problemas
+    if($validador->fails()){
+      return response()->json($validador->messages(), 422);
+    }
+    
       //Caso esteja tudo ok, prepara para criar no DB
     $isProdutoComercial = (int)filter_var(request('produtoComercial'), FILTER_VALIDATE_BOOLEAN);
 

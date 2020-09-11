@@ -80,6 +80,12 @@ button.bg-secondary:hover, button.bg-secondary:focus {
    color:red;
 }
 
+/** Classe para sinalizar qualquer elemento html como obrigatorio **/
+.obrigatorio:after{
+  content:"*";
+  color:red;
+}
+
 /**Classe para posicionar o botão dentro de um input field***/
 .botao-dentro-input{
   position: absolute;
