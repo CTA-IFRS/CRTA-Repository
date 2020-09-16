@@ -17,21 +17,16 @@ use Illuminate\Support\Facades\Route;
 // syntax: 'ControllerName@MethodName'
 
 Route::get('/', 'NavegacaoController@inicio');
-Route::get('/semIcone', 'NavegacaoController@inicioSemIcone');
 
+//Rotas de autenticação
 Auth::routes();
+
 Route::get('/entrar', 'NavegacaoController@login');
 Route::get('/registrar', 'NavegacaoController@cadastroUsuario');
 Route::get('/painelUsuario', 'HomeController@index');
 Route::get('/cadastrarTA','RecursoTAController@create');
 Route::get('/listarTA','RecursoTAController@retrieveAll');
 Route::get('/testeCards','RecursoTAController@listaComPaginacao');
-
-
-Route::get('recursosTA',function(){
-	$recursoTA = App\RecursoTA::all();
-	echo $recursoTA;
-});
 
 //Routes para controllers que irão processar forms devem ser nomeadas
 Route::post('salvaTA','RecursoTAController@store')->name('salvaTA');

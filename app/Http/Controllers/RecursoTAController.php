@@ -11,10 +11,8 @@ use App\Arquivo;
 use App\Manual;
 use App\Foto;
 
-class RecursoTAController extends Controller
-{
+class RecursoTAController extends Controller{
   public function store(Request $request) {
-    	//Valida os campos submetidos no formulario
 
     $regras = [
      'titulo' => 'required|max:255',
@@ -49,16 +47,15 @@ class RecursoTAController extends Controller
     'manuais.*.formato.required' => 'Informe o formato do manual',
     'manuais.*.tamanho.required' => 'Informe o tamanho do manual (em Megabytes)',
     'manuais.*.url.required' => 'Informe o endereço de acesso ao manual',
-    'manuais.*.url.regex' => 'O endereço de acesso ao arquivo é inválido',
-  ];
+    'manuais.*.url.regex' => 'O endereço de acesso ao arquivo é inválido',];
 
     $validador = Validator::make($request->all(),$regras,$mensagens);
 
-    //Retorna mensagens de validação no formato JSON caso haja problemas
+      //Retorna mensagens de validação no formato JSON caso haja problemas
     if($validador->fails()){
       return response()->json($validador->messages(), 422);
     }
-    
+
       //Caso esteja tudo ok, prepara para criar no DB
     $isProdutoComercial = (int)filter_var(request('produtoComercial'), FILTER_VALIDATE_BOOLEAN);
 
@@ -82,16 +79,16 @@ class RecursoTAController extends Controller
     $arrayTagsInformadas = explode(",",request('tags'));
 
     $arrayIdsTags = array();
-    //Pesquisa no DB se a tag existe ou não, para montar o array de IDs necessários para a relação *:*
+      //Pesquisa no DB se a tag existe ou não, para montar o array de IDs necessários para a relação *:*
     foreach($arrayTagsInformadas as $tagInformada){
       if(Tag::where('nome', $tagInformada)->exists()){
-         array_push($arrayIdsTags,Tag::where('nome',$tagInformada)->get()->pluck('id')->get(0));
+        array_push($arrayIdsTags,Tag::where('nome',$tagInformada)->get()->pluck('id')->get(0));
       }else{
-         $novaTag = new Tag();
-         $novaTag->nome = $tagInformada;
-         $novaTag->publicacao_autorizada = false;
-         $novaTag->save();
-         array_push($arrayIdsTags,$novaTag->id);
+        $novaTag = new Tag();
+        $novaTag->nome = $tagInformada;
+        $novaTag->publicacao_autorizada = false;
+        $novaTag->save();
+        array_push($arrayIdsTags,$novaTag->id);
       }
     }
     $recursoTA->tags()->attach($arrayIdsTags);
@@ -107,13 +104,13 @@ class RecursoTAController extends Controller
       $recursoTA->videos()->saveMany($videoUrls);
     }
 
-    if(!empty(request('fotos'))){
-
+    if(!empty($request->hasFile('fotos'))){
+      $fotosCarregadas = $request->file('fotos');
       $fotos = array();
-      foreach (request('fotos') as $foto) {
-        //Torna o nome aleatorio para evitar colisão, evitar possibilidade de bugs futuros
+      foreach ($fotosCarregadas as $foto) {
+          //Torna o nome aleatorio para evitar colisão, evitar possibilidade de bugs futuros
         $novoNomeFoto = time().'_'.$foto->getClientOriginalName();
-        //Salva a foto no servidor, na pasta uploads
+          //Salva a foto no servidor, na pasta uploads
         $caminhoFoto = $foto->storeAs('uploads',$novoNomeFoto,'public');
         $novaFoto = new Foto();
         $novaFoto->caminho_arquivo= $caminhoFoto;
@@ -122,7 +119,7 @@ class RecursoTAController extends Controller
         }else{
           $novaFoto->destaque = false;
         }
-        $novaFoto->texto_alternativo = request(str_replace('.','_',str_replace(' ','_',$foto->getClientOriginalName())));
+        $novaFoto->texto_alternativo = request(str_replace(str_split(" ."),'_',trim($foto->getClientOriginalName())));
         array_push($fotos,$novaFoto);
       }
       $recursoTA->fotos()->saveMany($fotos);
@@ -154,39 +151,37 @@ class RecursoTAController extends Controller
       $recursoTA->manuais()->saveMany($manualUrls);
     }
 
-    /*TODO: Alterar os modelos e migrations para os novos valores**/
-
-    return redirect('recursosTA');
+    return response()->json("Recurso cadastrado com sucesso!");
   }
 
-    /* Antes de exibir a view, popula o form com as tags cadastradas
-     *
-     *  @return \Illuminate\Http\Response
-     */
-    public function create(){
+  /* Antes de exibir a view, popula o form com as tags cadastradas
+   *
+   *  @return \Illuminate\Http\Response
+   */
+  public function create(){
 
-      $tags = Tag::all(['nome'])->pluck('nome');
-      return view('cadastrarTA')->with("tags",$tags);
-    }
-
-    /* Lista todos os Recursos de Tecnologia Assistiva e seus dados associados
-    *
-    *   @return \Illuminate\Http\Response
-    */
-
-    public function retrieveAll(){
-      $recursosTA = RecursoTA::all();
-      return view('listaRecursosTA',['recursosTA' => $recursosTA]);
-    }
-
-
-    /* Lista e pagina os recursos ta
-    *
-    *   @return \Illuminate\Http\Response
-    */
-
-    public function listaComPaginacao(){
-      $recursosTA = RecursoTA::paginate(15);
-      return view('testeCards',['recursosTA' => $recursosTA]);
-    }
+    $tags = Tag::all(['nome'])->pluck('nome');
+    return view('cadastrarTA')->with("tags",$tags);
   }
+
+  /* Lista todos os Recursos de Tecnologia Assistiva e seus dados associados
+  *
+  *   @return \Illuminate\Http\Response
+  */
+
+  public function retrieveAll(){
+    $recursosTA = RecursoTA::all();
+    return view('listaRecursosTA',['recursosTA' => $recursosTA]);
+  }
+
+
+  /* Lista e pagina os recursos ta
+  *
+  *   @return \Illuminate\Http\Response
+  */
+
+  public function listaComPaginacao(){
+    $recursosTA = RecursoTA::paginate(15);
+    return view('testeCards',['recursosTA' => $recursosTA]);
+  }
+}

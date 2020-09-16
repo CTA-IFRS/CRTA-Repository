@@ -25,6 +25,8 @@
     },
     "dependencies": {
         "bootstrap-fileinput": "^5.1.2",
+        "form-json": "^2.0.1",
+        "jquery-ui": "^1.12.1",
         "suggestags": "^1.16.0"
     }
 }

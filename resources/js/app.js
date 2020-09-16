@@ -3,13 +3,12 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-
 require('./bootstrap');
 require('../../node_modules/suggestags');
 require('../../node_modules/bootstrap-fileinput');
 require('../../node_modules/bootstrap-fileinput/themes/fa/theme.js');
 require('../../node_modules/bootstrap-fileinput/themes/explorer-fa/theme.js');
-require('../../node_modules/bootstrap-fileinput/js/locales/pt-BR.js')
+require('../../node_modules/bootstrap-fileinput/js/locales/pt-BR.js');
 
 window.Vue = require('vue');
 

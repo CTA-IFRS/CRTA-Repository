@@ -5,8 +5,11 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card border-light">
-                <div class="card-header"><h1>{{ __('Cadastrar Tecnologia Assistiva') }}</h1></div>
-
+                <div class="card-header">
+                    <h1>
+                        {{ __('Cadastrar Tecnologia Assistiva') }}
+                    </h1>
+                </div>
                 <div class="card-body">
                     <form id="formCadastroRecursoTA" method="POST" action="{{ route('salvaTA') }}" enctype="multipart/form-data">
                         @csrf
@@ -148,86 +151,95 @@
 @endsection
 @section('scripts')
 <script>
-
-    // this is the id of the form
-    $("#formCadastroRecursoTA").submit(function(e) {
-
-        e.preventDefault();
-
-        var form = $(this);
-        var url = form.attr('action');
-
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: form.serialize(),
-            headers: {
-                'X-CSRF-TOKEN': $('input[name="_token"]').attr('value')
-            },
-            success: function(respostaServidor)
-            {
-               alert(respostaServidor); // show response from the php script.
-           },
-           error: function(respostaServidor)
-           {
-                $('.invalid-feedback').remove();
-                // HERE YOU CAN GET ALL THE ERRORS IN JSON
-                var erros = JSON.parse(respostaServidor.responseText);
-                if(erros){
-                    $.map(erros, function(val, key) {
-                        //testa se é um campo simples
-                        if(key.lastIndexOf(".")==-1){
-                            $('#'+key).after('<span class="invalid-feedback font-weight-bold d-block" role="alert">'+val+'</span>');
-                        }else{//se for um campo que pertence a um array
-                            //'[name^="videos"][name$="[n][destaque]"]'
-                            var nomeArray = key.split('.');
-                            $('[name^="'+nomeArray[0]+'"][name$="['+nomeArray[1]+']['+nomeArray[2]+']"]').after('<span class="invalid-feedback font-weight-bold d-block" role="alert">'+val+'</span>');
-                        }
-                    });
-                }
-            }
-        });
-    });
+    var form = $('#formCadastroRecursoTA');
 
     $("#fotos").fileinput({
         theme: "explorer-fa",
         language: "pt-BR",
+        uploadAsync: true,
         previewFileType: "image",
         browseClass: "btn btn-success",
         browseIcon: "<i class='fa fa-file-image-o' aria-hidden='true'></i>",
         removeClass: "btn btn-danger",
         removeIcon: "<i class='fa fa-trash' aria-hidden='true'></i>",
         removeFromPreviewOnError: true,
+        fileActionSettings: {
+            showUpload: false,
+            showZoom: false,
+        },
+        overwriteInitial: true,
+        uploadExtraData:{ _token: '{{ csrf_token()}}'},
         required: true          
-    });
+    }); 
 
-    function isUrlValid(url) {
-        return /^(https?|s?ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(url);
-    }
+        function isUrlValid(url) {
+            return /^(https?|s?ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(url);
+        }
 
-    $(document).ready(function () {
-        var contadorUrls = 0;
+        $(document).ready(function () {
+            var contadorUrls = 0;
 
-        /**Mostra o input licença quando o for produto comercial**/
-        $('input[type=radio][name=produtoComercial]').change(function () {
-            if($(this).val() === 'true') {
-                $('#divLicenca').removeClass('d-none');
-            }
-            else {
-                $('#divLicenca').addClass('d-none');
-            }
-        });
+            form.submit(function(e) {
+                var formData = new FormData(form[0]);
 
-        var btnAdicionarVideo = $('#btnAdicionarVideo');
-        var inputUrlVideo = $('#urlVideo');
-        /**Adiciona a url do input video para a lista de urls**/
-        btnAdicionarVideo.click(function(){
+                e.preventDefault();
 
-            inputUrlVideo.removeClass('is-invalid');
-            inputUrlVideo.closest('div').find('span').remove();
+                $.ajax({
+                    type: "POST",
+                    url: form.attr('action'),
+                    dataType: 'json',
+                    cache: false,
+                    processData: false,
+                    contentType: false, 
+                    data: formData,
+                    beforeSend: function(xhr)
+                    {
+                        xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token() }}');
+                    },
+                    success: function(respostaServidor)
+                    {
+                        console.log("Sucesso!!\n"+console.log(JSON.stringify(respostaServidor)));
+                    },
+                    error: function(respostaServidor)
+                    {
+                        console.log("Erro!!\n "+respostaServidor);
+                        $('.invalid-feedback').remove();
+                        var erros = JSON.parse(respostaServidor.responseText);
+                        if(erros){
+                            $.map(erros, function(val, key) {
+                            //testa se é um campo simples
+                            if(key.lastIndexOf(".")==-1){
+                                $('#'+key).after('<span class="invalid-feedback font-weight-bold d-block" role="alert">'+val+'</span>');
+                            }else{//se for um campo que pertence a um array
+                                var nomeArray = key.split('.');
+                                $('[name^="'+nomeArray[0]+'"][name$="['+nomeArray[1]+']['+nomeArray[2]+']"]').after('<span class="invalid-feedback font-weight-bold d-block" role="alert">'+val+'</span>');
+                            }
+                        });
+                        }
+                    }
+                });
+            });
 
-            if(inputUrlVideo.val().length!='0'){
-                if(isUrlValid(inputUrlVideo.val())){
+            /**Mostra o input licença quando o for produto comercial**/
+            $('input[type=radio][name=produtoComercial]').change(function () {
+                if($(this).val() === 'true') {
+                    $('#divLicenca').removeClass('d-none');
+                }
+                else {
+                    $('#divLicenca').addClass('d-none');
+                }
+            });
+
+            var btnAdicionarVideo = $('#btnAdicionarVideo');
+            var inputUrlVideo = $('#urlVideo');
+            /**Adiciona a url do input video para a lista de urls**/
+            btnAdicionarVideo.click(function(){
+
+                inputUrlVideo.removeClass('is-invalid');
+                inputUrlVideo.closest('div').find('span').remove();
+
+                if(inputUrlVideo.val().length!='0'){
+                    if(isUrlValid(inputUrlVideo.val())){
                 //Remove o aviso de lista vazia quando adicionar o primeiro item;
                 if ($('#videos').find('#avisoListaVazia').length) {
                     $('#videos').find('#avisoListaVazia').remove();
@@ -264,21 +276,21 @@
         }
     });
 
-        /**Remove a url do video ao clicar na lixeira**/
-        $('#divVideos').on('click', '.fa-trash', function (evento) {
+            /**Remove a url do video ao clicar na lixeira**/
+            $('#divVideos').on('click', '.fa-trash', function (evento) {
 
-            evento.preventDefault();
-            $(this).closest('li').remove();
+                evento.preventDefault();
+                $(this).closest('li').remove();
 
-            if ($('#videos li').length === 0) {
-                $("#videos").append(
-                    '<li id="avisoListaVazia" class="list-group-item">Não serão adicionados vídeos</li>');
-            }
-        });
+                if ($('#videos li').length === 0) {
+                    $("#videos").append(
+                        '<li id="avisoListaVazia" class="list-group-item">Não serão adicionados vídeos</li>');
+                }
+            });
 
-        /**Seleciona uma das urls como favorita**/
-        $('#divVideos').on('click', '.fa-star', function (evento) {
-            evento.preventDefault();
+            /**Seleciona uma das urls como favorita**/
+            $('#divVideos').on('click', '.fa-star', function (evento) {
+                evento.preventDefault();
 
             //Itera sobre os destaques da lista procurando desfazer a antiga indicação, se houver
             $('[name^="videos"][name$="[destaque]"]').each(function(i,elemento){
@@ -292,16 +304,16 @@
             $(this).closest('li').addClass('destaque');
         });
 
-        var btnAdicionarArquivo = $('#btnAdicionarArquivo');
-        var inputUrlArquivo = $('#urlArquivo'); 
-        /**Adiciona a url do input arquivo para a lista de urls**/
-        btnAdicionarArquivo.click(function(){
+            var btnAdicionarArquivo = $('#btnAdicionarArquivo');
+            var inputUrlArquivo = $('#urlArquivo'); 
+            /**Adiciona a url do input arquivo para a lista de urls**/
+            btnAdicionarArquivo.click(function(){
 
-            inputUrlArquivo.removeClass('is-invalid');
-            inputUrlArquivo.closest('div').find('span').remove();
+                inputUrlArquivo.removeClass('is-invalid');
+                inputUrlArquivo.closest('div').find('span').remove();
 
-            if(inputUrlArquivo.val().length!='0'){ 
-                if(isUrlValid(inputUrlArquivo.val())){
+                if(inputUrlArquivo.val().length!='0'){ 
+                    if(isUrlValid(inputUrlArquivo.val())){
                 //Remove o aviso de lista vazia quando adicionar o primeiro item;
                 if($('#arquivos').find('#avisoListaVazia').length) {
                     $('#arquivos').find('#avisoListaVazia').remove();
@@ -339,28 +351,28 @@
         }
     });
 
-        /**Remove da lista a url do arquivo ao clicar na lixeira**/
-        $('#divArquivos').on('click', '.fa-trash', function (evento) {
+            /**Remove da lista a url do arquivo ao clicar na lixeira**/
+            $('#divArquivos').on('click', '.fa-trash', function (evento) {
 
-            evento.preventDefault();
-            $(this).closest('li').remove();
+                evento.preventDefault();
+                $(this).closest('li').remove();
 
-            if ($('#arquivos li').length === 0) {
-                $("#arquivos").append(
-                    '<li id="avisoListaVazia" class="list-group-item">Não serão adicionados vídeos </li>');
-            }
-        });
+                if ($('#arquivos li').length === 0) {
+                    $("#arquivos").append(
+                        '<li id="avisoListaVazia" class="list-group-item">Não serão adicionados vídeos </li>');
+                }
+            });
 
-        var btnAdicionarManual = $('#btnAdicionarManual');
-        var inputUrlManual = $('#urlManual'); 
-        /**Adiciona a url do input manual para a lista de urls**/
-        btnAdicionarManual.click(function(){
+            var btnAdicionarManual = $('#btnAdicionarManual');
+            var inputUrlManual = $('#urlManual'); 
+            /**Adiciona a url do input manual para a lista de urls**/
+            btnAdicionarManual.click(function(){
 
-            inputUrlManual.removeClass('is-invalid');
-            inputUrlManual.closest('div').find('span').remove();
+                inputUrlManual.removeClass('is-invalid');
+                inputUrlManual.closest('div').find('span').remove();
 
-            if(inputUrlManual.val().length!='0'){
-                if(isUrlValid(inputUrlManual.val())){
+                if(inputUrlManual.val().length!='0'){
+                    if(isUrlValid(inputUrlManual.val())){
 
                 //Remove o aviso de lista vazia quando adicionar o primeiro item;
                 if($('#manuais').find('#avisoListaVazia').length) {
@@ -400,27 +412,30 @@
         }
     });
 
-        /**Remove da lista a url do manual ao clicar na lixeira**/
-        $('#divManuais').on('click', '.fa-trash', function (evento) {
+            /**Remove da lista a url do manual ao clicar na lixeira**/
+            $('#divManuais').on('click', '.fa-trash', function (evento) {
 
-            evento.preventDefault();
-            $(this).closest('li').remove();
+                evento.preventDefault();
+                $(this).closest('li').remove();
 
-            if ($('#manuais li').length === 0) {
-                $("#manuais").append(
-                    '<li id="avisoListaVazia" class="list-group-item">Não serão adicionados manuais </li>');
-            }
+                if ($('#manuais li').length === 0) {
+                    $("#manuais").append(
+                        '<li id="avisoListaVazia" class="list-group-item">Não serão adicionados manuais </li>');
+                }
+            });
+
+            $('input[name="tags"]').amsifySuggestags({
+                showAllSuggestions: true,
+                selectOnHover: true,
+                keepLastOnHoverTag: false,
+                printValues: false,
+                suggestions: @json($tags),
+                defaultTagClass: 'tagChip',
+                noSuggestionMsg: 'Tag não encontrada, tecle enter para criar uma nova',
+            });
+
+            $('input[class="amsify-suggestags-input"]').attr("placeholder","Digite aqui");
+
         });
-
-        $('input[name="tags"]').amsifySuggestags({
-            showAllSuggestions: true,
-            suggestions: @json($tags),
-            defaultTagClass: 'tagChip',
-            noSuggestionMsg: 'Tag não encontrada, tecle enter para criar uma nova',
-        });
-
-        $('input[class="amsify-suggestags-input"]').attr("placeholder","Digite aqui");
-
-    });
-</script> 
-@endsection
+    </script> 
+    @endsection
