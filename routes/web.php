@@ -26,7 +26,7 @@ Route::get('/registrar', 'NavegacaoController@cadastroUsuario');
 Route::get('/painelUsuario', 'HomeController@index');
 Route::get('/cadastrarTA','RecursoTAController@create');
 Route::get('/listarTA','RecursoTAController@retrieveAll');
-Route::get('/testeCards','RecursoTAController@listaComPaginacao');
+Route::get('/testeCards','RecursoTAController@atualizaListaAssincronamente');
 
 //Routes para controllers que irão processar forms devem ser nomeadas
 Route::post('salvaTA','RecursoTAController@store')->name('salvaTA');

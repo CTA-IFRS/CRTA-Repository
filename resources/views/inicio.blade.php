@@ -6,6 +6,7 @@
 	@include('layouts.bannerTelaInicial')
 @endsection
 @section('conteudo')
-<h1>@TODO</h1>
+	<h1 class="m-5">Recursos de Tecnologia Assistiva</h1>
+	@include('testeCards')
 @endsection
 

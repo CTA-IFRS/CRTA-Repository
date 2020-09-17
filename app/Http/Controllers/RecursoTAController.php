@@ -26,6 +26,8 @@ class RecursoTAController extends Controller{
      'arquivos.*.url' => ['sometimes','regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
      'manuais.*.*' => 'sometimes | required',
      'manuais.*.url' => ['sometimes','regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
+     'textosAlternativos.*.textoAlternativo' => 'required|max:255',
+     'fotos' => 'required | mime:jpeg,jpg,png',
    ];
 
    $mensagens = [
@@ -47,7 +49,12 @@ class RecursoTAController extends Controller{
     'manuais.*.formato.required' => 'Informe o formato do manual',
     'manuais.*.tamanho.required' => 'Informe o tamanho do manual (em Megabytes)',
     'manuais.*.url.required' => 'Informe o endereço de acesso ao manual',
-    'manuais.*.url.regex' => 'O endereço de acesso ao arquivo é inválido',];
+    'manuais.*.url.regex' => 'O endereço de acesso ao arquivo é inválido',
+    'textosAlternativos.*.textoAlternativo.required' => 'Informe o texto alternativo para a imagem',
+    'textosAlternativos.*.textoAlternativo.max' => 'O texto alternativo deve ter menos de 255 caracteres',
+    'fotos.required' => 'Faça o upload de ao menos uma foto do recurso',
+    'fotos.mime' => 'A foto deve ser ou jpeg, ou jpg, ou png.',
+  ];
 
     $validador = Validator::make($request->all(),$regras,$mensagens);
 
@@ -104,7 +111,7 @@ class RecursoTAController extends Controller{
       $recursoTA->videos()->saveMany($videoUrls);
     }
 
-    if(!empty($request->hasFile('fotos'))){
+    if($request->hasFile('fotos')){
       $fotosCarregadas = $request->file('fotos');
       $fotos = array();
       foreach ($fotosCarregadas as $foto) {
@@ -183,5 +190,18 @@ class RecursoTAController extends Controller{
   public function listaComPaginacao(){
     $recursosTA = RecursoTA::paginate(15);
     return view('testeCards',['recursosTA' => $recursosTA]);
+  }
+
+
+ /* Repassa o HTML do blade que lista os RecursosTA para que seja aplicado como conteúdo da div 
+  * e atualize, assincronamente, os recursos na tela.
+  *
+  *   @return \Illuminate\Http\Response
+  */
+  public function atualizaListaAssincronamente(Request $request){
+    if($request->ajax()){
+      $recursosTA = RecursoTA::paginate(10);
+      return view('testeCards',['recursosTA' => $recursosTA])->render();
+    }
   }
 }

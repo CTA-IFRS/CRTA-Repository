@@ -105,6 +105,20 @@ button.bg-secondary:hover, button.bg-secondary:focus {
 }
 /*************************************************************/
 
+.page-footer{
+  color: rgba(255, 255, 255, 1) !important;
+}
+
+/* unvisited link */
+.page-footer a {
+  color: rgba(255, 255, 255, 1) !important;
+  text-decoration: underline;
+}
+
+/* mouse over link */
+.page-footer a:hover {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
 
 /*********** Diferentes opacidades porque o Bootstrap não definiu
 *

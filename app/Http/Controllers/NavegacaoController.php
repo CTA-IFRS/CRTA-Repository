@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use App\RecursoTA;
 /**
  * Classe para efetuar a navegação entre as páginas do RETACE
  */
@@ -12,19 +14,11 @@ class NavegacaoController extends Controller{
 	 *
 	 *	@return \Illuminate\Contracts\Support\Renderable
 	 */	
-	public function inicio(){
-		return view('inicio');
+	public function inicio(Request $request){
+		
+		$recursosTA = RecursoTA::paginate(10);
+		return view('inicio',['recursosTA' => $recursosTA]);
 	}
-
-	/** 
-	 * Exibe a tela inicial com texto ao invés dos ícones das redes sociais
-	 *
-	 *	@return \Illuminate\Contracts\Support\Renderable
-	 */	
-	public function inicioSemIcone(){
-		return view('inicioSemIcone');
-	}
-
 
 	/** 
 	 * Exibe a tela de login 
