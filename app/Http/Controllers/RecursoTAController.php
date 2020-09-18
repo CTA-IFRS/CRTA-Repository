@@ -27,7 +27,7 @@ class RecursoTAController extends Controller{
      'manuais.*.*' => 'sometimes | required',
      'manuais.*.url' => ['sometimes','regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
      'textosAlternativos.*.textoAlternativo' => 'required|max:255',
-     'fotos' => 'required | mime:jpeg,jpg,png',
+     'fotos.*.*' => 'required|mimes:jpg,png',
    ];
 
    $mensagens = [
@@ -53,7 +53,7 @@ class RecursoTAController extends Controller{
     'textosAlternativos.*.textoAlternativo.required' => 'Informe o texto alternativo para a imagem',
     'textosAlternativos.*.textoAlternativo.max' => 'O texto alternativo deve ter menos de 255 caracteres',
     'fotos.required' => 'Faça o upload de ao menos uma foto do recurso',
-    'fotos.mime' => 'A foto deve ser ou jpeg, ou jpg, ou png.',
+    'fotos.mimes' => 'A foto deve ser ou jpeg, ou jpg, ou png.',
   ];
 
     $validador = Validator::make($request->all(),$regras,$mensagens);
@@ -112,6 +112,8 @@ class RecursoTAController extends Controller{
     }
 
     if($request->hasFile('fotos')){
+      $textosAlternativos = array();
+      $textosAlternativos = request('textosAlternativos');
       $fotosCarregadas = $request->file('fotos');
       $fotos = array();
       foreach ($fotosCarregadas as $foto) {
@@ -126,7 +128,10 @@ class RecursoTAController extends Controller{
         }else{
           $novaFoto->destaque = false;
         }
-        $novaFoto->texto_alternativo = request(str_replace(str_split(" ."),'_',trim($foto->getClientOriginalName())));
+        //$novaFoto->texto_alternativo = request(str_replace(str_split(" ."),'_',trim($foto->getClientOriginalName())));
+        //O nome do arquivo é a chave para acessar o texto alternativo
+        $indiceTextoAlternativo = str_replace(str_split("()"),'_',trim($foto->getClientOriginalName()));
+        $novaFoto->texto_alternativo = $textosAlternativos[$indiceTextoAlternativo]['textoAlternativo'];
         array_push($fotos,$novaFoto);
       }
       $recursoTA->fotos()->saveMany($fotos);
