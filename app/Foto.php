@@ -14,7 +14,8 @@ class Foto extends Model
     protected $fillable = [
     	'destaque',
     	'texto_alternativo',
-    	'caminho_arquivo'
+    	'caminho_arquivo',
+        'caminho_thumbnail'
     ];
 
     public function recursoTA()

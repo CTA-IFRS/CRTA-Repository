@@ -38,6 +38,18 @@ body { padding-top: 100px; /*50px é a altura padrão das navbars no bootstrap, 
     max-width: 32px;
 }
 
+.card-img-top {
+    height: 10rem;
+    object-fit: none;
+}
+
+.fotoSelecionada{
+    object-fit: none !important;
+    max-width: 100%;
+    max-height: 100%;
+    display: block;  
+}
+
 /**Ajusta o menu de navegação principal para que, ao colapsar, expanda seus itens por sobre a página**/
 .menuTelaPrincipal{
 	position: absolute!important;
@@ -150,3 +162,4 @@ button.bg-secondary:hover, button.bg-secondary:focus {
   font-size: 16px !important;
   background-color: #3E67B1 !important;
 }
+

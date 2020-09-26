@@ -16,7 +16,7 @@ class NavegacaoController extends Controller{
 	 */	
 	public function inicio(Request $request){
 		
-		$recursosTA = RecursoTA::paginate(10);
+		$recursosTA = RecursoTA::paginate(8);
 		return view('inicio',['recursosTA' => $recursosTA]);
 	}
 
@@ -55,5 +55,16 @@ class NavegacaoController extends Controller{
 	 */	
 	public function cadastroTA(){
 		return view('cadastrarTA');
+	}
+
+	/** 
+	 * Exibe um Recurso de Tecnologia Assistiva em específico
+	 *
+	 *	@return \Illuminate\Contracts\Support\Renderable
+	 */	
+	public function exibeRecursoTA($idRecursoTA){
+		$recursoTA = RecursoTA::find($idRecursoTA);
+		$recursosTA = RecursoTA::paginate(4);
+		return view('exibeRecursoTA',['recursoTA' => $recursoTA], ['recursosTA' =>$recursosTA]);
 	}		
 }

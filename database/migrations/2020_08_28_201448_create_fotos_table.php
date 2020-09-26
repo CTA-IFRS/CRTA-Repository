@@ -18,6 +18,7 @@ class CreateFotosTable extends Migration
             $table->boolean('destaque');
             $table->string('texto_alternativo');
             $table->string('caminho_arquivo');
+            $table->string('caminho_thumbnail');
             $table->biginteger('recurso_ta_id')->nullable(false);
             $table->timestamps();
         });

@@ -9,6 +9,10 @@ require('../../node_modules/bootstrap-fileinput');
 require('../../node_modules/bootstrap-fileinput/themes/fa/theme.js');
 require('../../node_modules/bootstrap-fileinput/themes/explorer-fa/theme.js');
 require('../../node_modules/bootstrap-fileinput/js/locales/pt-BR.js');
+require('../../node_modules/bootstrap-fileinput');
+
+require('../../node_modules/lightgallery');
+require('../../node_modules/lightslider');
 
 window.Vue = require('vue');
 
