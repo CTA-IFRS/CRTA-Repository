@@ -64,6 +64,7 @@ class NavegacaoController extends Controller{
 	 */	
 	public function exibeRecursoTA($idRecursoTA){
 		$recursoTA = RecursoTA::find($idRecursoTA);
+		RecursoTA::where('id', $idRecursoTA)->increment('visualizacoes', 1);
 		$recursosTA = RecursoTA::paginate(4);
 		return view('exibeRecursoTA',['recursoTA' => $recursoTA], ['recursosTA' =>$recursosTA]);
 	}		

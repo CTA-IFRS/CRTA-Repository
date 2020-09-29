@@ -18,7 +18,8 @@ class RecursoTa extends Model
         'produto_comercial',
         'site_fabricante',
         'licenca',
-        'publicacao_autorizada'
+        'publicacao_autorizada',
+        'visualizacoes'
     ];
 
 	//define o nome da tabela do DB porque o padrão do Laravel resultaria em recurso_tas

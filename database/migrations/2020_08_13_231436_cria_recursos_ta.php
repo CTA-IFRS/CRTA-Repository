@@ -21,6 +21,7 @@ class CriaRecursosTA extends Migration
             $table->string('site_fabricante');
             $table->string('licenca')->nullable(true);
             $table->boolean('publicacao_autorizada')->default(false);
+            $tabke->integer('visualizacoes')->default(0);
             $table->timestamps();
             $table->engine = 'InnoDB';
         });

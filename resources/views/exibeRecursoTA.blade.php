@@ -30,55 +30,85 @@
 				</div>
 				<div id="acessos" class="col-md-6">
 					<i class="fa fa-eye" aria-hidden="true"></i>
-					<span> Visitado 42 vezes</span>	
+					<span> Visitado {{$recursoTA->visualizacoes}} vezes</span>	
 				</div>
 				<hr class="col-md-10"/>
 			</div>
 			<div id="manuais" class="row mt-3">
-				<h5 class="ml-2"> Manuais </h5>
+				<h5 class="ml-3 w-100"> Manuais </h5>
+				<div class="ml-4">
+				@if(sizeof($recursoTA->manuais)!=0)
 				@foreach($recursoTA->manuais as $manual)
-				<div class="col-md-10">
+				<div class="col-md-12">
 					<a href="{{__($manual->url)}}">{{__($manual->nome)}}</a>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-12">
 					<span>Formato: {{__($manual->formato)}}</span>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-12">
 					<span>Tamanho: {{__($manual->tamanho)}} Mb</span>
 				</div>
 				<hr class="col-md-10"/>
 				@endforeach	
+				@else
+					<span> Não há manuais associados ao recurso</span>
+				@endif
+				</div>				
 			</div>
 			<div id="arquivos" class="row mt-3">
-				<h5 class="ml-2"> Arquivos </h5>
+				<h5 class="ml-3 w-100"> Arquivos </h5>
+				<div class="ml-4">
+				@if(sizeof($recursoTA->arquivos)!=0)
 				@foreach($recursoTA->arquivos as $arquivo)
-				<div class="col-md-10">
+				<div class="col-md-12">
 					<a href="{{__($arquivo->url)}}">{{__($arquivo->nome)}}</a>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-12">
 					<span>Formato: {{__($arquivo->formato)}}</span>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-12">
 					<span>Tamanho: {{__($arquivo->tamanho)}} Mb</span>
 				</div>
 				<hr class="col-md-10"/>
-				@endforeach	
+				@endforeach
+				@else
+					<span> Não há arquivos associados ao recurso</span>
+				@endif
+				</div>	
 			</div>
 			<div id="fabricante" class="row mt-3">
-				<h5 class="ml-2"> Fabricante </h5>
-				<div class="col-md-10">
+				<h5 class="ml-3 w-100"> Fabricante </h5>
+				<div class="ml-4">
+				<div class="col-md-12">
 					<a href="{{__($recursoTA->site_fabricante)}}">{{__($recursoTA->site_fabricante)}}</a>
 				</div>			
-				<div class="col-md-10">
+				<div class="col-md-12">
 					@if($recursoTA->produto_comercial)
 					<span> Produto comercial sob a licença {{__($recursoTA->licenca)}}</span>
 					@else
 					<span> Produto não comercial</span>
 					@endif
+				</div>
 				</div>		
 			</div>
+			<div id="tags" class="row mt-5">
+				<div class="col-md-12 ml-4">
+					@if(sizeof($recursoTA->tags))
+					@foreach($recursoTA->tags as $tag)
+						@if($tag->publicacao_autorizada)
+						<!-- TODO: após criar a funcionalidade de busca, colocar o link-->
+						<h4 class="d-inline-block"><a href="#" class="badge badge-primary">{{$tag->nome}}</a></h4>
+						@else
+						<h4 class="d-inline-block"><a href="#" class="badge badge-danger">{{$tag->nome}}</a></h4>
+						@endif
+					@endforeach	
+					@else
+					<span class="text-danger"> Recurso sem tags associadas</span>
+					@endif
+				</div>	
+			</div>			
 			<div id="publicacaoAutorizada" class="row">
-				<div class="col-md-10 mt-3">
+				<div class="col-md-12 mt-3">
 					@if($recursoTA->publicacao_autorizada)
 					<span> Publicação autorizada</span>
 					@else
