@@ -20,10 +20,10 @@
 				<img class="img-fluid" src="{{url('/imagens/logoCTA.png')}}" alt="Logotipo do CTA"/>
 			</div>
 			<div class="col-md-2  col-sm-4">
-				PROEN
+				<img class="img-fluid" src="{{url('/imagens/PROEN_Branco.png')}}" alt="Logotipo do PROEN"/>
 			</div>
 			<div class="col-md-2  col-sm-4">
-				<img class="img-fluid" src="{{url('/imagens/logoIFRS.jpg')}}" alt="Logotipo do IFRS"/>
+				<img class="img-fluid" src="{{url('/imagens/IFRS_Branco.png')}}" alt="Logotipo do IFRS"/>
 			</div>
 
 		</div>

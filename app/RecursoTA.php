@@ -2,11 +2,12 @@
 
 namespace App;
 
+use willvincent\Rateable\Rateable;
 use Illuminate\Database\Eloquent\Model;
 
 class RecursoTa extends Model
 {
-
+    use Rateable;
     /**
      * The model's default values for attributes.
      *

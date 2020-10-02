@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use App\RecursoTA;
+use App\Tag;
 /**
  * Classe para efetuar a navegação entre as páginas do RETACE
  */
@@ -17,7 +19,20 @@ class NavegacaoController extends Controller{
 	public function inicio(Request $request){
 		
 		$recursosTA = RecursoTA::paginate(8);
-		return view('inicio',['recursosTA' => $recursosTA]);
+		return view('inicio',['listagemDeMaisRelevantes' => false, 'recursosTA' => $recursosTA]);
+	}
+
+	/** 
+	 * Exibe a tela de busca de recursos
+	 *	@param $tag tag que servirá como parâmetro de busca
+	 *	@return \Illuminate\Contracts\Support\Renderable
+	 */	
+	public function buscaRecursoTA($tag = null){
+		$recursosTA = array();
+		if($tag!=null){
+			$recursosTA = Tag::firstWhere('nome',$tag)->recursosTA()->paginate(8);
+		}
+		return view('buscaRecursoTA',[ 'tag' => $tag , 'listagemDeMaisRelevantes' => false, 'recursosTA' => $recursosTA]);
 	}
 
 	/** 
@@ -65,7 +80,25 @@ class NavegacaoController extends Controller{
 	public function exibeRecursoTA($idRecursoTA){
 		$recursoTA = RecursoTA::find($idRecursoTA);
 		RecursoTA::where('id', $idRecursoTA)->increment('visualizacoes', 1);
-		$recursosTA = RecursoTA::paginate(4);
-		return view('exibeRecursoTA',['recursoTA' => $recursoTA], ['recursosTA' =>$recursosTA]);
+
+		//Busca por todos os recursos TAs que possuem as mesmas tags que o recurso a ser exibido
+		$recursosRelacionados = new Collection();
+		foreach ($recursoTA->tags as $tag) {
+			$recursosRelacionados = $recursosRelacionados->merge($tag->recursosTA);
+		}
+		//Ordena os recursos obtidos pela quantidade de visualizações
+		$conjuntoOrdenado = $recursosRelacionados->sortBy('attributes.visualizacoes');
+		//Pega os primeiros 4 para exibir como recursos relacionados
+		$quatroRelacionadosMaisVistos = collect($conjuntoOrdenado)->take(4);
+
+		$mediaAvaliacao = 0;
+		$mediaAvaliacao = round($recursoTA->userAverageRating,0);
+		$complementoAvaliacao = 5 - $mediaAvaliacao;
+
+		return view('exibeRecursoTA',
+					['recursoTA' => $recursoTA, 
+					'mediaAvaliacao' => $mediaAvaliacao,
+					'complementoAvaliacao' => $complementoAvaliacao, 
+					'recursosTA' =>$quatroRelacionadosMaisVistos]);
 	}		
 }
