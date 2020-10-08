@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use App\RecursoTA;
 use App\Tag;
+use Embed\Embed;
 /**
  * Classe para efetuar a navegação entre as páginas do RETACE
  */
@@ -95,10 +96,19 @@ class NavegacaoController extends Controller{
 		$mediaAvaliacao = round($recursoTA->userAverageRating,0);
 		$complementoAvaliacao = 5 - $mediaAvaliacao;
 
+		//Utiliza o package Embed para obter a url que permita esse tipo de uso
+		$embed = new Embed();
+		$infoTodosVideos = Array();
+		foreach ($recursoTA->videos as $video) {
+			$infoVideo = $embed->get($video->url);
+			array_push($infoTodosVideos,$infoVideo);
+		}
+
 		return view('exibeRecursoTA',
 					['recursoTA' => $recursoTA, 
 					'mediaAvaliacao' => $mediaAvaliacao,
 					'complementoAvaliacao' => $complementoAvaliacao, 
-					'recursosTA' =>$quatroRelacionadosMaisVistos]);
+					'recursosTA' =>$quatroRelacionadosMaisVistos,
+					'informacoesVideos' => $infoTodosVideos]);
 	}		
 }

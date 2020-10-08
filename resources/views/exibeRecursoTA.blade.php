@@ -12,7 +12,12 @@
 				<li data-thumb="{{Storage::url('public/'.$foto->caminho_thumbnail)}}" data-src="{{Storage::url('public/'.$foto->caminho_arquivo)}}">
 					<img class="fotoSelecionada" src="{{Storage::url('public/'.$foto->caminho_arquivo)}}" alt="{{$foto->texto_alternativo}}"/>
 				</li>
-				@endforeach			
+				@endforeach
+				@foreach($informacoesVideos as $infoVideo)
+				<li class="hasVideo embed-responsive embed-responsive-4by3" data-src="{{$infoVideo->image}}"data-thumb="{{$infoVideo->image}}" data-iframe="{{$infoVideo->url}}">
+					{{!! html_entity_decode($infoVideo->code->html) !!}}
+				</li>
+				@endforeach				
 			</ul>
 			<div class="my-3">
 				<h2 class="my-3">Descrição do Recurso</h2>
@@ -21,12 +26,12 @@
 		</div>
 		<div id="colunaDireita" class="card offset-md-1 col-md-3">
 			<div id="indicadores" class="row d-flex align-items-center justify-content-center text-center mt-4">
-				<div id="avaliacoes" class="rating col-md-6">
+				<div id="avaliacoes" class="avaliacaoMedia col-md-6">					
 					@for ($i = 0; $i < $mediaAvaliacao; $i++)
-					<label class="opacidade-10">☆</label> 
+					<label>&starf;</label> 
 					@endfor
 					@for ($j = 0; $j < $complementoAvaliacao; $j++)
-					<label class="opacidade-4">☆</label> 
+					<label>&star;</label> 
 					@endfor					
 				</div>
 				<div id="acessos" class="col-md-6">
@@ -140,11 +145,41 @@
 		@include('recursosRelacionados')
 	</div>
 </div>
+<!-- Modal -->
+<div class="modal alert alert-success hide fade in" data-keyboard="false" data-backdrop="static" id="modalConfirmaAvaliacao">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<!-- Header -->
+			<div class="modal-header">
+				<h4 class="modal-title">Confirmar avaliação</h4>
+			</div>
+			<!-- Body -->
+			<div class="modal-body">
+				<p>Deseja confirmar a avaliação fornecida?</p>
+			</div>
+			<!-- Footer -->
+			<div class="modal-footer">
+				<a class="btn btn-primary" href="{{url('/')}}">Sim</a>
+				<a class="btn btn-primary" data-dismiss="modal" onclick="desmarcaAvaliacaoDada()">Não</a>
+			</div>
+		</div>
+	</div>
 </div>
 @endsection
 @section('scripts')
 <script>
+	function desmarcaAvaliacaoDada(){
+		$('#avaliacaoPeloUsuario').closest('div').find('label').each(function(){
+			$(this).text($(this).text().replace("&starf;","&star;"));
+		}); 	
+	}
+
 	$(document).ready(function() {
+
+		$('input[name=avaliacao]').click(function(){
+			$("#modalConfirmaAvaliacao").modal("show");
+		});
+
 		$('#galeria').lightSlider({
 			gallery:true,
 			item:1,

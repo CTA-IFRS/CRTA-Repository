@@ -19,7 +19,7 @@ body { padding-top: 100px; /*50px é a altura padrão das navbars no bootstrap, 
 /************* Banner da tela principal **************/
 .banner{
 	background: url(/imagens/fundoMenuPrincipal.jpg) scroll center no-repeat;
- 	background-size: cover;
+  background-size: cover;
 }
 /***************************/
 
@@ -33,21 +33,21 @@ body { padding-top: 100px; /*50px é a altura padrão das navbars no bootstrap, 
 *
 /**Define um tamanho adequado para o botão das redes sociais aparecerem nos menus**/
 .iconePequeno{
-    background: none;
-    border: none;
-    max-width: 32px;
+  background: none;
+  border: none;
+  max-width: 32px;
 }
 
 .card-img-top {
-    height: 10rem;
-    object-fit: none;
+  height: 10rem;
+  object-fit: none;
 }
 
 .fotoSelecionada{
-    object-fit: none !important;
-    max-width: 100%;
-    max-height: 100%;
-    display: block;  
+  object-fit: none !important;
+  max-width: 100%;
+  max-height: 100%;
+  display: block;  
 }
 
 /**Ajusta o menu de navegação principal para que, ao colapsar, expanda seus itens por sobre a página**/
@@ -65,7 +65,7 @@ body { padding-top: 100px; /*50px é a altura padrão das navbars no bootstrap, 
 
 /**Muda a cor para a outra cor do tema ao clicar ou passar por cima do botão de exibir menu (quando a barra está colapsada)**/
 button.bg-primary:hover, button.bg-primary:focus {
-    background-color: #21376C!important;
+  background-color: #21376C!important;
 }
 
 /**Muda a cor das letras dos itens do menu para aumentar o contraste*/
@@ -80,7 +80,7 @@ button.bg-primary:hover, button.bg-primary:focus {
 
 /**Muda a cor para a outra cor do tema ao clicar ou passar por cima do botão de exibir menu (quando a barra está colapsada)**/
 button.bg-secondary:hover, button.bg-secondary:focus {
-    background-color: #3E67B1!important;
+  background-color: #3E67B1!important;
 }
 /*
 *
@@ -88,8 +88,8 @@ button.bg-secondary:hover, button.bg-secondary:focus {
 
 /** Classe para sinalizar campos obrigatórios de formulários**/
 .form-group.required .col-form-label:after { 
-   content:"*";
-   color:red;
+ content:"*";
+ color:red;
 }
 
 /** Classe para sinalizar qualquer elemento html como obrigatorio **/
@@ -150,7 +150,7 @@ button.bg-secondary:hover, button.bg-secondary:focus {
 .opacidade-8 {
   opacity:0.8!important;
 }
-.opacity-10 {
+.opacidade-10 {
   opacity:1!important;
 }
 /**
@@ -165,39 +165,52 @@ button.bg-secondary:hover, button.bg-secondary:focus {
 
 /***** Star Rating CSS *****/
 .rating {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: center
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center
 }
 
 .rating>input {
-    display: none
+  display: none
 }
 
 .rating>label {
-    position: relative;
-    width: 1em;
-    font-size: 2vw;
-    color: #FFD600;
-    cursor: pointer
+  position: relative;
+  width: 1em;
+  font-size: 2vw;
+  color: #FFD600;
+  cursor: pointer
 }
 
 .rating>label::before {
-    content: "\2605";
-    position: absolute;
-    opacity: 0
+  content: "\2605";
+  position: absolute;
+  opacity: 0
 }
 
 .rating>label:hover:before,
 .rating>label:hover~label:before {
-    opacity: 1 !important
+  opacity: 1 !important
 }
 
 .rating>input:checked~label:before {
-    opacity: 1
+  opacity: 1
 }
 
 .rating:hover>input:checked~label:before {
-    opacity: 0.4
+  opacity: 0.4
 }
 
+/*** Estilo das estrelas do produto avaliado***/
+.avaliacaoMedia{
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center  
+}
+
+.avaliacaoMedia>label {
+  position: relative;
+  width: 1em;
+  font-size: 2vw;
+  color: #FFD600;
+}
