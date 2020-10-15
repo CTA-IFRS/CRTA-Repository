@@ -8,15 +8,22 @@
 							<h1 class="display-4 text-center">RETACE</h1>
 						</div>
 					</div>
-					<form id="buscaTA">
-						<div class="form-group row mr-auto">
-							<div class="md-form col-lg-10 col-md-9 col-sm-8 col-xs-6">
-    							<input class="form-control w-100" type="search" placeholder="Por qual Tecnologia Assistiva está procurando?" aria-label="Buscar">
-    						</div>
-    						<div class="md-form col-lg-2 col-md-3 col-sm-4 col-xs-6">
-    							<button class="btn btn-primary w-100" type="submit">Buscar</button>
-    						</div>
-						</div>
+					<form>
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<select class="selectpicker show-tick" data-width="auto" data-style="btn-primary" data-icon-base="fa">
+									<option data-icon="fa-tag">TAG</option>
+									<option data-icon="fa-font">Termo</option>
+									<option data-icon="fa-th-list">Ver todos</option>
+								</select>
+							</div>
+							<input type="text" class="form-control" placeholder="Busque recursos de tecnologia assistiva" aria-label="Campo de busca com seletor para optar entre buscar por TAGs ou termos">
+							<div class="input-group-append">
+								<button class="btn btn-primary" type="button">
+									<i class="fa fa-search"></i>
+								</button>
+							</div>
+						</div>						
 					</form>
 				</div>
 			</div>

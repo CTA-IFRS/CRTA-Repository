@@ -1,3 +1,4 @@
+<!--layou para listagens de alguns recursos em que a paginação é desnecessária (ex: recursos relacionados, listagem na página inicial. Se for preciso paginação, utilizar o layout listaCardsRecursos. -->
 <div id="listagemRecursos" class="container mt-5">
 	<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-4">
 		@foreach($recursosTA as $recursoTA)
@@ -11,13 +12,6 @@
 				<div class="card-body">
 					<h3 class="card-title"><a href="{{url('exibeRecursoTA/'.$recursoTA->id)}}" class="card-link">{{ $recursoTA->titulo }}</a></h3>
 					<p class="card-text">{{ substr($recursoTA->descricao, 0, 200)." ..." }}</p>
-				</div>
-				<div class="card-footer text-center">
-					<i class="fa fa-star" aria-hidden="true"></i>
-					<i class="fa fa-star" aria-hidden="true"></i>
-					<i class="fa fa-star" aria-hidden="true"></i>
-					<i class="fa fa-star" aria-hidden="true"></i>
-					<i class="fa fa-star" aria-hidden="true"></i>
 				</div>
 			</div>
 		</div>

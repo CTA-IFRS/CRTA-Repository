@@ -82,6 +82,11 @@ button.bg-primary:hover, button.bg-primary:focus {
 button.bg-secondary:hover, button.bg-secondary:focus {
   background-color: #3E67B1!important;
 }
+
+.dottedUnderline{
+  text-decoration:underline!important;
+text-decoration-style: dotted!important;
+}
 /*
 *
 /*******	Fim da customização dos menus *******/
@@ -163,54 +168,3 @@ button.bg-secondary:hover, button.bg-secondary:focus {
   background-color: #3E67B1 !important;
 }
 
-/***** Star Rating CSS *****/
-.rating {
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: center
-}
-
-.rating>input {
-  display: none
-}
-
-.rating>label {
-  position: relative;
-  width: 1em;
-  font-size: 2vw;
-  color: #FFD600;
-  cursor: pointer
-}
-
-.rating>label::before {
-  content: "\2605";
-  position: absolute;
-  opacity: 0
-}
-
-.rating>label:hover:before,
-.rating>label:hover~label:before {
-  opacity: 1 !important
-}
-
-.rating>input:checked~label:before {
-  opacity: 1
-}
-
-.rating:hover>input:checked~label:before {
-  opacity: 0.4
-}
-
-/*** Estilo das estrelas do produto avaliado***/
-.avaliacaoMedia{
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: center  
-}
-
-.avaliacaoMedia>label {
-  position: relative;
-  width: 1em;
-  font-size: 2vw;
-  color: #FFD600;
-}

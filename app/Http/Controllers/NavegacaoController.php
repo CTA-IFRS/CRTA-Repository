@@ -19,8 +19,15 @@ class NavegacaoController extends Controller{
 	 */	
 	public function inicio(Request $request){
 		
-		$recursosTA = RecursoTA::paginate(8);
-		return view('inicio',['listagemDeMaisRelevantes' => false, 'recursosTA' => $recursosTA]);
+		$recursosMaisAcessados = RecursoTA::all()->sortByDesc("visualizacoes");
+		$oitoRecursosMaisAcessados = collect($recursosMaisAcessados)->take(8);
+
+		$recursosMaisRecentes = RecursoTA::all()->sortByDesc("created_at");
+		$oitoRecursosMaisRecentes = collect($recursosMaisRecentes)->take(8);
+		return view('inicio',['listagemDeMaisRelevantes' => false, 
+								'recursosMaisAcessados' => $oitoRecursosMaisAcessados, 
+								'recursosMaisRecentes' => $oitoRecursosMaisRecentes
+				    ]);
 	}
 
 	/** 
@@ -30,10 +37,13 @@ class NavegacaoController extends Controller{
 	 */	
 	public function buscaRecursoTA($tag = null){
 		$recursosTA = array();
+
 		if($tag!=null){
 			$recursosTA = Tag::firstWhere('nome',$tag)->recursosTA()->paginate(8);
+		}else{
+			$recursosTA = RecursoTA::paginate(8);
 		}
-		return view('buscaRecursoTA',[ 'tag' => $tag , 'listagemDeMaisRelevantes' => false, 'recursosTA' => $recursosTA]);
+		return view('buscaRecursoTA',[ 'tag' => $tag, 'recursosTA' => $recursosTA]);
 	}
 
 	/** 

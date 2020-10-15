@@ -196,16 +196,6 @@ class RecursoTAController extends Controller{
     return view('cadastrarTA')->with("tags",$tags);
   }
 
-  /* Lista todos os Recursos de Tecnologia Assistiva e seus dados associados
-  *
-  *   @return \Illuminate\Http\Response
-  */
-
-  public function retrieveAll(){
-    $recursosTA = RecursoTA::all();
-    return view('listaRecursosTA',['recursosTA' => $recursosTA]);
-  }
-
 
   /* Lista e pagina os recursos ta
   *
@@ -214,7 +204,7 @@ class RecursoTAController extends Controller{
 
   public function listaComPaginacao(){
     $recursosTA = RecursoTA::paginate(15);
-    return view('listaCardsRecursos',['recursosTA' => $recursosTA]);
+    return view('layouts.listaCardsRecursos',['recursosTA' => $recursosTA]);
   }
 
 
@@ -226,7 +216,7 @@ class RecursoTAController extends Controller{
  public function atualizaListaAssincronamente(Request $request){
   if($request->ajax()){
     $recursosTA = RecursoTA::paginate(8);
-    return view('listaCardsRecursos',['recursosTA' => $recursosTA])->render();
+    return view('layouts.listaCardsRecursos',['recursosTA' => $recursosTA])->render();
   }
 }
 }

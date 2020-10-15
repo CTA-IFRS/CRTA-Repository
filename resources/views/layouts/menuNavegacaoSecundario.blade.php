@@ -6,25 +6,32 @@
 	<div id="navegacaoSecundaria" class="collapse navbar-collapse">
 		    <ul class="navbar-nav">
       		<li class="nav-item">
-        		<a class="nav-link" href="#"><u> Ir para o conteúdo 1
-        		</u></a>
+        		<a class="nav-link" href="#" accesskey="1"> Ir para o conteúdo
+              <span class="badge badge-primary">1</span>
+            </a>
       		</li>
       		<li class="nav-item">
-        		<a class="nav-link" href="#"><u>  Ir para o menu 2</u></a>
+        		<a class="nav-link" href="#" accesskey="2"> Ir para o menu
+              <span class="badge badge-primary">2</span>
+            </a>
       		</li>
       		<li class="nav-item">
-        		<a class="nav-link" href="#"><u>  Ir para a busca 3</u></a>
+        		<a class="nav-link" href="#" accesskey="3">Ir para a busca
+              <span class="badge badge-primary">3</span>
+            </a>
       		</li>
       		<li class="nav-item">
-        		<a class="nav-link" href="#"><u> Ir para o rodapé 4</u></a>
+        		<a class="nav-link" href="#" accesskey="4"> Ir para o rodapé
+              <span class="badge badge-primary">4</span>
+            </a>
       		</li>
       	</ul>
       	<ul class="navbar-nav navbar-right ml-auto">
       		<li class="nav-item my-2 my-md-0">
-        		<a class="nav-link" href="#"><u> ACESSIBILIDADE </u></a>
+        		<a class="nav-link dottedUnderline" href="#">ACESSIBILIDADE</a>
       		</li>
       		<li class="nav-item my-2 my-md-0">
-        		<a class="nav-link" href="#"><u> MAPA DO SITE </u></a>
+        		<a class="nav-link dottedUnderline" href="#">MAPA DO SITE </a>
       		</li>        
       	</ul>
 	</div>

@@ -26,13 +26,8 @@
 		</div>
 		<div id="colunaDireita" class="card offset-md-1 col-md-3">
 			<div id="indicadores" class="row d-flex align-items-center justify-content-center text-center mt-4">
-				<div id="avaliacoes" class="avaliacaoMedia col-md-6">					
-					@for ($i = 0; $i < $mediaAvaliacao; $i++)
-					<label>&starf;</label> 
-					@endfor
-					@for ($j = 0; $j < $complementoAvaliacao; $j++)
-					<label>&star;</label> 
-					@endfor					
+				<div id="avaliacoes" class="col-md-6">					
+					<input id="avaliacaoMediaRecurso" name="avaliacaoMediaRecurso" value="{{$mediaAvaliacao}}" class="rating-loading">				
 				</div>
 				<div id="acessos" class="col-md-6">
 					<i class="fa fa-eye" aria-hidden="true"></i>
@@ -101,40 +96,18 @@
 				<div class="col-md-12 ml-4">
 					@if(sizeof($recursoTA->tags))
 					@foreach($recursoTA->tags as $tag)
-					@if($tag->publicacao_autorizada)
 					<!-- TODO: após criar a funcionalidade de busca, colocar o link-->
 					<h4 class="d-inline-block"><a href="{{url('buscaRecursoTA/'.$tag->nome)}}" class="badge badge-primary">{{$tag->nome}}</a></h4>
-					@else
-					<h4 class="d-inline-block"><a href="{{url('buscaRecursoTA/'.$tag->nome)}}" class="badge badge-danger">{{$tag->nome}}</a></h4>
-					@endif
 					@endforeach	
 					@else
 					<span class="text-danger"> Recurso sem tags associadas</span>
 					@endif
 				</div>	
 			</div>			
-			<div id="publicacaoAutorizada" class="row">
-				<div class="col-md-12 mt-3">
-					@if($recursoTA->publicacao_autorizada)
-					<span> Publicação autorizada</span>
-					@else
-					<span class="text-danger"> Publicação não autorizada</span>
-					@endif
-				</div>	
-			</div>
 			<div id="avaliacaoPeloUsuario" class="row d-flex align-items-center justify-content-center text-center mt-4">
 				<h5>Avalie o recurso</h5>
-				<div class="rating col-md-6">
-					<input type="radio" name="avaliacao" value="5" id="5">
-					<label for="5">☆</label> 
-					<input type="radio" name="avaliacao" value="4" id="4">
-					<label for="4">☆</label>
-					<input type="radio" name="avaliacao" value="3" id="3">
-					<label for="3">☆</label>
-					<input type="radio" name="avaliacao" value="2" id="2">
-					<label for="2">☆</label>
-					<input type="radio" name="avaliacao" value="1" id="1">
-					<label for="1">☆</label>					
+				<div class="col-md-6">
+					<input id="avaliacaoUsuario" name="avaliacaoUsuario" value="0" class="rating-loading">				
 				</div>
 				<hr class="col-md-10"/>
 			</div>			
@@ -142,7 +115,7 @@
 	</div>
 	<div id="recursosRelacionados" class="card col-md-12 my-5">
 		<h1 class="my-3">Recursos Relacionados</h1>
-		@include('recursosRelacionados')
+		@include('layouts.listaCardsRecursosSemPaginacao')
 	</div>
 </div>
 <!-- Modal -->
@@ -168,13 +141,32 @@
 @endsection
 @section('scripts')
 <script>
-	function desmarcaAvaliacaoDada(){
-		$('#avaliacaoPeloUsuario').closest('div').find('label').each(function(){
-			$(this).text($(this).text().replace("&starf;","&star;"));
-		}); 	
-	}
 
 	$(document).ready(function() {
+
+		$('#avaliacaoMediaRecurso').rating({
+			displayOnly: true, 
+			language: "pt-BR",
+			theme: "krajee-fa",
+			size: "sm"
+		});
+
+		$('#avaliacaoUsuario').rating({
+			language: "pt-BR",
+			theme: "krajee-fa",
+			size: "sm",
+			step: "1"
+		});
+
+		$("#avaliacaoUsuario").rating().on("rating:clear", function(event) {
+			alert("Avaliação cancelada")
+		}).on("rating:change", function(event, value, caption) {
+			if(confirm("Deseja avaliar esse recurso como " + value + " estrelas?")){
+				$(this).rating('refresh',{displayOnly:true});
+			}else{
+				$(this).rating('reset');
+			}
+		});
 
 		$('input[name=avaliacao]').click(function(){
 			$("#modalConfirmaAvaliacao").modal("show");

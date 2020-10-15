@@ -14,6 +14,13 @@ require('../../node_modules/bootstrap-fileinput');
 require('../../node_modules/lightgallery');
 require('../../node_modules/lightslider');
 
+require('../../node_modules/bootstrap-star-rating');
+require('../../node_modules/bootstrap-star-rating/js/star-rating.min.js');
+require('../../node_modules/bootstrap-star-rating/js/locales/pt-BR.js');
+require('../../node_modules/bootstrap-star-rating/themes/krajee-fa/theme.js');
+
+require('../../node_modules/bootstrap-select/dist/js/bootstrap-select.min.js');
+
 window.Vue = require('vue');
 
 /**
