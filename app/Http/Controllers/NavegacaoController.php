@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
+
 use App\RecursoTA;
 use App\Tag;
 use Embed\Embed;
@@ -31,19 +33,43 @@ class NavegacaoController extends Controller{
 	}
 
 	/** 
-	 * Exibe a tela de busca de recursos
-	 *	@param $tag tag que servirá como parâmetro de busca
+	 * Efetua a busca por TAG e então exibe a tela com o resultado da busca
+	 *	@param $tag que servirá como parâmetro de busca
 	 *	@return \Illuminate\Contracts\Support\Renderable
 	 */	
-	public function buscaRecursoTA($tag = null){
-		$recursosTA = array();
+	public function buscaRecursoTAPorTag(Request $request){
+		$tagsCadastradas = Tag::all(['nome'])->pluck('nome');
+
+		$tag = $request->input('parametros');
 
 		if($tag!=null){
 			$recursosTA = Tag::firstWhere('nome',$tag)->recursosTA()->paginate(8);
 		}else{
 			$recursosTA = RecursoTA::paginate(8);
 		}
-		return view('buscaRecursoTA',[ 'tag' => $tag, 'recursosTA' => $recursosTA]);
+		
+		return view('buscaRecursoTA',[ 'tagsCadastradas' => $tagsCadastradas, 'buscaPorTag' => true, 'parametro' => $tag, 'recursosTA' => $recursosTA]);
+	}
+
+	/** 
+	 * Efetua a busca por termo e então exibe a tela com o resultado da busca
+	 *	@param $termo que servirá como parâmetro de busca
+	 *	@return \Illuminate\Contracts\Support\Renderable
+	 */	
+	public function buscaRecursoTAPorTermo(Request $request){
+		$tagsCadastradas = Tag::all(['nome'])->pluck('nome');
+
+		$termo = $request->input('parametros');
+
+		if($termo!=null){
+			$recursosTA =  RecursoTA::where('recursos_ta.titulo', 'LIKE', "%$termo%")
+                  ->orWhere('recursos_ta.descricao', 'LIKE', "%$termo%")
+                  ->paginate(8);
+		}else{
+			$recursosTA = RecursoTA::paginate(8);
+		}
+
+		return view('buscaRecursoTA',[ 'tagsCadastradas' => $tagsCadastradas, 'buscaPorTag' => false,'parametro' => $termo, 'recursosTA' => $recursosTA]);
 	}
 
 	/** 

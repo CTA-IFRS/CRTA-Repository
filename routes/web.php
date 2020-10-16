@@ -23,8 +23,8 @@ Route::get('/painelUsuario', 'HomeController@index');
 
 //Implicit binding para retornar modelo com {idRecursoTA} no banco. Se não encontrar nada, retornar erro 404.
 Route::get('/exibeRecursoTA/{idRecursoTA}', 'NavegacaoController@exibeRecursoTA');
-Route::get('/buscaRecursoTA/{tag}', 'NavegacaoController@buscaRecursoTA');
-Route::get('/buscaRecursoTA/', 'NavegacaoController@buscaRecursoTA');
+Route::get('/buscaRecursoTAPorTag/{tag?}', 'NavegacaoController@buscaRecursoTAPorTag');
+Route::get('buscaRecursoTAPorTermo', ['as' => 'buscaRecursoTAPorTermo', 'uses' => 'NavegacaoController@buscaRecursoTAPorTermo']);
 
 //Rotas de autenticação
 Auth::routes();
