@@ -18,7 +18,7 @@
 		@endforeach
 	</div>
 	<div class="row mt-2 justify-content-center">
-		{{$recursosTA->links()}}
+		<!-- {{$recursosTA->links()}} -->
 	</div>
 </div>
 <script>

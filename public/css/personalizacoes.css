@@ -18,8 +18,9 @@ body { padding-top: 100px; /*50px é a altura padrão das navbars no bootstrap, 
 }
 /************* Banner da tela principal **************/
 .banner{
-	background: url(/imagens/fundoMenuPrincipal.jpg) scroll center no-repeat;
-  background-size: cover;
+	/*background: url(/imagens/fundoMenuPrincipal.jpg) scroll center no-repeat;*/
+  background-color: #3E67B1!important;
+  /**background-size: cover;**/
 }
 /***************************/
 

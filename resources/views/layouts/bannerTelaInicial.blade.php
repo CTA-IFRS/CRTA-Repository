@@ -1,4 +1,4 @@
-<div class="container h-50 mw-100 banner bg-secondary" aria-label="{{ __('Banner com imagem de mãos sobre uma mesa') }}">
+<div class="container h-50 mw-100 banner" aria-label="{{ __('Banner com imagem de mãos sobre uma mesa') }}">
 	<div class="row justify-content-center ">
 		<div class="col-md-8">
 			<div class="card mt-5">

@@ -96,7 +96,6 @@
 				<div class="col-md-12 ml-4">
 					@if(sizeof($recursoTA->tags))
 					@foreach($recursoTA->tags as $tag)
-					<!-- TODO: após criar a funcionalidade de busca, colocar o link-->
 					<h4 class="d-inline-block"><a href="{{url('buscaRecursoTA/'.$tag->nome)}}" class="badge badge-primary">{{$tag->nome}}</a></h4>
 					@endforeach	
 					@else
