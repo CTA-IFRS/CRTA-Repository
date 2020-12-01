@@ -43,9 +43,9 @@ class NavegacaoController extends Controller{
 		$tag = $request->input('parametros');
 
 		if($tag!=null){
-			$recursosTA = Tag::firstWhere('nome',$tag)->recursosTA()->paginate(8);
+			$recursosTA = Tag::firstWhere('nome',$tag)->recursosTA();
 		}else{
-			$recursosTA = RecursoTA::paginate(8);
+			$recursosTA = RecursoTA::all();
 		}
 		
 		return view('buscaRecursoTA',[ 'tagsCadastradas' => $tagsCadastradas, 'buscaPorTag' => true, 'parametro' => $tag, 'recursosTA' => $recursosTA]);
@@ -66,7 +66,7 @@ class NavegacaoController extends Controller{
                   ->orWhere('recursos_ta.descricao', 'LIKE', "%$termo%")
                   ->paginate(8);
 		}else{
-			$recursosTA = RecursoTA::paginate(8);
+			$recursosTA = RecursoTA::all();
 		}
 
 		return view('buscaRecursoTA',[ 'tagsCadastradas' => $tagsCadastradas, 'buscaPorTag' => false,'parametro' => $termo, 'recursosTA' => $recursosTA]);

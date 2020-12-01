@@ -16,12 +16,12 @@ class CriaRecursosTA extends Migration
         Schema::create('recursos_ta', function (Blueprint $table) {
             $table->id();
             $table->string('titulo');
-            $table->string('descricao');
+            $table->longText('descricao');
             $table->boolean('produto_comercial');
-            $table->string('site_fabricante');
+            $table->longText('site_fabricante');
             $table->string('licenca')->nullable(true);
             $table->boolean('publicacao_autorizada')->default(false);
-            $tabke->integer('visualizacoes')->default(0);
+            //$table->integer('visualizacoes')->default(0);
             $table->timestamps();
             $table->engine = 'InnoDB';
         });

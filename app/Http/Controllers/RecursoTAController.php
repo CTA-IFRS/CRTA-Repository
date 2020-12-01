@@ -20,8 +20,8 @@ class RecursoTAController extends Controller{
 
     $regras = [
      'titulo' => 'required|max:255',
-     'descricao' => 'required|max:1020',
-     'siteFabricante' => 'required|max:2048',
+     'descricao' => 'required',
+     'siteFabricante' => 'required',
      'produtoComercial' => 'required',
      'licenca' => 'required_if:produtoComercial,true|max:255',
      'tags' => 'required',
@@ -30,7 +30,7 @@ class RecursoTAController extends Controller{
      'arquivos.*.url' => ['sometimes','regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
      'manuais.*.*' => 'sometimes | required',
      'manuais.*.url' => ['sometimes','regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
-     'textosAlternativos.*.textoAlternativo' => 'required|max:255',
+     'textosAlternativos.*.textoAlternativo' => 'required',
      'fotos.*.*' => 'required|mimes:jpg,png',
    ];
 

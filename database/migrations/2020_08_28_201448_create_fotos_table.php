@@ -16,9 +16,9 @@ class CreateFotosTable extends Migration
         Schema::create('fotos', function (Blueprint $table) {
             $table->id();
             $table->boolean('destaque');
-            $table->string('texto_alternativo');
-            $table->string('caminho_arquivo');
-            $table->string('caminho_thumbnail');
+            $table->longText('texto_alternativo');
+            $table->longText('caminho_arquivo');
+            $table->longText('caminho_thumbnail');
             $table->biginteger('recurso_ta_id')->nullable(false);
             $table->timestamps();
         });

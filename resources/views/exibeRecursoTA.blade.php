@@ -15,7 +15,7 @@
 				@endforeach
 				@foreach($informacoesVideos as $infoVideo)
 				<li class="hasVideo embed-responsive embed-responsive-4by3" data-src="{{$infoVideo->image}}"data-thumb="{{$infoVideo->image}}" data-iframe="{{$infoVideo->url}}">
-					{{!! html_entity_decode($infoVideo->code->html) !!}}
+					{!! html_entity_decode($infoVideo->code->html) !!}
 				</li>
 				@endforeach				
 			</ul>
@@ -81,11 +81,11 @@
 				<h5 class="ml-3 w-100"> Fabricante </h5>
 				<div class="ml-4">
 					<div class="col-md-12">
-						<a href="{{__($recursoTA->site_fabricante)}}">{{__($recursoTA->site_fabricante)}}</a>
+						<a class="text-break" href="{{__($recursoTA->site_fabricante)}}">{{__($recursoTA->site_fabricante)}}</a>
 					</div>			
 					<div class="col-md-12">
 						@if($recursoTA->produto_comercial)
-						<span> Produto comercial sob a licença {{__($recursoTA->licenca)}}</span>
+						<span class="text-break"> Produto comercial sob a licença {{__($recursoTA->licenca)}}</span>
 						@else
 						<span> Produto não comercial</span>
 						@endif

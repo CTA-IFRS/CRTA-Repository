@@ -1,5 +1,5 @@
 <div id="listagemRecursos" class="container mt-5">
-	<h3> Total: {{ $recursosTA->total()}} </h3>
+	<h3> Total: {{ count($recursosTA) }} </h3>
 	<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-4">
 		@foreach($recursosTA as $recursoTA)
 		<div class="col mb-4" >
@@ -13,12 +13,13 @@
 					<h3 class="card-title"><a href="{{url('exibeRecursoTA/'.$recursoTA->id)}}" class="card-link">{{ $recursoTA->titulo }}</a></h3>
 					<p class="card-text">{{ substr($recursoTA->descricao, 0, 200)." ..." }}</p>
 				</div>
+
 			</div>
 		</div>
 		@endforeach
 	</div>
 	<div class="row mt-2 justify-content-center">
-		<!-- {{$recursosTA->links()}} -->
+
 	</div>
 </div>
 <script>

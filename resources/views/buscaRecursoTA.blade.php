@@ -11,7 +11,7 @@
 		@elseif(strlen($parametro)!=0)
 			<h3> Resultado da busca por <i>{{$parametro}}</i> </h3>
 		@else
-			<h3> Buscando por todos os recursos, exibindo os mais acessados </h3>
+			<h3> Buscando por todos os recursos, exibindo os mais acessados primeiro </h3>
 		@endif
 		@include('layouts.listaCardsRecursos')
 	</div>

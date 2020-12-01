@@ -14,7 +14,7 @@ class AdicionaVisualizacoesAosRecursos extends Migration
     public function up()
     {
         Schema::table('recursos_ta', function (Blueprint $table) {
-            $table->integer('visualizacoes');
+            $table->integer('visualizacoes')->default(0);
         });
     }
 
@@ -26,7 +26,7 @@ class AdicionaVisualizacoesAosRecursos extends Migration
     public function down()
     {
         Schema::table('recursos_ta', function (Blueprint $table) {
-            $table->dropColumn('visualizacoes');
+            $table->dropColumn('visualizacoes')->default(0);
         });
     }
 }
