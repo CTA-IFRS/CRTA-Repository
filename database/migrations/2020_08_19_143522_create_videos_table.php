@@ -16,7 +16,6 @@ class CreateVideosTable extends Migration
         Schema::create('videos', function (Blueprint $table) {
             $table->id();
             $table->longText('url')->nullable(false);
-            $table->boolean('destaque')->nullable(false);
             $table->biginteger('recurso_ta_id')->nullable(false);
             $table->timestamps();
         });

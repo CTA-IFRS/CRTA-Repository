@@ -23,9 +23,24 @@ Route::get('/painelUsuario', 'HomeController@index');
 
 //Implicit binding para retornar modelo com {idRecursoTA} no banco. Se não encontrar nada, retornar erro 404.
 Route::get('/exibeRecursoTA/{idRecursoTA}', 'NavegacaoController@exibeRecursoTA');
-Route::get('/buscaRecursoTAPorTag/{tag?}', 'NavegacaoController@buscaRecursoTAPorTag');
+//Route::get('/buscaRecursoTAPorTag/{tag}','NavegacaoController@buscaRecursoTAPorTag');
 Route::get('buscaRecursoTAPorTermo', ['as' => 'buscaRecursoTAPorTermo', 'uses' => 'NavegacaoController@buscaRecursoTAPorTermo']);
 
+//Filtro para saber qual busca realizar ao consultar TAs
+Route::get('/filtro', function(Illuminate\Http\Request $request) {
+//    return dd($request);
+	if(strcmp($request['tipoBusca'],"tags")===0){
+		return redirect()->route('buscaPorTag', ['tag' => $request['termo'] ]);
+	}else if(strcmp($request['tipoBusca'],"termo")===0){
+		return redirect()->route('buscaPorTermo', ['termo' => $request['termo'] ]);
+	}else{
+		return redirect()->route('buscaTodos');
+	}
+})->name('filtro');
+
+Route::get('/buscaRecursoTAPorTag/{tag?}', 'NavegacaoController@buscaRecursoTAPorTag')->name('buscaPorTag');
+Route::get('/buscaRecursoTAPorTermo/{termo?}', 'NavegacaoController@buscaRecursoTAPorTermo')->name('buscaPorTermo');
+Route::get('/buscaPorTodosRecursosTA', 'NavegacaoController@buscaPorTodosRecursosTA')->name('buscaTodos');
 //Rotas de autenticação
 Auth::routes();
 

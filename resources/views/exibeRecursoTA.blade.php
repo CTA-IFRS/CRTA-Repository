@@ -10,7 +10,7 @@
 			<ul id="galeria">
 				@foreach($recursoTA->fotos as $foto)
 				<li data-thumb="{{Storage::url('public/'.$foto->caminho_thumbnail)}}" data-src="{{Storage::url('public/'.$foto->caminho_arquivo)}}">
-					<img class="fotoSelecionada" src="{{Storage::url('public/'.$foto->caminho_arquivo)}}" alt="{{$foto->texto_alternativo}}"/>
+					<img class="fotoSelecionada img-fluid" src="{{Storage::url('public/'.$foto->caminho_arquivo)}}" alt="{{$foto->texto_alternativo}}"/>
 				</li>
 				@endforeach
 				@foreach($informacoesVideos as $infoVideo)
@@ -96,7 +96,7 @@
 				<div class="col-md-12 ml-4">
 					@if(sizeof($recursoTA->tags))
 					@foreach($recursoTA->tags as $tag)
-					<h4 class="d-inline-block"><a href="{{url('buscaRecursoTA/'.$tag->nome)}}" class="badge badge-primary">{{$tag->nome}}</a></h4>
+					<h4 class="d-inline-block"><a href="{{url('buscaRecursoTAPorTag/'.$tag->nome)}}" class="badge badge-primary">{{$tag->nome}}</a></h4>
 					@endforeach	
 					@else
 					<span class="text-danger"> Recurso sem tags associadas</span>
@@ -187,7 +187,9 @@
 					selector: '#galeria .lslide'
 				});
 			}   
-		});  
+		});
+
+		$('.video-stream').addClass("embed-responsive-item");
 	});
 </script>
 @endsection

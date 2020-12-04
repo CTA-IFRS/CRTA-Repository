@@ -109,7 +109,6 @@ class RecursoTAController extends Controller{
     foreach (request('videos') as $video) {
       $novoVideo = new Video();
       $novoVideo->url = $video['url'];
-      $novoVideo->destaque = (int)filter_var($video['destaque'], FILTER_VALIDATE_BOOLEAN);
       array_push($videoUrls,$novoVideo);           
     }
     $recursoTA->videos()->saveMany($videoUrls);
@@ -121,26 +120,40 @@ class RecursoTAController extends Controller{
     $fotosCarregadas = $request->file('fotos');
     $fotos = array();
     foreach ($fotosCarregadas as $foto) {
-          //Torna o nome aleatorio para evitar colisão, evitar possibilidade de bugs futuros
+      //Torna o nome aleatorio para evitar colisão, evitar possibilidade de bugs futuros
       $novoNomeFoto = time().'_'.$foto->getClientOriginalName();
-          //Salva a foto no servidor, na pasta uploads
-        // resize the image to a width of 300 and constrain aspect ratio (auto height)
-      $caminhoFoto = $foto->storeAs('uploads',$novoNomeFoto,'public');
 
-      $thumbnailFoto = Image::make(storage_path('app/public/uploads/').$novoNomeFoto);
+      // This will generate an image with transparent background
+      // If you need to have a background you can pass a third parameter (e.g: '#000000')
+      $fotoRedimensionada = Image::canvas(640, 480);
 
-      $larguraMaximaThumbail = 200; //px
+      $fotoEmProcessamento  = Image::make($foto)->resize(640, 480, function($constraint)
+      {
+        $constraint->aspectRatio();
+      })->encode('jpg');
+
+      $fotoRedimensionada->insert($fotoEmProcessamento, 'center');
+      $fotoRedimensionada->save(storage_path('app/public/uploads/').$novoNomeFoto);
+
+      //$caminhoFoto = $foto->storeAs('uploads',$novoNomeFoto,'public');
+      //Processa a imagem para criar a thumbnail
+      $thumbnailFoto = Image::make($foto);
+
+      $larguraMaximaThumbail = 200; //px_close(pxdoc)
       $alturaMaximaThumbnail = 150; //px
       //Dependendo da dimensão que for maior, limita o resize.
       $thumbnailFoto->height() > $thumbnailFoto->width() ? $width=null : $height=null;
- 
+
       $thumbnailFoto->resize($larguraMaximaThumbail, $alturaMaximaThumbnail, function ($constraint) {
         $constraint->aspectRatio();
       });
 
+      //Salva a thumbnail criada a partir da imagem do upload
       $thumbnailFoto->save(storage_path('app/public/thumbnails/').$novoNomeFoto,100);
+
+      //Instancia uma Foto para adicionar ao array de fotos do RecursoTA
       $novaFoto = new Foto();
-      $novaFoto->caminho_arquivo= $caminhoFoto;
+      $novaFoto->caminho_arquivo= 'uploads/'.$novoNomeFoto;
       $novaFoto->caminho_thumbnail= 'thumbnails/'.$novoNomeFoto;
       $nomeArquivoSanitizado = str_replace(str_split("()"),'_',trim($foto->getClientOriginalName()));
       if($nomeArquivoSanitizado==request('fotoDestaque')){

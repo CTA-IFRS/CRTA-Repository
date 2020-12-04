@@ -281,11 +281,9 @@
                     '<div class="card">'+
                     '<div class="card-body"'+
                     '<h5>'+
-                    '<i class="fa fa-star" aria-hidden="true"></i>'+
                     '<a href="'+inputUrlVideo.val()+'" class="mx-4">'+inputUrlVideo.val()+'</a>'+
                     '<i class="fa fa-trash" aria-hidden="true"></i>'+
                     '<input name="videos['+contadorUrls+'][url]" class="form-control" type="hidden" value="'+inputUrlVideo.val()+'"/>'+
-                    '<input name="videos['+contadorUrls+'][destaque]" class="form-control" type="hidden" value="false"/>'+
                     '</h5>'+
                     '</div>'+
                     '</div>'+
@@ -317,22 +315,6 @@
                 $("#videos").append(
                     '<li id="avisoListaVazia" class="list-group-item">Não serão adicionados vídeos</li>');
             }
-        });
-
-        /**Seleciona uma das urls como favorita**/
-        $('#divVideos').on('click', '.fa-star', function (evento) {
-            evento.preventDefault();
-
-            //Itera sobre os destaques da lista procurando desfazer a antiga indicação, se houver
-            $('[name^="videos"][name$="[destaque]"]').each(function(i,elemento){
-                if(elemento.value==='true'){
-                    elemento.value ='false';
-                    $(elemento).closest('li').removeClass('destaque');
-                }
-            });
-
-            $(this).closest('li').find('[name^="videos"][name$="[destaque]"]').val('true');
-            $(this).closest('li').addClass('destaque');
         });
 
         var btnAdicionarArquivo = $('#btnAdicionarArquivo');

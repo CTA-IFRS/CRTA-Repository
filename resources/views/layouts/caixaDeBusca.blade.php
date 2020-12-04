@@ -1,33 +1,44 @@
-<form id="buscaRecursosTA" method="get">
-	<div class="row">
-		<div class="col-sm-12">
-			<div class="input-group mb-3">
-				<div class="input-group-prepend">
-					<select id="seletorBusca" class="selectpicker show-tick" data-width="auto" data-style="btn-primary" data-icon-base="fa">
-						<option data-icon="fa-tag" value="tag">TAG</option>
-						<option data-icon="fa-font" value="termo">Termo</option>
-						<option data-icon="fa-th-list" value="todos" selected>Ver todos</option>
-					</select>
-				</div>
-				<input type="text" name="parametros" class="form-control" placeholder="Busque recursos de tecnologia assistiva" aria-label="Campo de busca com seletor para optar entre buscar por TAGs ou termos">
-				<div class="input-group-append">
-					<button class="btn btn-primary" type="submit">
-						<i class="fa fa-search"></i>
-					</button>
-				</div>
-			</div>
+<form id="buscaRecursosTA" method="get" action="/filtro">
+	<div class="row col-sm-12 col-12 justify-content-center justify-content-sm-center no-gutters input-group mb-3">
+		<div class="input-group-prepend">
+			<input type="hidden" name="tipoBusca">
+			<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ver todos</button>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" href="#">TAG</a>
+				<a class="dropdown-item" href="#">Termo</a>
+				<div role="separator" class="dropdown-divider"></div>
+				<a class="dropdown-item" href="#">Ver todos</a>
+			</div>					
 		</div>
-	</div>						
+		<div class="col-sm-9 col-7">
+			<input type="text" name="termo" class="form-control" placeholder="Busque recursos de tecnologia assistiva" aria-label="Campo de busca com seletor para optar entre buscar por TAGs ou termos" required="true">
+		</div>
+		<div class="col-sm-1 col-1 input-group-append">
+			<button class="btn btn-primary" type="submit">
+				<i class="fa fa-search"></i>
+			</button>
+		</div>
+	</div>		
 </form>
 
 <script type="text/javascript">
 	document.addEventListener('DOMContentLoaded', function () {
+		$('input[name="termo"]').attr('disabled','disabled');
+		$('input[name="termo"]').attr("placeholder","Busque por todas as tecnologias assistivas cadastradas");
+		$('input[name="tipoBusca"]').val('todos');
+		$("#buscaRecursosTA").attr('action', "{{ route('filtro', ['tipoBusca' => $tipoBusca ?? '' ]) }}")	
 
-		$("#seletorBusca").change(function() {
-			var selected = $(this).children(":selected").val();
-			switch (selected) {
-				case "tag":
-				$('input[name="parametros"]').amsifySuggestags({
+		$('.dropdown-item').on('click',  function(){
+			var seletorFiltro = $(this).parent().siblings('button');
+			var opcaoEscolhida = $(this).text();
+
+			$(seletorFiltro).text(opcaoEscolhida);
+			$(seletorFiltro).val(opcaoEscolhida);
+
+			if(opcaoEscolhida==="TAG"){
+				$('input[name="termo"]').removeAttr('disabled');
+				$('input[name="tipoBusca"]').val('tags');
+				$('input[name="termo"]').amsifySuggestags({
 					showAllSuggestions: true,
 					whiteList: true,
 					selectOnHover: true,
@@ -35,28 +46,25 @@
 					printValues: false,
 					suggestions: {!!$tagsCadastradas ?? '{}' !!},
 					defaultTagClass: 'tagChip',
-					noSuggestionMsg: 'Categoria não encontrada',
+					noSuggestionMsg: 'Categoria não encontrada'
 				});
-				$('input[name="parametros"]').attr("placeholder","Escolha e realize a busca por TAGs");
-				$('div[class="amsify-suggestags-area"]')[0].style.setProperty('width', '81%', 'important');
-				$("#buscaRecursosTA").attr('action', '/buscaRecursoTAPorTag');
-				alert("Form Action is Changed to /buscaRecursoTAPorTag");
-				break;
+				$('input[class="amsify-suggestags-input"]').attr("placeholder","Busque por TAGs");        	
+				$("#buscaRecursosTA").attr('action', "{{ route('filtro', ['tipoBusca' => $tipoBusca ?? '', 'tags' => $termo ?? '']) }}");
 
-				case "termo":
-				$('input[name="parametros"]').amsifySuggestags({}, 'destroy');
-				$("#buscaRecursosTA").attr('action', '/buscaRecursoTAPorTermo');
-				alert("Form Action is Changed to /buscaRecursoTAPorTermo");
-				break;
+			}else if(opcaoEscolhida==="Termo"){
+				$('input[name="termo"]').amsifySuggestags({}, 'destroy');
+				$('input[name="tipoBusca"]').val('termo');
+				$('input[name="termo"]').attr("placeholder","Digite e busque por palavras no titulo ou descrição da TA");
+				$('input[name="termo"]').val("");
+				$('input[name="termo"]').removeAttr('disabled');
+				$("#buscaRecursosTA").attr('action', "{{ route('filtro', ['tipoBusca' => $tipoBusca ?? '', 'termo' => $termo ?? '']) }}");
 
-				case "todos":
-				$('input[name="parametros"]').amsifySuggestags({}, 'destroy');
-				$("#buscaRecursosTA").attr('action', '/buscaRecursoTAPorTag');
-				alert("Form Action is Changed to todos");
-				break;
-
-				default:
-				$("#buscaRecursosTA").attr('action', '/buscaRecursoTAPorTag');
+			}else{
+				$('input[name="termo"]').amsifySuggestags({}, 'destroy');
+				$('input[name="tipoBusca"]').val('todos');
+				$('input[name="termo"]').attr('disabled','disabled');
+				$('input[name="termo"]').attr("placeholder","Busque por todas as tecnologias assistivas cadastradas");
+				$("#buscaRecursosTA").attr('action', "{{ route('filtro', ['tipoBusca' => $tipoBusca ?? '' ]) }}");        		
 			}
 		});
 	});	

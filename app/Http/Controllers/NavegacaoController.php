@@ -20,6 +20,8 @@ class NavegacaoController extends Controller{
 	 *	@return \Illuminate\Contracts\Support\Renderable
 	 */	
 	public function inicio(Request $request){
+		//Necessário para popular as tags existentes no DB
+		$tagsCadastradas = Tag::all(['nome'])->pluck('nome');
 		
 		$recursosMaisAcessados = RecursoTA::all()->sortByDesc("visualizacoes");
 		$oitoRecursosMaisAcessados = collect($recursosMaisAcessados)->take(8);
@@ -28,7 +30,8 @@ class NavegacaoController extends Controller{
 		$oitoRecursosMaisRecentes = collect($recursosMaisRecentes)->take(8);
 		return view('inicio',['listagemDeMaisRelevantes' => false, 
 								'recursosMaisAcessados' => $oitoRecursosMaisAcessados, 
-								'recursosMaisRecentes' => $oitoRecursosMaisRecentes
+								'recursosMaisRecentes' => $oitoRecursosMaisRecentes,
+								'tagsCadastradas' => $tagsCadastradas
 				    ]);
 	}
 
@@ -37,18 +40,25 @@ class NavegacaoController extends Controller{
 	 *	@param $tag que servirá como parâmetro de busca
 	 *	@return \Illuminate\Contracts\Support\Renderable
 	 */	
-	public function buscaRecursoTAPorTag(Request $request){
+	public function buscaRecursoTAPorTag(Request $request,$tag){
+		//Necessário para popular as tags existentes no DB
 		$tagsCadastradas = Tag::all(['nome'])->pluck('nome');
 
-		$tag = $request->input('parametros');
+		$arrayTagsInformadas = explode(",",$tag);
 
-		if($tag!=null){
-			$recursosTA = Tag::firstWhere('nome',$tag)->recursosTA();
-		}else{
-			$recursosTA = RecursoTA::all();
-		}
+
+		//Busca por todos os recursos TAs que possuem as mesmas tags que o recurso a ser exibido
+		$resultadoBusca = new Collection();
 		
-		return view('buscaRecursoTA',[ 'tagsCadastradas' => $tagsCadastradas, 'buscaPorTag' => true, 'parametro' => $tag, 'recursosTA' => $recursosTA]);
+		foreach ($arrayTagsInformadas as $tagInformada) {
+			$auxTag = Tag::firstWhere('nome',$tagInformada);
+
+			$resultadoBusca = $resultadoBusca->merge($auxTag->recursosTA);					
+		}
+		//Remove duplicatas originadas por TAs em mais de uma tag
+		$conjuntoOrdenado = $resultadoBusca->unique('id')->sortBy('attributes.visualizacoes');
+		
+		return view('buscaRecursoTA',[ 'tagsCadastradas' => $tagsCadastradas, 'buscaPorTag' => true, 'parametro' => $arrayTagsInformadas, 'recursosTA' => $conjuntoOrdenado]);
 	}
 
 	/** 
@@ -56,20 +66,37 @@ class NavegacaoController extends Controller{
 	 *	@param $termo que servirá como parâmetro de busca
 	 *	@return \Illuminate\Contracts\Support\Renderable
 	 */	
-	public function buscaRecursoTAPorTermo(Request $request){
+	public function buscaRecursoTAPorTermo(Request $request,$termo){
+		//Necessário para popular as tags existentes no DB
 		$tagsCadastradas = Tag::all(['nome'])->pluck('nome');
 
-		$termo = $request->input('parametros');
+		$arrayTermos = explode(" ", $termo);
+		
+		//Busca por todos os recursos TAs que possuem as mesmas tags que o recurso a ser exibido
+		$resultadoBusca = new Collection();
 
-		if($termo!=null){
-			$recursosTA =  RecursoTA::where('recursos_ta.titulo', 'LIKE', "%$termo%")
-                  ->orWhere('recursos_ta.descricao', 'LIKE', "%$termo%")
-                  ->paginate(8);
-		}else{
-			$recursosTA = RecursoTA::all();
+		foreach ($arrayTermos as $termoInformado) {
+			$recursosTA =  RecursoTA::where('recursos_ta.titulo', 'LIKE', "%$termoInformado%")
+                  ->orWhere('recursos_ta.descricao', 'LIKE', "%$termoInformado%")->get();
+            $resultadoBusca = $resultadoBusca->merge($recursosTA);     
 		}
 
-		return view('buscaRecursoTA',[ 'tagsCadastradas' => $tagsCadastradas, 'buscaPorTag' => false,'parametro' => $termo, 'recursosTA' => $recursosTA]);
+		//Remove duplicatas originadas por TAs em mais de uma tag
+		$conjuntoOrdenado = $resultadoBusca->unique('id')->sortBy('attributes.visualizacoes');
+		
+		return view('buscaRecursoTA',[ 'tagsCadastradas' => $tagsCadastradas, 'buscaPorTag' => false,'parametro' => $termo, 'recursosTA' => $conjuntoOrdenado]);
+	}
+
+	/** 
+	 * Efetua a busca por todos os recursos TA
+	 *	@return \Illuminate\Contracts\Support\Renderable
+	 */	
+	public function buscaPorTodosRecursosTA(Request $request){
+		//Necessário para popular as tags existentes no DB
+		$tagsCadastradas = Tag::all(['nome'])->pluck('nome');
+
+		$recursosTA = RecursoTA::all();
+		return view('buscaRecursoTA',[ 'tagsCadastradas' => $tagsCadastradas, 'buscaPorTag' => false,'parametro' => 'Todos os recursos', 'recursosTA' => $recursosTA]);		
 	}
 
 	/** 
@@ -124,7 +151,7 @@ class NavegacaoController extends Controller{
 			$recursosRelacionados = $recursosRelacionados->merge($tag->recursosTA);
 		}
 		//Ordena os recursos obtidos pela quantidade de visualizações
-		$conjuntoOrdenado = $recursosRelacionados->sortBy('attributes.visualizacoes');
+		$conjuntoOrdenado = $recursosRelacionados->unique('titulo')->sortBy('attributes.visualizacoes');
 		//Pega os primeiros 4 para exibir como recursos relacionados
 		$quatroRelacionadosMaisVistos = collect($conjuntoOrdenado)->take(4);
 
