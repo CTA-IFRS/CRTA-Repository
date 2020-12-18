@@ -19,7 +19,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'NavegacaoController@inicio');
 Route::get('/entrar', 'NavegacaoController@login');
 Route::get('/registrar', 'NavegacaoController@cadastroUsuario');
-Route::get('/painelUsuario', 'HomeController@index');
+Route::get('/painelAdministrador', 'HomeController@index');
+Route::get('/administrarRecursosTA', 'HomeController@administrarRecursosTA');
+
 
 //Implicit binding para retornar modelo com {idRecursoTA} no banco. Se não encontrar nada, retornar erro 404.
 Route::get('/exibeRecursoTA/{idRecursoTA}', 'NavegacaoController@exibeRecursoTA');

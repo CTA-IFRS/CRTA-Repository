@@ -6,7 +6,7 @@
 <div id="formularioLogin" class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
+            <div class="card mb-4">
                 <div class="card-header">{{ __('Entrar') }}</div>
 
                 <div class="card-body">

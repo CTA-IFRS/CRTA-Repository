@@ -103,29 +103,29 @@ class NavegacaoController extends Controller{
 	 * Exibe a tela de login 
 	 *
 	 *	@return \Illuminate\Contracts\Support\Renderable
-	 */	
+	 */
 	public function login(){
 		return view('auth.login');
 	}
 
 
 	/** 
-	 * Exibe a tela de cadastro de usuário
+	 * Exibe a tela de cadastro
 	 *
 	 *	@return \Illuminate\Contracts\Support\Renderable
-	 */	
+	 */
 	public function cadastroUsuario(){
 		return view('auth.register');
 	}
 
 	/** 
-	 * Exibe a tela do painel do usuário
+	 * Exibe a tela do painel do administrador
 	 *
 	 *	@return \Illuminate\Contracts\Support\Renderable
-	 */	
-	public function painelUsuario(){
-		return view('painelUsuario');
-	}		
+	 */
+	public function painelAdministrador(){
+		return view('painelAdministrador');
+	}
 
 	/** 
 	 * Exibe a tela de cadastro de Tecnologia Assistiva
@@ -173,5 +173,14 @@ class NavegacaoController extends Controller{
 					'complementoAvaliacao' => $complementoAvaliacao, 
 					'recursosTA' =>$quatroRelacionadosMaisVistos,
 					'informacoesVideos' => $infoTodosVideos]);
-	}		
+	}
+
+	/** 
+	 * Exibe a tela do admin
+	 *
+	 *	@return \Illuminate\Contracts\Support\Renderable
+	 */	
+	public function testeAdmin(){
+		return view('testeAdmin');
+	}			
 }

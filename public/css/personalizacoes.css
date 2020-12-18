@@ -2,7 +2,11 @@
 
 /*Ajustes sobre o corpo da página
 /*Adiciona espaço para que a navbar secundária permaneça fixa no topo da tela sem sobrepor o conteúdo*/
-body { padding-top: 100px; /*50px é a altura padrão das navbars no bootstrap, como temos duas precisamos de 100px*/ }
+body { 
+  padding-top: 100px; /*50px é a altura padrão das navbars no bootstrap, como temos duas precisamos de 100px*/
+  min-height: 100vh;
+}
+
 /*
 *******************************************************/
 

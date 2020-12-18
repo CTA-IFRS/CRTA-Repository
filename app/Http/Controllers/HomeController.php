@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\RecursoTA;
+use App\Tag;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +25,21 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('painelUsuario');
+        $recursosNaoAprovados = RecursoTA::where('publicacao_autorizada','false')->count();
+        $tagsNaoAprovadas = Tag::where('publicacao_autorizada','false')->count();
+        return view('painelAdministrador',[ 'qtdRecursosNaoAprovados' => $recursosNaoAprovados,
+                                            'qtdTagsNaoAprovadas' => $tagsNaoAprovadas]);
     }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function administrarRecursosTA()
+    {
+        //$recursosTA = RecursoTA::where('publicacao_autorizada','false');
+        $recursosTA = RecursoTA::all();
+        return view('administrarRecursosTA', ['recursosTA' => $recursosTA]);
+    } 
 }
