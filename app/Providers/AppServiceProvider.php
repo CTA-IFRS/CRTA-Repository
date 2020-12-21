@@ -35,14 +35,14 @@ class AppServiceProvider extends ServiceProvider
             $event->menu->add('Repositório');
             $event->menu->add([
                 'text'        => 'Recursos TA',
-                'url'         => '#',
+                'url'         => url('/administrarRecursosTA'),
                 'icon'        => 'fa fa-puzzle-piece',
                 'label'       =>  RecursoTA::where('publicacao_autorizada','false')->count(),
                 'label_color' => 'warning',
             ]);
             $event->menu->add([
                 'text'        => 'Tags',
-                'url'         => '#',
+                'url'         => url('/administrarTags'),
                 'icon'        => 'fa fa-tags',
                 'label'       =>  Tag::where('publicacao_autorizada','false')->count(),
                 'label_color' => 'warning',

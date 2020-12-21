@@ -32,14 +32,26 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Encaminha para a página onde todos os recursos cadastrados, aprovados ou não,
+     * serão listados.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function administrarRecursosTA()
     {
-        //$recursosTA = RecursoTA::where('publicacao_autorizada','false');
         $recursosTA = RecursoTA::all();
         return view('administrarRecursosTA', ['recursosTA' => $recursosTA]);
+    } 
+
+    /**
+     * Encaminha para a página onde todos as tags cadastradas, aprovadas ou não,
+     * serão listadas.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function administrarTags()
+    {
+        $tags = Tag::all();
+        return view('administrarTags', ['tags' => $tags]);
     } 
 }

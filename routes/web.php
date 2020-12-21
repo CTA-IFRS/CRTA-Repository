@@ -21,6 +21,7 @@ Route::get('/entrar', 'NavegacaoController@login');
 Route::get('/registrar', 'NavegacaoController@cadastroUsuario');
 Route::get('/painelAdministrador', 'HomeController@index');
 Route::get('/administrarRecursosTA', 'HomeController@administrarRecursosTA');
+Route::get('/administrarTags', 'HomeController@administrarTags');
 
 
 //Implicit binding para retornar modelo com {idRecursoTA} no banco. Se não encontrar nada, retornar erro 404.

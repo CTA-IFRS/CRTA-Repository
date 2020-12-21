@@ -1,33 +1,33 @@
 @extends('adminlte::page')
 
-@section('title', 'Painel do Administrador - Administrar Recursos TA')
+@section('title', 'Painel do Administrador - Administrar Tags')
 
 @section('content_header')
-<h1 class="display-3">Administrar Recursos de Tecnologia Assistiva</h1>
+<h1 class="display-3">Administrar Tags do Sistema</h1>
 @stop
 
 @section('content')
 <div class="container">
-	<table id="tabelaRecursosTA" class="table table-striped table-bordered dt-responsive w-100">
+	<table id="tabelaTags" class="table table-striped table-bordered dt-responsive w-100">
 		<thead>
 			<tr>
 				<th>Ações</th>
-				<th>Título</th>
-				<th>Cadastrado em</th>
-				<th>Autorizado?</th>
+				<th>Nome</th>
+				<th>Cadastrada em</th>
+				<th>Autorizada?</th>
 				<th>Ações</th>
 			</tr>
 		</thead>
 		<tbody>
-			@foreach($recursosTA as $recursoTA)
+			@foreach($tags as $tag)
 			<tr>
 				<td></td>
-				<td>{{__($recursoTA->titulo)}}</td>
-				<td>{{__($recursoTA->created_at->translatedFormat('d M Y'))}}</td>
+				<td>{{__($tag->nome)}}</td>
+				<td>{{__($tag->created_at->translatedFormat('d M Y'))}}</td>
 				<td class="text-center">
 					<table class="table">
 						<tr>
-							@if($recursoTA->publicacao_autorizada==true)
+							@if($tag->publicacao_autorizada==true)
 							<td>
 								<h4>
 									<span class="badge badge-pill badge-success">Sim</span>
@@ -71,7 +71,7 @@
 <script src="https://cdn.datatables.net/responsive/2.2.6/js/responsive.bootstrap4.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		var table = $('#tabelaRecursosTA').DataTable( {
+		var table = $('#tabelaTags').DataTable( {
 			responsive: {
 				details: {
 					type: 'column'
