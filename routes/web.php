@@ -22,6 +22,9 @@ Route::get('/registrar', 'NavegacaoController@cadastroUsuario');
 Route::get('/painelAdministrador', 'HomeController@index');
 Route::get('/administrarRecursosTA', 'HomeController@administrarRecursosTA');
 Route::get('/administrarTags', 'HomeController@administrarTags');
+Route::get('/autorizaPublicacaoTag/{idTag}', 'HomeController@autorizaPublicacaoTag');
+Route::get('/omitirPublicacaoTag/{idTag}', 'HomeController@omitirPublicacaoTag');
+Route::get('/editarTag/{idTag}', 'HomeController@editarTag');
 
 
 //Implicit binding para retornar modelo com {idRecursoTA} no banco. Se não encontrar nada, retornar erro 404.
@@ -50,6 +53,8 @@ Auth::routes();
 Route::get('/cadastrarTA','RecursoTAController@create');
 Route::get('/listarTA','RecursoTAController@retrieveAll');
 Route::get('/listaCardsRecursos','RecursoTAController@atualizaListaAssincronamente');
+
 //Routes para controllers que irão processar forms devem ser nomeadas
 Route::post('salvaTA','RecursoTAController@store')->name('salvaTA');
+Route::post('salvaEdicaoTag','HomeController@salvaEdicaoTag')->name('salvaEdicaoTag');
 

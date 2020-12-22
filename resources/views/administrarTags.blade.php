@@ -40,7 +40,7 @@
 								</h4>
 							</td>
 							<td>
-								<button type="button" class="btn btn-warning"><b>Avaliar</b></button>
+								<a id="btnAutorizar" href="{{url('/autorizaPublicacaoTag/'.__($tag->id))}}" type="button" class="btn btn-warning"><b>Autorizar</b></a>
 							</td>
 							@endif								
 						</tr>							
@@ -49,8 +49,8 @@
 				<td>
 					<table class="table">
 						<tr>
-							<td><button type="button" class="btn btn-primary"><b>Editar</b></button></td>
-							<td><button type="button" class="btn btn-primary"><b>Excluir</b></button></td>
+							<td><a id="btnEditar" href="{{url('/editarTag/'.__($tag->id))}}"type="button" class="btn btn-primary"><b>Editar</b></a></td>
+							<td><a id="btnOmitir" href="{{url('/omitirPublicacaoTag/'.__($tag->id))}}" type="button" class="btn btn-danger"><b>Omitir</b></a></td>
 						</tr>							
 					</table>
 				</td>
@@ -85,6 +85,24 @@
 			} ],
 			order: [ 1, 'des' ]	
 		} );
+
+		$("#btnAutorizar").click(function(){
+			if(confirm("Deseja disponibilizar a tag para futuros cadastros de TAs no sistema?")){
+				return true;
+			}	
+			else{
+				return false;
+			}
+		});
+
+		$("#btnOmitir").click(function(){
+			if(confirm("Deseja indisponibilizar a tag para futuros cadastros no sistema? Tecnologias Assistivas que possuem a tag continuarão a tê-la")){
+				return true;
+			}	
+			else{
+				return false;
+			}
+		});
 	} );
 </script>
 @stop
