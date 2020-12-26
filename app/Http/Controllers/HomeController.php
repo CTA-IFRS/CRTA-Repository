@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\RecursoTA;
 use App\Tag;
+use Embed\Embed;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;   
 
@@ -133,4 +135,54 @@ class HomeController extends Controller
     $tags = Tag::all();
     return view('administrarTags', ['tags' => $tags]);
 }
+
+    /**
+     * Exibe os dados do recurso a ser avaliado
+     * 
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function revisarRecursoTA($idRecursoTA)
+    {
+        $recursoAlvo = RecursoTA::find($idRecursoTA);
+
+        //Utiliza o package Embed para obter a url que permita esse tipo de uso
+        $embed = new Embed();
+        $infoTodosVideos = Array();
+        foreach ($recursoAlvo->videos as $video) {
+            $infoVideo = $embed->get($video->url);
+            array_push($infoTodosVideos,$infoVideo);
+        }
+
+        return view('revisarRecursoTA', ['recursoTA' => $recursoAlvo,
+                                         'informacoesVideos' => $infoTodosVideos]);
+    }
+
+    /**
+     * Autoriza a publicação do recurso no RETACE
+     * 
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function autorizarPublicacaoRecursoTA($idRecursoTA)
+    {
+        $recursoAlvo = RecursoTA::find($idRecursoTA);
+        $recursoAlvo->publicacao_autorizada = true;
+        $recursoAlvo->save();
+
+        return redirect('/administrarRecursosTA');
+    }
+
+    /**
+     * Oculta o recurso TA para que não seja listado pelo sistema
+     * 
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function omitirRecursoTA($idRecursoTA)
+    {
+        $recursoAlvo = RecursoTA::find($idRecursoTA);
+        $recursoAlvo->publicacao_autorizada = false;
+        $recursoAlvo->save();
+
+        return redirect('/administrarRecursosTA');
+    }
+
 }

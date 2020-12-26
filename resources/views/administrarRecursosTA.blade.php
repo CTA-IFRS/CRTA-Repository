@@ -40,7 +40,7 @@
 								</h4>
 							</td>
 							<td>
-								<button type="button" class="btn btn-warning"><b>Avaliar</b></button>
+								<a id="btnAutorizar" href="{{url('/revisarRecursoTA/'.__($recursoTA->id))}}" type="button" class="btn btn-warning"><b>Revisar</b></a>
 							</td>
 							@endif								
 						</tr>							
@@ -49,8 +49,8 @@
 				<td>
 					<table class="table">
 						<tr>
-							<td><button type="button" class="btn btn-primary"><b>Editar</b></button></td>
-							<td><button type="button" class="btn btn-primary"><b>Excluir</b></button></td>
+							<td>
+								<a id="btnAutorizar" href="{{url('/omitirRecursoTA/'.__($recursoTA->id))}}" type="button" class="btn btn-warning"><b>Omitir</b></a>
 						</tr>							
 					</table>
 				</td>
@@ -71,6 +71,14 @@
 <script src="https://cdn.datatables.net/responsive/2.2.6/js/responsive.bootstrap4.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		$("#btnOmitir").click(function(){
+		if(confirm("Deseja ocultar o recurso? Ele permanecerá no banco de dados, mas não será visível aos usuários do RETACE")){
+			return true;
+		}	
+		else{
+			return false;
+		}
+	});
 		var table = $('#tabelaRecursosTA').DataTable( {
 			responsive: {
 				details: {

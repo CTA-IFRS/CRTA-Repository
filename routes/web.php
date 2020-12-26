@@ -25,7 +25,9 @@ Route::get('/administrarTags', 'HomeController@administrarTags');
 Route::get('/autorizaPublicacaoTag/{idTag}', 'HomeController@autorizaPublicacaoTag');
 Route::get('/omitirPublicacaoTag/{idTag}', 'HomeController@omitirPublicacaoTag');
 Route::get('/editarTag/{idTag}', 'HomeController@editarTag');
-
+Route::get('/revisarRecursoTA/{idRecursoTA}', 'HomeController@revisarRecursoTA');
+Route::get('/autorizarPublicacaoRecursoTA/{idRecursoTA}', 'HomeController@autorizarPublicacaoRecursoTA');
+Route::get('/omitirRecursoTA/{idRecursoTA}', 'HomeController@omitirRecursoTA');
 
 //Implicit binding para retornar modelo com {idRecursoTA} no banco. Se não encontrar nada, retornar erro 404.
 Route::get('/exibeRecursoTA/{idRecursoTA}', 'NavegacaoController@exibeRecursoTA');
