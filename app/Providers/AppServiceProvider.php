@@ -53,11 +53,13 @@ class AppServiceProvider extends ServiceProvider
                 'url'         => '#',
                 'icon'        => 'fa fa-user',
             ]);
+            /*
             $event->menu->add([
                 'text'        => 'Redefinir senha',
                 'url'         => '#',
                 'icon'        => 'fa fa-key',
-            ]);
+            ]);*/
+            /*
             $event->menu->add('Gerenciar Contas');
             $event->menu->add([
                 'text'        => 'Adicionar',
@@ -68,7 +70,7 @@ class AppServiceProvider extends ServiceProvider
                 'text'        => 'Excluir',
                 'url'         => '#',
                 'icon'        => 'fa fa-user-times',
-            ]);
+            ]);*/
         });
     }
 }

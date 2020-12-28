@@ -21,12 +21,12 @@ class NavegacaoController extends Controller{
 	 */	
 	public function inicio(Request $request){
 		//Necessário para popular as tags existentes no DB
-		$tagsCadastradas = Tag::all(['nome'])->pluck('nome');
+		$tagsCadastradas = Tag::where('publicacao_autorizada',true)->pluck('nome');
 		
-		$recursosMaisAcessados = RecursoTA::all()->sortByDesc("visualizacoes");
+		$recursosMaisAcessados = RecursoTA::where('publicacao_autorizada',true)->orderBy('visualizacoes', 'desc')->get();//RecursoTA::all()->sortByDesc("visualizacoes");
 		$oitoRecursosMaisAcessados = collect($recursosMaisAcessados)->take(8);
 
-		$recursosMaisRecentes = RecursoTA::all()->sortByDesc("created_at");
+		$recursosMaisRecentes =  RecursoTA::where('publicacao_autorizada',true)->orderBy('visualizacoes', 'desc')->get();
 		$oitoRecursosMaisRecentes = collect($recursosMaisRecentes)->take(8);
 		return view('inicio',['listagemDeMaisRelevantes' => false, 
 								'recursosMaisAcessados' => $oitoRecursosMaisAcessados, 
@@ -42,7 +42,7 @@ class NavegacaoController extends Controller{
 	 */	
 	public function buscaRecursoTAPorTag(Request $request,$tag){
 		//Necessário para popular as tags existentes no DB
-		$tagsCadastradas = Tag::all(['nome'])->pluck('nome');
+		$tagsCadastradas = Tag::where('publicacao_autorizada',true)->pluck('nome');
 
 		$arrayTagsInformadas = explode(",",$tag);
 
@@ -68,7 +68,7 @@ class NavegacaoController extends Controller{
 	 */	
 	public function buscaRecursoTAPorTermo(Request $request,$termo){
 		//Necessário para popular as tags existentes no DB
-		$tagsCadastradas = Tag::all(['nome'])->pluck('nome');
+		$tagsCadastradas = Tag::where('publicacao_autorizada',true)->pluck('nome');
 
 		$arrayTermos = explode(" ", $termo);
 		
@@ -76,7 +76,8 @@ class NavegacaoController extends Controller{
 		$resultadoBusca = new Collection();
 
 		foreach ($arrayTermos as $termoInformado) {
-			$recursosTA =  RecursoTA::where('recursos_ta.titulo', 'LIKE', "%$termoInformado%")
+			$recursosTA =  RecursoTA::where('publicacao_autorizada',true)
+				  ->where('recursos_ta.titulo', 'LIKE', "%$termoInformado%")
                   ->orWhere('recursos_ta.descricao', 'LIKE', "%$termoInformado%")->get();
             $resultadoBusca = $resultadoBusca->merge($recursosTA);     
 		}
@@ -93,9 +94,9 @@ class NavegacaoController extends Controller{
 	 */	
 	public function buscaPorTodosRecursosTA(Request $request){
 		//Necessário para popular as tags existentes no DB
-		$tagsCadastradas = Tag::all(['nome'])->pluck('nome');
+		$tagsCadastradas = Tag::where('publicacao_autorizada',true)->pluck('nome');
 
-		$recursosTA = RecursoTA::all();
+		$recursosTA = RecursoTA::where('publicacao_autorizada',true)->get();
 		return view('buscaRecursoTA',[ 'tagsCadastradas' => $tagsCadastradas, 'buscaPorTag' => false,'parametro' => 'Todos os recursos', 'recursosTA' => $recursosTA]);		
 	}
 
@@ -142,13 +143,15 @@ class NavegacaoController extends Controller{
 	 *	@return \Illuminate\Contracts\Support\Renderable
 	 */	
 	public function exibeRecursoTA($idRecursoTA){
-		$recursoTA = RecursoTA::find($idRecursoTA);
+		$recursoTA = RecursoTA::findOrFail($idRecursoTA);
 		RecursoTA::where('id', $idRecursoTA)->increment('visualizacoes', 1);
 
-		//Busca por todos os recursos TAs que possuem as mesmas tags que o recurso a ser exibido
+		//Busca por todos os recursos TAs que possuem as mesmas tags (já autorizadas)que o recurso a ser exibido
 		$recursosRelacionados = new Collection();
 		foreach ($recursoTA->tags as $tag) {
-			$recursosRelacionados = $recursosRelacionados->merge($tag->recursosTA);
+			if($tag->publicacao_autorizada==true){
+				$recursosRelacionados = $recursosRelacionados->merge($tag->recursosTA);
+			}
 		}
 		//Ordena os recursos obtidos pela quantidade de visualizações
 		$conjuntoOrdenado = $recursosRelacionados->unique('titulo')->sortBy('attributes.visualizacoes');
@@ -173,14 +176,5 @@ class NavegacaoController extends Controller{
 					'complementoAvaliacao' => $complementoAvaliacao, 
 					'recursosTA' =>$quatroRelacionadosMaisVistos,
 					'informacoesVideos' => $infoTodosVideos]);
-	}
-
-	/** 
-	 * Exibe a tela do admin
-	 *
-	 *	@return \Illuminate\Contracts\Support\Renderable
-	 */	
-	public function testeAdmin(){
-		return view('testeAdmin');
 	}			
 }

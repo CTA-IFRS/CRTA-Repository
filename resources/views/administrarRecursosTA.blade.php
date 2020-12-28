@@ -49,8 +49,9 @@
 				<td>
 					<table class="table">
 						<tr>
-							<td>
-								<a id="btnAutorizar" href="{{url('/omitirRecursoTA/'.__($recursoTA->id))}}" type="button" class="btn btn-warning"><b>Omitir</b></a>
+							<td class="text-center">
+								<a id="btnOmitir" href="{{url('/omitirRecursoTA/'.__($recursoTA->id))}}" type="button" class="btn btn-warning"><b>Omitir</b></a>
+							</td>
 						</tr>							
 					</table>
 				</td>

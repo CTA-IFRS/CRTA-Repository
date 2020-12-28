@@ -20,6 +20,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+/* Implementa a API que o SAAPNE usará para solicitar todos os recursos cadastrados
+ * no RETACE que já foram aprovados pela administração.
+ * @return Json
+ */
 Route::get('/recursosTA', function () {
-    return new RecursosTA(RecursoTA::all());
+    return new RecursosTA(RecursoTA::where('publicacao_autorizada',true)->orderBy('visualizacoes', 'desc')->get());
 });

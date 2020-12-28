@@ -18,13 +18,15 @@ class Tags extends ResourceCollection
     public function toArray($request)
     {
         $this->collection->each(function($tag, $key){
-            $aux =  [ 'nome' => $tag->nome];
+            if($tag->publicacao_autorizada==true){
+                $aux =  [ 'nome' => $tag->nome];
 
-            array_push($this->tags,$aux);
+                array_push($this->tags,$aux);
+            }
         });
 
         return [
-            'meta' => ['total_tags' => $this->collection->count()],
+            'meta' => ['total_tags' => count($this->tags)],
             'tags' => $this->tags   
         ];
     }

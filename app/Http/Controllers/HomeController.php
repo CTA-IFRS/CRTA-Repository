@@ -67,7 +67,7 @@ class HomeController extends Controller
      */
     public function autorizaPublicacaoTag($idTag)
     {
-        $tagAlvo = Tag::find($idTag);
+        $tagAlvo = Tag::findOrFail($idTag);
         $tagAlvo->publicacao_autorizada = true;
         $tagAlvo->save();
 
@@ -83,7 +83,7 @@ class HomeController extends Controller
      */
     public function omitirPublicacaoTag($idTag)
     {
-        $tagAlvo = Tag::find($idTag);
+        $tagAlvo = Tag::findOrFail($idTag);
         $tagAlvo->publicacao_autorizada = false;
         $tagAlvo->save();
 
@@ -98,7 +98,7 @@ class HomeController extends Controller
      */
     public function editarTag($idTag)
     {
-        $tagAlvo = Tag::find($idTag);
+        $tagAlvo = Tag::findOrFail($idTag);
 
         return view('editarTag', ['tag' => $tagAlvo]);
     }
@@ -127,7 +127,7 @@ class HomeController extends Controller
         return response()->json($validador->messages(), 422);
     }
 
-    $tagAlvo = Tag::find($request->idTag);
+    $tagAlvo = Tag::findOrFail($request->idTag);
     $tagAlvo->nome = $request->nomeTag;
     $tagAlvo->publicacao_autorizada = $tagAlvo->publicacao_autorizada; 
     $tagAlvo->save();
@@ -143,7 +143,7 @@ class HomeController extends Controller
      */
     public function revisarRecursoTA($idRecursoTA)
     {
-        $recursoAlvo = RecursoTA::find($idRecursoTA);
+        $recursoAlvo = RecursoTA::findOrFail($idRecursoTA);
 
         //Utiliza o package Embed para obter a url que permita esse tipo de uso
         $embed = new Embed();
@@ -164,7 +164,7 @@ class HomeController extends Controller
      */
     public function autorizarPublicacaoRecursoTA($idRecursoTA)
     {
-        $recursoAlvo = RecursoTA::find($idRecursoTA);
+        $recursoAlvo = RecursoTA::findOrFail($idRecursoTA);
         $recursoAlvo->publicacao_autorizada = true;
         $recursoAlvo->save();
 
@@ -178,7 +178,7 @@ class HomeController extends Controller
      */
     public function omitirRecursoTA($idRecursoTA)
     {
-        $recursoAlvo = RecursoTA::find($idRecursoTA);
+        $recursoAlvo = RecursoTA::findOrFail($idRecursoTA);
         $recursoAlvo->publicacao_autorizada = false;
         $recursoAlvo->save();
 
