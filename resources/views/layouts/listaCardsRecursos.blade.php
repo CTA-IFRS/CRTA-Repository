@@ -11,7 +11,7 @@
 				@endforeach
 				<div class="card-body">
 					<h3 class="card-title"><a href="{{url('exibeRecursoTA/'.$recursoTA->id)}}" class="card-link">{{ $recursoTA->titulo }}</a></h3>
-					<p class="card-text">{{ substr($recursoTA->descricao, 0, 200)." ..." }}</p>
+					<p class="card-text">{{ substr(strip_tags($recursoTA->descricao, 0, 200))." ..." }}</p>
 				</div>
 
 			</div>

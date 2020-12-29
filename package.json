@@ -40,6 +40,7 @@
         "lg-zoom": "^1.2.1",
         "lightgallery": "^1.8.3",
         "lightslider": "^1.1.6",
-        "suggestags": "^1.16.0"
+        "suggestags": "^1.16.0",
+        "tinymce": "^5.6.2"
     }
 }

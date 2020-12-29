@@ -50,7 +50,7 @@ class AppServiceProvider extends ServiceProvider
             $event->menu->add('Dados da conta');
             $event->menu->add([
                 'text'        => 'Informações',
-                'url'         => '#',
+                'url'         => url('/informacoesUsuario'),
                 'icon'        => 'fa fa-user',
             ]);
             /*

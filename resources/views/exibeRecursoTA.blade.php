@@ -21,7 +21,8 @@
 			</ul>
 			<div class="my-3">
 				<h2 class="my-3">Descrição do Recurso</h2>
-				<p class="h5 text-justify">{{ __($recursoTA->descricao) }}</p>				
+
+				<div>{!! html_entity_decode(stripslashes($recursoTA->descricao), ENT_QUOTES, 'UTF-8')!!}</div>				
 			</div>		
 		</div>
 		<div id="colunaDireita" class="card offset-md-1 col-md-3">

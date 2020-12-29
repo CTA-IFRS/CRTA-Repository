@@ -8,7 +8,7 @@
 @stop
 
 @section('content')
-<div id="app" class="container">
+<div class="container">
 	<div class="row">
 		<div class="col-12">
 			<b>Título</b>
@@ -23,7 +23,7 @@
 			<b>Descrição</b>
 		</div>
 		<div class="col-12">
-			{{__($recursoTA->descricao)}}
+			{!! html_entity_decode(($recursoTA->descricao), ENT_QUOTES, 'UTF-8')!!}
 		</div>
 	</div>
 	<hr>

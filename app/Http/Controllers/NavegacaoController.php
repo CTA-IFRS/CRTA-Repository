@@ -115,9 +115,10 @@ class NavegacaoController extends Controller{
 	 *
 	 *	@return \Illuminate\Contracts\Support\Renderable
 	 */
+	/*
 	public function cadastroUsuario(){
 		return view('auth.register');
-	}
+	}*/
 
 	/** 
 	 * Exibe a tela do painel do administrador

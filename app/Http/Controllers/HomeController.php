@@ -35,6 +35,28 @@ class HomeController extends Controller
     }
 
     /**
+     * Encaminha para a página onde todos os dados do usuário logado poderão ser editados
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function informacoesUsuario()
+    {
+        $usuario = auth()->user();
+        return view('informacoesUsuario', ['usuario' => $usuario]);
+    }
+
+    /**
+     * Salva alterações realizadas e encaminha novamente para a página de edição
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function salvaInformacoesUsuario(Request $request)
+    {
+        $usuario = auth()->user();
+        return view('informacoesUsuario', ['usuario' => $usuario]);
+    }
+
+    /**
      * Encaminha para a página onde todos os recursos cadastrados, aprovados ou não,
      * serão listados.
      *

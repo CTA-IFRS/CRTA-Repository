@@ -15,11 +15,15 @@ use Illuminate\Support\Facades\Route;
 
 //In a route, the first parameter is the url and the second parameter can be a callback or controller action. 
 // syntax: 'ControllerName@MethodName'
-
+//Rotas de autenticação
+Auth::routes();
+//Home
 Route::get('/', 'NavegacaoController@inicio');
+//Rotas das funcionalidades do Admin
 Route::get('/entrar', 'NavegacaoController@login');
-Route::get('/registrar', 'NavegacaoController@cadastroUsuario');
+//Route::get('/registrar', 'NavegacaoController@cadastroUsuario');
 Route::get('/painelAdministrador', 'HomeController@index');
+Route::get('/informacoesUsuario','HomeController@informacoesUsuario');
 Route::get('/administrarRecursosTA', 'HomeController@administrarRecursosTA');
 Route::get('/administrarTags', 'HomeController@administrarTags');
 Route::get('/autorizaPublicacaoTag/{idTag}', 'HomeController@autorizaPublicacaoTag');
@@ -29,14 +33,13 @@ Route::get('/revisarRecursoTA/{idRecursoTA}', 'HomeController@revisarRecursoTA')
 Route::get('/autorizarPublicacaoRecursoTA/{idRecursoTA}', 'HomeController@autorizarPublicacaoRecursoTA');
 Route::get('/omitirRecursoTA/{idRecursoTA}', 'HomeController@omitirRecursoTA');
 
+//Rotas das funcionalidades dos RecursosTA
 //Implicit binding para retornar modelo com {idRecursoTA} no banco. Se não encontrar nada, retornar erro 404.
 Route::get('/exibeRecursoTA/{idRecursoTA}', 'NavegacaoController@exibeRecursoTA');
-//Route::get('/buscaRecursoTAPorTag/{tag}','NavegacaoController@buscaRecursoTAPorTag');
 Route::get('buscaRecursoTAPorTermo', ['as' => 'buscaRecursoTAPorTermo', 'uses' => 'NavegacaoController@buscaRecursoTAPorTermo']);
 
 //Filtro para saber qual busca realizar ao consultar TAs
 Route::get('/filtro', function(Illuminate\Http\Request $request) {
-//    return dd($request);
 	if(strcmp($request['tipoBusca'],"tags")===0){
 		return redirect()->route('buscaPorTag', ['tag' => $request['termo'] ]);
 	}else if(strcmp($request['tipoBusca'],"termo")===0){
@@ -49,14 +52,11 @@ Route::get('/filtro', function(Illuminate\Http\Request $request) {
 Route::get('/buscaRecursoTAPorTag/{tag?}', 'NavegacaoController@buscaRecursoTAPorTag')->name('buscaPorTag');
 Route::get('/buscaRecursoTAPorTermo/{termo?}', 'NavegacaoController@buscaRecursoTAPorTermo')->name('buscaPorTermo');
 Route::get('/buscaPorTodosRecursosTA', 'NavegacaoController@buscaPorTodosRecursosTA')->name('buscaTodos');
-//Rotas de autenticação
-Auth::routes();
-
 Route::get('/cadastrarTA','RecursoTAController@create');
 Route::get('/listarTA','RecursoTAController@retrieveAll');
 Route::get('/listaCardsRecursos','RecursoTAController@atualizaListaAssincronamente');
 
-//Routes para controllers que irão processar forms devem ser nomeadas
+//Rotas para processamento de forms devem ser nomeadas
 Route::post('salvaTA','RecursoTAController@store')->name('salvaTA');
 Route::post('salvaEdicaoTag','HomeController@salvaEdicaoTag')->name('salvaEdicaoTag');
-
+Route::post('salvaEdicaoUsuario','HomeController@salvaEdicaoUsuario')->name('salvaEdicaoUsuario');

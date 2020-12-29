@@ -1,6 +1,6 @@
 @extends('layouts.siteLayout')
 
-@section('titulo','RETACE Entrar')
+@section('titulo','RETACE - Entrar')
 
 @section('conteudo')
 <div id="formularioLogin" class="container mt-5">
@@ -58,16 +58,16 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Entrar') }}
                                 </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Esqueci minha senha') }}
+<!--
+                               if (Route::has('password.request'))
+                                    <a class="btn btn-link" href=" route('password_hash(string, PASSWORD_DEFAULT).request') }}">
+                                         __('Esqueci minha senha') }}
                                     </a>
-                                @endif
-
+                                endif-->
+<!--
                                 <a class="btn btn-link" href="/registrar">
                                         {{ __('Cadastrar-me') }}
-                                </a>
+                                </a> -->
                             </div>
                         </div>
                     </form>

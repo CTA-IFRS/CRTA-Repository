@@ -1,7 +1,7 @@
 @extends('layouts.siteLayout')
 @section('titulo','RETACE Cadastrar Tecnologia Assistiva')
 @section('conteudo')
-<div class="container mt-5">
+<div id="app" class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card border-light">
@@ -25,7 +25,7 @@
                         <div class="form-group required row" role="group" aria-labelledby="descricao">
                             <label for="descricao" class="col-md-4 col-form-label text-md-right">{{ __('Breve descrição') }}</label>
                             <div class="col-md-8">
-                                <textarea class="form-control" id="descricao" name="descricao" maxlength="1020">{{ old('descricao') }}</textarea>
+                                <textarea class="form-control descricao" id="descricao" name="descricao"></textarea>
                             </div>
                         </div>
 
@@ -170,7 +170,23 @@
 </div>
 @endsection
 @section('scripts')
+<script src="{{ asset('node_modules/tinymce/tinymce.js') }}"></script>
 <script>
+    tinymce.init({
+        selector:'textarea.descricao',
+        language: 'pt_BR',  
+        max_width: 400,
+        height: 400,
+        plugins: 'preview link',
+        toolbar: 'preview wordcount link',
+        default_link_target: '_blank',
+        setup: function (editor) {
+            editor.on('change', function () {
+                tinymce.triggerSave();
+            });
+        }
+    });
+
     var form = $('#formCadastroRecursoTA');
 
     $("#fotos").fileinput({
@@ -205,7 +221,8 @@
             var formData = new FormData(form[0]);
 
             e.preventDefault();
-
+            //tinyMCE.triggerSave()
+            $('#' + 'descricao').html( tinymce.get('descricao').getContent() );
             $.ajax({
                 type: "POST",
                 url: form.attr('action'),
@@ -235,16 +252,16 @@
                             }else{//se for um campo que pertence a um array
                                 //Se o feedaback de erro se referir a um campo de texto alternativo
                                 if(key.search("textoAlternativo")!=-1){
-                                     $('[name^="textosAlternativos"][name$="[textoAlternativo]"]').each(function(i,elemento){ if(!$(this).val()){
-                                            $(this).after('<span class="invalid-feedback font-weight-bold d-block" role="alert">'+val+'</span>')
-                                          }
-                                     });
-                                }else{
-                                    var nomeArray = key.split('.');
-                                    $('[name^="'+nomeArray[0]+'"][name$="['+nomeArray[1]+']['+nomeArray[2]+']"]').after('<span class="invalid-feedback font-weight-bold d-block" role="alert">'+val+'</span>');
+                                 $('[name^="textosAlternativos"][name$="[textoAlternativo]"]').each(function(i,elemento){ if(!$(this).val()){
+                                    $(this).after('<span class="invalid-feedback font-weight-bold d-block" role="alert">'+val+'</span>')
                                 }
+                            });
+                             }else{
+                                var nomeArray = key.split('.');
+                                $('[name^="'+nomeArray[0]+'"][name$="['+nomeArray[1]+']['+nomeArray[2]+']"]').after('<span class="invalid-feedback font-weight-bold d-block" role="alert">'+val+'</span>');
                             }
-                        });
+                        }
+                    });
                             $('html,body').animate({scrollTop: $('.invalid-feedback').first().offset().top - 50},'slow');
                         }
                     }
