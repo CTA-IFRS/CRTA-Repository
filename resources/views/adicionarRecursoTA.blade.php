@@ -3,17 +3,19 @@
 @section('title', 'Painel do Administrador - Revisar Publicação')
 
 @section('content_header')
-<h1 class="display-3">Revisão para Publicação de Recurso de Tecnologia Assistiva</h1>
-<p class="mt-3 ml-2"> Revise abaixo os dados cadastrados para o recurso, marcando os itens que estão em conformidade com o esperado</p>
+<h1 class="display-3">Adicionar Recurso de Tecnologia Assitiva</h1>
+<p class="mt-3 ml-2"> Preencha o formulário e cadastre o recurso já com as tags e a publicação autorizadas.</p>
 @stop
 
 @section('content')
+@php ($contadorUrls=0)
 <div class="container">
-	<form method="post">
+	<form id="formCadastroRecursoTA" method="post" action="{{ route('insereRecursoTA') }}" enctype="multipart/form-data">
+		{{ csrf_field() }}
 		<div class="form-group required row mt-3" role="group" aria-labelledby="titulo">
 			<label for="titulo" class="col-12 col-form-label">{{ __('Título') }}</label>
 			<div class="col-md-12">
-				<input id="titulo" type="text" class="form-control" name="titulo" value="{{ $recursoTA->titulo }}" autofocus>
+				<input id="titulo" type="text" class="form-control" name="titulo" autofocus>
 				<span class="invalid-feedback bold" role="alert" hidden></span>
 			</div>
 		</div>
@@ -22,7 +24,6 @@
 			<label for="descricao" class="col-12 col-form-label">{{ __('Breve descrição') }}</label>
 			<div class="col-12">
 				<textarea class="form-control descricao" id="descricao" name="descricao">
-					{{ html_entity_decode(($recursoTA->descricao), ENT_QUOTES, 'UTF-8') }}
 				</textarea>
 			</div>
 		</div>
@@ -30,7 +31,7 @@
 		<div class="form-group required row" role="group" aria-labelledby="siteFabricante">
 			<label for="siteFabricante" class="col-12 col-form-label">{{ __('Site do fabricante') }}</label>
 			<div class="col-12">
-				<input id="siteFabricante" type="text" class="form-control" name="siteFabricante" value="{{ $recursoTA->site_fabricante }}">
+				<input id="siteFabricante" type="text" class="form-control" name="siteFabricante">
 			</div>
 		</div>
 		<hr>
@@ -38,27 +39,27 @@
 			<label id="informaSeProdutoComercial" class="col-4 col-form-label">É um produto comercial?</label> 
 			<div id="produtoComercial" class="form-inline col-8">
 				<div class="form-check-inline col-md-4 ">
-					<input class="form-check-input" type="radio" id="comercial" name="produtoComercial" value="true" {{ $recursoTA->produto_comercial ? 'checked' : '' }}>
+					<input class="form-check-input" type="radio" id="comercial" name="produtoComercial" value="true">
 					<label for="produtoComercial" class="form-check-label">{{ __('Sim') }}</label>
 				</div>
 				<div class="form-check-inline col-md-4 ">                            
-					<input class="form-check-input" type="radio" id="naoComercial" name="produtoComercial" value="false" {{ $recursoTA->produto_comercial ? '' : 'checked' }}>
+					<input class="form-check-input" type="radio" id="naoComercial" name="produtoComercial" value="false" checked>
 					<label for="produtoNaoComercial" class="form-check-label">{{ __('Não') }}</label>
 				</div>
 			</div>
 		</div>
 		<hr>
-		<div id="divLicenca" class="form-group required row {{ $recursoTA->produto_comercial ? '' : 'd-none' }}" role="group" aria-labelledby="licenca">
+		<div id="divLicenca" class="form-group required row d-none" role="group" aria-labelledby="licenca">
 			<label for="licenca" class="col-12 col-form-label">{{ __('Licença') }}</label>
 			<div class="col-md-12">
-				<input id="licenca" type="text" class="form-control" name="licenca" value="{{ $recursoTA->licenca }}">
+				<input id="licenca" type="text" class="form-control" name="licenca">
 			</div>
 		</div>
 		<hr>
 		<div class="form-group required row" role="group" aria-labelledby="tags">
 			<label for="tags" class="col-12 col-form-label">{{ __('Tags') }}</label>
 			<div class="col-12">
-				<input type="text" class="form-control" name="tags" id="tags" value="{{$tagsDoRecursoTA}}"/>
+				<input type="text" class="form-control" name="tags" id="tags"/>
 			</div>
 		</div>
 		<hr>
@@ -76,27 +77,7 @@
 			<div class="offset-md-1 col-md-10 mt-4">
 				<label for="manuais">{{__('Manuais a serem cadastrados para este recurso:')}}</label>
 				<ul id="manuais" class="list-group list-group-flush text-center">
-					@if($recursoTA->manuais->count()==0)
 					<li id="avisoListaVazia" class="list-group-item">Não serão adicionados manuais</li>
-					@else
-					@foreach($recursoTA->manuais as $manual)
-					<li class="list-group-item">
-						<div class="card">
-							<div class="card-body">
-								<h5 class="row">
-									<a class="col-10" href="{{$manual->url}}" class="mx-4">{{$manual->url}}</a>
-									<i class="fa fa-trash col-2"></i>
-								</h5>
-								<input name="manuais[{{$contadorUrls}}][url]" class="form-control mt-2" type="hidden" value="{{$manual->url}}"/>
-								<input name="manuais[{{$contadorUrls}}][nome]" class="form-control mt-2" type="text" placeholder="Nome do manual" value="{{$manual->nome}}"/>
-								<input name="manuais[{{$contadorUrls}}][formato]" class="form-control mt-2" type="text" placeholder="Formato/extensão do manual" value="{{$manual->formato}}"/>
-								<input name="manuais[{{$contadorUrls}}][tamanho]" class="form-control mt-2" type="text" placeholder="Tamanho do manual (em Megabytes)" value="{{$manual->tamanho}}"/>
-							</div>
-						</div>
-					</li>
-					@php ($contadorUrls++)
-					@endforeach
-					@endif
 				</ul>
 			</div> 
 		</div>
@@ -115,27 +96,7 @@
 			<div class="offset-1 col-10 mt-4">
 				<label for="arquivos">{{__('Arquivos a serem cadastrados para este recurso:')}}</label>
 				<ul id="arquivos" class="list-group list-group-flush text-center">
-					@if($recursoTA->arquivos->count()==0)
-					<li id="avisoListaVazia" class="list-group-item">Não serão adicionados arquivos</li>
-					@else
-					@foreach($recursoTA->arquivos as $arquivo)
-					<li class="list-group-item">
-						<div class="card">
-							<div class="card-body">
-								<h5 class="row">
-									<a class="col-10" href="{{$arquivo->url}}" class="mx-4">{{$arquivo->url}}</a>
-									<i class="fa fa-trash col-2"></i>
-								</h5>
-								<input name="manuais[{{$contadorUrls}}][url]" class="form-control mt-2" type="hidden" value="{{$arquivo->url}}"/>
-								<input name="manuais[{{$contadorUrls}}][nome]" class="form-control mt-2" type="text" placeholder="Nome do manual" value="{{$arquivo->nome}}"/>
-								<input name="manuais[{{$contadorUrls}}][formato]" class="form-control mt-2" type="text" placeholder="Formato/extensão do manual" value="{{$arquivo->formato}}"/>
-								<input name="manuais[{{$contadorUrls}}][tamanho]" class="form-control mt-2" type="text" placeholder="Tamanho do manual (em Megabytes)" value="{{$arquivo->tamanho}}"/>
-							</div>
-						</div>
-					</li>
-					@php ($contadorUrls++)
-					@endforeach
-					@endif					
+					<li id="avisoListaVazia" class="list-group-item">Não serão adicionados arquivos</li>			
 				</ul>                            
 			</div>                                          
 		</div>
@@ -154,24 +115,7 @@
 			<div class="offset-md-1 col-md-10 mt-4">
 				<label for="videos">{{__('Vídeos a serem cadastrados para este recurso:')}}</label>
 				<ul id="videos" class="list-group list-group-flush text-center">
-					@if($recursoTA->videos->count()==0)
 					<li id="avisoListaVazia" class="list-group-item">Não serão adicionados vídeos</li>
-					@else
-					@foreach($recursoTA->videos as $video)
-					<li class="list-group-item">
-						<div class="card">
-							<div class="card-body">
-								<h5 class="row">
-									<a href=">{{$video->url}}" target="_blank" class="col-10">{{$video->url}}</a>
-									<i class="fa fa-trash col-2" aria-hidden="true"></i>
-									<input name="videos['+contadorUrls+'][url]" class="form-control" type="hidden" value=">{{$video->url}}"/>
-								</h5>
-							</div>
-						</div>
-					</li>
-					@php ($contadorUrls++)
-					@endforeach
-					@endif
 				</ul>
 			</div>                        
 		</div>
@@ -183,18 +127,36 @@
 		</div>
 		<hr>
 		<div class="row py-4">
-			<div class="col-12 pb-2"> <b>Ações</b> </div>
-			<div class="col-2">
-				<a href="{{url('/administrarRecursosTA')}}" class="btn btn-primary"><b>Voltar</b></a>
+			<div class="col-3"	>
+				<a id="btnRejeitar" href="{{url('/administrarRecursosTA')}}" class="btn btn-danger"><b>Cancelar</b></a>
 			</div>
-			<div class="offset-3 col-2"	>
-				<a id="btnRejeitar" href="{{url('/rejeitarPublicacaoRecursoTA/'.$recursoTA->id)}}" class="btn btn-danger"><b>Rejeitar</b></a>
-			</div>
-			<div class="offset-3 col-2">
-				<a id="btnAutorizar" href="{{url('/autorizarPublicacaoRecursoTA/'.$recursoTA->id)}}" class="btn btn-success"><b>Publicar</b></a>
+			<div class="offset-7 col-2">
+				<button id="btnEnviaForm" type="submit" class="btn btn-success">
+					{{ __('Cadastrar') }}
+				</button>
 			</div>
 		</div>
 	</form>
+</div>
+<!-- The Modal -->
+<div class="modal alert alert-success hide fade in" data-keyboard="false" data-backdrop="static" id="modalCadastroRealizado">
+  	<div class="modal-dialog">
+    	<div class="modal-content">
+      		<!-- Modal Header -->
+     		<div class="modal-header">
+        		<h4 class="modal-title">Sucesso</h4>
+    		</div>
+    		<!-- Modal body -->
+    		<div class="modal-body">
+       			<p>O Recurso de Tecnologia Assistiva foi cadastrado com sucesso. Deseja adicionar outro recurso ou retornar à administração de recursos?</p>
+    		</div>
+   			<!-- Modal footer -->
+    		<div class="modal-footer">
+        		<a class="btn btn-primary" href="{{url('/administrarRecursosTA')}}">Ir para administração de recursos</a>
+        		<a class="btn btn-primary" href="{{url('/adicionarRecursoTA')}}">Adicionar novo recurso</a>
+    		</div>
+		</div>
+	</div>
 </div>
 @stop
 
@@ -207,6 +169,8 @@
 <script src="{{ asset('js/app.js') }}"></script>
 
 <script type="text/javascript">
+	var form = $('#formCadastroRecursoTA');
+
 	function isUrlValid(url) {
 		return /^(https?|s?ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(url);
 	}
@@ -243,14 +207,7 @@
 			showUpload: false,
 			showZoom: false,
 		},
-		overwriteInitial: false,
-		initialPreview: [@foreach($recursoTA->fotos as $foto)'<img src="{{Storage::url('public/'.$foto->caminho_arquivo)}}" class="file-preview-image kv-preview-data" alt="{{$foto->texto_alternativo}}">',@endforeach],
-		initialPreviewConfig: [
-		@foreach($recursoTA->fotos as $foto) 
-			{!!'{ caption: "'.$foto->texto_alternativo.'" }'!!},
-		 @endforeach			
-		],
-		initialPreviewShowDelete: true,
+		overwriteInitial: true,
 		uploadExtraData:{ _token: '{{ csrf_token()}}'},
 		required: true          
 	}); 
@@ -259,9 +216,57 @@
 	$(document).ready(function() {
 		var contadorUrls = {{$contadorUrls}};
 
-		@foreach($recursoTA->fotos as $foto)
-		$('input[name*="{!!$foto->texto_alternativo!!}"]').val({!!'"'.$foto->texto_alternativo.'"'!!});
-		@endforeach
+        $("#modalCadastroRealizado").modal("hide");
+
+		form.submit(function(e) {
+			var formData = new FormData(form[0]);
+
+			e.preventDefault();
+			$('#' + 'descricao').html( tinymce.get('descricao').getContent() );
+			$.ajax({
+				type: "POST",
+				url: form.attr('action'),
+				dataType: 'json',
+				cache: false,
+				processData: false,
+				contentType: false, 
+				data: formData,
+				beforeSend: function(xhr)
+				{
+					xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token() }}');
+				},
+				success: function(respostaServidor)
+				{
+                        // open the other modal
+                        $("#modalCadastroRealizado").modal("show");
+                    },
+                    error: function(respostaServidor)
+                    {
+                    	$('.invalid-feedback').remove();
+                    	var erros = JSON.parse(respostaServidor.responseText);
+                    	if(erros){
+                    		$.map(erros, function(val, key) {
+                            //testa se é um campo simples
+                            if(key.lastIndexOf(".")==-1){
+                            	$('#'+key).after('<span class="invalid-feedback font-weight-bold d-block" role="alert">'+val+'</span>');
+                            }else{//se for um campo que pertence a um array
+                                //Se o feedaback de erro se referir a um campo de texto alternativo
+                                if(key.search("textoAlternativo")!=-1){
+                                	$('[name^="textosAlternativos"][name$="[textoAlternativo]"]').each(function(i,elemento){ if(!$(this).val()){
+                                		$(this).after('<span class="invalid-feedback font-weight-bold d-block" role="alert">'+val+'</span>')
+                                	}
+                                });
+                                }else{
+                                	var nomeArray = key.split('.');
+                                	$('[name^="'+nomeArray[0]+'"][name$="['+nomeArray[1]+']['+nomeArray[2]+']"]').after('<span class="invalid-feedback font-weight-bold d-block" role="alert">'+val+'</span>');
+                                }
+                            }
+                        });
+                    		$('html,body').animate({scrollTop: $('.invalid-feedback').first().offset().top - 50},'slow');
+                    	}
+                    }
+                });
+		});
 
 		$('input[name="tags"]').amsifySuggestags({
 			showAllSuggestions: true,

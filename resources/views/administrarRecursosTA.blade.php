@@ -3,7 +3,10 @@
 @section('title', 'Painel do Administrador - Administrar Recursos TA')
 
 @section('content_header')
-<h1 class="display-3">Administrar Recursos de Tecnologia Assistiva</h1>
+<div class="row">
+	<h1 class="display-3 col-md-10">Administrar Recursos de Tecnologia Assistiva</h1>
+	<a href="{{url('/adicionarRecursoTA')}}" class="btn btn-primary col-md-2"><b>Adicionar Recurso</b></a>
+</div>
 @stop
 
 @section('content')
@@ -39,9 +42,6 @@
 									<span class="badge badge-pill badge-danger">Não</span>
 								</h4>
 							</td>
-							<td>
-								<a id="btnAutorizar" href="{{url('/revisarRecursoTA/'.__($recursoTA->id))}}" type="button" class="btn btn-warning"><b>Revisar</b></a>
-							</td>
 							@endif								
 						</tr>							
 					</table>			
@@ -49,8 +49,14 @@
 				<td>
 					<table class="table">
 						<tr>
+							<td>
+								<a id="btnAutorizar" href="{{url('/revisarRecursoTA/'.__($recursoTA->id))}}" class="btn btn-warning"><b>Revisar</b></a>
+							</td>
 							<td class="text-center">
-								<a id="btnOmitir" href="{{url('/omitirRecursoTA/'.__($recursoTA->id))}}" type="button" class="btn btn-warning"><b>Omitir</b></a>
+								<a id="btnOmitir" href="{{url('/omitirRecursoTA/'.__($recursoTA->id))}}" class="btn btn-warning"><b>Omitir</b></a>
+							</td>
+							<td>
+								<a id="btnExcluir" href="{{url('/excluirRecursoTA/'.__($recursoTA->id))}}" class="btn btn-warning"><b>Excluir</b></a>
 							</td>
 						</tr>							
 					</table>

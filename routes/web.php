@@ -30,9 +30,10 @@ Route::get('/autorizaPublicacaoTag/{idTag}', 'HomeController@autorizaPublicacaoT
 Route::get('/omitirPublicacaoTag/{idTag}', 'HomeController@omitirPublicacaoTag');
 Route::get('/editarTag/{idTag}', 'HomeController@editarTag');
 Route::get('/revisarRecursoTA/{idRecursoTA}', 'HomeController@revisarRecursoTA');
+Route::get('/adicionarRecursoTA', 'HomeController@adicionarRecursoTA');
 Route::get('/autorizarPublicacaoRecursoTA/{idRecursoTA}', 'HomeController@autorizarPublicacaoRecursoTA');
 Route::get('/omitirRecursoTA/{idRecursoTA}', 'HomeController@omitirRecursoTA');
-
+Route::get('/excluirRecursoTA/{idRecursoTA}', 'HomeController@excluirRecursoTA');
 //Rotas das funcionalidades dos RecursosTA
 //Implicit binding para retornar modelo com {idRecursoTA} no banco. Se não encontrar nada, retornar erro 404.
 Route::get('/exibeRecursoTA/{idRecursoTA}', 'NavegacaoController@exibeRecursoTA');
@@ -59,4 +60,4 @@ Route::get('/listaCardsRecursos','RecursoTAController@atualizaListaAssincronamen
 //Rotas para processamento de forms devem ser nomeadas
 Route::post('salvaTA','RecursoTAController@store')->name('salvaTA');
 Route::post('salvaEdicaoTag','HomeController@salvaEdicaoTag')->name('salvaEdicaoTag');
-Route::post('salvaEdicaoUsuario','HomeController@salvaEdicaoUsuario')->name('salvaEdicaoUsuario');
+Route::post('insereRecursoTA','HomeController@insereRecursoTA')->name('insereRecursoTA');
