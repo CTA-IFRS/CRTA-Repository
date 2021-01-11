@@ -34,6 +34,7 @@ Route::get('/adicionarRecursoTA', 'HomeController@adicionarRecursoTA');
 Route::get('/autorizarPublicacaoRecursoTA/{idRecursoTA}', 'HomeController@autorizarPublicacaoRecursoTA');
 Route::get('/omitirRecursoTA/{idRecursoTA}', 'HomeController@omitirRecursoTA');
 Route::get('/excluirRecursoTA/{idRecursoTA}', 'HomeController@excluirRecursoTA');
+Route::get('/editarrRecursoTA/{idRecursoTA}', 'HomeController@editarRecursoTA');
 //Rotas das funcionalidades dos RecursosTA
 //Implicit binding para retornar modelo com {idRecursoTA} no banco. Se não encontrar nada, retornar erro 404.
 Route::get('/exibeRecursoTA/{idRecursoTA}', 'NavegacaoController@exibeRecursoTA');
@@ -61,3 +62,5 @@ Route::get('/listaCardsRecursos','RecursoTAController@atualizaListaAssincronamen
 Route::post('salvaTA','RecursoTAController@store')->name('salvaTA');
 Route::post('salvaEdicaoTag','HomeController@salvaEdicaoTag')->name('salvaEdicaoTag');
 Route::post('insereRecursoTA','HomeController@insereRecursoTA')->name('insereRecursoTA');
+Route::post('editarRecursoTA','HomeController@editarRecursoTA')->name('editarRecursoTA');
+Route::post('/removeFoto/{idFoto}','HomeController@removeFoto');

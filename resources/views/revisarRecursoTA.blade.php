@@ -9,7 +9,8 @@
 
 @section('content')
 <div class="container">
-	<form method="post">
+	<form id="revisaoRecursoTA" method="post" action="{{ route('editarRecursoTA') }}" enctype="multipart/form-data">
+		@csrf
 		<div class="form-group required row mt-3" role="group" aria-labelledby="titulo">
 			<label for="titulo" class="col-12 col-form-label">{{ __('Título') }}</label>
 			<div class="col-md-12">
@@ -183,15 +184,13 @@
 		</div>
 		<hr>
 		<div class="row py-4">
-			<div class="col-12 pb-2"> <b>Ações</b> </div>
-			<div class="col-2">
-				<a href="{{url('/administrarRecursosTA')}}" class="btn btn-primary"><b>Voltar</b></a>
+			<div class="col-3"	>
+				<a id="btnRejeitar" href="{{url('/administrarRecursosTA')}}" class="btn btn-danger"><b>Cancelar</b></a>
 			</div>
-			<div class="offset-3 col-2"	>
-				<a id="btnRejeitar" href="{{url('/rejeitarPublicacaoRecursoTA/'.$recursoTA->id)}}" class="btn btn-danger"><b>Rejeitar</b></a>
-			</div>
-			<div class="offset-3 col-2">
-				<a id="btnAutorizar" href="{{url('/autorizarPublicacaoRecursoTA/'.$recursoTA->id)}}" class="btn btn-success"><b>Publicar</b></a>
+			<div class="offset-7 col-2">
+				<button id="btnEnviaForm" type="submit" class="btn btn-success">
+					{{ __('Autorizar') }}
+				</button>
 			</div>
 		</div>
 	</form>
@@ -207,27 +206,14 @@
 <script src="{{ asset('js/app.js') }}"></script>
 
 <script type="text/javascript">
+	function teste(){
+		alert("Xaxing!");
+	}
 	function isUrlValid(url) {
 		return /^(https?|s?ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(url);
 	}
-	$("#btnAutorizar").click(function(){
-		if(confirm("Deseja disponibilizar esse recurso aos usuários do RETACE?")){
-			return true;
-		}	
-		else{
-			return false;
-		}
-	});
 
-	$("#btnRejeitar").click(function(){
-		if(confirm("Deseja rejeitar o recurso? Ele permanecerá no banco de dados, mas não será visível aos usuários do RETACE")){
-			return true;
-		}	
-		else{
-			return false;
-		}
-	});
-
+	var fotoDestaque = "";
 
 	$("#fotos").fileinput({
 		theme: "explorer-fa",
@@ -242,25 +228,84 @@
 		fileActionSettings: {
 			showUpload: false,
 			showZoom: false,
+			showRemove: true,
 		},
 		overwriteInitial: false,
 		initialPreview: [@foreach($recursoTA->fotos as $foto)'<img src="{{Storage::url('public/'.$foto->caminho_arquivo)}}" class="file-preview-image kv-preview-data" alt="{{$foto->texto_alternativo}}">',@endforeach],
 		initialPreviewConfig: [
 		@foreach($recursoTA->fotos as $foto) 
-			{!!'{ caption: "'.$foto->texto_alternativo.'" }'!!},
+			{!! '{ caption: "'.$foto->texto_alternativo.'",
+				  size:"'.filesize(storage_path('app/public/'.$foto->caminho_arquivo)).'", 
+				  url:"'.url('/removeFoto/'.$foto->id).'" }'
+				  !!},
 		 @endforeach			
 		],
 		initialPreviewShowDelete: true,
 		uploadExtraData:{ _token: '{{ csrf_token()}}'},
+		deleteExtraData: { _token: '{{ csrf_token()}}'},
 		required: true          
 	}); 
-
 
 	$(document).ready(function() {
 		var contadorUrls = {{$contadorUrls}};
 
+   		var form = $('#revisaoRecursoTA');
+
+        form.submit(function(e) {
+            var formData = new FormData(form[0]);
+
+            e.preventDefault();
+            //tinyMCE.triggerSave()
+            $('#' + 'descricao').html( tinymce.get('descricao').getContent() );
+            $.ajax({
+                type: "POST",
+                url: form.attr('action'),
+                dataType: 'json',
+                cache: false,
+                processData: false,
+                contentType: false, 
+                data: formData,
+                beforeSend: function(xhr)
+                {
+                    xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token() }}');
+                },
+                success: function(respostaServidor)
+                {
+                        // open the other modal
+                        $("#modalCadastroRealizado").modal("show");
+                    },
+                    error: function(respostaServidor)
+                    {
+                        $('.invalid-feedback').remove();
+                        var erros = JSON.parse(respostaServidor.responseText);
+                        if(erros){
+                            $.map(erros, function(val, key) {
+                            //testa se é um campo simples
+                            if(key.lastIndexOf(".")==-1){
+                                $('#'+key).after('<span class="invalid-feedback font-weight-bold d-block" role="alert">'+val+'</span>');
+                            }else{//se for um campo que pertence a um array
+                                //Se o feedaback de erro se referir a um campo de texto alternativo
+                                if(key.search("textoAlternativo")!=-1){
+                                 $('[name^="textosAlternativos"][name$="[textoAlternativo]"]').each(function(i,elemento){ if(!$(this).val()){
+                                    $(this).after('<span class="invalid-feedback font-weight-bold d-block" role="alert">'+val+'</span>')
+                                }
+                            });
+                             }else{
+                                var nomeArray = key.split('.');
+                                $('[name^="'+nomeArray[0]+'"][name$="['+nomeArray[1]+']['+nomeArray[2]+']"]').after('<span class="invalid-feedback font-weight-bold d-block" role="alert">'+val+'</span>');
+                            }
+                        }
+                    });
+                            $('html,body').animate({scrollTop: $('.invalid-feedback').first().offset().top - 50},'slow');
+                        }
+                    }
+                });
+        });
+
 		@foreach($recursoTA->fotos as $foto)
 		$('input[name*="{!!$foto->texto_alternativo!!}"]').val({!!'"'.$foto->texto_alternativo.'"'!!});
+		@if($foto->destaque)
+		$('input[name*="{!!$foto->texto_alternativo!!}"]').prop('checked', true);
 		@endforeach
 
 		$('input[name="tags"]').amsifySuggestags({

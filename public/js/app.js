@@ -8177,8 +8177,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
                 '</div> ' + 
                 '<div class="clearfix pl-4">'+
                     '<input class="form-check-input" type="radio" id="{caption}" name="fotoDestaque" value="{caption}"><label for="{caption}">Destaque</label>'+
-                    //'<input name="{caption}" type="text" class="form-control" placeholder="Texto alternativo">'+        
-                    '<input name="textosAlternativos[{caption}][textoAlternativo]" type="text" class="form-control" placeholder="Texto alternativo">'+        
+                    '<input name="textosAlternativos[{caption}][textoAlternativo]" type="text" class="form-control" placeholder="Texto alternativo" value="{caption}">'+        
                 '</div>'+
                 '{size}{progress}' +
                 '</div>' +

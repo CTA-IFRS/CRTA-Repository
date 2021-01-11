@@ -21,7 +21,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/painelUsuario';
+    public const HOME = '/painelAdministrador';
 
     /**
      * Define o caminho para tela inicial do sistema.

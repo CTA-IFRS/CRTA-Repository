@@ -53,24 +53,6 @@ class AppServiceProvider extends ServiceProvider
                 'url'         => url('/informacoesUsuario'),
                 'icon'        => 'fa fa-user',
             ]);
-            /*
-            $event->menu->add([
-                'text'        => 'Redefinir senha',
-                'url'         => '#',
-                'icon'        => 'fa fa-key',
-            ]);*/
-            /*
-            $event->menu->add('Gerenciar Contas');
-            $event->menu->add([
-                'text'        => 'Adicionar',
-                'url'         => '#',
-                'icon'        => 'fa fa-user-plus',
-            ]);
-            $event->menu->add([
-                'text'        => 'Excluir',
-                'url'         => '#',
-                'icon'        => 'fa fa-user-times',
-            ]);*/
         });
     }
 }

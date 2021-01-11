@@ -143,10 +143,10 @@ class HomeController extends Controller
     public function salvaEdicaoTag(Request $request)
     {
         $regras = [
-           'nomeTag' => 'required|max:255',
-       ];
+         'nomeTag' => 'required|max:255',
+     ];
 
-       $mensagens = [
+     $mensagens = [
         'nomeTag.required' => 'É preciso informar um nome para a Tag',
         'nomeTag.max' => 'A Tag deve ter menos de 256 caracteres',
     ];
@@ -183,9 +183,9 @@ class HomeController extends Controller
         $tagsDoRecursoTA = implode(',',$recursoAlvo->tags->pluck('nome')->toArray());
 
         return view('revisarRecursoTA', ['recursoTA' => $recursoAlvo,
-         'tagsDoSistema' => $tagsDoSistema,
-         'tagsDoRecursoTA' => $tagsDoRecursoTA,
-         'contadorUrls' => $contadorUrls]);
+           'tagsDoSistema' => $tagsDoSistema,
+           'tagsDoRecursoTA' => $tagsDoRecursoTA,
+           'contadorUrls' => $contadorUrls]);
     }
 
     /**
@@ -232,6 +232,48 @@ class HomeController extends Controller
     }
 
     /**
+     * Remove a foto do servidor
+     *
+     */
+    public function removeFoto($idFoto)
+    {
+        $feedbackExclusão = true;
+
+        $foto = Foto::findOrFail($idFoto);
+        //Deleta os arquivos das fotos armazenados no servidor
+        $caminhoCompletoFoto = storage_path('app/public/').$foto->caminho_arquivo;
+        $caminhoCompletoThumbnail = storage_path('app/public/').$foto->caminho_thumbnail;
+
+        if(File::exists($caminhoCompletoThumbnail)) {
+            if(File::delete($caminhoCompletoThumbnail)){
+                $feedbackExclusão = $feedbackExclusão && true;
+            }else{
+                $feedbackExclusão = $feedbackExclusão && false;
+            }
+        }
+
+        if(File::exists($caminhoCompletoFoto)) {
+            if(File::delete($caminhoCompletoFoto)){
+                $feedbackExclusão = $feedbackExclusão && true;
+            }else{
+                $feedbackExclusão = $feedbackExclusão && false;
+            }
+        }
+
+        Foto::destroy($idFoto);    
+    }
+
+
+    /**
+     * Excluir o recurso TA do banco de dados
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function editarRecursoTA(Request $request)
+    {
+        return dd($request);
+    }
+    /**
      * Excluir o recurso TA do banco de dados
      *
      * @return \Illuminate\Contracts\Support\Renderable
@@ -261,7 +303,7 @@ class HomeController extends Controller
         }
 
         if(count($idsArquivos)!=0){
-           Arquivo::destroy($idsArquivos);
+         Arquivo::destroy($idsArquivos);
         } 
 
         $videosRecursoTA = $recursoAlvo->videos;
@@ -271,13 +313,14 @@ class HomeController extends Controller
         }
 
         if(count($idsVideos)!=0){
-           Video::destroy($idsVideos);
+            Video::destroy($idsVideos);
         } 
 
         $fotosRecursoTA = $recursoAlvo->fotos;
         $idsFotos = Array();
         foreach ($fotosRecursoTA as $foto) {
-            array_push($idsFotos, $foto->id);
+
+        array_push($idsFotos, $foto->id);
 
             //Deleta os arquivos das fotos armazenados no servidor
             $caminhoCompletoFoto = storage_path('app/public/').$foto->caminho_arquivo;
@@ -301,7 +344,7 @@ class HomeController extends Controller
         }
 
         if(count($idsFotos)!=0){
-           Foto::destroy($idsFotos);
+            Foto::destroy($idsFotos);
         } 
 
         DB::table('recurso_ta_tag')->where('recurso_ta_id','=',$idRecursoTA)->delete();
@@ -310,8 +353,8 @@ class HomeController extends Controller
 
         /*return redirect('/administrarRecursosTA')->with([
                 'feedback' =>  $mensagemExclusaoFotos." ".$mensagemExclusaoBanco
-                ]);*/
-        return redirect('/administrarRecursosTA');
+            ]);*/
+            return redirect('/administrarRecursosTA');
     }
 
     /**
@@ -322,22 +365,22 @@ class HomeController extends Controller
     public function insereRecursoTA(Request $request) {
 
         $regras = [
-           'titulo' => 'required|max:255',
-           'descricao' => 'required',
-           'siteFabricante' => 'required',
-           'produtoComercial' => 'required',
-           'licenca' => 'required_if:produtoComercial,true|max:255',
-           'tags' => 'required',
-           'videos.*.url' => ['sometimes','regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
-           'arquivos.*.*' => 'sometimes | required',
-           'arquivos.*.url' => ['sometimes','regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
-           'manuais.*.*' => 'sometimes | required',
-           'manuais.*.url' => ['sometimes','regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
-           'textosAlternativos.*.textoAlternativo' => 'required',
-           'fotos.*.*' => 'required|mimes:jpg,png',
-       ];
+         'titulo' => 'required|max:255',
+         'descricao' => 'required',
+         'siteFabricante' => 'required',
+         'produtoComercial' => 'required',
+         'licenca' => 'required_if:produtoComercial,true|max:255',
+         'tags' => 'required',
+         'videos.*.url' => ['sometimes','regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
+         'arquivos.*.*' => 'sometimes | required',
+         'arquivos.*.url' => ['sometimes','regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
+         'manuais.*.*' => 'sometimes | required',
+         'manuais.*.url' => ['sometimes','regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
+         'textosAlternativos.*.textoAlternativo' => 'required',
+         'fotos.*.*' => 'required|mimes:jpg,png',
+     ];
 
-       $mensagens = [
+     $mensagens = [
         'titulo.required' => 'É preciso informar um título para a Tecnologia Assistiva',
         'titulo.max' => 'O título deve ter menos de 256 caracteres',
         'descricao.required'  => 'Descreva brevemente o que está cadastrando',
@@ -361,7 +404,7 @@ class HomeController extends Controller
         'textosAlternativos.*.textoAlternativo.max' => 'O texto alternativo deve ter menos de 255 caracteres',
         'fotos.required' => 'Faça o upload de ao menos uma foto do recurso',
         'fotos.mimes' => 'A foto deve ser ou jpeg, ou jpg, ou png.',
-        ];
+    ];
 
     $validador = Validator::make($request->all(),$regras,$mensagens);
 
@@ -402,7 +445,7 @@ class HomeController extends Controller
             $novaTag = new Tag();
             $novaTag->nome = $tagInformada;
             //Por estar autenticado como admin, cadastra já com a autorização
-            $novaTag->publicacao_autorizada = false;
+            $novaTag->publicacao_autorizada = true;
             $novaTag->save();
             array_push($arrayIdsTags,$novaTag->id);
         }
