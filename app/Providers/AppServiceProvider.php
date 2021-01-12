@@ -32,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
         \Carbon\Carbon::setLocale('pt_BR');
 
         $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
-            $event->menu->add('Repositório');
+            $event->menu->add('Administrar Repositório');
             $event->menu->add([
                 'text'        => 'Recursos TA',
                 'url'         => url('/administrarRecursosTA'),
@@ -41,12 +41,23 @@ class AppServiceProvider extends ServiceProvider
                 'label_color' => 'warning',
             ]);
             $event->menu->add([
-                'text'        => 'Tags',
+                'text'        => 'Administrar Tags',
                 'url'         => url('/administrarTags'),
                 'icon'        => 'fa fa-tags',
                 'label'       =>  Tag::where('publicacao_autorizada','false')->count(),
                 'label_color' => 'warning',
             ]);
+            $event->menu->add('Administrar Páginas');
+            $event->menu->add([
+                'text'        => 'Aprender',
+                'url'         => url('/editarPaginaAprender'),
+                'icon'        => 'fa fa-book',
+            ]);
+            $event->menu->add([
+                'text'        => 'Sobre',
+                'url'         => url('/editarPaginaSobre'),
+                'icon'        => 'fa fa-info',
+            ]);            
             $event->menu->add('Dados da conta');
             $event->menu->add([
                 'text'        => 'Informações',

@@ -302,10 +302,12 @@
                 });
         });
 
+
 		@foreach($recursoTA->fotos as $foto)
 		$('input[name*="{!!$foto->texto_alternativo!!}"]').val({!!'"'.$foto->texto_alternativo.'"'!!});
 		@if($foto->destaque)
 		$('input[name*="{!!$foto->texto_alternativo!!}"]').prop('checked', true);
+		@endif
 		@endforeach
 
 		$('input[name="tags"]').amsifySuggestags({

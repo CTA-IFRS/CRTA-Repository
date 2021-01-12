@@ -17,6 +17,7 @@ use App\Video;
 use App\Arquivo;
 use App\Manual;
 use App\Foto;
+use App\Pagina;
 
 class HomeController extends Controller
 {
@@ -273,6 +274,7 @@ class HomeController extends Controller
     {
         return dd($request);
     }
+
     /**
      * Excluir o recurso TA do banco de dados
      *
@@ -545,4 +547,49 @@ class HomeController extends Controller
     }
     return response()->json("Recurso cadastrado com sucesso!");
 }
+
+    /**
+     * Encaminha para o formulário de edição de conteúdo da página 'Aprender'
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function editarPaginaAprender()
+    {
+        return view('editarPaginaAprender');
+    }
+
+    /**
+     * Processo o formulário de edição de conteúdo da página 'Aprender'
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function salvarEdicaoPaginaAprender(Request $request)
+    {
+        $regras = [
+         'titulo' => 'required|max:255',
+         'descricao' => 'required',
+        ];
+
+        $mensagens = [
+            'titulo.required' => 'É preciso informar um título para o texto da página "Alterar" ',
+            'titulo.max' => 'O título deve ter menos de 256 caracteres',
+            'descricao.required'  => 'A página "Alterar" deve possuir um texto ',
+        ];
+
+        $validador = Validator::make($request->all(),$regras,$mensagens);
+
+        //Retorna mensagens de validação no formato JSON caso haja problemas
+        if($validador->fails()){
+            return response()->json($validador->messages(), 422);
+        }
+
+        $pagina = Pagina::where('nome', 'Aprender')->firstOrFail();
+
+        $pagina->titulo_texto = request('titulo');
+        $pagina->texto = request('descricao');
+
+        $pagina->save();
+
+        return response()->json("Edição publicada com sucesso!", 200);
+    } 
 }
