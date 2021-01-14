@@ -14,7 +14,8 @@
 		<div class="form-group required row mt-3" role="group" aria-labelledby="titulo">
 			<label for="titulo" class="col-12 col-form-label">{{ __('Título do Texto') }}</label>
 			<div class="col-md-12">
-				<input id="titulo" type="text" class="form-control" name="titulo" value="{{-- $recursoTA->titulo --}}" autofocus>
+				<input id="titulo" type="text" class="form-control" name="titulo" value="{!! html_entity_decode(stripslashes($conteudoPagina->titulo_texto), ENT_QUOTES, 'UTF-8')!!} 
+" autofocus>
 				<span class="invalid-feedback bold" role="alert" hidden></span>
 			</div>
 		</div>
@@ -23,6 +24,7 @@
 			<label for="descricao" class="col-12 col-form-label">{{ __('Texto da Página') }}</label>
 			<div class="col-12">
 				<textarea class="form-control descricao" id="descricao" name="descricao">
+					{!! html_entity_decode(stripslashes($conteudoPagina->texto), ENT_QUOTES, 'UTF-8')!!}
 				</textarea>
 			</div>
 		</div>
@@ -38,6 +40,25 @@
 			</div>
 		</div>
 	</form>
+</div>
+<!-- The Modal -->
+<div class="modal alert alert-success hide fade in" data-keyboard="false" data-backdrop="static" id="modalPublicacaoRealizada">
+  	<div class="modal-dialog">
+    	<div class="modal-content">
+      		<!-- Modal Header -->
+     		<div class="modal-header">
+        		<h4 class="modal-title">Sucesso</h4>
+    		</div>
+    		<!-- Modal body -->
+    		<div class="modal-body">
+       			<p>O conteúdo da página "Aprender" foi editado e publicado com sucesso!</p>
+    		</div>
+   			<!-- Modal footer -->
+    		<div class="modal-footer">
+        		<a class="btn btn-primary" href="{{url('/administrarRecursosTA')}}">Ir para administração de recursos</a>
+    		</div>
+		</div>
+	</div>
 </div>
 @stop
 
@@ -58,7 +79,7 @@
 			max_width: 400,
 			height: 400,
 			plugins: 'preview link lists',
-			toolbar: 'undo redo | styleselect | forecolor | fontselect fontsizeselect bold italic | alignleft aligncenter alignright alignjustify | numlist bullist | outdent indent | link',
+			toolbar: 'undo redo | styleselect | forecolor | fontselect fontsizeselect bold italic | alignleft aligncenter alignright alignjustify | numlist bullist | outdent indent | link | preview',
 			default_link_target: '_blank',
 			setup: function (editor) {
 				editor.on('change', function () {
@@ -92,7 +113,7 @@
             	success: function(respostaServidor)
             	{
                         // open the other modal
-                        alert(respostaServidor);
+					$("#modalPublicacaoRealizada").modal("show");
                 },
                 error: function(respostaServidor)
                 {

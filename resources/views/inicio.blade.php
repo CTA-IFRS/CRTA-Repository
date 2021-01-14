@@ -14,8 +14,8 @@
 				<i class="fa fa-desktop fa-5x align-middle"></i>
 				<i class="ml-2 fa fa-book fa-5x"></i>
 			</div>
-			<div class="col-md-3">
-				<h3> Aprender </h3>
+			<div id="aprender" class="col-md-3">
+				<h3><a href="{{ url('/aprender')}}"> Aprender </a> </h3>
 				<p> Acesse cursos, artigos, publicações e outros materiais relacionados à inclusão e tecnologia assistiva </p>
 			</div>
 			<div class="offset-md-1 col-md-2">
@@ -32,4 +32,8 @@
 	@include('layouts.listaCardsRecursosSemPaginacao',['recursosTA' => $recursosMaisRecentes ])
 @endsection
 @section('scripts')
+<script>
+	$(document).ready(function() {
+	});
+</script>
 @endsection

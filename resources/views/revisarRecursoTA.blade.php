@@ -9,7 +9,7 @@
 
 @section('content')
 <div class="container">
-	<form id="revisaoRecursoTA" method="post" action="{{ route('editarRecursoTA') }}" enctype="multipart/form-data">
+	<form id="revisaoRecursoTA" method="post" action="{{ route('editarRecursoTA', [ 'idRecursoTA' => $recursoTA->id]) }}" enctype="multipart/form-data">
 		@csrf
 		<div class="form-group required row mt-3" role="group" aria-labelledby="titulo">
 			<label for="titulo" class="col-12 col-form-label">{{ __('Título') }}</label>
@@ -165,7 +165,7 @@
 								<h5 class="row">
 									<a href=">{{$video->url}}" target="_blank" class="col-10">{{$video->url}}</a>
 									<i class="fa fa-trash col-2" aria-hidden="true"></i>
-									<input name="videos['+contadorUrls+'][url]" class="form-control" type="hidden" value=">{{$video->url}}"/>
+									<input name="videos[{{$contadorUrls}}][url]" class="form-control" type="hidden" value=">{{$video->url}}"/>
 								</h5>
 							</div>
 						</div>
@@ -243,8 +243,17 @@
 		initialPreviewShowDelete: true,
 		uploadExtraData:{ _token: '{{ csrf_token()}}'},
 		deleteExtraData: { _token: '{{ csrf_token()}}'},
-		required: true          
-	}); 
+		validateInitialCount: true,
+		required: true //Não é obrigatório porque          
+	});
+
+	$("#fotos").on("filepredelete", function(jqXHR) {
+        var abort = true;
+        if (confirm("Tem certeza que deseja excluir a imagem?")) {
+            abort = false;
+        }
+        return abort; // you can also send any data/object that you can receive on `filecustomerror` event
+    }); 
 
 	$(document).ready(function() {
 		var contadorUrls = {{$contadorUrls}};
@@ -306,7 +315,7 @@
 		@foreach($recursoTA->fotos as $foto)
 		$('input[name*="{!!$foto->texto_alternativo!!}"]').val({!!'"'.$foto->texto_alternativo.'"'!!});
 		@if($foto->destaque)
-		$('input[name*="{!!$foto->texto_alternativo!!}"]').prop('checked', true);
+		$('input[value*="{!!$foto->texto_alternativo!!}"]').prop('checked', true);
 		@endif
 		@endforeach
 

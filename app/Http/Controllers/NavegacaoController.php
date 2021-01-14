@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\RecursoTA;
 use App\Tag;
+use App\Pagina;
 use Embed\Embed;
 /**
  * Classe para efetuar a navegação entre as páginas do RETACE
@@ -177,5 +178,16 @@ class NavegacaoController extends Controller{
 					'complementoAvaliacao' => $complementoAvaliacao, 
 					'recursosTA' =>$quatroRelacionadosMaisVistos,
 					'informacoesVideos' => $infoTodosVideos]);
+	}
+
+	/** 
+	 * Encaminha o navegador para a página "Aprender"
+	 *
+	 *	@return \Illuminate\Contracts\Support\Renderable
+	 */	
+	public function exibePaginaAprender(){
+
+		$conteudoPagina = Pagina::where('nome','Aprender')->firstOrFail();
+		return view('aprender', ['conteudoPagina' => $conteudoPagina]);
 	}			
 }
