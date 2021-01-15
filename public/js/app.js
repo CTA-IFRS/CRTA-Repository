@@ -8173,15 +8173,15 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     $.fn.fileinputThemes['explorer-fa'] = {
         layoutTemplates: {
             footer: '<div class="file-details-cell">' +
-                '<div class="explorer-caption" title="{caption}">{caption}'+            
-                '</div> ' + 
-                '<div class="clearfix pl-4">'+
-                    '<input class="form-check-input" type="radio" id="{caption}" name="fotoDestaque" value="{caption}"><label for="{caption}">Destaque</label>'+
-                    '<input name="textosAlternativos[{caption}][textoAlternativo]" type="text" class="form-control" placeholder="Texto alternativo" value="{caption}">'+        
-                '</div>'+
-                '{size}{progress}' +
-                '</div>' +
-                '<div class="file-actions-cell">{indicator} {actions}</div>',
+                        '<div class="explorer-caption" title="{caption}">{caption}'+            
+                        '</div> ' + 
+                        '<div class="clearfix pl-4">'+
+                            '<input class="form-check-input" type="radio" id="{previewId}" name="fotoDestaque" value="{previewId}"><label for="{previewId}">Destaque</label>'+
+                            '<input name="textosAlternativos[{previewId}][textoAlternativo]" type="text" class="form-control" placeholder="Texto alternativo" value="{caption}">'+        
+                        '</div>'+
+                        '{size}{progress}' +
+                        '</div>' +
+                        '<div class="file-actions-cell">{indicator} {actions}</div>',
             actions: '{drag}\n' +
                 '<div class="file-actions">\n' +
                 '    <div class="file-footer-buttons">\n' +

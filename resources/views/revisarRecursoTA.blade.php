@@ -163,9 +163,9 @@
 						<div class="card">
 							<div class="card-body">
 								<h5 class="row">
-									<a href=">{{$video->url}}" target="_blank" class="col-10">{{$video->url}}</a>
+									<a href="{{$video->url}}" target="_blank" class="col-10">{{$video->url}}</a>
 									<i class="fa fa-trash col-2" aria-hidden="true"></i>
-									<input name="videos[{{$contadorUrls}}][url]" class="form-control" type="hidden" value=">{{$video->url}}"/>
+									<input name="videos[{{$contadorUrls}}][url]" class="form-control" type="hidden" value="{{$video->url}}"/>
 								</h5>
 							</div>
 						</div>
@@ -206,6 +206,7 @@
 <script src="{{ asset('js/app.js') }}"></script>
 
 <script type="text/javascript">
+	{{ $contadorArquivos = 0 }}
 	function teste(){
 		alert("Xaxing!");
 	}
@@ -240,11 +241,35 @@
 				  !!},
 		 @endforeach			
 		],
+		initialPreviewThumbTags: [
+		@foreach($recursoTA->fotos as $foto) 
+			{!! '{ "{ID_FOTO_BANCO}" : '.$foto->id.',
+				   "{ID_FOTO_NOVA}" : "" },'  !!}
+		 @endforeach			
+		],
+		previewThumbTags: [
+			{!! '{ "{ID_FOTO_BANCO}" : "",
+				   "{ID_FOTO_NOVA}" : "novaFoto-'.$contadorArquivos++.'"
+				 },'  !!}
+		],
 		initialPreviewShowDelete: true,
 		uploadExtraData:{ _token: '{{ csrf_token()}}'},
 		deleteExtraData: { _token: '{{ csrf_token()}}'},
 		validateInitialCount: true,
-		required: true //Não é obrigatório porque          
+		required: true,
+		layoutTemplates: { 
+				footer: '<div class="file-details-cell">' +
+		                '<div class="explorer-caption" title="{caption}">{caption}'+            
+		                '</div> ' + 
+		                '<div class="clearfix pl-4">'+
+		                    '<input class="form-check-input" type="radio" id="{ID_FOTO_BANCO}{ID_FOTO_NOVA}" name="fotoDestaque" value="{ID_FOTO_BANCO}{ID_FOTO_NOVA}"><label for="{ID_FOTO_BANCO}{ID_FOTO_NOVA}">Destaque</label>'+
+		                    '<input name="textosAlternativos[{ID_FOTO_BANCO}{ID_FOTO_NOVA}][textoAlternativo]" type="text" class="form-control" placeholder="Texto alternativo" value="{caption}">'+        
+		                '</div>'+
+		                '{size}{progress}' +
+		                '</div>' +
+		                '<div class="file-actions-cell">{indicator} {actions}</div>',
+				}
+
 	});
 
 	$("#fotos").on("filepredelete", function(jqXHR) {

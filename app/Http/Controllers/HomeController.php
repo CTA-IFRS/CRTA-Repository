@@ -281,7 +281,7 @@ class HomeController extends Controller
            'produtoComercial' => 'required',
            'licenca' => 'required_if:produtoComercial,true|max:255',
            'tags' => 'required',
-           'videos.*.url' => ['sometimes','regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
+           'videos.*.url' => ['sometimes','url'],
            'arquivos.*.*' => 'sometimes | required',
            'arquivos.*.url' => ['sometimes','regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
            'manuais.*.*' => 'sometimes | required',
@@ -392,6 +392,11 @@ class HomeController extends Controller
     /* Processa as novas fotos recebidas do Form. Fotos antigas já estão salvas e 
      * aquelas deletadas são processadas assincronamente (ao apertar o botão lixeira) antes do envio do form
      */
+    $fotoDestaque = Foto::where('nome',request('fotoDestaque'))->firstOrFail();
+    $fotoDestaque->destaque = true;
+    $fotoDestaque->save();
+
+
     if($request->hasFile('fotos')){
         $textosAlternativos = array();
         $textosAlternativos = request('textosAlternativos');
@@ -439,7 +444,7 @@ class HomeController extends Controller
             }else{
                 $novaFoto->destaque = false;
             }
-
+              
             //O nome do arquivo é a chave para acessar o texto alternativo
             $indiceTextoAlternativo = $nomeArquivoSanitizado;
             $novaFoto->texto_alternativo = $textosAlternativos[$indiceTextoAlternativo]['textoAlternativo'];
