@@ -232,6 +232,11 @@
 			showRemove: true,
 		},
 		overwriteInitial: false,
+		previewThumbTags: {
+			{!! "'{ID_FOTO_BANCO}' : '',
+				   '{ID_FOTO_NOVA}' : '{ID_FOTO_NOVA}'
+				 "  !!}
+		},
 		initialPreview: [@foreach($recursoTA->fotos as $foto)'<img src="{{Storage::url('public/'.$foto->caminho_arquivo)}}" class="file-preview-image kv-preview-data" alt="{{$foto->texto_alternativo}}">',@endforeach],
 		initialPreviewConfig: [
 		@foreach($recursoTA->fotos as $foto) 
@@ -243,14 +248,9 @@
 		],
 		initialPreviewThumbTags: [
 		@foreach($recursoTA->fotos as $foto) 
-			{!! '{ "{ID_FOTO_BANCO}" : '.$foto->id.',
-				   "{ID_FOTO_NOVA}" : "" },'  !!}
+			{!! "{ '{ID_FOTO_BANCO}': ".$foto->id.",
+				   '{ID_FOTO_NOVA}' : '' },"  !!}
 		 @endforeach			
-		],
-		previewThumbTags: [
-			{!! '{ "{ID_FOTO_BANCO}" : "",
-				   "{ID_FOTO_NOVA}" : "novaFoto-'.$contadorArquivos++.'"
-				 },'  !!}
 		],
 		initialPreviewShowDelete: true,
 		uploadExtraData:{ _token: '{{ csrf_token()}}'},
@@ -270,6 +270,15 @@
 		                '<div class="file-actions-cell">{indicator} {actions}</div>',
 				}
 
+	});
+
+	//Indexa os radiobuttons e campos de texto alternativo para evitar possíveis bugs ao utilizar dados da foto para isso
+	$('#fotos').on('fileloaded', function(event, file, previewId, fileId, index, reader) {
+		$('div[id="'+previewId+'"').children().each(function () {
+    		$(this).html(function (i, html) {
+        		return $(this).html().replace(/{ID_FOTO_NOVA}/g, 'nova-'+fileId);
+    		});
+		});
 	});
 
 	$("#fotos").on("filepredelete", function(jqXHR) {
