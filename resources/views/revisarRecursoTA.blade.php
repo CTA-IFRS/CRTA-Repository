@@ -178,18 +178,18 @@
 		</div>
 		<hr>
 		<div id="divFotos" class="form-group required row" role="group" aria-labelledby="fotos do recurso">
-			<div class="col-12">
+			<div id="fotoDestaque" class="col-12">
 				<input id="fotos" name="fotos[]" accept="image/*" type="file" class="file" data-browse-on-zone-click="true"  multiple data-show-upload="false" data-show-caption="true" data-msg-placeholder="Faça o upload de ao menos uma foto do recurso" data-allowed-file-extensions='["jpg", "jpeg", "png"]'>
 			</div>
 		</div>
 		<hr>
 		<div class="row py-4">
 			<div class="col-3"	>
-				<a id="btnRejeitar" href="{{url('/administrarRecursosTA')}}" class="btn btn-danger"><b>Cancelar</b></a>
+				<a id="btnRejeitar" href="{{url('/administrarRecursosTA')}}" class="btn btn-danger"><b>{{__('Cancelar')}}</b></a>
 			</div>
 			<div class="offset-7 col-2">
-				<button id="btnEnviaForm" type="submit" class="btn btn-success">
-					{{ __('Autorizar') }}
+				<button id="btnEnviaForm" type="submit" class="btn btn-warning">
+					<b>{{ __('Publicar') }}</b>
 				</button>
 			</div>
 		</div>
@@ -207,9 +207,7 @@
 
 <script type="text/javascript">
 	{{ $contadorArquivos = 0 }}
-	function teste(){
-		alert("Xaxing!");
-	}
+
 	function isUrlValid(url) {
 		return /^(https?|s?ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(url);
 	}
@@ -222,16 +220,34 @@
 		uploadAsync: true,
 		previewFileType: "image",
 		browseClass: "btn btn-success",
-		browseIcon: "<i class='fa fa-file-image-o' aria-hidden='true'></i>",
+		browseIcon: "<i class='fa fa-file' aria-hidden='true'></i>",
 		removeClass: "btn btn-danger",
 		removeIcon: "<i class='fa fa-trash' aria-hidden='true'></i>",
+		removeLabel: "Limpar Novos Uploads",
 		removeFromPreviewOnError: true,
 		fileActionSettings: {
 			showUpload: false,
-			showZoom: false,
+			showZoom: true,
 			showRemove: true,
+			indicatorNew: '<i class="fa fa-exclamation-triangle text-warning"></i>'
 		},
 		overwriteInitial: false,
+		previewZoomButtonIcons: {
+    		prev: '<i class="fa fa-arrow-left"></i>',
+   			next: '<i class="fa fa-arrow-right"></i>',
+    		toggleheader: '<i class="fa fa-expand"></i>',
+    		fullscreen: '<i class="fa fa-arrows-alt"></i>',
+    		borderless: '<i class="fa fa-compress"></i>',
+    		close: '<i class="fa fa-times"></i>'
+		},
+		previewZoomButtonClasses: {
+			prev: 'btn btn-navigate',
+    		next: 'btn btn-navigate',
+    		toggleheader: 'btn btn-kv btn-default btn-outline-secondary',
+    		fullscreen: 'btn btn-kv btn-default btn-outline-secondary',
+    		borderless: 'btn btn-kv btn-default btn-outline-secondary',
+    		close: 'btn btn-kv btn-default btn-outline-secondary'
+		},
 		previewThumbTags: {
 			{!! "'{ID_FOTO_BANCO}' : '',
 				   '{ID_FOTO_NOVA}' : '{ID_FOTO_NOVA}'
@@ -249,7 +265,8 @@
 		initialPreviewThumbTags: [
 		@foreach($recursoTA->fotos as $foto) 
 			{!! "{ '{ID_FOTO_BANCO}': ".$foto->id.",
-				   '{ID_FOTO_NOVA}' : '' },"  !!}
+				   '{ID_FOTO_NOVA}' : '' ,
+				   '{FOTO_DESTAQUE}' : '".($foto->destaque ? 'checked' : '')."'},"!!}
 		 @endforeach			
 		],
 		initialPreviewShowDelete: true,
@@ -262,7 +279,7 @@
 		                '<div class="explorer-caption" title="{caption}">{caption}'+            
 		                '</div> ' + 
 		                '<div class="clearfix pl-4">'+
-		                    '<input class="form-check-input" type="radio" id="{ID_FOTO_BANCO}{ID_FOTO_NOVA}" name="fotoDestaque" value="{ID_FOTO_BANCO}{ID_FOTO_NOVA}"><label for="{ID_FOTO_BANCO}{ID_FOTO_NOVA}">Destaque</label>'+
+		                    '<input class="form-check-input" type="radio" id="{ID_FOTO_BANCO}{ID_FOTO_NOVA}" name="fotoDestaque" value="{ID_FOTO_BANCO}{ID_FOTO_NOVA}" {FOTO_DESTAQUE}><label for="{ID_FOTO_BANCO}{ID_FOTO_NOVA}">Destaque</label>'+
 		                    '<input name="textosAlternativos[{ID_FOTO_BANCO}{ID_FOTO_NOVA}][textoAlternativo]" type="text" class="form-control" placeholder="Texto alternativo" value="{caption}">'+        
 		                '</div>'+
 		                '{size}{progress}' +
@@ -290,6 +307,7 @@
     }); 
 
 	$(document).ready(function() {
+
 		var contadorUrls = {{$contadorUrls}};
 
    		var form = $('#revisaoRecursoTA');
@@ -314,8 +332,8 @@
                 },
                 success: function(respostaServidor)
                 {
-                        // open the other modal
-                        $("#modalCadastroRealizado").modal("show");
+                       	alert("Recurso de Tecnologia Assistiva publicado com sucesso!");
+                        location.reload();
                     },
                     error: function(respostaServidor)
                     {
@@ -345,7 +363,7 @@
                 });
         });
 
-
+        // Preenche os campos de cada foto já cadastrada com as informações do banco
 		@foreach($recursoTA->fotos as $foto)
 		$('input[name*="{!!$foto->texto_alternativo!!}"]').val({!!'"'.$foto->texto_alternativo.'"'!!});
 		@if($foto->destaque)

@@ -121,7 +121,7 @@
 		</div>
 		<hr>
 		<div id="divFotos" class="form-group required row" role="group" aria-labelledby="fotos do recurso">
-			<div class="col-12">
+			<div id="fotoDestaque" class="col-12">
 				<input id="fotos" name="fotos[]" accept="image/*" type="file" class="file" data-browse-on-zone-click="true"  multiple data-show-upload="false" data-show-caption="true" data-msg-placeholder="Faça o upload de ao menos uma foto do recurso" data-allowed-file-extensions='["jpg", "jpeg", "png"]'>
 			</div>
 		</div>
@@ -193,27 +193,71 @@
 	});
 
 
+	var fotoDestaque = "";
+
 	$("#fotos").fileinput({
 		theme: "explorer-fa",
 		language: "pt-BR",
 		uploadAsync: true,
 		previewFileType: "image",
 		browseClass: "btn btn-success",
-		browseIcon: "<i class='fa fa-file-image-o' aria-hidden='true'></i>",
+		browseIcon: "<i class='fa fa-file' aria-hidden='true'></i>",
 		removeClass: "btn btn-danger",
 		removeIcon: "<i class='fa fa-trash' aria-hidden='true'></i>",
+		removeLabel: "Limpar Novos Uploads",
 		removeFromPreviewOnError: true,
 		fileActionSettings: {
 			showUpload: false,
 			showZoom: false,
+			indicatorNew: '<i class="fa fa-exclamation-triangle text-warning"></i>',
 		},
-		overwriteInitial: true,
+		overwriteInitial: false,
+		previewZoomButtonIcons: {
+    		prev: '<i class="fa fa-arrow-left"></i>',
+   			next: '<i class="fa fa-arrow-right"></i>',
+    		toggleheader: '<i class="fa fa-expand"></i>',
+    		fullscreen: '<i class="fa fa-arrows-alt"></i>',
+    		borderless: '<i class="fa fa-compress"></i>',
+    		close: '<i class="fa fa-times"></i>'
+		},
+		previewZoomButtonClasses: {
+			prev: 'btn btn-navigate',
+    		next: 'btn btn-navigate',
+    		toggleheader: 'btn btn-kv btn-default btn-outline-secondary',
+    		fullscreen: 'btn btn-kv btn-default btn-outline-secondary',
+    		borderless: 'btn btn-kv btn-default btn-outline-secondary',
+    		close: 'btn btn-kv btn-default btn-outline-secondary'
+		},
 		uploadExtraData:{ _token: '{{ csrf_token()}}'},
-		required: true          
-	}); 
+		validateInitialCount: true,
+		required: true,
+		layoutTemplates: { 
+				footer: '<div class="file-details-cell">' +
+		                '<div class="explorer-caption" title="{caption}">{caption}'+            
+		                '</div> ' + 
+		                '<div class="clearfix pl-4">'+
+		                    '<input class="form-check-input" type="radio" id="{ID_FOTO_NOVA}" name="fotoDestaque" value="{ID_FOTO_NOVA}" {FOTO_DESTAQUE}><label for="{ID_FOTO_NOVA}">Destaque</label>'+
+		                    '<input name="textosAlternativos[{ID_FOTO_NOVA}][textoAlternativo]" type="text" class="form-control" placeholder="Texto alternativo" value="{caption}">'+        
+		                '</div>'+
+		                '{size}{progress}' +
+		                '</div>' +
+		                '<div class="file-actions-cell">{indicator} {actions}</div>',
+				}
+
+	});
+
+	//Indexa os radiobuttons e campos de texto alternativo para evitar possíveis bugs ao utilizar dados da foto para isso
+	$('#fotos').on('fileloaded', function(event, file, previewId, fileId, index, reader) {
+		$('div[id="'+previewId+'"').children().each(function () {
+    		$(this).html(function (i, html) {
+        		return $(this).html().replace(/{ID_FOTO_NOVA}/g, 'nova-'+fileId);
+    		});
+		});
+	});
 
 
 	$(document).ready(function() {
+
 		var contadorUrls = {{$contadorUrls}};
 
         $("#modalCadastroRealizado").modal("hide");

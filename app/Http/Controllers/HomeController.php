@@ -288,6 +288,7 @@ class HomeController extends Controller
            'manuais.*.url' => ['sometimes','regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
            'textosAlternativos.*.textoAlternativo' => 'required',
            'fotos.*.*' => 'required|mimes:jpg,png',
+           'fotoDestaque' => 'required',
        ];
 
        $mensagens = [
@@ -314,6 +315,7 @@ class HomeController extends Controller
         'textosAlternativos.*.textoAlternativo.max' => 'O texto alternativo deve ter menos de 255 caracteres',
         'fotos.required' => 'Faça o upload de ao menos uma foto do recurso',
         'fotos.mimes' => 'A foto deve ser ou jpeg, ou jpg, ou png.',
+        'fotoDestaque.required' =>  'Escolha uma foto para ser exibida primeiro ao listar a tecnologia assistiva',
     ];
 
     $validador = Validator::make($request->all(),$regras,$mensagens);
@@ -389,20 +391,27 @@ class HomeController extends Controller
         $recursoTA->videos()->saveMany($videoUrls);
     }
 
+    $textosAlternativos = array();
+    $textosAlternativos = request('textosAlternativos');
+
+    /*Itera por todas as fotos já cadastradas e salvas no servidor para estabelecer a foto destaque
+     *e atualizar os textos alternativos
+     */
+    foreach ($recursoTA->fotos as $foto) {
+        $foto->destaque=false;
+        $foto->texto_alternativo=$textosAlternativos[$foto->id]['textoAlternativo'];
+        $foto->save();
+    }
+
+    $caminhoArquivoFotoDestaque = null;
+
     /* Processa as novas fotos recebidas do Form. Fotos antigas já estão salvas e 
      * aquelas deletadas são processadas assincronamente (ao apertar o botão lixeira) antes do envio do form
      */
-    $fotoDestaque = Foto::where('nome',request('fotoDestaque'))->firstOrFail();
-    $fotoDestaque->destaque = true;
-    $fotoDestaque->save();
-
-
     if($request->hasFile('fotos')){
-        $textosAlternativos = array();
-        $textosAlternativos = request('textosAlternativos');
         $fotosCarregadas = $request->file('fotos');
         $fotos = array();
-        foreach ($fotosCarregadas as $foto) {
+        foreach ($fotosCarregadas as $key => $foto) {
             //Torna o nome aleatorio para evitar colisão, evitar possibilidade de bugs futuros
             $novoNomeFoto = time().'_'.$foto->getClientOriginalName();
 
@@ -438,19 +447,21 @@ class HomeController extends Controller
             $novaFoto = new Foto();
             $novaFoto->caminho_arquivo= 'uploads/'.$novoNomeFoto;
             $novaFoto->caminho_thumbnail= 'thumbnails/'.$novoNomeFoto;
-            $nomeArquivoSanitizado = str_replace(str_split("()"),'_',trim($foto->getClientOriginalName()));
-            if($nomeArquivoSanitizado==request('fotoDestaque')){
+
+            $novaFoto->texto_alternativo = $textosAlternativos['nova-'.$key]['textoAlternativo'];
+            if(preg_match("/nova-".$key."/",request('fotoDestaque'))){
                 $novaFoto->destaque = true;
-            }else{
-                $novaFoto->destaque = false;
+                $caminhoArquivoFotoDestaque = $novaFoto->caminho_arquivo;
             }
-              
-            //O nome do arquivo é a chave para acessar o texto alternativo
-            $indiceTextoAlternativo = $nomeArquivoSanitizado;
-            $novaFoto->texto_alternativo = $textosAlternativos[$indiceTextoAlternativo]['textoAlternativo'];
             array_push($fotos,$novaFoto);
         }
         $recursoTA->fotos()->saveMany($fotos);
+    }
+
+    if(!isset($caminhoArquivoFotoDestaque) && null!=request('fotoDestaque')){
+        $novaFotoDestaque = Foto::findOrFail(request('fotoDestaque'));
+        $novaFotoDestaque->destaque = true;
+        $novaFotoDestaque->save();
     }
 
     /* Destrói os arquivos existentes para facilitar a lógica da exclusão
