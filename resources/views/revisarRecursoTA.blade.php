@@ -387,8 +387,8 @@
 			language: 'pt_BR',  
 			max_width: 400,
 			height: 400,
-			plugins: 'preview link',
-			toolbar: 'preview wordcount link',
+			plugins: 'preview link lists',
+			toolbar: 'preview | styleselect | fontsizeselect forecolor | bold italic underline | alignleft aligncenter alignright alignjustify | outdent indent | numlist bullist | link ',
 			default_link_target: '_blank',
 			setup: function (editor) {
 				editor.on('change', function () {
@@ -396,26 +396,6 @@
 				});		
 			}
 		});
-
-		$('#galeria').lightSlider({
-			gallery:true,
-			item:1,
-			loop:false,
-			slideMargin:0,
-			enableDrag: false,
-			currentPagerPosition:'left',
-			pager: true,
-			keyPress: true,
-			addClass: "h-20 cursor-pointer",
-			thumbItem: 5,
-			onSliderLoad: function(el) {
-				el.lightGallery({
-					selector: '#galeria .lslide'
-				});
-			}   
-		});
-
-		$('.video-stream').addClass("embed-responsive-item");
 
 		/**Mostra o input licença quando o for produto comercial**/
 		$('input[type=radio][name=produtoComercial]').change(function () {

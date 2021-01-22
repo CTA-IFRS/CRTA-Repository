@@ -22,6 +22,8 @@
 			</tr>
 		</thead>
 		<tbody>
+			@isset($recursosTA)
+			@if(count($recursosTA)>0)
 			@foreach($recursosTA as $recursoTA)
 			<tr>
 				<td></td>
@@ -63,9 +65,22 @@
 				</td>
 			</tr>
 			@endforeach
+			@else
+			<tr>
+				<p class="text-danger"> Não há recursos cadastrados na base de dados do RETACE</p>
+			</tr>
+			@endif
+			@else
+			<tr>
+				<p class="text-danger"> Não há recursos cadastrados na base de dados do RETACE</p>
+			</tr>			
+			@endisset
 		</tbody>
 	</table>
 </div>
+@if(!empty($sucessoExclusao))
+  <div class="alert alert-success"> {{ $sucessoExclusao }}</div>
+@endif
 @stop
 
 @section('css')
@@ -80,6 +95,14 @@
 	$(document).ready(function() {
 		$("#btnOmitir").click(function(){
 		if(confirm("Deseja ocultar o recurso? Ele permanecerá no banco de dados, mas não será visível aos usuários do RETACE")){
+			return true;
+		}	
+		else{
+			return false;
+		}
+	});
+		$("#btnExcluir").click(function(){
+		if(confirm("Deseja excluir o recurso? Essa ação é irreversível")){
 			return true;
 		}	
 		else{

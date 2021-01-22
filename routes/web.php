@@ -39,6 +39,7 @@ Route::get('/editarPaginaAprender','HomeController@editarPaginaAprender');
 //Implicit binding para retornar modelo com {idRecursoTA} no banco. Se não encontrar nada, retornar erro 404.
 Route::get('/exibeRecursoTA/{idRecursoTA}', 'NavegacaoController@exibeRecursoTA');
 Route::get('/aprender', 'NavegacaoController@exibePaginaAprender');
+Route::get('/sobre', 'NavegacaoController@exibePaginaSobre');
 Route::get('buscaRecursoTAPorTermo', ['as' => 'buscaRecursoTAPorTermo', 'uses' => 'NavegacaoController@buscaRecursoTAPorTermo']);
 
 //Filtro para saber qual busca realizar ao consultar TAs

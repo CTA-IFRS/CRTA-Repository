@@ -7,10 +7,10 @@
 	<div id="navegacaoPrincipal" class="collapse navbar-collapse">
 		<ul class="navbar-nav mr-auto col-xs-9">
       		<li class="nav-item">
-        		<a class="nav-link dottedUnderline" href="#">Sobre</a>
+        		<a class="nav-link dottedUnderline" href="{{ url('/sobre')}}">Sobre</a>
       		</li>
       		<li class="nav-item">
-        		<a class="nav-link dottedUnderline" href="#">Aprender</a>
+        		<a class="nav-link dottedUnderline" href="{{ url('/aprender')}}">Aprender</a>
       		</li>
       		<li class="nav-item">
         		<a class="nav-link dottedUnderline" href="{{url('/cadastrarTA')}}">Contribuir</a>

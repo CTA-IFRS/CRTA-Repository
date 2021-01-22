@@ -190,4 +190,16 @@ class NavegacaoController extends Controller{
 		$conteudoPagina = Pagina::where('nome','Aprender')->firstOrFail();
 		return view('aprender', ['conteudoPagina' => $conteudoPagina]);
 	}			
+
+
+	/** 
+	 * Encaminha o navegador para a página "Sobre"
+	 *
+	 *	@return \Illuminate\Contracts\Support\Renderable
+	 */	
+	public function exibePaginaSobre(){
+
+		$conteudoPagina = Pagina::where('nome','Sobre')->firstOrFail();
+		return view('sobre', ['conteudoPagina' => $conteudoPagina]);
+	}		
 }

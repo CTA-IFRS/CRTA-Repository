@@ -19,6 +19,8 @@
 			</tr>
 		</thead>
 		<tbody>
+			@isset($tags)
+			@if(count($tags)>0)
 			@foreach($tags as $tag)
 			<tr>
 				<td></td>
@@ -39,9 +41,6 @@
 									<span class="badge badge-pill badge-danger">Não</span>
 								</h4>
 							</td>
-							<td>
-								<a id="btnAutorizar" href="{{url('/autorizaPublicacaoTag/'.__($tag->id))}}" type="button" class="btn btn-warning"><b>Autorizar</b></a>
-							</td>
 							@endif								
 						</tr>							
 					</table>			
@@ -49,13 +48,26 @@
 				<td>
 					<table class="table">
 						<tr>
-							<td><a id="btnEditar" href="{{url('/editarTag/'.__($tag->id))}}"type="button" class="btn btn-primary"><b>Editar</b></a></td>
+							<td>
+								<a id="btnAutorizar" href="{{url('/editarTag/'.__($tag->id))}}" type="button" class="btn btn-warning"><b>Aprovar</b></a>
+							</td>
+							<td><a id="btnEditar" href="{{url('/editarTag/'.__($tag->id))}}"type="button" class="btn btn-primary"><b>Revisar</b></a></td>
 							<td><a id="btnOmitir" href="{{url('/omitirPublicacaoTag/'.__($tag->id))}}" type="button" class="btn btn-danger"><b>Omitir</b></a></td>
 						</tr>							
 					</table>
 				</td>
 			</tr>
 			@endforeach
+			@else
+			<tr>
+				<p class="text-danger">Não há tags cadastradas na base de dados do RETACE</p>
+			</tr>
+			@endif
+			@else
+			<tr>
+				<p class="text-danger">Não há tags cadastradas na base de dados do RETACE</p>
+			</tr>
+			@endisset
 		</tbody>
 	</table>
 </div>

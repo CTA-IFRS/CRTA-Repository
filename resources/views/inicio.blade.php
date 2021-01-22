@@ -15,7 +15,7 @@
 				<i class="ml-2 fa fa-book fa-5x"></i>
 			</div>
 			<div id="aprender" class="col-md-3">
-				<h3><a href="{{ url('/aprender')}}"> Aprender </a> </h3>
+				<h3><a href="{{ url('/aprender')}}" class="text-white"> <u>Aprender</u> </a> </h3>
 				<p> Acesse cursos, artigos, publicações e outros materiais relacionados à inclusão e tecnologia assistiva </p>
 			</div>
 			<div class="offset-md-1 col-md-2">
@@ -23,7 +23,7 @@
 				<i class="ml-3 fa fa-info-circle fa-5x align-middle"></i>
 			</div>
 			<div class="col-md-3">
-				<h3> Contribuir </h3>
+				<h3> <a href="{{ url('/cadastrarTA')}}" class="text-white"> <u> Contribuir </u></a> </h3>
 				<p> Disponibilize neste repositório seu recurso de TA, metodologia, material pedagógico acessível e outros </p>
 			</div>
 		</div>

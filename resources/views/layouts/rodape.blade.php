@@ -17,13 +17,19 @@
 			</div>
 
 			<div class="col-md-2 col-sm-4">
+				<a href="https://cta.ifrs.edu.br/" target="_blank">
 				<img class="img-fluid" src="{{url('/imagens/logoCTA.png')}}" alt="Logotipo do CTA"/>
+				</a>
 			</div>
 			<div class="col-md-2  col-sm-4">
+				<a href="https://ifrs.edu.br/institucional/pro-reitorias/proen/" target="_blank">
 				<img class="img-fluid" src="{{url('/imagens/PROEN_Branco.png')}}" alt="Logotipo do PROEN"/>
+				</a>
 			</div>
 			<div class="col-md-2  col-sm-4">
+				<a href="https://ifrs.edu.br/" target="_blank">
 				<img class="img-fluid" src="{{url('/imagens/IFRS_Branco.png')}}" alt="Logotipo do IFRS"/>
+				</a>
 			</div>
 
 		</div>

@@ -2,8 +2,8 @@
 @section('titulo','RETACE Cadastrar Tecnologia Assistiva')
 @section('conteudo')
 <div id="app" class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+    <div class="row ">
+        <div class="col-md-12">
             <div class="card border-light">
                 <div class="card-header">
                     <h1>
@@ -15,28 +15,28 @@
                         @csrf
                         <h3>Informações básicas</h3>
                         <div class="form-group required row mt-3" role="group" aria-labelledby="titulo">
-                            <label for="titulo" class="col-md-4 col-form-label text-md-right">{{ __('Título') }}</label>
-                            <div class="col-md-8">
+                            <label for="titulo" class="col-md-2 col-form-label text-md-right">{{ __('Título') }}</label>
+                            <div class="col-md-10">
                                 <input id="titulo" type="text" class="form-control" name="titulo" value="{{ old('titulo') }}" autofocus>
                                 <span class="invalid-feedback bold" role="alert" hidden></span>
                             </div>
                         </div>
 
                         <div class="form-group required row" role="group" aria-labelledby="descricao">
-                            <label for="descricao" class="col-md-4 col-form-label text-md-right">{{ __('Breve descrição') }}</label>
-                            <div class="col-md-8">
+                            <label for="descricao" class="col-md-2 col-form-label text-md-right">{{ __('Breve descrição') }}</label>
+                            <div class="col-md-10">
                                 <textarea class="form-control descricao" id="descricao" name="descricao"></textarea>
                             </div>
                         </div>
 
                         <div class="form-group required row" role="group" aria-labelledby="informaSeProdutoComercial">
-                            <label id="informaSeProdutoComercial" class="col-md-4 col-form-label text-md-right">É um produto comercial?</label> 
-                            <div id="produtoComercial" class="form-inline col-md-8">
-                                <div class="form-check-inline col-md-4 ">
+                            <label id="informaSeProdutoComercial" class="col-md-2 col-form-label text-md-right">É um produto comercial?</label> 
+                            <div id="produtoComercial" class="form-inline col-md-10">
+                                <div class="form-check-inline col-md-5 ">
                                     <input class="form-check-input" type="radio" id="comercial" name="produtoComercial" value="true">
                                     <label for="produtoComercial" class="form-check-label">{{ __('Sim') }}</label>
                                 </div>
-                                <div class="form-check-inline col-md-4 ">                            
+                                <div class="form-check-inline col-md-5 ">                            
                                     <input class="form-check-input" type="radio" id="naoComercial" name="produtoComercial" value="false">
                                     <label for="produtoNaoComercial" class="form-check-label">{{ __('Não') }}</label>
                                 </div>
@@ -44,22 +44,22 @@
                         </div>
 
                         <div class="form-group required row" role="group" aria-labelledby="siteFabricante">
-                            <label for="siteFabricante" class="col-md-4 col-form-label text-md-right">{{ __('Site do fabricante') }}</label>
-                            <div class="col-md-8">
+                            <label for="siteFabricante" class="col-md-2 col-form-label text-md-right">{{ __('Site do fabricante') }}</label>
+                            <div class="col-md-10">
                                 <input id="siteFabricante" type="text" class="form-control" name="siteFabricante" value="{{ old('siteFabricante') }}">
                             </div>
                         </div>
 
                         <div id="divLicenca" class="form-group required row d-none" role="group" aria-labelledby="licenca">
-                            <label for="licenca" class="col-md-4 col-form-label text-md-right">{{ __('Licença') }}</label>
-                            <div class="col-md-8">
+                            <label for="licenca" class="col-md-2 col-form-label text-md-right">{{ __('Licença') }}</label>
+                            <div class="col-md-10">
                                 <input id="licenca" type="text" class="form-control" name="licenca" value="{{ old('licenca') }}">
                             </div>
                         </div>
 
                         <div class="form-group required row" role="group" aria-labelledby="tags">
-                            <label for="tags" class="col-md-4 col-form-label text-md-right">{{ __('Tags') }}</label>
-                            <div class="col-md-8">
+                            <label for="tags" class="col-md-2 col-form-label text-md-right">{{ __('Tags') }}</label>
+                            <div class="col-md-10">
                                 <input type="text" class="form-control" name="tags" id="tags"/>
                             </div>
                         </div>
@@ -67,16 +67,16 @@
                         <h3 class="obrigatorio mt-4">Fotos</h3>
                         <p>Carregue pelo menos uma foto sobre a tecnologia assistiva no formato png, jpg ou  jpeg</p>
                         <div id="divFotos" class="form-group required row" role="group" aria-labelledby="fotos do recurso">
-                            <div class="col-md-12">
-                                <input id="fotos" name="fotos[]" accept="image/*" type="file" class="file" data-browse-on-zone-click="true"  multiple data-show-upload="false" data-show-caption="true" data-msg-placeholder="Faça o upload de ao menos uma foto do recurso" data-allowed-file-extensions='["jpg", "jpeg", "png"]'>
+                            <div id="fotoDestaque" class="col-md-12">
+                                <input id="fotos" name="fotos[]" accept="image/*" type="file" data-browse-on-zone-click="true"  multiple data-show-upload="false" data-show-caption="true" data-msg-placeholder="Faça o upload de ao menos uma foto do recurso" data-allowed-file-extensions='["jpg", "jpeg", "png"]'>
                             </div>
                         </div>
                         <hr>
                         <h3 class="mt-4">Vídeos relacionados</h3>
                         <p> Informe o endereço (url) de vídeos sobre a tecnologia assistiva</p>
                         <div id="divVideos" class="form-group row" role="group" aria-labelledby="videos">
-                            <label for="urlVideo" class="col-md-4 col-form-label text-md-right">{{ __('Adicionar vídeo') }}</label>
-                            <div class="col-md-8 form-inline">
+                            <label for="urlVideo" class="col-md-2 col-form-label text-md-right">{{ __('Adicionar vídeo') }}</label>
+                            <div class="col-md-10 form-inline">
                                 <input id="urlVideo" type="url"  class="w-75 form-control @error('videos[]') is-invalid @enderror" name="video" value="{{ old('video') }}">
                                 <button id="btnAdicionarVideo" type="button" class="w-25 btn btn-primary"><i class="fa fa-plus-square fa-1" aria-label="Adicionar"></i></button>
                                 @error('videos[]')
@@ -96,8 +96,8 @@
                         <h3 class="mt-4">Arquivos</h3>
                         <p> Informe, se houver, endereços (url) para acessar arquivos relacionados ao recurso a ser cadastrado </p>
                         <div id="divArquivos" class="form-group row" role="group" aria-labelledby="arquivos associados">
-                            <label for="urlArquivo" class="col-md-4 col-form-label text-md-right">{{ __('Adicionar arquivo') }}</label>
-                            <div class="col-md-8 form-inline">
+                            <label for="urlArquivo" class="col-md-2 col-form-label text-md-right">{{ __('Adicionar arquivo') }}</label>
+                            <div class="col-md-10 form-inline">
                                 <input id="urlArquivo" type="url"  class="w-75 form-control @error('arquivos[]') is-invalid @enderror" name="arquivo" value="{{ old('arquivo') }}">
                                 <button id="btnAdicionarArquivo" type="button" class="w-25 btn btn-primary"><i class="fa fa-plus-square fa-1" aria-label="Adicionar"></i></button>
                                 @error('arquivos[]')
@@ -117,8 +117,8 @@
                         <h3 class="mt-4">Manuais</h3>
                         <p> Informe, se houver, endereços (url) para acessar manuais relacionados ao recurso a ser cadastrado </p>
                         <div id="divManuais" class="form-group row" role="group" aria-labelledby="manuais associados">
-                            <label for="urlManual" class="col-md-4 col-form-label text-md-right">{{ __('Adicionar manual') }}</label>
-                            <div class="col-md-8 form-inline">
+                            <label for="urlManual" class="col-md-2 col-form-label text-md-right">{{ __('Adicionar manual') }}</label>
+                            <div class="col-md-10 form-inline">
                                 <input id="urlManual" type="url"  class="w-75 form-control @error('manuais[]') is-invalid @enderror" name="manual" value="{{ old('manual') }}">
                                 <button id="btnAdicionarManual" type="button" class="w-25 btn btn-primary"><i class="fa fa-plus-square fa-1" aria-label="Adicionar"></i></button>
                                 @error('manuais[]')
@@ -136,9 +136,9 @@
                         </div>
                         <hr>
                         <div class="form-group row mb-5 mt-4" role="group">
-                            <div class="col-md-2 offset-md-10 ">
-                                <button id="btnEnviaForm" type="submit" class="btn btn-primary">
-                                    {{ __('Cadastrar') }}
+                            <div class="col-md-4 offset-md-10">
+                                <button id="btnEnviaForm" type="submit" class="btn btn-success p-4">
+                                    <b>{{ __('CADASTRAR') }}</b>
                                 </button>
                             </div>
                         </div>
@@ -172,21 +172,6 @@
 @section('scripts')
 <script src="{{ asset('node_modules/tinymce/tinymce.js') }}"></script>
 <script>
-    tinymce.init({
-        selector:'textarea.descricao',
-        language: 'pt_BR',  
-        max_width: 400,
-        height: 400,
-        plugins: 'preview link',
-        toolbar: 'preview wordcount link',
-        default_link_target: '_blank',
-        setup: function (editor) {
-            editor.on('change', function () {
-                tinymce.triggerSave();
-            });
-        }
-    });
-
     var form = $('#formCadastroRecursoTA');
 
     $("#fotos").fileinput({
@@ -195,24 +180,77 @@
         uploadAsync: true,
         previewFileType: "image",
         browseClass: "btn btn-success",
-        browseIcon: "<i class='fa fa-file-image-o' aria-hidden='true'></i>",
+        browseIcon: "<i class='fa fa-file' aria-hidden='true'></i>",
         removeClass: "btn btn-danger",
         removeIcon: "<i class='fa fa-trash' aria-hidden='true'></i>",
+        removeLabel: "Limpar Novos Uploads",
         removeFromPreviewOnError: true,
         fileActionSettings: {
-            showUpload: false,
-            showZoom: false,
+            showZoom: true,
+            indicatorNew: '<i class="fa fa-exclamation-triangle text-warning"></i>',
         },
-        overwriteInitial: true,
+        previewZoomButtonIcons: {
+            prev: '<i class="fa fa-arrow-left"></i>',
+            next: '<i class="fa fa-arrow-right"></i>',
+            toggleheader: '<i class="fa fa-expand"></i>',
+            fullscreen: '<i class="fa fa-arrows-alt"></i>',
+            borderless: '<i class="fa fa-compress"></i>',
+            close: '<i class="fa fa-times"></i>'
+        },
+        previewZoomButtonClasses: {
+            prev: 'btn btn-navigate',
+            next: 'btn btn-navigate',
+            toggleheader: 'btn btn-kv btn-default btn-outline-secondary',
+            fullscreen: 'btn btn-kv btn-default btn-outline-secondary',
+            borderless: 'btn btn-kv btn-default btn-outline-secondary',
+            close: 'btn btn-kv btn-default btn-outline-secondary'
+        },
         uploadExtraData:{ _token: '{{ csrf_token()}}'},
-        required: true          
-    }); 
+        required: true,
+        layoutTemplates: { 
+                footer: '<div class="file-details-cell">' +
+                        '<div class="explorer-caption" title="{caption}">{caption}'+            
+                        '</div> ' + 
+                        '<div class="clearfix pl-4">'+
+                            '<input class="form-check-input" type="radio" id="{ID_FOTO_NOVA}" name="fotoDestaque" value="{ID_FOTO_NOVA}" {FOTO_DESTAQUE}><label for="{ID_FOTO_NOVA}">Destaque</label>'+
+                            '<input name="textosAlternativos[{ID_FOTO_NOVA}][textoAlternativo]" type="text" class="form-control" placeholder="Texto alternativo" value="{caption}">'+        
+                        '</div>'+
+                        '{size}{progress}' +
+                        '</div>' +
+                        '<div class="file-actions-cell">{indicator} {actions}</div>'
+        }
+    });
+
+    //Indexa os radiobuttons e campos de texto alternativo para evitar possíveis bugs ao utilizar dados da foto para isso
+    $('#fotos').on('fileloaded', function(event, file, previewId, fileId, index, reader) {
+        $('div[id="'+previewId+'"').children().each(function () {
+            $(this).html(function (i, html) {
+                return $(this).html().replace(/{ID_FOTO_NOVA}/g, 'nova-'+fileId);
+            });
+        });
+    });
 
     function isUrlValid(url) {
         return /^(https?|s?ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(url);
     }
 
     $(document).ready(function () {
+
+        tinymce.init({
+            selector:'textarea.descricao',
+            language: 'pt_BR',  
+            max_width: 400,
+            height: 400,
+            plugins: 'preview link lists',
+            toolbar: 'preview | styleselect | fontsizeselect forecolor | bold italic underline | alignleft aligncenter alignright alignjustify | outdent indent | numlist bullist | link ',
+            default_link_target: '_blank',
+            setup: function (editor) {
+                editor.on('change', function () {
+                    tinymce.triggerSave();
+                });     
+            }
+        });
+
         var contadorUrls = 0;
 
         $("#modalCadastroRealizado").modal("hide");

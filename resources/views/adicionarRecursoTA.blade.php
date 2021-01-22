@@ -122,7 +122,7 @@
 		<hr>
 		<div id="divFotos" class="form-group required row" role="group" aria-labelledby="fotos do recurso">
 			<div id="fotoDestaque" class="col-12">
-				<input id="fotos" name="fotos[]" accept="image/*" type="file" class="file" data-browse-on-zone-click="true"  multiple data-show-upload="false" data-show-caption="true" data-msg-placeholder="Faça o upload de ao menos uma foto do recurso" data-allowed-file-extensions='["jpg", "jpeg", "png"]'>
+				<input id="fotos" name="fotos[]" accept="image/*" type="file" data-browse-on-zone-click="true"  multiple data-show-upload="false" data-show-caption="true" data-msg-placeholder="Faça o upload de ao menos uma foto do recurso" data-allowed-file-extensions='["jpg", "jpeg", "png"]'>
 			</div>
 		</div>
 		<hr>
@@ -174,6 +174,7 @@
 	function isUrlValid(url) {
 		return /^(https?|s?ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(url);
 	}
+
 	$("#btnAutorizar").click(function(){
 		if(confirm("Deseja disponibilizar esse recurso aos usuários do RETACE?")){
 			return true;
@@ -207,11 +208,9 @@
 		removeLabel: "Limpar Novos Uploads",
 		removeFromPreviewOnError: true,
 		fileActionSettings: {
-			showUpload: false,
-			showZoom: false,
+			showZoom: true,
 			indicatorNew: '<i class="fa fa-exclamation-triangle text-warning"></i>',
 		},
-		overwriteInitial: false,
 		previewZoomButtonIcons: {
     		prev: '<i class="fa fa-arrow-left"></i>',
    			next: '<i class="fa fa-arrow-right"></i>',
@@ -229,7 +228,6 @@
     		close: 'btn btn-kv btn-default btn-outline-secondary'
 		},
 		uploadExtraData:{ _token: '{{ csrf_token()}}'},
-		validateInitialCount: true,
 		required: true,
 		layoutTemplates: { 
 				footer: '<div class="file-details-cell">' +
@@ -241,9 +239,8 @@
 		                '</div>'+
 		                '{size}{progress}' +
 		                '</div>' +
-		                '<div class="file-actions-cell">{indicator} {actions}</div>',
-				}
-
+		                '<div class="file-actions-cell">{indicator} {actions}</div>'
+		}
 	});
 
 	//Indexa os radiobuttons e campos de texto alternativo para evitar possíveis bugs ao utilizar dados da foto para isso
@@ -328,8 +325,8 @@
 			language: 'pt_BR',  
 			max_width: 400,
 			height: 400,
-			plugins: 'preview link',
-			toolbar: 'preview wordcount link',
+			plugins: 'preview link lists',
+			toolbar: 'preview | styleselect | fontsizeselect forecolor | bold italic underline | alignleft aligncenter alignright alignjustify | outdent indent | numlist bullist | link ',
 			default_link_target: '_blank',
 			setup: function (editor) {
 				editor.on('change', function () {

@@ -25,13 +25,14 @@ class RecursoTAController extends Controller{
      'produtoComercial' => 'required',
      'licenca' => 'required_if:produtoComercial,true|max:255',
      'tags' => 'required',
-     'videos.*.url' => ['sometimes','regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
+     'videos.*.url' => ['sometimes','url'],
      'arquivos.*.*' => 'sometimes | required',
      'arquivos.*.url' => ['sometimes','regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
      'manuais.*.*' => 'sometimes | required',
      'manuais.*.url' => ['sometimes','regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
      'textosAlternativos.*.textoAlternativo' => 'required',
      'fotos.*.*' => 'required|mimes:jpg,png',
+     'fotoDestaque' => 'required',
    ];
 
    $mensagens = [
@@ -58,6 +59,7 @@ class RecursoTAController extends Controller{
     'textosAlternativos.*.textoAlternativo.max' => 'O texto alternativo deve ter menos de 255 caracteres',
     'fotos.required' => 'Faça o upload de ao menos uma foto do recurso',
     'fotos.mimes' => 'A foto deve ser ou jpeg, ou jpg, ou png.',
+    'fotoDestaque.required' =>  'Escolha uma foto para ser exibida primeiro ao listar a tecnologia assistiva',
   ];
 
   $validador = Validator::make($request->all(),$regras,$mensagens);
@@ -119,7 +121,7 @@ class RecursoTAController extends Controller{
     $textosAlternativos = request('textosAlternativos');
     $fotosCarregadas = $request->file('fotos');
     $fotos = array();
-    foreach ($fotosCarregadas as $foto) {
+    foreach ($fotosCarregadas as $key => $foto) {
       //Torna o nome aleatorio para evitar colisão, evitar possibilidade de bugs futuros
       $novoNomeFoto = time().'_'.$foto->getClientOriginalName();
 
@@ -155,16 +157,14 @@ class RecursoTAController extends Controller{
       $novaFoto = new Foto();
       $novaFoto->caminho_arquivo= 'uploads/'.$novoNomeFoto;
       $novaFoto->caminho_thumbnail= 'thumbnails/'.$novoNomeFoto;
-      $nomeArquivoSanitizado = str_replace(str_split("()"),'_',trim($foto->getClientOriginalName()));
-      if($nomeArquivoSanitizado==request('fotoDestaque')){
+
+      $novaFoto->texto_alternativo = $textosAlternativos['nova-'.$key]['textoAlternativo'];
+      if(preg_match("/nova-".$key."/",request('fotoDestaque'))){
         $novaFoto->destaque = true;
       }else{
         $novaFoto->destaque = false;
       }
 
-        //O nome do arquivo é a chave para acessar o texto alternativo
-      $indiceTextoAlternativo = $nomeArquivoSanitizado;
-      $novaFoto->texto_alternativo = $textosAlternativos[$indiceTextoAlternativo]['textoAlternativo'];
       array_push($fotos,$novaFoto);
     }
     $recursoTA->fotos()->saveMany($fotos);
