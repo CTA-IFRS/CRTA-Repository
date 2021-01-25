@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 use Image;
 use App\RecursoTA;
@@ -552,7 +553,7 @@ class HomeController extends Controller
 
         if(count($idsArquivos)!=0){
            Arquivo::destroy($idsArquivos);
-        } 
+       } 
 
        $videosRecursoTA = $recursoAlvo->videos;
        $idsVideos = Array();
@@ -600,9 +601,9 @@ class HomeController extends Controller
     RecursoTA::destroy($idRecursoTA);
 
     return view('/administrarRecursosTA')->with(
-                "sucessoExclusao" , "Informações excluídas do RETACE com sucesso!"
-            );
-    }
+        "sucessoExclusao" , "Informações excluídas do RETACE com sucesso!"
+    );
+}
 
     /**
      * Insere o RecursoTA no banco de dados, com autorizações já fornecidas
@@ -838,4 +839,19 @@ class HomeController extends Controller
 
     return response()->json("Edição publicada com sucesso!", 200);
 } 
+
+public function emailNovoRecursoTA(){
+    $to_name = 'Guilherme';
+    $to_email = 'gmottin27@gmail.com';
+    $data = array('name'=> "RETACE", 'body' => 'Teste');
+
+    Mail::send('emailNovoRecursoTA', $data, function($message) use ($to_name, $to_email) {
+        $message->to($to_email, $to_name)
+        ->subject('Teste de envio de email Laravel');
+        $message->from('cta@ifrs.edu.br','Email de Teste');
+    });
+
+    return 'Email sent Successfully';
+
+}
 }

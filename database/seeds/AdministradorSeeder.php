@@ -13,8 +13,8 @@ class AdministradorSeeder extends Seeder
      */
     public function run()
     {
-		DB::table('users')->insert([ 'name' => 'Admin',
-									   'email' => 'retace@ifrs.edu.br',
+		DB::table('users')->insert([ 'name' => 'CTA Admin',
+									   'email' => 'cta@ifrs.edu.br',
 									   'password' => Hash::make("adminadmin"),
                                        'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                                        'updated_at' => Carbon::now()->format('Y-m-d H:i:s')]);

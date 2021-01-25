@@ -67,3 +67,6 @@ Route::post('insereRecursoTA','HomeController@insereRecursoTA')->name('insereRec
 Route::post('/editarRecursoTA/{idRecursoTA}','HomeController@editarRecursoTA')->name('editarRecursoTA');
 Route::post('/removeFoto/{idFoto}','HomeController@removeFoto');
 Route::post('salvarEdicaoPaginaAprender','HomeController@salvarEdicaoPaginaAprender')->name('salvarEdicaoPaginaAprender');
+
+//Rota para envio de email
+Route::get('/send/emailNovoRecursoTA', 'HomeController@emailNovoRecursoTA');

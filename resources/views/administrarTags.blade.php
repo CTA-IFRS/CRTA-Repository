@@ -48,11 +48,22 @@
 				<td>
 					<table class="table">
 						<tr>
+							@if($tag->publicacao_autorizada==false)
 							<td>
-								<a id="btnAutorizar" href="{{url('/editarTag/'.__($tag->id))}}" type="button" class="btn btn-warning"><b>Aprovar</b></a>
+								<td>
+									<a id="btnAutorizar" href="{{url('/autorizaPublicacaoTag/'.__($tag->id))}}" type="button" class="btn btn-warning"><b>Aprovar</b></a>
+								</td>
 							</td>
-							<td><a id="btnEditar" href="{{url('/editarTag/'.__($tag->id))}}"type="button" class="btn btn-primary"><b>Revisar</b></a></td>
-							<td><a id="btnOmitir" href="{{url('/omitirPublicacaoTag/'.__($tag->id))}}" type="button" class="btn btn-danger"><b>Omitir</b></a></td>
+							@else
+							<td>
+								<td>
+									<a id="btnOmitir" href="{{url('/omitirPublicacaoTag/'.__($tag->id))}}" type="button" class="btn btn-danger"><b>Ocultar</b></a>
+								</td>
+							</td>
+							@endif
+							<td>
+								<a id="btnEditar" href="{{url('/editarTag/'.__($tag->id))}}"type="button" class="btn btn-primary"><b>Revisar</b></a>
+							</td>
 						</tr>							
 					</table>
 				</td>
@@ -108,7 +119,7 @@
 		});
 
 		$("#btnOmitir").click(function(){
-			if(confirm("Deseja indisponibilizar a tag para futuros cadastros no sistema? Tecnologias Assistivas que possuem a tag continuarão a tê-la")){
+			if(confirm("Deseja indisponibilizar a tag para futuros cadastros no sistema? Tecnologias Assistivas que possuem a tag continuarão a tê-la, porém não será exibida")){
 				return true;
 			}	
 			else{
