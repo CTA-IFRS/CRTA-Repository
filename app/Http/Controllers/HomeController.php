@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 use Image;
 use App\RecursoTA;
@@ -19,6 +21,7 @@ use App\Arquivo;
 use App\Manual;
 use App\Foto;
 use App\Pagina;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -145,10 +148,10 @@ class HomeController extends Controller
     public function salvaEdicaoTag(Request $request)
     {
         $regras = [
-           'nomeTag' => 'required|max:255',
-       ];
+         'nomeTag' => 'required|max:255',
+     ];
 
-       $mensagens = [
+     $mensagens = [
         'nomeTag.required' => 'É preciso informar um nome para a Tag',
         'nomeTag.max' => 'A Tag deve ter menos de 256 caracteres',
     ];
@@ -185,9 +188,9 @@ class HomeController extends Controller
         $tagsDoRecursoTA = implode(',',$recursoAlvo->tags->pluck('nome')->toArray());
 
         return view('revisarRecursoTA', ['recursoTA' => $recursoAlvo,
-         'tagsDoSistema' => $tagsDoSistema,
-         'tagsDoRecursoTA' => $tagsDoRecursoTA,
-         'contadorUrls' => $contadorUrls]);
+           'tagsDoSistema' => $tagsDoSistema,
+           'tagsDoRecursoTA' => $tagsDoRecursoTA,
+           'contadorUrls' => $contadorUrls]);
     }
 
     /**
@@ -276,23 +279,23 @@ class HomeController extends Controller
     public function editarRecursoTA(Request $request, $idRecursoTA)
     {   
         $regras = [
-           'titulo' => 'required|max:255',
-           'descricao' => 'required',
-           'siteFabricante' => 'required',
-           'produtoComercial' => 'required',
-           'licenca' => 'required_if:produtoComercial,true|max:255',
-           'tags' => 'required',
-           'videos.*.url' => ['sometimes','url'],
-           'arquivos.*.*' => 'sometimes | required',
-           'arquivos.*.url' => ['sometimes','regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
-           'manuais.*.*' => 'sometimes | required',
-           'manuais.*.url' => ['sometimes','regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
-           'textosAlternativos.*.textoAlternativo' => 'required',
-           'fotos.*.*' => 'required|mimes:jpg,png',
-           'fotoDestaque' => 'required',
-       ];
+         'titulo' => 'required|max:255',
+         'descricao' => 'required',
+         'siteFabricante' => 'required',
+         'produtoComercial' => 'required',
+         'licenca' => 'required_if:produtoComercial,true|max:255',
+         'tags' => 'required',
+         'videos.*.url' => ['sometimes','url'],
+         'arquivos.*.*' => 'sometimes | required',
+         'arquivos.*.url' => ['sometimes','regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
+         'manuais.*.*' => 'sometimes | required',
+         'manuais.*.url' => ['sometimes','regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
+         'textosAlternativos.*.textoAlternativo' => 'required',
+         'fotos.*.*' => 'required|mimes:jpg,png',
+         'fotoDestaque' => 'required',
+     ];
 
-       $mensagens = [
+     $mensagens = [
         'titulo.required' => 'É preciso informar um título para a Tecnologia Assistiva',
         'titulo.max' => 'O título deve ter menos de 256 caracteres',
         'descricao.required'  => 'Descreva brevemente o que está cadastrando',
@@ -552,12 +555,12 @@ class HomeController extends Controller
         }
 
         if(count($idsArquivos)!=0){
-           Arquivo::destroy($idsArquivos);
-       } 
+         Arquivo::destroy($idsArquivos);
+     } 
 
-       $videosRecursoTA = $recursoAlvo->videos;
-       $idsVideos = Array();
-       foreach ($videosRecursoTA as $video) {
+     $videosRecursoTA = $recursoAlvo->videos;
+     $idsVideos = Array();
+     foreach ($videosRecursoTA as $video) {
         array_push($idsVideos, $video->id);
     }
 
@@ -613,23 +616,23 @@ class HomeController extends Controller
     public function insereRecursoTA(Request $request) {
 
         $regras = [
-           'titulo' => 'required|max:255',
-           'descricao' => 'required',
-           'siteFabricante' => 'required',
-           'produtoComercial' => 'required',
-           'licenca' => 'required_if:produtoComercial,true|max:255',
-           'tags' => 'required',
-           'videos.*.url' => ['sometimes','url'],
-           'arquivos.*.*' => 'sometimes | required',
-           'arquivos.*.url' => ['sometimes','regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
-           'manuais.*.*' => 'sometimes | required',
-           'manuais.*.url' => ['sometimes','regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
-           'textosAlternativos.*.textoAlternativo' => 'required',
-           'fotos.*.*' => 'required|mimes:jpg,png',
-           'fotoDestaque' => 'required',
-       ];
+         'titulo' => 'required|max:255',
+         'descricao' => 'required',
+         'siteFabricante' => 'required',
+         'produtoComercial' => 'required',
+         'licenca' => 'required_if:produtoComercial,true|max:255',
+         'tags' => 'required',
+         'videos.*.url' => ['sometimes','url'],
+         'arquivos.*.*' => 'sometimes | required',
+         'arquivos.*.url' => ['sometimes','regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
+         'manuais.*.*' => 'sometimes | required',
+         'manuais.*.url' => ['sometimes','regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
+         'textosAlternativos.*.textoAlternativo' => 'required',
+         'fotos.*.*' => 'required|mimes:jpg,png',
+         'fotoDestaque' => 'required',
+     ];
 
-       $mensagens = [
+     $mensagens = [
         'titulo.required' => 'É preciso informar um título para a Tecnologia Assistiva',
         'titulo.max' => 'O título deve ter menos de 256 caracteres',
         'descricao.required'  => 'Descreva brevemente o que está cadastrando',
@@ -813,11 +816,11 @@ class HomeController extends Controller
     public function salvarEdicaoPaginaAprender(Request $request)
     {
         $regras = [
-           'titulo' => 'required|max:255',
-           'descricao' => 'required',
-       ];
+         'titulo' => 'required|max:255',
+         'descricao' => 'required',
+     ];
 
-       $mensagens = [
+     $mensagens = [
         'titulo.required' => 'É preciso informar um título para o texto da página "Alterar" ',
         'titulo.max' => 'O título deve ter menos de 256 caracteres',
         'descricao.required'  => 'A página "Alterar" deve possuir um texto ',
@@ -840,18 +843,104 @@ class HomeController extends Controller
     return response()->json("Edição publicada com sucesso!", 200);
 } 
 
-public function emailNovoRecursoTA(){
-    $to_name = 'Guilherme';
-    $to_email = 'gmottin27@gmail.com';
-    $data = array('name'=> "RETACE", 'body' => 'Teste');
 
-    Mail::send('emailNovoRecursoTA', $data, function($message) use ($to_name, $to_email) {
-        $message->to($to_email, $to_name)
-        ->subject('Teste de envio de email Laravel');
-        $message->from('cta@ifrs.edu.br','Email de Teste');
-    });
+
+    public function emailNovoRecursoTA($idRecursoTA){
+
+        $recursoTA = RecursoTA::findOrFail($idRecursoTA);
+
+
+        $to_name = 'Guilherme';
+        $to_email = 'gmottin27@gmail.com';
+        $data = array('tituloRecurso'=> $recursoTA->titulo, 'idRecursoTA' => $idRecursoTA);
+
+        Mail::send('emailNovoRecursoTA', $data, function($message) use ($to_name, $to_email) {
+            $message->to($to_email, $to_name)
+            ->subject('Teste de envio de email Laravel');
+            $message->from('cta@ifrs.edu.br','Email de Teste');
+        }); 
 
     return 'Email sent Successfully';
 
-}
+    }
+
+    /**
+     * Encaminha para a página onde todos os usuários cadastrados
+     * serão listados.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function administrarUsuarios()
+    {
+        $usuarios = User::all();
+        return view('administrarUsuarios', ['usuarios' => $usuarios]);
+    }
+
+
+    /**
+     * Encaminha para a página com o formulário de cadastro do usuário
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function adicionarUsuario()
+    {
+        return view('adicionarUsuario');
+    }
+
+
+    /**
+     * Processa o form de cadastro de usuário
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function cadastrarUsuario(Request $request)
+    {
+        $regras = [ 'name' => ['required', 'string', 'max:255'],
+                    'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                ]; 
+
+        $mensagens = [  'name.required' => 'É preciso informar o nome do usuário',
+                        'name.max' => 'O nome deve ter até 255 caracteres',
+                        'name.string' => 'O nome deve possuir apenas letras',
+                        'email.required' => 'É preciso informar o e-mail do usuário',
+                        'email.max' => 'O e-mail deve ter até 255 caracteres',
+                        'email.string' => 'O nome deve ser uma string',
+                        'email.email' => 'Formato de endereço inválido',
+                        'email.unique' => 'Já existe uma conta com esse e-mail',
+                    ];
+
+         $validador = Validator::make($request->all(),$regras,$mensagens);
+
+         //Retorna mensagens de validação no formato JSON caso haja problemas
+        if($validador->fails()){
+            return response()->json($validador->messages(), 422);
+        }
+
+        $novoUsuario = new User();
+        $novoUsuario->name = $request->name;
+        $novoUsuario->email = $request->email;
+        $senhaGerada = Str::random(8);
+        $novoUsuario->password = Hash::make($senhaGerada);
+        $novoUsuario->save();
+
+        $this->enviaEmailNovoUsuario($novoUsuario,$senhaGerada);
+
+        return response()->json("Usuário cadastrado com sucesso!");
+    }
+
+    private function enviaEmailNovoUsuario(User $novoUsuario,$senhaGerada){
+
+        $to_name = $novoUsuario->name;
+        $to_email = $novoUsuario->email;
+        $data = array('nomeUsuario'=> $novoUsuario->name, 'senha' => $senhaGerada);
+
+        Mail::send('emailNovoUsuario', $data, function($message) use ($to_name, $to_email) {
+            $message->to($to_email, $to_name)
+            ->subject('Cadastro efetuado no RETACE');
+            $message->from('cta@ifrs.edu.br','Cadastro');
+        }); 
+
+    return 'Email sent Successfully';
+
+    }
 }

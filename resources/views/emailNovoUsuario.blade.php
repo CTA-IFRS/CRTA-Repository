@@ -2,16 +2,17 @@
 	<div>
         <div>
             <div>
-                <h1>Tecnologia Assistiva Cadastrada no RETACE</h1>
+                <h1>Boas vindas ao RETACE</h1>
             </div>
         </div>
 		<div style="margin-top: 30px;">
 			
-			<p> O recurso <b>{{ $tituloRecurso }}</b> foi adicionado ao RETACE por um visitante.</p>
+			<p> Olá {{ $nomeUsuario }}</b>,</p>
 
-			<p> Acesse o Painel do Administrador ou o recurso cadastrado em {{url('/revisarRecursoTA/'.$idRecursoTA) }} para revisar as informações inseridas e publicar a tecnologia assistiva no repositório.</p>
+			<p> Esse e-mail foi cadastrado no RETACE pela administração do sistema </p>
+			<p> A senha para acessar é {{ $senha }} e pode ser alterada após autenticar-se no site</p>
+			<p> O link de acesso ao RETACE é {{url('/')}}
 
-			<p> Lembre-se de verificar se foram cadastradas novas tags na página de administração de tags </p>
 		</div>
 		<div style="margin-top: 30px;">
 			<p> Essa mensagem é uma notificação automática e não precisa ser respondida </p>

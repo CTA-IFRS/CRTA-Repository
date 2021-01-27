@@ -41,7 +41,7 @@ class AppServiceProvider extends ServiceProvider
                 'label_color' => 'warning',
             ]);
             $event->menu->add([
-                'text'        => 'Administrar Tags',
+                'text'        => 'Tags',
                 'url'         => url('/administrarTags'),
                 'icon'        => 'fa fa-tags',
                 'label'       =>  Tag::where('publicacao_autorizada','false')->count(),
@@ -57,12 +57,18 @@ class AppServiceProvider extends ServiceProvider
                 'text'        => 'Sobre',
                 'url'         => url('/editarPaginaSobre'),
                 'icon'        => 'fa fa-info',
-            ]);            
+            ]);
+            $event->menu->add('Administrar Usuários');
+            $event->menu->add([
+                'text'        => 'Usuários',
+                'url'         => url('/administrarUsuarios'),
+                'icon'        => 'fa fa-users',
+            ]);           
             $event->menu->add('Dados da conta');
             $event->menu->add([
                 'text'        => 'Informações',
                 'url'         => url('/informacoesUsuario'),
-                'icon'        => 'fa fa-user',
+                'icon'        => 'fa fa-id-card',
             ]);
         });
     }

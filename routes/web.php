@@ -23,6 +23,8 @@ Route::get('/', 'NavegacaoController@inicio');
 Route::get('/entrar', 'NavegacaoController@login');
 //Route::get('/registrar', 'NavegacaoController@cadastroUsuario');
 Route::get('/painelAdministrador', 'HomeController@index');
+Route::get('/administrarUsuarios', 'HomeController@administrarUsuarios');
+Route::get('/adicionarUsuario', 'HomeController@adicionarUsuario');
 Route::get('/informacoesUsuario','HomeController@informacoesUsuario');
 Route::get('/administrarRecursosTA', 'HomeController@administrarRecursosTA');
 Route::get('/administrarTags', 'HomeController@administrarTags');
@@ -67,6 +69,7 @@ Route::post('insereRecursoTA','HomeController@insereRecursoTA')->name('insereRec
 Route::post('/editarRecursoTA/{idRecursoTA}','HomeController@editarRecursoTA')->name('editarRecursoTA');
 Route::post('/removeFoto/{idFoto}','HomeController@removeFoto');
 Route::post('salvarEdicaoPaginaAprender','HomeController@salvarEdicaoPaginaAprender')->name('salvarEdicaoPaginaAprender');
+Route::post('cadastrarUsuario','HomeController@cadastrarUsuario')->name('cadastrarUsuario');
 
 //Rota para envio de email
-Route::get('/send/emailNovoRecursoTA', 'HomeController@emailNovoRecursoTA');
+Route::get('/send/emailNovoRecursoTA/{idRecursoTA}', 'HomeController@emailNovoRecursoTA');
