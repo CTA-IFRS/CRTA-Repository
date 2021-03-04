@@ -15,7 +15,7 @@
 				@endforeach
 				@foreach($informacoesVideos as $infoVideo)
 				<li class="hasVideo embed-responsive embed-responsive-4by3" data-src="{{$infoVideo->image}}"data-thumb="{{$infoVideo->image}}" data-iframe="{{$infoVideo->url}}">
-					{!! html_entity_decode($infoVideo->code->html) !!}
+					{!! html_entity_decode($infoVideo->code) !!}
 				</li>
 				@endforeach				
 			</ul>
