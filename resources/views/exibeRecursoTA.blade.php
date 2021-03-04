@@ -9,8 +9,8 @@
 			</h1>
 			<ul id="galeria">
 				@foreach($recursoTA->fotos as $foto)
-				<li data-thumb="{{Storage::url('public/'.$foto->caminho_thumbnail)}}" data-src="{{Storage::url('public/'.$foto->caminho_arquivo)}}">
-					<img class="fotoSelecionada img-fluid" src="{{Storage::url('public/'.$foto->caminho_arquivo)}}" alt="{{$foto->texto_alternativo}}"/>
+				<li data-thumb="{{url(Storage::url('public/'.$foto->caminho_thumbnail))}}" data-src="{{url(Storage::url('public/'.$foto->caminho_arquivo))}}">
+					<img class="fotoSelecionada img-fluid" src="{{url(Storage::url('public/'.$foto->caminho_arquivo))}}" alt="{{$foto->texto_alternativo}}"/>
 				</li>
 				@endforeach
 				@foreach($informacoesVideos as $infoVideo)

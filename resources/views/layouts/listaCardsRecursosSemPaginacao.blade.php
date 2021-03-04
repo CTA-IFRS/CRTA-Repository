@@ -6,7 +6,7 @@
 			<div class="card"> <!--style="min-width: 18rem;"-->
 				@foreach($recursoTA->fotos as $foto)
 				@if($foto->destaque==true)
-				<img class="card-img-top" src="{{Storage::url('public/'.$foto->caminho_thumbnail)}}" alt="{{$foto->texto_alternativo}}">
+				<img class="card-img-top" src="{{url(Storage::url('public/'.$foto->caminho_thumbnail))}}" alt="{{$foto->texto_alternativo}}">
 				@endif
 				@endforeach
 				<div class="card-body">
