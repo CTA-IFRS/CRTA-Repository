@@ -7,6 +7,7 @@ require '../vendor/autoload.php';
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 use Image;
 use App\RecursoTA;
 use App\Tag;
@@ -135,6 +136,10 @@ class RecursoTAController extends Controller{
       })->encode('jpg');
 
       $fotoRedimensionada->insert($fotoEmProcessamento, 'center');
+
+      if (!Storage::disk('public')->has('uploads')) {
+        Storage::disk('public')->makeDirectory('uploads', 0775, true, true);
+      }
       $fotoRedimensionada->save(storage_path('app/public/uploads/').$novoNomeFoto);
 
       //$caminhoFoto = $foto->storeAs('uploads',$novoNomeFoto,'public');
@@ -150,6 +155,10 @@ class RecursoTAController extends Controller{
         $constraint->aspectRatio();
       });
 
+      
+      if (!Storage::disk('public')->has('thumbnails')) {
+        Storage::disk('public')->makeDirectory('thumbnails', 0775, true, true);
+      } 
       //Salva a thumbnail criada a partir da imagem do upload
       $thumbnailFoto->save(storage_path('app/public/thumbnails/').$novoNomeFoto,100);
 
