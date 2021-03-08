@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Support\Facades\Schema;
 use JeroenNoten\LaravelAdminLte\Events\BuildingMenu;
 use Carbon\Carbon;
 use App\RecursoTA;
@@ -28,6 +29,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(Dispatcher $events)
     {
+        Schema::defaultStringLength(191);
+
         config(['app.locale' => 'pt_BR']);
         \Carbon\Carbon::setLocale('pt_BR');
 
