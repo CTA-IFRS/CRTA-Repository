@@ -42,13 +42,13 @@
 					@if(sizeof($recursoTA->manuais)!=0)
 					@foreach($recursoTA->manuais as $manual)
 					<div class="col-md-12">
-						<a href="{{__($manual->url)}}">{{__($manual->nome)}}</a>
+						<a href="{{__($manual->url)}}">{{$manual->nome}}</a>
 					</div>
 					<div class="col-md-12">
-						<span>Formato: {{__($manual->formato)}}</span>
+						<span>Formato: {{$manual->formato}}</span>
 					</div>
 					<div class="col-md-12">
-						<span>Tamanho: {{__($manual->tamanho)}} Mb</span>
+						<span>Tamanho: {{$manual->tamanho}} Mb</span>
 					</div>
 					<hr class="col-md-10"/>
 					@endforeach	
@@ -63,13 +63,13 @@
 					@if(sizeof($recursoTA->arquivos)!=0)
 					@foreach($recursoTA->arquivos as $arquivo)
 					<div class="col-md-12">
-						<a href="{{__($arquivo->url)}}">{{__($arquivo->nome)}}</a>
+						<a href="{{__($arquivo->url)}}">{{$arquivo->nome}}</a>
 					</div>
 					<div class="col-md-12">
-						<span>Formato: {{__($arquivo->formato)}}</span>
+						<span>Formato: {{$arquivo->formato}}</span>
 					</div>
 					<div class="col-md-12">
-						<span>Tamanho: {{__($arquivo->tamanho)}} Mb</span>
+						<span>Tamanho: {{$arquivo->tamanho}} Mb</span>
 					</div>
 					<hr class="col-md-10"/>
 					@endforeach
@@ -82,11 +82,11 @@
 				<h5 class="ml-3 w-100"> Fabricante </h5>
 				<div class="ml-4">
 					<div class="col-md-12">
-						<a class="text-break" href="{{__($recursoTA->site_fabricante)}}">{{__($recursoTA->site_fabricante)}}</a>
+						<a class="text-break" href="{{__($recursoTA->site_fabricante)}}">{{$recursoTA->site_fabricante}}</a>
 					</div>			
 					<div class="col-md-12">
 						@if($recursoTA->produto_comercial)
-						<span class="text-break"> Produto comercial sob a licença {{__($recursoTA->licenca)}}</span>
+						<span class="text-break"> Produto comercial sob a licença {{$recursoTA->licenca}}</span>
 						@else
 						<span> Produto não comercial</span>
 						@endif
@@ -103,14 +103,18 @@
 					<span class="text-danger"> Recurso sem tags associadas</span>
 					@endif
 				</div>	
-			</div>			
+			</div>
 			<div id="avaliacaoPeloUsuario" class="row d-flex align-items-center justify-content-center text-center mt-4">
-				<h5>Avalie o recurso</h5>
+				@if(Cookie::get('avaliouRecursoTA_'.$recursoTA->id)==null)	
+				<h5>Avalie o recurso</h5>		
 				<div class="col-md-6">
 					<input id="avaliacaoUsuario" name="avaliacaoUsuario" value="0" class="rating-loading">				
 				</div>
+				@else
+				<h5 class="text-success">Recurso já avaliado</h5>
+				@endif			
 				<hr class="col-md-10"/>
-			</div>			
+			</div>
 		</div>			
 	</div>
 	<div id="recursosRelacionados" class="card col-md-12 my-5">
@@ -162,7 +166,21 @@
 			alert("Avaliação cancelada")
 		}).on("rating:change", function(event, value, caption) {
 			if(confirm("Deseja avaliar esse recurso como " + value + " estrelas?")){
-				$(this).rating('refresh',{displayOnly:true});
+				$.ajax({
+					method: "POST",
+					url: "{{route('avaliarRecursoTA')}}",
+					data: { "_token": "{{ csrf_token() }}",
+							nota: value,
+							idRecurso: {{$recursoTA->id}} },
+					success: function(resposta){
+						$('#avaliacaoUsuario').rating('refresh',{displayOnly:true});
+						$('#avaliacaoMediaRecurso').rating('refresh',{displayOnly:true,value:resposta[1]});
+						alert(resposta[0]);
+					},
+					error: function(resposta){
+						alert(resposta[0]);
+					}
+				});
 			}else{
 				$(this).rating('reset');
 			}

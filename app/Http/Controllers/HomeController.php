@@ -928,6 +928,9 @@ class HomeController extends Controller
         return response()->json("Usuário cadastrado com sucesso!");
     }
 
+    /**
+    * Método acessório para notificar o usuário de que a conta foi criada
+    */
     private function enviaEmailNovoUsuario(User $novoUsuario,$senhaGerada){
 
         $to_name = $novoUsuario->name;
@@ -937,10 +940,151 @@ class HomeController extends Controller
         Mail::send('emailNovoUsuario', $data, function($message) use ($to_name, $to_email) {
             $message->to($to_email, $to_name)
             ->subject('Cadastro efetuado no RETACE');
-            $message->from('cta@ifrs.edu.br','Cadastro');
+            $message->from('cta@ifrs.edu.br','RETACE');
         }); 
 
-    return 'Email sent Successfully';
+        return 'Mensagem de cadastro enviada com sucesso';
+
+    }
+
+    /**
+     * Encaminha para a página com o formulário de edição do usuário
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function editarUsuario($idUsuario)
+    {
+        $usuario = User::findOrFail($idUsuario);
+        return view('editarUsuario', [ 'usuario' => $usuario]);
+    }
+
+
+    /**
+     * Processa o form de edição de usuário
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function atualizarUsuario(Request $request, $idUsuario)
+    {
+        $regras = [ 'name' => ['required', 'string', 'max:255'],
+                    'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'. $idUsuario.',id'],
+                ]; 
+
+        $mensagens = [  'name.required' => 'É preciso informar o nome do usuário',
+                        'name.max' => 'O nome deve ter até 255 caracteres',
+                        'name.string' => 'O nome deve possuir apenas letras',
+                        'email.required' => 'É preciso informar o e-mail do usuário',
+                        'email.max' => 'O e-mail deve ter até 255 caracteres',
+                        'email.string' => 'O nome deve ser uma string',
+                        'email.email' => 'Formato de endereço inválido',
+                        'email.unique' => 'Já existe uma conta com esse e-mail',
+                    ];
+
+         $validador = Validator::make($request->all(),$regras,$mensagens);
+
+         //Retorna mensagens de validação no formato JSON caso haja problemas
+        if($validador->fails()){
+            return response()->json($validador->messages(), 422);
+        }
+
+        $usuarioEditado = User::findOrFail($idUsuario);
+        $usuarioEditado->name = $request->name;
+
+        if($usuarioEditado->email != $request->email){
+            $this->enviaEmailAlteracaoConta($request->email,$usuarioEditado);
+            $usuarioEditado->email = $request->email;
+        }
+
+        $usuarioEditado->save();
+        
+        return response()->json("Usuário editado com sucesso!");
+    }
+
+    /**
+     * Método acessório para enviar mensagens aos endereços de e-mail antigo e novo para
+     * notificar a alteração.
+     */
+    private function enviaEmailAlteracaoConta($emailNovo,User $usuarioEditado){
+
+        $to_name = $usuarioEditado->name;
+        $to_email = $usuarioEditado->email;
+        $data = array('nomeUsuario'=> $usuarioEditado->name, 'emailAntigo' => $usuarioEditado->email, 'emailNovo' => $emailNovo);
+
+        Mail::send('emailAlteracaoContaUsuario', $data, function($message) use ($to_name, $to_email) {
+            $message->to($to_email, $to_name)
+            ->subject('E-mail de acesso ao RETACE alterado');
+            $message->from('cta@ifrs.edu.br','RETACE');
+        });
+
+        Mail::send('emailAlteracaoContaUsuario', $data, function($message) use ($to_name, $emailNovo) {
+            $message->to($emailNovo, $to_name)
+            ->subject('E-mail de acesso ao RETACE alterado');
+            $message->from('cta@ifrs.edu.br','RETACE');
+        });  
+
+        return 'Mensagem de alteração de e-mail enviada com sucesso';
+
+    }
+
+    public function recuperarSenha($idUsuario){
+
+        $usuario = User::findOrFail($idUsuario);
+        $senhaGerada = Str::random(8);
+        $usuario->password = Hash::make($senhaGerada);
+        $usuario->save();
+
+        $this->enviaEmailRecuperacaoSenha($usuario,$senhaGerada);
+
+        return response()->json("Recuperação e envio de senha concluídos com sucesso!");        
+    }
+
+    /**
+    * Método acessório para enviar ao usuário uma nova senha de acesso.
+    */
+    private function enviaEmailRecuperacaoSenha(User $usuario,$senhaGerada){
+
+        $to_name = $usuario->name;
+        $to_email = $usuario->email;
+        $data = array('nomeUsuario'=> $usuario->name, 'senha' => $senhaGerada);
+
+        Mail::send('emailRecuperacaoSenhaUsuario', $data, function($message) use ($to_name, $to_email) {
+            $message->to($to_email, $to_name)
+            ->subject('Recuperação de senha de conta');
+            $message->from('cta@ifrs.edu.br','RETACE');
+        }); 
+
+        return 'Mensagem com nova senha enviada com sucesso';
+
+    }
+
+
+    public function excluirUsuario(Request $request){
+
+        $usuario = User::findOrFail($request->idUsuario);
+        User::destroy($request->idUsuario);
+
+
+        $this->enviaEmailExclusaoConta($usuario);
+
+        return response()->json("Exclusão e envio de notificação concluídos com sucesso!");        
+    }
+
+    /**
+    * Método acessório para enviar ao usuário a notificação de exclusão da conta.
+    */
+    private function enviaEmailExclusaoConta(User $usuario){
+
+        $to_name = $usuario->name;
+        $to_email = $usuario->email;
+        $data = array('nomeUsuario'=> $usuario->name);
+
+        Mail::send('emailExclusaoUsuario', $data, function($message) use ($to_name, $to_email) {
+            $message->to($to_email, $to_name)
+            ->subject('Conta do RETACE encerrada');
+            $message->from('cta@ifrs.edu.br','RETACE');
+        }); 
+
+        return 'Notificação de exclusão de conta enviada com sucesso';
 
     }
 }

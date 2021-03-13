@@ -14,6 +14,7 @@ use App\Video;
 use App\Arquivo;
 use App\Manual;
 use App\Foto;
+use Cookie;
 
 class RecursoTAController extends Controller{
   public function store(Request $request) {
@@ -232,4 +233,30 @@ class RecursoTAController extends Controller{
     return view('layouts.listaCardsRecursos',['recursosTA' => $recursosTA])->render();
   }
 }
+
+
+  /* Atribui a nota dada pelo usuário ao RecursoTA
+   *
+   */
+  public function avaliarRecursoTA(Request $request){
+
+    $rating = new \willvincent\Rateable\Rating;
+
+    $rating->rating = $request->nota;
+    $rating->user_id = null;
+
+    //Verifica se o usuário já avaliou o recurso pelo cooki
+    if($request->hasCookie("avaliouRecursoTA_".$request->idRecurso)===false){
+      $recursoTA = RecursoTA::findOrFail($request->idRecurso);
+      $recursoTA->ratings()->save($rating);
+
+      $novaMediaAvaliacao = 0;
+      $novaMediaAvaliacao = $recursoTA->userAverageRating;
+
+      return response()->json(["Agradecemos por avaliar esse recurso!",$novaMediaAvaliacao],202)->withCookie($cookie = cookie("avaliouRecursoTA_".$request->idRecurso, true));        
+    }    
+     
+    return response()->json(["Você já avaliou esse recurso antes, nota não registrada"]);
+    
+  }
 }

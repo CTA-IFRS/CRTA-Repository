@@ -34,13 +34,17 @@
 					<table class="table">
 						<tr>
 							<td>
-								<a id="btnEditar" href="{{url('/editarUsuario/'.__($usuario->id))}}" class="btn btn-primary"><b>Editar</b></a>
+								<a id="btnEditar" type="button" href="{{url('/editarUsuario/'.__($usuario->id))}}" class="btn btn-primary"><b>Editar</b></a>
 							</td>
 							<td>
-								<a id="btnExcluir" href="{{url('/excluirUsuario/'.__($usuario->id))}}" class="btn btn-danger"><b>Excluir</b></a>
+								<form id="formExcluirUsuario" method="post" action={{route('excluirUsuario')}}>
+									{{ csrf_field() }}
+									<input id="idUsuario" name="idUsuario" type="hidden" value="{{$usuario->id}}">
+									<button id="btnExcluir" type="submit" class="btn btn-danger"><b>Excluir</b></button>
+								</form>
 							</td>
 							<td>
-								<a id="btnResetarSenha" href="#" class="btn btn-warning"><b>Enviar e-mail de recuperação de senha</b></a>
+								<a id="btnResetarSenha" type="button" href="{{url('/recuperarSenha/'.__($usuario->id))}}" class="btn btn-warning"><b>Enviar e-mail de recuperação de senha</b></a>
 							</td>
 						</tr>							
 					</table>
@@ -60,9 +64,25 @@
 		</tbody>
 	</table>
 </div>
-@if(!empty($sucessoExclusao))
-  <div class="alert alert-success"> {{ $sucessoExclusao }}</div>
-@endif
+<!-- The Modal -->
+<div class="modal alert hide fade in" data-keyboard="false" data-backdrop="static" id="modalSucessoExclusao">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<!-- Modal Header -->
+			<div class="modal-header">
+				<h4 class="modal-title">Exclusão bem sucedida</h4>
+			</div>
+			<!-- Modal body -->
+			<div class="modal-body">
+				<p>Usuário excluído com sucesso!</p>
+			</div>
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<a class="btn btn-primary" href="{{url('/administrarUsuarios')}}">Ok</a>
+			</div>
+		</div>
+	</div>
+</div>
 @stop
 
 @section('css')
@@ -75,22 +95,52 @@
 <script src="https://cdn.datatables.net/responsive/2.2.6/js/responsive.bootstrap4.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		$("#btnOmitir").click(function(){
-		if(confirm("Deseja ocultar o recurso? Ele permanecerá no banco de dados, mas não será visível aos usuários do RETACE")){
-			return true;
-		}	
-		else{
-			return false;
-		}
-	});
+		var formExcluirUsuario = $('#formExcluirUsuario');
+		form.submit(function(e) {
+			var formData = new FormData(form[0]);
+
+			e.preventDefault();
+			$.ajax({
+				type: "POST",
+				url: form.attr('action'),
+				dataType: 'json',
+				cache: false,
+				processData: false,
+				contentType: false, 
+				data: formData,
+				beforeSend: function(xhr)
+				{
+					xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token() }}');
+				},
+				success: function(respostaServidor)
+				{
+                        // open the other modal
+                        $("#modalSucessoExclusao").modal("show");
+                    },
+                    error: function(respostaServidor)
+                    {
+                    	alert("Erro ao excluir usuário");
+                    }
+                });
+		});
+		$("#btnResetarSenha").click(function(){
+			if(confirm("Deseja redefinir a senha do usuário?")){
+				return true;
+			}	
+			else{
+				return false;
+			}
+		});
+
 		$("#btnExcluir").click(function(){
-		if(confirm("Deseja excluir o recurso? Essa ação é irreversível")){
-			return true;
-		}	
-		else{
-			return false;
-		}
-	});
+			if(confirm("Deseja excluir o usuário? Essa ação é irreversível")){
+				return true;
+			}	
+			else{
+				return false;
+			}
+		});
+		
 		var table = $('#tabelaUsuarios').DataTable( {
 			responsive: {
 				details: {

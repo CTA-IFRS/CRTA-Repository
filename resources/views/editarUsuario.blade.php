@@ -9,12 +9,12 @@
 
 @section('content')
 <div class="container">
-	<form id="formCadastroUsuario" method="post" action="{{ route('cadastrarUsuario') }}">
+	<form id="formEdicaoUsuario" method="post" action="{{ route('atualizarUsuario', ['idUsuario' => $usuario->id ]) }}">
 		{{ csrf_field() }}
 		<div class="form-group row">
 			<label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nome') }}</label>
 			<div class="col-md-6">
-				<input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" autofocus>
+				<input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $usuario->name }}" autofocus>
 
 				@error('name')
 				<span class="invalid-feedback" role="alert">
@@ -27,7 +27,7 @@
 			<label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Endereço de E-mail') }}</label>
 
 			<div class="col-md-6">
-				<input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}">
+				<input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $usuario->email }}">
 
 				@error('email')
 				<span class="invalid-feedback" role="alert">
@@ -39,31 +39,11 @@
 		<div class="form-group row mb-0 mt-3">
 			<div class="col-md-3 offset-md-9">
 				<button type="submit" class="btn btn-primary">
-					{{ __('Cadastrar') }}
+					{{ __('Atualizar') }}
 				</button>
 			</div>
 		</div>
 	</form>
-</div>
-<!-- The Modal -->
-<div class="modal alert alert-success hide fade in" data-keyboard="false" data-backdrop="static" id="modalCadastroRealizado">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<!-- Modal Header -->
-			<div class="modal-header">
-				<h4 class="modal-title">Sucesso</h4>
-			</div>
-			<!-- Modal body -->
-			<div class="modal-body">
-				<p>Usuário cadastrado com sucesso. Deseja adicionar outro ou retornar à administração de usuários?</p>
-			</div>
-			<!-- Modal footer -->
-			<div class="modal-footer">
-				<a class="btn btn-primary" href="{{url('/administrarUsuarios')}}">Ir para administração de usuários</a>
-				<a class="btn btn-primary" href="{{url('/adicionarUsuarios')}}">Adicionar novo usuário</a>
-			</div>
-		</div>
-	</div>
 </div>
 @stop
 
@@ -73,9 +53,24 @@
 
 @section('js')
 
-<script type="text/javascript">	var form = $('#formCadastroUsuario');
+<script type="text/javascript">
+	$("#btnAutorizar").click(function(){
+		if(confirm("Deseja confirmar o cadastro?")){
+			return true;
+		}	
+		else{
+			return false;
+		}
+	});
+
+	$(document).ajaxSuccess(function(){
+ 		alert("Usuário editado com sucesso");
+ 		window.location="/administrarUsuarios";
+	});
+
+	var form = $('#formEdicaoUsuario');
 	form.submit(function(e) {
-		var formData = new FormData(form[0]);
+		var formData = form.serialize();
 
 		e.preventDefault();
 		$.ajax({
@@ -92,9 +87,8 @@
 			},
 			success: function(respostaServidor)
 			{
-                        // open the other modal
-                        $("#modalCadastroRealizado").modal("show");
-                    },
+
+            },
                     error: function(respostaServidor)
                     {
                     	$('.invalid-feedback').remove();
@@ -110,16 +104,6 @@
                     	}
                     }
                 });
-	});
-	$("#btnAutorizar").click(function(){
-		if(confirm("Deseja confirmar o cadastro?")){
-			return true;
-		}	
-		else{
-			return false;
-		}
-	});
-
-                    
+	});                    
 </script>
 @stop

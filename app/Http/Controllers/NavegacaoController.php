@@ -161,8 +161,7 @@ class NavegacaoController extends Controller{
 		$quatroRelacionadosMaisVistos = collect($conjuntoOrdenado)->take(4);
 
 		$mediaAvaliacao = 0;
-		$mediaAvaliacao = round($recursoTA->userAverageRating,0);
-		$complementoAvaliacao = 5 - $mediaAvaliacao;
+		$mediaAvaliacao = $recursoTA->userAverageRating;
 
 		//Utiliza o package Embed para obter a url que permita esse tipo de uso
 		$embed = new Embed();
@@ -175,7 +174,6 @@ class NavegacaoController extends Controller{
 		return view('exibeRecursoTA',
 					['recursoTA' => $recursoTA, 
 					'mediaAvaliacao' => $mediaAvaliacao,
-					'complementoAvaliacao' => $complementoAvaliacao, 
 					'recursosTA' =>$quatroRelacionadosMaisVistos,
 					'informacoesVideos' => $infoTodosVideos]);
 	}

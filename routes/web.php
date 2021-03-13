@@ -21,11 +21,17 @@ Auth::routes();
 Route::get('/', 'NavegacaoController@inicio');
 //Rotas das funcionalidades do Admin
 Route::get('/entrar', 'NavegacaoController@login');
-//Route::get('/registrar', 'NavegacaoController@cadastroUsuario');
+//Administração de Usuários
 Route::get('/painelAdministrador', 'HomeController@index');
 Route::get('/administrarUsuarios', 'HomeController@administrarUsuarios');
 Route::get('/adicionarUsuario', 'HomeController@adicionarUsuario');
+Route::post('/cadastrarUsuario', 'HomeController@cadastrarUsuario')->name('cadastrarUsuario');
+Route::get('/editarUsuario/{idUsuario}', 'HomeController@editarUsuario');
+Route::post('atualizarUsuario/{idUsuario}','HomeController@atualizarUsuario')->name('atualizarUsuario');
 Route::get('/informacoesUsuario','HomeController@informacoesUsuario');
+Route::post('/excluirUsuario','HomeController@excluirUsuario')->name('excluirUsuario');
+Route::get('/recuperarSenha/{idUsuario}','HomeController@recuperarSenha');
+
 Route::get('/administrarRecursosTA', 'HomeController@administrarRecursosTA');
 Route::get('/administrarTags', 'HomeController@administrarTags');
 Route::get('/autorizaPublicacaoTag/{idTag}', 'HomeController@autorizaPublicacaoTag');
@@ -69,7 +75,8 @@ Route::post('insereRecursoTA','HomeController@insereRecursoTA')->name('insereRec
 Route::post('/editarRecursoTA/{idRecursoTA}','HomeController@editarRecursoTA')->name('editarRecursoTA');
 Route::post('/removeFoto/{idFoto}','HomeController@removeFoto');
 Route::post('salvarEdicaoPaginaAprender','HomeController@salvarEdicaoPaginaAprender')->name('salvarEdicaoPaginaAprender');
-Route::post('cadastrarUsuario','HomeController@cadastrarUsuario')->name('cadastrarUsuario');
+Route::post('avaliarRecursoTA', 'RecursoTAController@avaliarRecursoTA')->name('avaliarRecursoTA');
+
 
 //Rota para envio de email
 Route::get('/send/emailNovoRecursoTA/{idRecursoTA}', 'HomeController@emailNovoRecursoTA');
