@@ -37,7 +37,7 @@
 	</div>
         <div class="navbar-nav navbar-right navbar-header">
           <li class="nav-item my-2 my-md-0">
-            <a class="nav-link" href="/entrar"><u> Entrar </u></a>
+            <a class="nav-link" href="{{url('/entrar')}}"><u> Entrar </u></a>
           </li>
         </div>
 </nav>

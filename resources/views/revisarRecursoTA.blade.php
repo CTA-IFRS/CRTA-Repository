@@ -253,7 +253,7 @@
 				   '{ID_FOTO_NOVA}' : '{ID_FOTO_NOVA}'
 				 "  !!}
 		},
-		initialPreview: [@foreach($recursoTA->fotos as $foto)'<img src="{{Storage::url('public/'.$foto->caminho_arquivo)}}" class="file-preview-image kv-preview-data" alt="{{$foto->texto_alternativo}}">',@endforeach],
+		initialPreview: [@foreach($recursoTA->fotos as $foto)'<img src="{{url(Storage::url('public/'.$foto->caminho_arquivo))}}" class="file-preview-image kv-preview-data" alt="{{$foto->texto_alternativo}}">',@endforeach],
 		initialPreviewConfig: [
 		@foreach($recursoTA->fotos as $foto) 
 			{!! '{ caption: "'.$foto->texto_alternativo.'",

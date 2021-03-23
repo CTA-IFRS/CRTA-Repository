@@ -9,13 +9,13 @@
 			</h1>
 			<ul id="galeria">
 				@foreach($recursoTA->fotos as $foto)
-				<li data-thumb="{{Storage::url('public/'.$foto->caminho_thumbnail)}}" data-src="{{Storage::url('public/'.$foto->caminho_arquivo)}}">
-					<img class="fotoSelecionada img-fluid" src="{{Storage::url('public/'.$foto->caminho_arquivo)}}" alt="{{$foto->texto_alternativo}}"/>
+				<li data-thumb="{{url(Storage::url('public/'.$foto->caminho_thumbnail))}}" data-src="{{url(Storage::url('public/'.$foto->caminho_arquivo))}}">
+					<img class="fotoSelecionada img-fluid" src="{{url(Storage::url('public/'.$foto->caminho_arquivo))}}" alt="{{$foto->texto_alternativo}}"/>
 				</li>
 				@endforeach
 				@foreach($informacoesVideos as $infoVideo)
 				<li class="hasVideo embed-responsive embed-responsive-4by3" data-src="{{$infoVideo->image}}"data-thumb="{{$infoVideo->image}}" data-iframe="{{$infoVideo->url}}">
-					{!! html_entity_decode($infoVideo->code->html) !!}
+					{!! html_entity_decode($infoVideo->code) !!}
 				</li>
 				@endforeach				
 			</ul>

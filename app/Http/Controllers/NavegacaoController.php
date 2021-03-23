@@ -164,10 +164,11 @@ class NavegacaoController extends Controller{
 		$mediaAvaliacao = $recursoTA->userAverageRating;
 
 		//Utiliza o package Embed para obter a url que permita esse tipo de uso
-		$embed = new Embed();
+		//$embed = new Embed();
 		$infoTodosVideos = Array();
 		foreach ($recursoTA->videos as $video) {
-			$infoVideo = $embed->get($video->url);
+			$infoVideo = Embed::create($video->url);
+			//$infoVideo = $embed->get($video->url);
 			array_push($infoTodosVideos,$infoVideo);
 		}
 
