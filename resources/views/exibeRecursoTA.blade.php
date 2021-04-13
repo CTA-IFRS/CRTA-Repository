@@ -106,9 +106,21 @@
 			</div>
 			<div id="avaliacaoPeloUsuario" class="row d-flex align-items-center justify-content-center text-center mt-4">
 				@if(Cookie::get('avaliouRecursoTA_'.$recursoTA->id)==null)	
-				<h5>Avalie o recurso</h5>		
+				<h5 id="label-avaliacaoUsuario">Avalie o recurso</h5>		
 				<div class="col-md-6">
-					<input id="avaliacaoUsuario" name="avaliacaoUsuario" value="0" class="rating-loading">				
+					<input id="avaliacaoUsuario" name="avaliacaoUsuario" value="0" class="rating-loading" 
+						aria-labelledby="label-avaliacaoUsuario" tabindex="-1">
+					<div class="sr-only">
+						<select id="avaliacaoUsuario-sr" aria-labelledby="label-avaliacaoUsuario">
+							<option value="0">Não avaliado</option>
+							<option value="1">Uma estrela</option>
+							<option value="2">Duas estrelas</option>
+							<option value="3">Três estrelas</option>
+							<option value="4">Quatro estrelas</option>
+							<option value="5">Cinco estrelas</option>
+						</select>		
+						<button id="enviarAvaliacaoUsuario-sr" type="button">Enviar avaliação</button>		
+					</div>
 				</div>
 				@else
 				<h5 class="text-success">Recurso já avaliado</h5>
@@ -160,6 +172,16 @@
 			theme: "krajee-fa",
 			size: "sm",
 			step: "1"
+		});
+
+		$("#enviarAvaliacaoUsuario-sr").on("click", function (event) {
+			var avalUsuarioSr = $("#avaliacaoUsuario-sr");
+			var value = avalUsuarioSr.val();
+			if (value != 0) {
+				$("#avaliacaoUsuario")
+					.rating("update", value)
+					.trigger("rating:change", value, avalUsuarioSr.text());
+			}
 		});
 
 		$("#avaliacaoUsuario").rating().on("rating:clear", function(event) {
