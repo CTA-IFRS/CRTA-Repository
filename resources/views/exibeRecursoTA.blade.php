@@ -28,7 +28,8 @@
 		<div id="colunaDireita" class="card offset-md-1 col-md-3">
 			<div id="indicadores" class="row d-flex align-items-center justify-content-center text-center mt-4">
 				<div id="avaliacoes" class="col-md-6">					
-					<input id="avaliacaoMediaRecurso" name="avaliacaoMediaRecurso" value="{{$mediaAvaliacao}}" class="rating-loading">				
+					<input id="avaliacaoMediaRecurso" name="avaliacaoMediaRecurso" value="{{$mediaAvaliacao}}" 
+						class="rating-loading" aria-label="Avaliação média do recurso">				
 				</div>
 				<div id="acessos" class="col-md-6">
 					<i class="fa fa-eye" aria-hidden="true"></i>
