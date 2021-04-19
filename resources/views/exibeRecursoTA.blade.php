@@ -125,7 +125,7 @@
 				<div class="col-md-6">
 					<input id="avaliacaoUsuario" name="avaliacaoUsuario" value="0" class="rating-loading" 
 						aria-labelledby="label-avaliacaoUsuario" tabindex="-1">
-					<div class="sr-only">
+					<div id="formAvaliacao-sr" class="sr-only">
 						<select id="avaliacaoUsuario-sr" aria-labelledby="label-avaliacaoUsuario">
 							<option value="0">Não avaliado</option>
 							<option value="1">Uma estrela</option>
@@ -137,6 +137,7 @@
 						<button id="enviarAvaliacaoUsuario-sr" type="button">Enviar avaliação</button>		
 					</div>
 				</div>
+				<p id="agradecimento-avaliacao" tabindex="-1" class="h5 text-success d-none">Agradecemos sua avaliação</p>
 				@else
 				<h5 class="text-success">Recurso já avaliado</h5>
 				@endif			
@@ -150,8 +151,9 @@
 	</div>
 </div>
 <!-- Modal -->
-<div class="modal alert alert-success hide fade in" data-keyboard="false" data-backdrop="static" id="modalConfirmaAvaliacao">
-	<div class="modal-dialog">
+<div class="modal alert alert-success hide fade in" tabindex="-1" role="dialog" data-keyboard="false" 
+	data-backdrop="static" id="modalConfirmaAvaliacao">
+	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<!-- Header -->
 			<div class="modal-header">
@@ -163,8 +165,8 @@
 			</div>
 			<!-- Footer -->
 			<div class="modal-footer">
-				<a class="btn btn-primary" href="{{url('/')}}">Sim</a>
-				<a class="btn btn-primary" data-dismiss="modal" onclick="desmarcaAvaliacaoDada()">Não</a>
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Sim</button>
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Não</button>
 			</div>
 		</div>
 	</div>
@@ -172,9 +174,20 @@
 @endsection
 @section('scripts')
 <script>
+	function showConfirmMessage(msg, title, f_yes, f_no) {
+		$("#modalConfirmaAvaliacao .modal-title").first().text(title);
+		$("#modalConfirmaAvaliacao .modal-body").first().text(msg);
+		$("#modalConfirmaAvaliacao .modal-footer button").first().on("click", function (ev) {
+			if (f_yes) f_yes();
+		});
+		$("#modalConfirmaAvaliacao .modal-footer button").last().on("click", function (ev) {
+			if (f_no) f_no();
+		});
+		$("#modalConfirmaAvaliacao").modal("show");
+		$("#modalConfirmaAvaliacao").focus();
+	}
 
 	$(document).ready(function() {
-
 		$('#avaliacaoMediaRecurso').rating({
 			displayOnly: true, 
 			language: "pt-BR",
@@ -202,25 +215,33 @@
 		$("#avaliacaoUsuario").rating().on("rating:clear", function(event) {
 			alert("Avaliação cancelada")
 		}).on("rating:change", function(event, value, caption) {
-			if(confirm("Deseja avaliar esse recurso como " + value + " estrelas?")){
-				$.ajax({
-					method: "POST",
-					url: "{{route('avaliarRecursoTA')}}",
-					data: { "_token": "{{ csrf_token() }}",
-							nota: value,
-							idRecurso: {{$recursoTA->id}} },
-					success: function(resposta){
-						$('#avaliacaoUsuario').rating('refresh',{displayOnly:true});
-						$('#avaliacaoMediaRecurso').rating('refresh',{displayOnly:true,value:resposta[1]});
-						alert(resposta[0]);
-					},
-					error: function(resposta){
-						alert(resposta[0]);
-					}
-				});
-			}else{
-				$(this).rating('reset');
-			}
+			var self = this;
+			showConfirmMessage("Confirmar avaliação", 
+				"Deseja avaliar esse recurso como " + value + " estrelas?",
+				function () {
+					$.ajax({
+						method: "POST",
+						url: "{{route('avaliarRecursoTA')}}",
+						data: { "_token": "{{ csrf_token() }}",
+								nota: value,
+								idRecurso: {{$recursoTA->id}} },
+						success: function(resposta){
+							$('#avaliacaoUsuario').rating('refresh',{displayOnly:true});
+							$('#avaliacaoMediaRecurso').rating('refresh',{displayOnly:true,value:resposta[1]});
+							$('#formAvaliacao-sr').hide();
+							$('#agradecimento-avaliacao').removeClass('d-none');
+							$('#agradecimento-avaliacao').focus();
+						},
+						error: function(resposta){
+							alert(resposta[0]);
+						}
+					});
+				}, 
+				function () {
+					$(self).rating('reset');
+					$("#enviarAvaliacaoUsuario-sr").focus();
+				}
+			);
 		});
 
 		$('input[name=avaliacao]').click(function(){
