@@ -14,8 +14,9 @@
 			<input type="text" name="termo" class="form-control" placeholder="Busque recursos de tecnologia assistiva" aria-label="Campo de busca com seletor para optar entre buscar por TAGs ou termos" required="true">
 		</div>
 		<div class="col-sm-1 col-1 input-group-append">
-			<button class="btn btn-primary" type="submit">
-				<i class="fa fa-search"></i>
+			<button class="btn btn-primary" type="submit" id="btnSearch">
+				<i class="fa fa-search" aria-hidden="true"></i>
+				<span class="sr-only">Pesquisar</span>
 			</button>
 		</div>
 	</div>		
@@ -48,15 +49,19 @@
 					defaultTagClass: 'tagChip',
 					noSuggestionMsg: 'Categoria não encontrada'
 				});
-				$('input[class="amsify-suggestags-input"]').attr("placeholder","Busque por TAGs");        	
+				$('input[class="amsify-suggestags-input"]')
+					.attr("placeholder","Busque por TAGs")
+					.focus();        	
 				$("#buscaRecursosTA").attr('action', "{{ route('filtro', ['tipoBusca' => $tipoBusca ?? '', 'tags' => $termo ?? '']) }}");
 
 			}else if(opcaoEscolhida==="Termo"){
 				$('input[name="termo"]').amsifySuggestags({}, 'destroy');
 				$('input[name="tipoBusca"]').val('termo');
-				$('input[name="termo"]').attr("placeholder","Digite e busque por palavras no titulo ou descrição da TA");
-				$('input[name="termo"]').val("");
-				$('input[name="termo"]').removeAttr('disabled');
+				$('input[name="termo"]')
+					.attr("placeholder","Digite e busque por palavras no titulo ou descrição da TA")
+					.val("")
+					.removeAttr('disabled')
+					.focus();
 				$("#buscaRecursosTA").attr('action', "{{ route('filtro', ['tipoBusca' => $tipoBusca ?? '', 'termo' => $termo ?? '']) }}");
 
 			}else{
@@ -64,8 +69,10 @@
 				$('input[name="tipoBusca"]').val('todos');
 				$('input[name="termo"]').attr('disabled','disabled');
 				$('input[name="termo"]').attr("placeholder","Busque por todas as tecnologias assistivas cadastradas");
-				$("#buscaRecursosTA").attr('action', "{{ route('filtro', ['tipoBusca' => $tipoBusca ?? '' ]) }}");        		
+				$("#buscaRecursosTA").attr('action', "{{ route('filtro', ['tipoBusca' => $tipoBusca ?? '' ]) }}");       
+				$("#btnSearch").focus(); 		
 			}
+
 		});
 	});	
 </script>
