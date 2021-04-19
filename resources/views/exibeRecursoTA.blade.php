@@ -108,7 +108,8 @@
 					</div>
 				</div>		
 			</div>
-			<div id="tags" class="row mt-5">
+			<div id="tags" class="row mt-4">
+				<h5 class="ml-3 w-100"> Tags </h5>
 				<div class="col-md-12 ml-4">
 					@if(sizeof($recursoTA->tags))
 					@foreach($recursoTA->tags as $tag)
