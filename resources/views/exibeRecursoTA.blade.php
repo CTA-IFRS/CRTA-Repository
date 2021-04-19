@@ -7,18 +7,32 @@
 			<h1 class="my-1">
 				{{ __($recursoTA->titulo) }}
 			</h1>
+			<a href="#fim-galeria" id="inicio-galeria" class="sr-only">Início da galeria de imagens do recurso, clique para pular</a>
 			<ul id="galeria">
 				@foreach($recursoTA->fotos as $foto)
 				<li data-thumb="{{url(Storage::url('public/'.$foto->caminho_thumbnail))}}" data-src="{{url(Storage::url('public/'.$foto->caminho_arquivo))}}">
-					<img class="fotoSelecionada img-fluid" src="{{url(Storage::url('public/'.$foto->caminho_arquivo))}}" alt="{{$foto->texto_alternativo}}"/>
+					<a href="#">
+						<img class="fotoSelecionada img-fluid" src="{{url(Storage::url('public/'.$foto->caminho_arquivo))}}" alt="{{$foto->texto_alternativo}}"/>
+					</a>
 				</li>
 				@endforeach
 				@foreach($informacoesVideos as $infoVideo)
-				<li class="hasVideo embed-responsive embed-responsive-4by3" data-src="{{$infoVideo->image}}"data-thumb="{{$infoVideo->image}}" data-iframe="{{$infoVideo->url}}">
-					{!! html_entity_decode($infoVideo->code) !!}
+				<li class="hasVideo embed-responsive embed-responsive-4by3" data-src="{{$infoVideo->image}}" data-thumb="{{$infoVideo->image}}" data-iframe="{{$infoVideo->url}}">
+					<?php $uniqueId = uniqid(""); ?>
+					<a href="#fim-video-{{$uniqueId}}" id="inicio-video-{{$uniqueId}}" 
+						class="sr-only ignore-click-eff">Início do vídeo "{{$infoVideo->title}}", clique para pular o vídeo
+					</a>
+
+						{!! html_entity_decode($infoVideo->code) !!}
+						
+					<a href="#inicio-video-{{$uniqueId}}" id="fim-video-{{$uniqueId}}" class="sr-only ignore-click-eff">
+						Fim do vídeo "{{$infoVideo->title}}", clique para voltar ao início
+					</a>
 				</li>
 				@endforeach				
 			</ul>
+			<a href="#inicio-galeria" id="fim-galeria" class="sr-only">Final da galeria de imagens do recurso, clique para voltar ao início</a>
+
 			<div class="my-3">
 				<h2 class="my-3">Descrição do Recurso</h2>
 
@@ -213,25 +227,41 @@
 			$("#modalConfirmaAvaliacao").modal("show");
 		});
 
-		$('#galeria').lightSlider({
+		var slider = $('#galeria').lightSlider({
 			gallery:true,
 			item:1,
 			loop:false,
 			slideMargin:0,
 			enableDrag: false,
 			currentPagerPosition:'left',
-			pager: true,
-			keyPress: true,
+			keyPress: false,
 			addClass: "h-20 cursor-pointer",
 			thumbItem: 5,
 			onSliderLoad: function(el) {
-				el.lightGallery({
-					selector: '#galeria .lslide'
+				el.lightGallery();
+
+				$("a.ignore-click-eff").on("click", function (event) {
+					var elemId = $(this).attr("href");
+					$(elemId).focus();
+					return false;
 				});
+
+				var f_RemoveThumbLinksFromTabSequence = function () {
+					$('ul[class~="lSPager"] a')
+						.attr("tabindex", "-1").prop("tabindex", "-1")
+						.attr("aria-hidden", "true").prop("aria-hidden", "true");
+				};
+
+				f_RemoveThumbLinksFromTabSequence();
+				var observer = new MutationObserver(function (mutations) {
+					f_RemoveThumbLinksFromTabSequence();
+				});
+				observer.observe($('ul[class~="lSPager"]').get(0), {subtree: true, childList:true});
 			}   
 		});
-
+		
 		$('.video-stream').addClass("embed-responsive-item");
+		
 	});
 </script>
 @endsection
