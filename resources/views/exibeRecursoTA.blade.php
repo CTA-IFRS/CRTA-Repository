@@ -7,7 +7,7 @@
 			<h1 class="my-1">
 				{{ __($recursoTA->titulo) }}
 			</h1>
-			<a href="#fim-galeria" id="inicio-galeria" class="sr-only">Início da galeria de imagens do recurso, clique para pular</a>
+			<a href="#fim-galeria" id="inicio-galeria" class="sr-only">Início da galeria de imagens e vídeos do recurso, clique para pular</a>
 			<ul id="galeria">
 				@foreach($recursoTA->fotos as $foto)
 				<li data-thumb="{{url(Storage::url('public/'.$foto->caminho_thumbnail))}}" data-src="{{url(Storage::url('public/'.$foto->caminho_arquivo))}}">
@@ -31,7 +31,7 @@
 				</li>
 				@endforeach				
 			</ul>
-			<a href="#inicio-galeria" id="fim-galeria" class="sr-only">Final da galeria de imagens do recurso, clique para voltar ao início</a>
+			<a href="#inicio-galeria" id="fim-galeria" class="sr-only">Final da galeria de imagens e vídeos do recurso, clique para voltar ao início</a>
 
 			<div class="my-3">
 				<h2 class="my-3">Descrição do Recurso</h2>
@@ -178,10 +178,11 @@
 	function showConfirmMessage(msg, title, f_yes, f_no) {
 		$("#modalConfirmaAvaliacao .modal-title").first().text(title);
 		$("#modalConfirmaAvaliacao .modal-body").first().text(msg);
-		$("#modalConfirmaAvaliacao .modal-footer button").first().on("click", function (ev) {
+		var buttons = $("#modalConfirmaAvaliacao .modal-footer button");
+		buttons.first().on("click", function (ev) {
 			if (f_yes) f_yes();
 		});
-		$("#modalConfirmaAvaliacao .modal-footer button").last().on("click", function (ev) {
+		buttons.last().on("click", function (ev) {
 			if (f_no) f_no();
 		});
 		$("#modalConfirmaAvaliacao").modal("show");
@@ -219,7 +220,7 @@
 			var self = this;
 			showConfirmMessage("Confirmar avaliação", 
 				"Deseja avaliar esse recurso como " + value + " estrelas?",
-				function () {
+				function () { //f_yes
 					$.ajax({
 						method: "POST",
 						url: "{{route('avaliarRecursoTA')}}",
@@ -238,7 +239,7 @@
 						}
 					});
 				}, 
-				function () {
+				function () { // f_no
 					$(self).rating('reset');
 					$("#enviarAvaliacaoUsuario-sr").focus();
 				}
@@ -249,18 +250,21 @@
 			$("#modalConfirmaAvaliacao").modal("show");
 		});
 
-		var slider = $('#galeria').lightSlider({
+		$('#galeria').lightSlider({
 			gallery:true,
 			item:1,
 			loop:false,
 			slideMargin:0,
 			enableDrag: false,
 			currentPagerPosition:'left',
+			pager: true,
 			keyPress: false,
 			addClass: "h-20 cursor-pointer",
 			thumbItem: 5,
 			onSliderLoad: function(el) {
-				el.lightGallery();
+				el.lightGallery({
+					selector: '#galeria .lslide'
+				});
 
 				$("a.ignore-click-eff").on("click", function (event) {
 					var elemId = $(this).attr("href");
@@ -287,3 +291,5 @@
 	});
 </script>
 @endsection
+
+
