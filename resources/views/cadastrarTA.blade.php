@@ -68,7 +68,10 @@
                         <p>Carregue pelo menos uma foto sobre a tecnologia assistiva no formato png, jpg ou  jpeg</p>
                         <div id="divFotos" class="form-group required row" role="group" aria-labelledby="fotos do recurso">
                             <div id="fotoDestaque" class="col-md-12">
-                                <input id="fotos" name="fotos[]" accept="image/*" type="file" data-browse-on-zone-click="true"  multiple data-show-upload="false" data-show-caption="true" data-msg-placeholder="Faça o upload de ao menos uma foto do recurso" data-allowed-file-extensions='["jpg", "jpeg", "png"]'>
+                                <input id="fotos" name="fotos[]" accept="image/*" type="file" data-browse-on-zone-click="true"  
+                                        multiple data-show-upload="false" data-show-caption="true" 
+                                        data-msg-placeholder="Faça o upload de ao menos uma foto do recurso" 
+                                        data-allowed-file-extensions='["jpg", "jpeg", "png"]'>
                             </div>
                         </div>
                         <hr>
@@ -235,6 +238,9 @@
     }
 
     $(document).ready(function () {
+        
+        // Para não bloquear a navegação por teclado
+        $("#divFotos .file-caption-name").attr("tabindex", "-1");
 
         tinymce.init({
             selector:'textarea.descricao',
