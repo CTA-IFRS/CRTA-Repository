@@ -68,12 +68,18 @@
                         <p>Carregue pelo menos uma foto sobre a tecnologia assistiva no formato png, jpg ou  jpeg</p>
                         <div id="divFotos" class="form-group required row" role="group" aria-labelledby="fotos do recurso">
                             <div id="fotoDestaque" class="col-md-12">
+                                <label for="fotos" id="fotos-label" class="sr-only">
+                                    Adicionar imagens do produto
+                                    <span id="fotos-errors-messages"></span>
+                                </label>
                                 <input id="fotos" name="fotos[]" accept="image/*" type="file" data-browse-on-zone-click="true"  
                                         multiple data-show-upload="false" data-show-caption="true" 
                                         data-msg-placeholder="Faça o upload de ao menos uma foto do recurso" 
                                         data-allowed-file-extensions='["jpg", "jpeg", "png"]'>
                             </div>
+                            <div id="fotos-invalid-msg-placeholder"></div>
                         </div>
+
                         <hr>
                         <h3 class="mt-4">Vídeos relacionados</h3>
                         <p> Informe o endereço (url) de vídeos sobre a tecnologia assistiva</p>
@@ -186,7 +192,7 @@
         browseIcon: "<i class='fa fa-file' aria-hidden='true'></i>",
         removeClass: "btn btn-danger",
         removeIcon: "<i class='fa fa-trash' aria-hidden='true'></i>",
-        removeLabel: "Limpar Novos Uploads",
+        removeLabel: "Remover todas imagens",
         removeFromPreviewOnError: true,
         fileActionSettings: {
             showZoom: true,
@@ -241,6 +247,8 @@
         
         // Para não bloquear a navegação por teclado
         $("#divFotos .file-caption-name").attr("tabindex", "-1");
+        
+        $('[tabindex="500"]').removeAttr("tabindex");
 
         tinymce.init({
             selector:'textarea.descricao',
@@ -283,33 +291,42 @@
                 {
                         // open the other modal
                         $("#modalCadastroRealizado").modal("show");
-                    },
-                    error: function(respostaServidor)
-                    {
-                        $('.invalid-feedback').remove();
-                        var erros = JSON.parse(respostaServidor.responseText);
-                        if(erros){
-                            $.map(erros, function(val, key) {
-                            //testa se é um campo simples
-                            if(key.lastIndexOf(".")==-1){
-                                $('#'+key).after('<span class="invalid-feedback font-weight-bold d-block" role="alert">'+val+'</span>');
-                            }else{//se for um campo que pertence a um array
-                                //Se o feedaback de erro se referir a um campo de texto alternativo
-                                if(key.search("textoAlternativo")!=-1){
-                                 $('[name^="textosAlternativos"][name$="[textoAlternativo]"]').each(function(i,elemento){ if(!$(this).val()){
-                                    $(this).after('<span class="invalid-feedback font-weight-bold d-block" role="alert">'+val+'</span>')
-                                }
-                            });
-                             }else{
+                },
+                error: function(respostaServidor)
+                {
+                    $('.invalid-feedback').remove();
+                    var erros = JSON.parse(respostaServidor.responseText);
+                    if(erros){
+                        $("#fotos-errors-messages").html("");
+                        $("#fotos-invalid-msg-placeholder").html("");
+                        $.map(erros, function(val, key) {
+                        //testa se é um campo simples
+                        if(key.lastIndexOf(".")==-1){
+                            $('#'+key).after('<span class="invalid-feedback font-weight-bold d-block" role="alert">'+val+'</span>');
+                        }else{//se for um campo que pertence a um array
+                            //Se o feedaback de erro se referir a um campo de texto alternativo
+                            if(key.search("textoAlternativo")!=-1){
+                                $('[name^="textosAlternativos"][name$="[textoAlternativo]"]').each(function(i,elemento){ 
+                                    if(!$(this).val()){
+                                        $(this).after('<span class="invalid-feedback font-weight-bold d-block" role="alert">'+val+'</span>')
+                                    }
+                                });
+                            } else if (key.search("fotos.") != -1) {
+                                val.forEach(function (v) {
+                                    $("#fotos-invalid-msg-placeholder").append('<span class="invalid-feedback font-weight-bold d-block" role="alert">' + v + '</span>');
+                                    $("#fotos-errors-messages").append("<span>" + v + "</span>");
+                                });
+
+                            } else {
                                 var nomeArray = key.split('.');
                                 $('[name^="'+nomeArray[0]+'"][name$="['+nomeArray[1]+']['+nomeArray[2]+']"]').after('<span class="invalid-feedback font-weight-bold d-block" role="alert">'+val+'</span>');
                             }
                         }
                     });
-                            $('html,body').animate({scrollTop: $('.invalid-feedback').first().offset().top - 50},'slow');
-                        }
+                        $('html,body').animate({scrollTop: $('.invalid-feedback').first().offset().top - 50},'slow');
                     }
-                });
+                }
+            });
         });
 
         /**Mostra o input licença quando o for produto comercial**/
