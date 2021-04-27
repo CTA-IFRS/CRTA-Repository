@@ -14,7 +14,7 @@
                     <form id="formCadastroRecursoTA" method="POST" action="{{ route('salvaTA') }}" enctype="multipart/form-data">
                         @csrf
                         <h3>Informações básicas</h3>
-                        <div class="form-group required row mt-3" role="group" aria-labelledby="titulo">
+                        <div class="form-group required row mt-3" role="group">
                             <label for="titulo" class="col-md-2 col-form-label text-md-right">{{ __('Título') }}</label>
                             <div class="col-md-10">
                                 <input id="titulo" type="text" class="form-control" name="titulo" value="{{ old('titulo') }}" autofocus>
@@ -22,26 +22,40 @@
                             </div>
                         </div>
 
-                        <div class="form-group required row" role="group" aria-labelledby="descricao">
+                        <div class="form-group required row" role="group">
                             <label for="descricao" class="col-md-2 col-form-label text-md-right">{{ __('Breve descrição') }}</label>
                             <div class="col-md-10">
                                 <textarea class="form-control descricao" id="descricao" name="descricao"></textarea>
                             </div>
                         </div>
 
-                        <div class="form-group required row" role="group" aria-labelledby="informaSeProdutoComercial">
-                            <label id="informaSeProdutoComercial" class="col-md-2 col-form-label text-md-right">É um produto comercial?</label> 
-                            <div id="produtoComercial" class="form-inline col-md-10">
-                                <div class="form-check-inline col-md-5 ">
-                                    <input class="form-check-input" type="radio" id="comercial" name="produtoComercial" value="true">
-                                    <label for="produtoComercial" class="form-check-label">{{ __('Sim') }}</label>
+                        <fieldset class="form-group required" role="group">
+                            <div class="row">
+                                <legend class="col-form-label col-md-4 pt-0" id="label-legend-text">
+                                    É um produto comercial?
+                                    <div id="legend-label-produtoComercial" class="sr-only"></div>
+                                </legend>
+                                <div class="col-md-3">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="radio" id="comercial" name="produtoComercial" 
+                                            value="true" aria-labelledby="label-legend-text label-sim">
+                                        <span id="label-sim">{{ __('Sim') }}</span>
+                                    </label>
                                 </div>
-                                <div class="form-check-inline col-md-5 ">                            
-                                    <input class="form-check-input" type="radio" id="naoComercial" name="produtoComercial" value="false">
-                                    <label for="produtoNaoComercial" class="form-check-label">{{ __('Não') }}</label>
+                                <div class="col-md-3 ">                            
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="radio" id="naoComercial" name="produtoComercial" 
+                                        value="false" aria-labelledby="label-legend-text label-nao">
+                                        <span id="label-nao">{{ __('Não') }}</span>
+                                    </label>
                                 </div>
                             </div>
-                        </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span id="produtoComercial"></span>
+                                </div>
+                            </div>
+                        </fieldset>
 
                         <div class="form-group required row" role="group" aria-labelledby="siteFabricante">
                             <label for="siteFabricante" class="col-md-2 col-form-label text-md-right">{{ __('Site do fabricante') }}</label>
@@ -216,7 +230,14 @@
         },
         uploadExtraData:{ _token: '{{ csrf_token()}}'},
         required: true,
-        layoutTemplates: { 
+        layoutTemplates: {
+                actions: '<div class="file-actions">' +
+                        '<div class="file-footer-buttons">' +
+                        '</div>' +
+                        '{drag}' +
+                        '<div class="clearfix"></div>\n' +
+                        '</div>', 
+                        
                 footer: '<div class="file-details-cell">' +
                         '<div class="explorer-caption" title="{caption}">{caption}'+            
                         '</div> ' + 
@@ -295,34 +316,39 @@
                 error: function(respostaServidor)
                 {
                     $('.invalid-feedback').remove();
+                    $('.sr-error-msg').remove();
+                    
                     var erros = JSON.parse(respostaServidor.responseText);
                     if(erros){
-                        $("#fotos-errors-messages").html("");
-                        $("#fotos-invalid-msg-placeholder").html("");
                         $.map(erros, function(val, key) {
-                        //testa se é um campo simples
-                        if(key.lastIndexOf(".")==-1){
-                            $('#'+key).after('<span class="invalid-feedback font-weight-bold d-block" role="alert">'+val+'</span>');
-                        }else{//se for um campo que pertence a um array
-                            //Se o feedaback de erro se referir a um campo de texto alternativo
-                            if(key.search("textoAlternativo")!=-1){
-                                $('[name^="textosAlternativos"][name$="[textoAlternativo]"]').each(function(i,elemento){ 
-                                    if(!$(this).val()){
-                                        $(this).after('<span class="invalid-feedback font-weight-bold d-block" role="alert">'+val+'</span>')
-                                    }
-                                });
-                            } else if (key.search("fotos.") != -1) {
-                                val.forEach(function (v) {
-                                    $("#fotos-invalid-msg-placeholder").append('<span class="invalid-feedback font-weight-bold d-block" role="alert">' + v + '</span>');
-                                    $("#fotos-errors-messages").append("<span>" + v + "</span>");
-                                });
+                            //testa se é um campo simples
+                            if(key.lastIndexOf(".")==-1){
+                                $('#'+key).after('<span class="invalid-feedback font-weight-bold d-block" role="alert">'+val+'</span>');
+                                $('label[for="' + key + '"').append('<span class="sr-only sr-error-msg"> '+val+'</span>');
+                                $('#legend-label-'+key).html('<span class="sr-only sr-error-msg"> '+val+'</span>');
+                            }else{//se for um campo que pertence a um array
+                                //Se o feedaback de erro se referir a um campo de texto alternativo
+                                if(key.search("textoAlternativo")!=-1){
+                                    $('[name^="textosAlternativos"][name$="[textoAlternativo]"]').each(function(i,elemento){ 
+                                        if(!$(this).val()){
+                                            $(this).after('<span class="invalid-feedback font-weight-bold d-block" role="alert">'+val+'</span>')
+                                        }
+                                    });
+                                } else if (key.search("fotos.") != -1) {
+                                    val.forEach(function (v) {
+                                        $("#fotos-invalid-msg-placeholder").append('<span class="invalid-feedback font-weight-bold d-block" role="alert">' + v + '</span>');
+                                        $("#fotos-errors-messages").append('<span class="sr-error-msg">' + v + '</span>');
+                                    });
 
-                            } else {
-                                var nomeArray = key.split('.');
-                                $('[name^="'+nomeArray[0]+'"][name$="['+nomeArray[1]+']['+nomeArray[2]+']"]').after('<span class="invalid-feedback font-weight-bold d-block" role="alert">'+val+'</span>');
+                                } else {
+                                    var nomeArray = key.split('.');
+                                    $('[name^="'+nomeArray[0]+'"][name$="['+nomeArray[1]+']['+nomeArray[2]+']"]')
+                                        .after('<span class="invalid-feedback font-weight-bold d-block" role="alert">'+val+'</span>')
+                                        .after('<span class="sr-error-msg sr-only">'+val+'</span>');
+                                        
+                                }
                             }
-                        }
-                    });
+                        });
                         $('html,body').animate({scrollTop: $('.invalid-feedback').first().offset().top - 50},'slow');
                     }
                 }
@@ -346,45 +372,53 @@
 
             inputUrlVideo.removeClass('is-invalid');
             inputUrlVideo.closest('div').find('span').remove();
+            $('label[for="urlVideo"] .sr-error-msg').remove();
 
             if(inputUrlVideo.val().length!='0'){
                 if(isUrlValid(inputUrlVideo.val())){
-                //Remove o aviso de lista vazia quando adicionar o primeiro item;
-                if ($('#videos').find('#avisoListaVazia').length) {
-                    $('#videos').find('#avisoListaVazia').remove();
-                }
+                    //Remove o aviso de lista vazia quando adicionar o primeiro item;
+                    if ($('#videos').find('#avisoListaVazia').length) {
+                        $('#videos').find('#avisoListaVazia').remove();
+                    }
 
-                $("#videos").append(
-                    '<li class="list-group-item">'+
-                    '<div class="card">'+
-                    '<div class="card-body"'+
-                    '<h5>'+
-                    '<a href="'+inputUrlVideo.val()+'" class="mx-4">'+inputUrlVideo.val()+'</a>'+
-                    '<i class="fa fa-trash" aria-hidden="true"></i>'+
-                    '<input name="videos['+contadorUrls+'][url]" class="form-control" type="hidden" value="'+inputUrlVideo.val()+'"/>'+
-                    '</h5>'+
-                    '</div>'+
-                    '</div>'+
-                    '</li>');
-                contadorUrls++;
-            }else{
-                inputUrlVideo.addClass("is-invalid");
-                inputUrlVideo.closest('div').append(
-                    '<span class="invalid-feedback" role="alert">'+
-                    '<strong>Informe uma URL válida</strong>'+
-                    '</span>');
-            }
+                    $("#videos").append(
+                        '<li class="list-group-item">'+
+                        '<div class="card">'+
+                        '<div class="card-body">'+
+                        '<a href="'+inputUrlVideo.val()+'" class="col-md-10">'+
+                        '<span class="sr-only">Endereço do vídeo: </span>'+inputUrlVideo.val()+'</a>'+
+                        '<button type="button" aria-label="Remover vídeo" class="btn-remover-video btn btn-danger">' +
+                        '<i class="fa fa-trash" aria-hidden="true"></i>'+ 
+                        '</button>'+
+                        '<input name="videos['+contadorUrls+'][url]" class="form-control" type="hidden" value="'+inputUrlVideo.val()+'"/>'+
+                        '</div>'+
+                        '</div>'+
+                        '</li>');
+                    contadorUrls++;
+                }else{
+                    inputUrlVideo.addClass("is-invalid");
+                    inputUrlVideo.closest('div').append('<span class="invalid-feedback" role="alert">'+
+                                                        '<strong>Informe uma URL válida</strong>'+
+                                                        '</span>');
+                    $('label[for="urlVideo"] .sr-error-msg').remove();
+                    $('label[for="urlVideo"]').append('<span class="sr-error-msg">'+
+                                                      '<strong>Informe uma URL válida</strong>'+
+                                                      '</span>');
+                }
         }else{
             inputUrlVideo.addClass("is-invalid");
-            inputUrlVideo.closest('div').append(
-                '<span class="invalid-feedback" role="alert">'+
+            inputUrlVideo.closest('div').append('<span class="invalid-feedback" role="alert">'+
+                '<strong>Informe uma URL antes de associar um vídeo ao recurso </strong>'+
+                '</span>');
+            $('label[for="urlVideo"] .sr-error-msg').remove();
+            $('label[for="urlVideo"]').append('<span class="sr-error-msg sr-only">'+
                 '<strong>Informe uma URL antes de associar um vídeo ao recurso </strong>'+
                 '</span>');
         }
     });
 
         /**Remove a url do video ao clicar na lixeira**/
-        $('#divVideos').on('click', '.fa-trash', function (evento) {
+        $('#divVideos').on('click', '.btn-remover-video', function (evento) {
 
             evento.preventDefault();
             $(this).closest('li').remove();
@@ -402,6 +436,7 @@
 
             inputUrlArquivo.removeClass('is-invalid');
             inputUrlArquivo.closest('div').find('span').remove();
+            $('label[for="urlArquivo"] .sr-error-msg').remove();
 
             if(inputUrlArquivo.val().length!='0'){ 
                 if(isUrlValid(inputUrlArquivo.val())){
@@ -414,36 +449,49 @@
                     '<li class="list-group-item">'+
                     '<div class="card">'+
                     '<div class="card-body">'+
-                    '<h5>'+
-                    '<a class="col-md-10" href="'+inputUrlArquivo.val()+'" class="mx-4">'+inputUrlArquivo.val()+'</a>'+
-                    '<i class="fa fa-trash col-md-2"></i></h5>'+
-                    '</h5>'+
+                    '<a class="col-md-10" href="'+inputUrlArquivo.val()+'" class="mx-4">'+
+                    '<span class="sr-only">Endereço do arquivo: </span>'+inputUrlArquivo.val()+'</a>'+
+                    '<button type="button" aria-label="Remover arquivo" class="btn-remover-arquivo btn btn-danger">' +
+                    '<i class="fa fa-trash" aria-hidden="true"></i>'+ 
+                    '</button>'+
                     '<input name="arquivos['+contadorUrls+'][url]" class="form-control mt-2" type="hidden" value="'+inputUrlArquivo.val()+'"/>'+
-                    '<input name="arquivos['+contadorUrls+'][nome]" class="form-control mt-2" type="text" placeholder="Nome do arquivo"/>'+
-                    '<input name="arquivos['+contadorUrls+'][formato]" class="form-control mt-2" type="text" placeholder="Formato/extensão do arquivo"/>'+             
-                    '<input name="arquivos['+contadorUrls+'][tamanho]" class="form-control mt-2" type="text" placeholder="Tamanho do arquivo (em Megabytes)"/>'+    
+                    '<label for="nome-arquivo-'+contadorUrls+'" class="form-group d-block"><span class="sr-only">Nome do arquivo</span>'+
+                    '<input id="nome-arquivo-'+contadorUrls+'" name="arquivos['+contadorUrls+'][nome]" class="form-control mt-2" type="text" placeholder="Nome do arquivo"/>'+
+                    '</label>'+
+                    '<label for="formato-arquivo-'+contadorUrls+'" class="form-group d-block"><span class="sr-only">Formato do arquivo</span>'+
+                    '<input id="formato-arquivo-'+contadorUrls+'"name="arquivos['+contadorUrls+'][formato]" class="form-control mt-2" type="text" placeholder="Formato/extensão do arquivo"/>'+
+                    '</label>'+
+                    '<label for="tamanho-arquivo-'+contadorUrls+'" class="form-group d-block"><span class="sr-only">Tamanho do arquivo</span>'+
+                    '<input id="tamanho-arquivo-'+contadorUrls+'" name="arquivos['+contadorUrls+'][tamanho]" class="form-control mt-2" type="text" placeholder="Tamanho do arquivo (em Megabytes)"/>'+    
+                    '</label>'+
                     '</div>'+
                     '</div>'+
                     '</li>');
                 contadorUrls++;
             }else{
                 inputUrlArquivo.addClass("is-invalid");
-                inputUrlArquivo.closest('div').append(
-                    '<span class="invalid-feedback" role="alert">'+
+                inputUrlArquivo.closest('div').append('<span class="invalid-feedback" role="alert">'+
+                    '<strong>Informe uma URL válida</strong>'+
+                    '</span>');
+                $('label[for="urlArquivo"] .sr-error-msg').remove();
+                $('label[for="urlArquivo"]').append('<span class="sr-error-msg sr-only">'+
                     '<strong>Informe uma URL válida</strong>'+
                     '</span>');
             }
         }else{
             inputUrlArquivo.addClass("is-invalid");
-            inputUrlArquivo.closest('div').append(
-                '<span class="invalid-feedback" role="alert">'+
+            inputUrlArquivo.closest('div').append('<span class="invalid-feedback" role="alert">'+
+                '<strong>Informe uma URL antes de associar um arquivo ao recurso </strong>'+
+                '</span>');
+            $('label[for="urlArquivo"] .sr-error-msg').remove();
+            $('label[for="urlArquivo"]').append('<span class="sr-error-msg sr-only">'+
                 '<strong>Informe uma URL antes de associar um arquivo ao recurso </strong>'+
                 '</span>');
         }
     });
 
         /**Remove da lista a url do arquivo ao clicar na lixeira**/
-        $('#divArquivos').on('click', '.fa-trash', function (evento) {
+        $('#divArquivos').on('click', '.btn-remover-arquivo', function (evento) {
 
             evento.preventDefault();
             $(this).closest('li').remove();
@@ -461,6 +509,7 @@
 
             inputUrlManual.removeClass('is-invalid');
             inputUrlManual.closest('div').find('span').remove();
+            $('label[for="urlManual"] .sr-error-msg').remove();
 
             if(inputUrlManual.val().length!='0'){
                 if(isUrlValid(inputUrlManual.val())){
@@ -474,37 +523,50 @@
                     '<li class="list-group-item">'+
                     '<div class="card">'+
                     '<div class="card-body">'+
-                    '<h5>'+
-                    '<a class="col-md-10" href="'+inputUrlManual.val()+'" class="mx-4">'+inputUrlManual.val()+'</a>'+
-                    '<i class="fa fa-trash col-md-2"></i>'+
-                    '</h5>'+
+                    '<a class="col-md-10" href="'+inputUrlManual.val()+'" class="mx-4">'+
+                    '<span class="sr-only">Endereço do manual: </span>'+inputUrlManual.val()+'</a>'+
+                    '<button type="button" aria-label="Remover manual" class="btn-remover-manual btn btn-danger">' +
+                    '<i class="fa fa-trash" aria-hidden="true"></i>'+ 
+                    '</button>'+
                     '<input name="manuais['+contadorUrls+'][url]" class="form-control mt-2" type="hidden" value="'+inputUrlManual.val()+'"/>'+
-                    '<input name="manuais['+contadorUrls+'][nome]" class="form-control mt-2" type="text" placeholder="Nome do manual"/>'+
-                    '<input name="manuais['+contadorUrls+'][formato]" class="form-control mt-2" type="text" placeholder="Formato/extensão do manual"/>'+
-                    '<input name="manuais['+contadorUrls+'][tamanho]" class="form-control mt-2" type="text" placeholder="Tamanho do manual (em Megabytes)"/>'+
+                    '<label for="nome-manual-'+contadorUrls+'" class="form-group d-block"><span class="sr-only">Nome do manual</span>'+
+                    '<input id="nome-manual-'+contadorUrls+'" name="manuais['+contadorUrls+'][nome]" class="form-control mt-2" type="text" placeholder="Nome do manual"/>'+
+                    '</label>'+
+                    '<label for="formato-manual-'+contadorUrls+'" class="form-group d-block"><span class="sr-only">Formato do manual</span>'+
+                    '<input id="formato-manual-'+contadorUrls+'" name="manuais['+contadorUrls+'][formato]" class="form-control mt-2" type="text" placeholder="Formato/extensão do manual"/>'+
+                    '</label>'+
+                    '<label for="tamanho-manual-'+contadorUrls+'" class="form-group d-block"><span class="sr-only">Nome do manual</span>'+
+                    '<input id="tamanho-manual-'+contadorUrls+'" name="manuais['+contadorUrls+'][tamanho]" class="form-control mt-2" type="text" placeholder="Tamanho do manual (em Megabytes)"/>'+
+                    '</label>'+
                     '</div>'+
                     '</div>'+
                     '</li>');
                 contadorUrls++;
             }else{
                 inputUrlManual.addClass("is-invalid");
-                inputUrlManual.closest('div').append(
-                    '<span class="invalid-feedback" role="alert">'+
+                inputUrlManual.closest('div').append('<span class="invalid-feedback" role="alert">'+
+                    '<strong>Informe uma URL válida</strong>'+
+                    '</span>');
+                $('label[for="urlManual"] .sr-error-msg').remove();
+                $('label[for="urlManual"]').append('<span class="sr-error-msg sr-only">'+
                     '<strong>Informe uma URL válida</strong>'+
                     '</span>');
             }
 
         }else{
             inputUrlManual.addClass("is-invalid");
-            inputUrlManual.closest('div').append(
-                '<span class="invalid-feedback" role="alert">'+
+            inputUrlManual.closest('div').append('<span class="invalid-feedback" role="alert">'+
+                '<strong>Informe uma URL antes de associar um manual ao recurso</strong>'+
+                '</span>');
+            $('label[for="urlManual"] .sr-error-msg').remove();
+            $('label[for="urlManual"]').append('<span class="sr-error-msg sr-only">'+
                 '<strong>Informe uma URL antes de associar um manual ao recurso</strong>'+
                 '</span>');
         }
     });
 
         /**Remove da lista a url do manual ao clicar na lixeira**/
-        $('#divManuais').on('click', '.fa-trash', function (evento) {
+        $('#divManuais').on('click', '.btn-remover-manual', function (evento) {
 
             evento.preventDefault();
             $(this).closest('li').remove();
