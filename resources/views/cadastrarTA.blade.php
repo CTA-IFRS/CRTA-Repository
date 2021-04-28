@@ -10,7 +10,12 @@
                         {{ __('Cadastrar Tecnologia Assistiva') }}
                     </h1>
                 </div>
+
                 <div class="card-body">
+                    <div id="alert-erros-formulario" tabindex="-1" class="alert alert-danger d-none" role="alert">
+                        Por favor verifique o formulário novamente, alguns campos não foram preenchidos corretamente.
+                    </div>  
+
                     <form id="formCadastroRecursoTA" method="POST" action="{{ route('salvaTA') }}" enctype="multipart/form-data">
                         @csrf
                         <h3>Informações básicas</h3>
@@ -18,12 +23,13 @@
                             <label for="titulo" class="col-md-2 col-form-label text-md-right">{{ __('Título') }}</label>
                             <div class="col-md-10">
                                 <input id="titulo" type="text" class="form-control" name="titulo" value="{{ old('titulo') }}" autofocus>
-                                <span class="invalid-feedback bold" role="alert" hidden></span>
                             </div>
                         </div>
 
                         <div class="form-group required row" role="group">
-                            <label for="descricao" class="col-md-2 col-form-label text-md-right">{{ __('Breve descrição') }}</label>
+                            <label for="descricao" id="descricao-label" class="col-md-2 col-form-label text-md-right">
+                                {{ __('Breve descrição') }}
+                            </label>
                             <div class="col-md-10">
                                 <textarea class="form-control descricao" id="descricao" name="descricao"></textarea>
                             </div>
@@ -31,18 +37,18 @@
 
                         <fieldset class="form-group required" role="group">
                             <div class="row">
-                                <legend class="col-form-label col-md-4 pt-0" id="label-legend-text">
+                                <legend class="col-form-label col-md-2 pt-0 text-md-center" id="label-legend-text">
                                     É um produto comercial?
                                     <div id="legend-label-produtoComercial" class="sr-only"></div>
                                 </legend>
-                                <div class="col-md-3">
-                                    <label class="form-check-label">
+                                <div class="col-md-2">
+                                    <label class="form-check-label pl-4">
                                         <input class="form-check-input" type="radio" id="comercial" name="produtoComercial" 
                                             value="true" aria-labelledby="label-legend-text label-sim">
                                         <span id="label-sim">{{ __('Sim') }}</span>
                                     </label>
                                 </div>
-                                <div class="col-md-3 ">                            
+                                <div class="col-md-2">                            
                                     <label class="form-check-label">
                                         <input class="form-check-input" type="radio" id="naoComercial" name="produtoComercial" 
                                         value="false" aria-labelledby="label-legend-text label-nao">
@@ -72,7 +78,7 @@
                         </div>
 
                         <div class="form-group required row" role="group" aria-labelledby="tags">
-                            <label for="tags" class="col-md-2 col-form-label text-md-right">{{ __('Tags') }}</label>
+                            <label for="tags" id="tags-label" class="col-md-2 col-form-label text-md-right">{{ __('Tags') }}</label>
                             <div class="col-md-10">
                                 <input type="text" class="form-control" name="tags" id="tags"/>
                             </div>
@@ -280,11 +286,16 @@
             toolbar: 'preview | styleselect | fontsizeselect forecolor | bold italic underline | alignleft aligncenter alignright alignjustify | outdent indent | numlist bullist | link ',
             default_link_target: '_blank',
             setup: function (editor) {
+                editor.on('init', function() {
+                    editor.getContainer().setAttribute("aria-labelledby", "descricao-label");
+                });
+
                 editor.on('change', function () {
                     tinymce.triggerSave();
                 });     
             }
         });
+
 
         var contadorUrls = 0;
 
@@ -317,13 +328,14 @@
                 {
                     $('.invalid-feedback').remove();
                     $('.sr-error-msg').remove();
+                    $("#alert-erros-formulario").addClass("d-none");
                     
                     var erros = JSON.parse(respostaServidor.responseText);
                     if(erros){
                         $.map(erros, function(val, key) {
                             //testa se é um campo simples
                             if(key.lastIndexOf(".")==-1){
-                                $('#'+key).after('<span class="invalid-feedback font-weight-bold d-block" role="alert">'+val+'</span>');
+                                $('#'+key).after('<span class="invalid-feedback font-weight-bold d-block">'+val+'</span>');
                                 $('label[for="' + key + '"').append('<span class="sr-only sr-error-msg"> '+val+'</span>');
                                 $('#legend-label-'+key).html('<span class="sr-only sr-error-msg"> '+val+'</span>');
                             }else{//se for um campo que pertence a um array
@@ -331,25 +343,34 @@
                                 if(key.search("textoAlternativo")!=-1){
                                     $('[name^="textosAlternativos"][name$="[textoAlternativo]"]').each(function(i,elemento){ 
                                         if(!$(this).val()){
-                                            $(this).after('<span class="invalid-feedback font-weight-bold d-block" role="alert">'+val+'</span>')
+                                            $(this).after('<span class="invalid-feedback font-weight-bold d-block">'+val+'</span>')
                                         }
                                     });
                                 } else if (key.search("fotos.") != -1) {
                                     val.forEach(function (v) {
-                                        $("#fotos-invalid-msg-placeholder").append('<span class="invalid-feedback font-weight-bold d-block" role="alert">' + v + '</span>');
+                                        $("#fotos-invalid-msg-placeholder").append('<span class="invalid-feedback font-weight-bold d-block">' + v + '</span>');
                                         $("#fotos-errors-messages").append('<span class="sr-error-msg">' + v + '</span>');
                                     });
 
                                 } else {
                                     var nomeArray = key.split('.');
                                     $('[name^="'+nomeArray[0]+'"][name$="['+nomeArray[1]+']['+nomeArray[2]+']"]')
-                                        .after('<span class="invalid-feedback font-weight-bold d-block" role="alert">'+val+'</span>')
+                                        .after('<span class="invalid-feedback font-weight-bold d-block">'+val+'</span>')
                                         .after('<span class="sr-error-msg sr-only">'+val+'</span>');
                                         
                                 }
                             }
                         });
-                        $('html,body').animate({scrollTop: $('.invalid-feedback').first().offset().top - 50},'slow');
+                        $('html,body').animate({
+                            scrollTop: $('#alert-erros-formulario').offset().top
+                        },{
+                            duration:'slow', 
+                            complete: function () {
+                                $('#alert-erros-formulario').focus();
+                            }
+                        });
+
+                        $("#alert-erros-formulario").removeClass("d-none");
                     }
                 }
             });
@@ -397,9 +418,10 @@
                     contadorUrls++;
                 }else{
                     inputUrlVideo.addClass("is-invalid");
-                    inputUrlVideo.closest('div').append('<span class="invalid-feedback" role="alert">'+
+                    inputUrlVideo.closest('div').append('<span class="invalid-feedback">'+
                                                         '<strong>Informe uma URL válida</strong>'+
                                                         '</span>');
+                    inputUrlVideo.focus();
                     $('label[for="urlVideo"] .sr-error-msg').remove();
                     $('label[for="urlVideo"]').append('<span class="sr-error-msg">'+
                                                       '<strong>Informe uma URL válida</strong>'+
@@ -407,9 +429,10 @@
                 }
         }else{
             inputUrlVideo.addClass("is-invalid");
-            inputUrlVideo.closest('div').append('<span class="invalid-feedback" role="alert">'+
+            inputUrlVideo.closest('div').append('<span class="invalid-feedback">'+
                 '<strong>Informe uma URL antes de associar um vídeo ao recurso </strong>'+
                 '</span>');
+            inputUrlVideo.focus();
             $('label[for="urlVideo"] .sr-error-msg').remove();
             $('label[for="urlVideo"]').append('<span class="sr-error-msg sr-only">'+
                 '<strong>Informe uma URL antes de associar um vídeo ao recurso </strong>'+
@@ -470,9 +493,10 @@
                 contadorUrls++;
             }else{
                 inputUrlArquivo.addClass("is-invalid");
-                inputUrlArquivo.closest('div').append('<span class="invalid-feedback" role="alert">'+
+                inputUrlArquivo.closest('div').append('<span class="invalid-feedback">'+
                     '<strong>Informe uma URL válida</strong>'+
                     '</span>');
+                inputUrlArquivo.focus();
                 $('label[for="urlArquivo"] .sr-error-msg').remove();
                 $('label[for="urlArquivo"]').append('<span class="sr-error-msg sr-only">'+
                     '<strong>Informe uma URL válida</strong>'+
@@ -480,9 +504,10 @@
             }
         }else{
             inputUrlArquivo.addClass("is-invalid");
-            inputUrlArquivo.closest('div').append('<span class="invalid-feedback" role="alert">'+
+            inputUrlArquivo.closest('div').append('<span class="invalid-feedback">'+
                 '<strong>Informe uma URL antes de associar um arquivo ao recurso </strong>'+
                 '</span>');
+            inputUrlArquivo.focus();
             $('label[for="urlArquivo"] .sr-error-msg').remove();
             $('label[for="urlArquivo"]').append('<span class="sr-error-msg sr-only">'+
                 '<strong>Informe uma URL antes de associar um arquivo ao recurso </strong>'+
@@ -544,9 +569,10 @@
                 contadorUrls++;
             }else{
                 inputUrlManual.addClass("is-invalid");
-                inputUrlManual.closest('div').append('<span class="invalid-feedback" role="alert">'+
+                inputUrlManual.closest('div').append('<span class="invalid-feedback">'+
                     '<strong>Informe uma URL válida</strong>'+
                     '</span>');
+                inputUrlManual.focus();
                 $('label[for="urlManual"] .sr-error-msg').remove();
                 $('label[for="urlManual"]').append('<span class="sr-error-msg sr-only">'+
                     '<strong>Informe uma URL válida</strong>'+
@@ -555,9 +581,10 @@
 
         }else{
             inputUrlManual.addClass("is-invalid");
-            inputUrlManual.closest('div').append('<span class="invalid-feedback" role="alert">'+
+            inputUrlManual.closest('div').append('<span class="invalid-feedback">'+
                 '<strong>Informe uma URL antes de associar um manual ao recurso</strong>'+
                 '</span>');
+            inputUrlManual.focus();
             $('label[for="urlManual"] .sr-error-msg').remove();
             $('label[for="urlManual"]').append('<span class="sr-error-msg sr-only">'+
                 '<strong>Informe uma URL antes de associar um manual ao recurso</strong>'+
@@ -587,7 +614,9 @@
             noSuggestionMsg: 'Tag não encontrada, tecle enter para criar uma nova',
         });
 
-        $('input[class="amsify-suggestags-input"]').attr("placeholder","Digite aqui");
+        $('input[class="amsify-suggestags-input"]')
+            .attr("placeholder","Digite a tag")
+            .attr("aria-labelledby", "tags-label");
 
     });
 </script> 
