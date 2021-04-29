@@ -102,7 +102,7 @@
 
                         <hr>
 
-                        <div id="status-adicao-links" class="sr-only" role="alert">
+                        <div id="status-adicao-links" class="sr-only" role="status">
                         </div>
 
                         <h3 id="videos-label" class="mt-4">Vídeos relacionados</h3>
@@ -168,10 +168,13 @@
                             </div> 
                         </div>
                         <hr>
-                        <div class="form-group row mb-5 mt-4" role="group">
-                            <div class="col-md-4 offset-md-10">
+                        <div class="form-group row mb-5 mt-4">
+                            <div class="col-md-3 offset-md-10">
                                 <button id="btnEnviaForm" type="submit" class="btn btn-success p-4">
                                     <b>{{ __('CADASTRAR') }}</b>
+                                    <div class="spinner-border d-none" role="status">
+                                        <span class="sr-only">Enviando os dados do recurso...</span>
+                                    </div>
                                 </button>
                             </div>
                         </div>
@@ -323,6 +326,12 @@
                 {
                     xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token() }}');
                 },
+                complete: function (xhr, status) 
+                {
+                    $("#btnEnviaForm").children().first().removeClass("d-none");
+                    $("#btnEnviaForm").children().last().addClass("d-none");
+                    $("#btnEnviaForm").prop("disabled", false);
+                },
                 success: function(respostaServidor)
                 {
                         // open the other modal
@@ -379,7 +388,9 @@
                 }
             });
 
-            
+            $("#btnEnviaForm").children().first().addClass("d-none");
+            $("#btnEnviaForm").children().last().removeClass("d-none");
+            $("#btnEnviaForm").prop("disabled", true);
         });
 
         /**Mostra o input licença quando o for produto comercial**/
