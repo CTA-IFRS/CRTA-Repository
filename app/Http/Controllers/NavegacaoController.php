@@ -152,7 +152,11 @@ class NavegacaoController extends Controller{
 		$recursosRelacionados = new Collection();
 		foreach ($recursoTA->tags as $tag) {
 			if($tag->publicacao_autorizada==true){
-				$recursosRelacionados = $recursosRelacionados->merge($tag->recursosTA);
+				$recursosRelacionados = $recursosRelacionados->merge(
+					$tag->recursosTA->filter(function ($recurso, $k) {
+						return $recurso->publicacao_autorizada;
+					})
+				);
 			}
 		}
 		//Ordena os recursos obtidos pela quantidade de visualizações
@@ -164,11 +168,9 @@ class NavegacaoController extends Controller{
 		$mediaAvaliacao = $recursoTA->userAverageRating;
 
 		//Utiliza o package Embed para obter a url que permita esse tipo de uso
-		//$embed = new Embed();
 		$infoTodosVideos = Array();
 		foreach ($recursoTA->videos as $video) {
 			$infoVideo = Embed::create($video->url);
-			//$infoVideo = $embed->get($video->url);
 			array_push($infoTodosVideos,$infoVideo);
 		}
 
