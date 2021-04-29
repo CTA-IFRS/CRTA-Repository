@@ -54,7 +54,11 @@ class NavegacaoController extends Controller{
 		foreach ($arrayTagsInformadas as $tagInformada) {
 			$auxTag = Tag::firstWhere('nome',$tagInformada);
 
-			$resultadoBusca = $resultadoBusca->merge($auxTag->recursosTA);					
+			$resultadoBusca = $resultadoBusca->merge(
+				$auxTag->recursosTA->filter(function ($recurso, $k) {
+					return $recurso->publicacao_autorizada;
+			})
+		);					
 		}
 		//Remove duplicatas originadas por TAs em mais de uma tag
 		$conjuntoOrdenado = $resultadoBusca->unique('id')->sortBy('attributes.visualizacoes');
