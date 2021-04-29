@@ -12,7 +12,7 @@
                 </div>
 
                 <div class="card-body">
-                    <div id="alert-erros-formulario" tabindex="-1" class="alert alert-danger d-none" role="alert">
+                    <div id="alert-erros-formulario" tabindex="-1" class="alert alert-danger d-none">
                         Por favor verifique o formulário novamente, alguns campos não foram preenchidos corretamente.
                     </div>  
 
@@ -63,30 +63,30 @@
                             </div>
                         </fieldset>
 
-                        <div class="form-group required row" role="group" aria-labelledby="siteFabricante">
+                        <div class="form-group required row">
                             <label for="siteFabricante" class="col-md-2 col-form-label text-md-right">{{ __('Site do fabricante') }}</label>
                             <div class="col-md-10">
                                 <input id="siteFabricante" type="text" class="form-control" name="siteFabricante" value="{{ old('siteFabricante') }}">
                             </div>
                         </div>
 
-                        <div id="divLicenca" class="form-group required row d-none" role="group" aria-labelledby="licenca">
+                        <div id="divLicenca" class="form-group required row d-none">
                             <label for="licenca" class="col-md-2 col-form-label text-md-right">{{ __('Licença') }}</label>
                             <div class="col-md-10">
                                 <input id="licenca" type="text" class="form-control" name="licenca" value="{{ old('licenca') }}">
                             </div>
                         </div>
 
-                        <div class="form-group required row" role="group" aria-labelledby="tags">
+                        <div class="form-group required row">
                             <label for="tags" id="tags-label" class="col-md-2 col-form-label text-md-right">{{ __('Tags') }}</label>
                             <div class="col-md-10">
                                 <input type="text" class="form-control" name="tags" id="tags"/>
                             </div>
                         </div>
                         <hr>
-                        <h3 class="obrigatorio mt-4">Fotos</h3>
+                        <h3 id="fotos-label"class="obrigatorio mt-4">Fotos do recurso</h3>
                         <p>Carregue pelo menos uma foto sobre a tecnologia assistiva no formato png, jpg ou  jpeg</p>
-                        <div id="divFotos" class="form-group required row" role="group" aria-labelledby="fotos do recurso">
+                        <div id="divFotos" class="form-group required row" role="group" aria-labelledby="fotos-label">
                             <div id="fotoDestaque" class="col-md-12">
                                 <label for="fotos" id="fotos-label" class="sr-only">
                                     Adicionar imagens do produto
@@ -101,10 +101,14 @@
                         </div>
 
                         <hr>
-                        <h3 class="mt-4">Vídeos relacionados</h3>
+
+                        <div id="status-adicao-links" class="sr-only" role="alert">
+                        </div>
+
+                        <h3 id="videos-label" class="mt-4">Vídeos relacionados</h3>
                         <p> Informe o endereço (url) de vídeos sobre a tecnologia assistiva</p>
-                        <div id="divVideos" class="form-group row" role="group" aria-labelledby="videos">
-                            <label for="urlVideo" class="col-md-2 col-form-label text-md-right">{{ __('Adicionar vídeo') }}</label>
+                        <div id="divVideos" class="form-group row" role="group" aria-labelledby="videos-label">
+                            <label for="urlVideo" class="col-md-2 col-form-label text-md-right">{{ __('Link para o vídeo') }}</label>
                             <div class="col-md-10 form-inline">
                                 <input id="urlVideo" type="url"  class="w-75 form-control @error('videos[]') is-invalid @enderror" name="video" value="{{ old('video') }}">
                                 <button id="btnAdicionarVideo" type="button" class="w-25 btn btn-primary"><i class="fa fa-plus-square fa-1" aria-label="Adicionar"></i></button>
@@ -115,17 +119,17 @@
                                 @enderror
                             </div>
                             <div class="offset-md-1 col-md-10 mt-4">
-                                <label for="videos">{{__('Vídeos a serem cadastrados para este recurso:')}}</label>
+                                <p>{{__('Vídeos a serem cadastrados para este recurso:')}}</p>
                                 <ul id="videos" class="list-group list-group-flush text-center">
                                     <li id="avisoListaVazia" class="list-group-item">Não serão adicionados vídeos</li>
                                 </ul>
                             </div>                        
                         </div>
                         <hr>
-                        <h3 class="mt-4">Arquivos</h3>
+                        <h3 id="arquivos-label" class="mt-4">Arquivos</h3>
                         <p> Informe, se houver, endereços (url) para acessar arquivos relacionados ao recurso a ser cadastrado </p>
-                        <div id="divArquivos" class="form-group row" role="group" aria-labelledby="arquivos associados">
-                            <label for="urlArquivo" class="col-md-2 col-form-label text-md-right">{{ __('Adicionar arquivo') }}</label>
+                        <div id="divArquivos" class="form-group row" role="group" aria-labelledby="arquivos-label">
+                            <label for="urlArquivo" class="col-md-2 col-form-label text-md-right">{{ __('Link para o arquivo') }}</label>
                             <div class="col-md-10 form-inline">
                                 <input id="urlArquivo" type="url"  class="w-75 form-control @error('arquivos[]') is-invalid @enderror" name="arquivo" value="{{ old('arquivo') }}">
                                 <button id="btnAdicionarArquivo" type="button" class="w-25 btn btn-primary"><i class="fa fa-plus-square fa-1" aria-label="Adicionar"></i></button>
@@ -136,17 +140,17 @@
                                 @enderror
                             </div>
                             <div class="offset-md-1 col-md-10 mt-4">
-                                <label for="arquivos">{{__('Arquivos a serem cadastrados para este recurso:')}}</label>
+                                <p>{{__('Arquivos a serem cadastrados para este recurso:')}}</p>
                                 <ul id="arquivos" class="list-group list-group-flush text-center">
                                     <li id="avisoListaVazia" class="list-group-item">Não serão adicionados arquivos</li>
                                 </ul>                            
                             </div>                                          
                         </div>
                         <hr>
-                        <h3 class="mt-4">Manuais</h3>
+                        <h3 id="manuais-label" class="mt-4">Manuais</h3>
                         <p> Informe, se houver, endereços (url) para acessar manuais relacionados ao recurso a ser cadastrado </p>
-                        <div id="divManuais" class="form-group row" role="group" aria-labelledby="manuais associados">
-                            <label for="urlManual" class="col-md-2 col-form-label text-md-right">{{ __('Adicionar manual') }}</label>
+                        <div id="divManuais" class="form-group row" role="group" aria-labelledby="manuais-label">
+                            <label for="urlManual" class="col-md-2 col-form-label text-md-right">{{ __('Link para o manual') }}</label>
                             <div class="col-md-10 form-inline">
                                 <input id="urlManual" type="url"  class="w-75 form-control @error('manuais[]') is-invalid @enderror" name="manual" value="{{ old('manual') }}">
                                 <button id="btnAdicionarManual" type="button" class="w-25 btn btn-primary"><i class="fa fa-plus-square fa-1" aria-label="Adicionar"></i></button>
@@ -157,7 +161,7 @@
                                 @enderror
                             </div>
                             <div class="offset-md-1 col-md-10 mt-4">
-                                <label for="manuais">{{__('Manuais a serem cadastrados para este recurso:')}}</label>
+                                <p for="manuais">{{__('Manuais a serem cadastrados para este recurso:')}}</p>
                                 <ul id="manuais" class="list-group list-group-flush text-center">
                                     <li id="avisoListaVazia" class="list-group-item">Não serão adicionados manuais</li>
                                 </ul>
@@ -374,6 +378,8 @@
                     }
                 }
             });
+
+            
         });
 
         /**Mostra o input licença quando o for produto comercial**/
@@ -416,6 +422,9 @@
                         '</div>'+
                         '</li>');
                     contadorUrls++;
+
+                    $("#status-adicao-links").html("Link para o vídeo foi adicionado");
+
                 }else{
                     inputUrlVideo.addClass("is-invalid");
                     inputUrlVideo.closest('div').append('<span class="invalid-feedback">'+
@@ -490,6 +499,9 @@
                     '</div>'+
                     '</div>'+
                     '</li>');
+                
+                $("#status-adicao-links").html("Link para o arquivo foi adicionado");
+                $("#nome-arquivo-"+ contadorUrls).focus();
                 contadorUrls++;
             }else{
                 inputUrlArquivo.addClass("is-invalid");
@@ -566,6 +578,9 @@
                     '</div>'+
                     '</div>'+
                     '</li>');
+
+                $("#status-adicao-links").html("Link para o manual foi adicionado");
+                $("#nome-manual-"+ contadorUrls).focus();
                 contadorUrls++;
             }else{
                 inputUrlManual.addClass("is-invalid");
