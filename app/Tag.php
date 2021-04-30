@@ -24,4 +24,8 @@ class Tag extends Model
     {
         return $this->belongsToMany('App\RecursoTA','recurso_ta_tag','tag_id','recurso_ta_id');
     }    
+
+    public function recursosTAAprovados() {
+        return $this->recursosTA()->where('publicacao_autorizada', true)->get();
+    }
 }
