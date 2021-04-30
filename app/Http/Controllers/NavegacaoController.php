@@ -47,19 +47,14 @@ class NavegacaoController extends Controller{
 
 		$arrayTagsInformadas = explode(",",$tag);
 
-
 		//Busca por todos os recursos TAs que possuem as mesmas tags que o recurso a ser exibido
 		$resultadoBusca = new Collection();
 		
 		foreach ($arrayTagsInformadas as $tagInformada) {
 			$auxTag = Tag::firstWhere('nome',$tagInformada);
-
-			$resultadoBusca = $resultadoBusca->merge(
-				$auxTag->recursosTA->filter(function ($recurso, $k) {
-					return $recurso->publicacao_autorizada;
-			})
-		);					
+			$resultadoBusca = $resultadoBusca->merge($auxTag->recursosTAAprovados());
 		}
+
 		//Remove duplicatas originadas por TAs em mais de uma tag
 		$conjuntoOrdenado = $resultadoBusca->unique('id')->sortBy('attributes.visualizacoes');
 		
@@ -82,8 +77,10 @@ class NavegacaoController extends Controller{
 
 		foreach ($arrayTermos as $termoInformado) {
 			$recursosTA =  RecursoTA::where('publicacao_autorizada',true)
-				  ->where('recursos_ta.titulo', 'LIKE', "%$termoInformado%")
-                  ->orWhere('recursos_ta.descricao', 'LIKE', "%$termoInformado%")->get();
+							->where(function ($query) use ($termoInformado) {
+									$query->where('recursos_ta.titulo', 'LIKE', "%$termoInformado%")
+										  ->orWhere('recursos_ta.descricao', 'LIKE', "%$termoInformado%");
+							})->get();
             $resultadoBusca = $resultadoBusca->merge($recursosTA);     
 		}
 
@@ -154,15 +151,10 @@ class NavegacaoController extends Controller{
 
 		//Busca por todos os recursos TAs que possuem as mesmas tags (já autorizadas)que o recurso a ser exibido
 		$recursosRelacionados = new Collection();
-		foreach ($recursoTA->tags as $tag) {
-			if($tag->publicacao_autorizada==true){
-				$recursosRelacionados = $recursosRelacionados->merge(
-					$tag->recursosTA->filter(function ($recurso, $k) {
-						return $recurso->publicacao_autorizada;
-					})
-				);
-			}
+		foreach ($recursoTA->tagsAprovadas() as $tag) {
+			$recursosRelacionados = $recursosRelacionados->merge($tag->recursosTAAprovados());
 		}
+		
 		//Ordena os recursos obtidos pela quantidade de visualizações
 		$conjuntoOrdenado = $recursosRelacionados->unique('titulo')->sortBy('attributes.visualizacoes');
 		//Pega os primeiros 4 para exibir como recursos relacionados
