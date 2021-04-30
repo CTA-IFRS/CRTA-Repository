@@ -215,8 +215,7 @@ class RecursoTAController extends Controller{
    *  @return \Illuminate\Http\Response
    */
   public function create(){
-
-    $tags = Tag::all(['nome'])->pluck('nome');
+    $tags = Tag::where('publicacao_autorizada', true)->pluck('nome');
     return view('cadastrarTA')->with("tags",$tags);
   }
 

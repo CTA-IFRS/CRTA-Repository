@@ -70,4 +70,11 @@ class RecursoTa extends Model
     {
         return $this->hasMany('App\Foto');
     }
+
+    /**
+     * Retorna as tags aprovadas vinculadas ao recurso.
+     */
+    public function tagsAprovadas() {
+        return $this->tags()->where('publicacao_autorizada', true)->get();
+    }
 }
