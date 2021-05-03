@@ -111,7 +111,10 @@
                             <label for="urlVideo" class="col-md-2 col-form-label text-md-right">{{ __('Link para o vídeo') }}</label>
                             <div class="col-md-10 form-inline">
                                 <input id="urlVideo" type="url"  class="w-75 form-control @error('videos[]') is-invalid @enderror" name="video" value="{{ old('video') }}">
-                                <button id="btnAdicionarVideo" type="button" class="w-25 btn btn-primary"><i class="fa fa-plus-square fa-1" aria-label="Adicionar"></i></button>
+                                <button id="btnAdicionarVideo" type="button" class="w-25 btn btn-primary">
+                                    <span class="sr-only">Adicionar o vídeo</span>
+                                    <i class="fa fa-plus-square fa-1"></i>
+                                </button>
                                 @error('videos[]')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -132,7 +135,10 @@
                             <label for="urlArquivo" class="col-md-2 col-form-label text-md-right">{{ __('Link para o arquivo') }}</label>
                             <div class="col-md-10 form-inline">
                                 <input id="urlArquivo" type="url"  class="w-75 form-control @error('arquivos[]') is-invalid @enderror" name="arquivo" value="{{ old('arquivo') }}">
-                                <button id="btnAdicionarArquivo" type="button" class="w-25 btn btn-primary"><i class="fa fa-plus-square fa-1" aria-label="Adicionar"></i></button>
+                                <button id="btnAdicionarArquivo" type="button" class="w-25 btn btn-primary">
+                                    <span class="sr-only">Adicionar o arquivo</span>
+                                    <i class="fa fa-plus-square fa-1"></i>
+                                </button>
                                 @error('arquivos[]')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -153,7 +159,10 @@
                             <label for="urlManual" class="col-md-2 col-form-label text-md-right">{{ __('Link para o manual') }}</label>
                             <div class="col-md-10 form-inline">
                                 <input id="urlManual" type="url"  class="w-75 form-control @error('manuais[]') is-invalid @enderror" name="manual" value="{{ old('manual') }}">
-                                <button id="btnAdicionarManual" type="button" class="w-25 btn btn-primary"><i class="fa fa-plus-square fa-1" aria-label="Adicionar"></i></button>
+                                <button id="btnAdicionarManual" type="button" class="w-25 btn btn-primary">
+                                    <span class="sr-only">Adicionar o manual</span>
+                                    <i class="fa fa-plus-square fa-1"></i>
+                                </button>
                                 @error('manuais[]')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
