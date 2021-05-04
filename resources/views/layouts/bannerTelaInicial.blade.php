@@ -1,11 +1,13 @@
-<div class="container h-50 mw-100 banner" aria-label="{{ __('Banner com imagem de mãos sobre uma mesa') }}">
+<div class="container h-50 mw-100 banner">
 	<div class="row justify-content-center ">
 		<div class="col-md-8">
 			<div class="card mt-5">
 				<div class="card-body">
 					<div class="row justify-content-center">
 						<div class="col-md-8">
-							<h1 class="display-4 text-center">RETACE</h1>
+							<h2 class="display-4 text-center h1">
+								<span class="sr-only">Bem-vindo ao </span>RETACE
+							</h2>
 						</div>
 					</div>
 					@include('layouts.caixaDeBusca')

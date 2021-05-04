@@ -6,9 +6,9 @@
         <div class="col-md-12">
             <div class="card border-light">
                 <div class="card-header">
-                    <h1>
+                    <h2 class="h1">
                         {{ __('Cadastrar Tecnologia Assistiva') }}
-                    </h1>
+                    </h2>
                 </div>
 
                 <div class="card-body">
@@ -18,7 +18,7 @@
 
                     <form id="formCadastroRecursoTA" method="POST" action="{{ route('salvaTA') }}" enctype="multipart/form-data">
                         @csrf
-                        <h3>Informações básicas</h3>
+                        <h3 class="h3">Informações básicas</h3>
                         <div class="form-group required row mt-3" role="group">
                             <label for="titulo" class="col-md-2 col-form-label text-md-right">{{ __('Título') }}</label>
                             <div class="col-md-10">
@@ -84,7 +84,7 @@
                             </div>
                         </div>
                         <hr>
-                        <h3 id="fotos-label"class="obrigatorio mt-4">Fotos do recurso</h3>
+                        <h3 id="fotos-label"class="obrigatorio mt-4 h3">Fotos do recurso</h3>
                         <p>Carregue pelo menos uma foto sobre a tecnologia assistiva no formato png, jpg ou  jpeg</p>
                         <div id="divFotos" class="form-group required row" role="group" aria-labelledby="fotos-label">
                             <div id="fotoDestaque" class="col-md-12">
@@ -105,7 +105,7 @@
                         <div id="status-adicao-links" class="sr-only" role="status">
                         </div>
 
-                        <h3 id="videos-label" class="mt-4">Vídeos relacionados</h3>
+                        <h3 id="videos-label" class="mt-4 h3">Vídeos relacionados</h3>
                         <p> Informe o endereço (url) de vídeos sobre a tecnologia assistiva</p>
                         <div id="divVideos" class="form-group row" role="group" aria-labelledby="videos-label">
                             <label for="urlVideo" class="col-md-2 col-form-label text-md-right">{{ __('Link para o vídeo') }}</label>
@@ -129,7 +129,7 @@
                             </div>                        
                         </div>
                         <hr>
-                        <h3 id="arquivos-label" class="mt-4">Arquivos</h3>
+                        <h3 id="arquivos-label" class="mt-4 h3">Arquivos</h3>
                         <p> Informe, se houver, endereços (url) para acessar arquivos relacionados ao recurso a ser cadastrado </p>
                         <div id="divArquivos" class="form-group row" role="group" aria-labelledby="arquivos-label">
                             <label for="urlArquivo" class="col-md-2 col-form-label text-md-right">{{ __('Link para o arquivo') }}</label>
@@ -153,7 +153,7 @@
                             </div>                                          
                         </div>
                         <hr>
-                        <h3 id="manuais-label" class="mt-4">Manuais</h3>
+                        <h3 id="manuais-label" class="mt-4 h3">Manuais</h3>
                         <p> Informe, se houver, endereços (url) para acessar manuais relacionados ao recurso a ser cadastrado </p>
                         <div id="divManuais" class="form-group row" role="group" aria-labelledby="manuais-label">
                             <label for="urlManual" class="col-md-2 col-form-label text-md-right">{{ __('Link para o manual') }}</label>

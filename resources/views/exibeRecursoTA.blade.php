@@ -4,9 +4,9 @@
 <div class="container mt-5">
 	<div class="row">
 		<div id="fotosDescricao" class="card col-md-8 px-5 py-3" >
-			<h1 class="my-1">
+			<h2 class="my-1 h1">
 				{{ __($recursoTA->titulo) }}
-			</h1>
+			</h2>
 			<a href="#fim-galeria" id="inicio-galeria" class="sr-only">Início da galeria de imagens e vídeos do recurso, clique para pular</a>
 			<ul id="galeria">
 				@foreach($recursoTA->fotos as $foto)
@@ -34,7 +34,7 @@
 			<a href="#inicio-galeria" id="fim-galeria" class="sr-only">Final da galeria de imagens e vídeos do recurso, clique para voltar ao início</a>
 
 			<div class="my-3">
-				<h2 class="my-3">Descrição do Recurso</h2>
+				<h3 class="my-3 h2">Descrição do Recurso</h3>
 
 				<div>{!! html_entity_decode(stripslashes($recursoTA->descricao), ENT_QUOTES, 'UTF-8')!!}</div>				
 			</div>		
@@ -52,7 +52,7 @@
 				<hr class="col-md-10"/>
 			</div>
 			<div id="manuais" class="row mt-3">
-				<h5 class="ml-3 w-100"> Manuais </h5>
+				<h3 class="ml-3 w-100 h5"> Manuais </h3>
 				<div class="ml-4">
 					@if(sizeof($recursoTA->manuais)!=0)
 					@foreach($recursoTA->manuais as $manual)
@@ -73,7 +73,7 @@
 				</div>				
 			</div>
 			<div id="arquivos" class="row mt-3">
-				<h5 class="ml-3 w-100"> Arquivos </h5>
+				<h3 class="ml-3 w-100 h5"> Arquivos </h3>
 				<div class="ml-4">
 					@if(sizeof($recursoTA->arquivos)!=0)
 					@foreach($recursoTA->arquivos as $arquivo)
@@ -94,7 +94,7 @@
 				</div>	
 			</div>
 			<div id="fabricante" class="row mt-3">
-				<h5 class="ml-3 w-100"> Fabricante </h5>
+				<h3 class="ml-3 w-100 h5"> Fabricante </h3>
 				<div class="ml-4">
 					<div class="col-md-12">
 						<a class="text-break" href="{{__($recursoTA->site_fabricante)}}">{{$recursoTA->site_fabricante}}</a>
@@ -109,7 +109,7 @@
 				</div>		
 			</div>
 			<div id="tags" class="row mt-4">
-				<h5 class="ml-3 w-100"> Tags </h5>
+				<h3 class="ml-3 w-100 h5"> Tags </h3>
 				<div class="col-md-12 ml-4">
 					<?php $tagsAprovadas = $recursoTA->tagsAprovadas() ?>
 					@if(sizeof($tagsAprovadas) > 0)
@@ -123,7 +123,7 @@
 			</div>
 			<div id="avaliacaoPeloUsuario" class="row d-flex align-items-center justify-content-center text-center mt-4">
 				@if(Cookie::get('avaliouRecursoTA_'.$recursoTA->id)==null)	
-				<h5 id="label-avaliacaoUsuario">Avalie o recurso</h5>		
+				<h3 id="label-avaliacaoUsuario" class="h5">Avalie o recurso</h3>		
 				<div class="col-md-6">
 					<input id="avaliacaoUsuario" name="avaliacaoUsuario" value="0" class="rating-loading" 
 						aria-labelledby="label-avaliacaoUsuario" tabindex="-1">
@@ -141,14 +141,14 @@
 				</div>
 				<p id="agradecimento-avaliacao" tabindex="-1" class="h5 text-success d-none">Agradecemos sua avaliação</p>
 				@else
-				<h5 class="text-success">Recurso já avaliado</h5>
+				<h3 class="text-success h5">Recurso já avaliado</h3>
 				@endif			
 				<hr class="col-md-10"/>
 			</div>
 		</div>			
 	</div>
 	<div id="recursosRelacionados" class="card col-md-12 my-5">
-		<h1 class="my-3">Recursos Relacionados</h1>
+		<h2 class="my-3">Recursos Relacionados</h2>
 		@include('layouts.listaCardsRecursosSemPaginacao')
 	</div>
 </div>

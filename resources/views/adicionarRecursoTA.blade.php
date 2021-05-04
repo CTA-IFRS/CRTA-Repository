@@ -3,7 +3,7 @@
 @section('title', 'Painel do Administrador - Revisar Publicação')
 
 @section('content_header')
-<h1 class="display-3">Adicionar Recurso de Tecnologia Assitiva</h1>
+<h2 class="display-3 h1">Adicionar Recurso de Tecnologia Assitiva</h2>
 <p class="mt-3 ml-2"> Preencha o formulário e cadastre o recurso já com as tags e a publicação autorizadas.</p>
 @stop
 

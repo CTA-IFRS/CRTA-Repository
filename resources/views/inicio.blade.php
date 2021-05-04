@@ -6,7 +6,7 @@
 	@include('layouts.bannerTelaInicial')
 @endsection
 @section('conteudo')
-	<h1 class="m-5">Recursos mais vistos</h1>
+	<h2 class="m-5">Recursos mais vistos</h2>
 	@include('layouts.listaCardsRecursosSemPaginacao',['recursosTA' => $recursosMaisAcessados ])
 	<div class="contaier mt-5 p-5 bg-primary text-light">
 		<div class="row">
@@ -28,7 +28,7 @@
 			</div>
 		</div>
 	</div>
-	<h1 class="m-5">Recursos mais recentes</h1>
+	<h2 class="m-5">Recursos mais recentes</h2>
 	@include('layouts.listaCardsRecursosSemPaginacao',['recursosTA' => $recursosMaisRecentes ])
 @endsection
 @section('scripts')
