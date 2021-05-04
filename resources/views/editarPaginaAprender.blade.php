@@ -5,7 +5,7 @@
 @section('content_header')
 <h1 class="display-3">Edição da Página <i>Aprender</i></h1>
 <p class="mt-3 ml-2">Edite o conteúdo a ser exibido na página "Aprender"</p>
-@stop
+@endsection
 
 @section('content')
 <div class="container">
@@ -60,11 +60,11 @@
 		</div>
 	</div>
 </div>
-@stop
+@endsection
 
 @section('css')
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-@stop
+@endsection
 
 @section('js')
 <script src="{{ asset('node_modules/tinymce/tinymce.js') }}"></script>
@@ -130,4 +130,4 @@
         });
 	});
 </script>
-@stop
+@endsection

@@ -804,9 +804,14 @@ class HomeController extends Controller
      */
     public function editarPaginaAprender()
     {
-        $conteudoPagina = Pagina::where('nome','Aprender')->firstOrFail();
+        $conteudoPagina = Pagina::where('nome','Aprender')->firstOrCreate([
+            'nome' => 'Aprender',
+            'titulo_texto' => "Aprender",
+            'texto' => "Em construção"
+        ]);
         return view('editarPaginaAprender',['conteudoPagina' => $conteudoPagina]);
     }
+
 
     /**
      * Processo o formulário de edição de conteúdo da página 'Aprender'
