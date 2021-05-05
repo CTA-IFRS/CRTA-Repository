@@ -1,5 +1,6 @@
 <!-- barra de navegação secundária -->
-<nav class="menuNavegacaoSecundario navbar navbar-expand-lg navbar-dark bg-secondary fixed-top py-0 py-sm-2">
+<nav class="menuNavegacaoSecundario navbar navbar-expand-lg navbar-dark bg-secondary fixed-top py-0 py-sm-2"
+aria-label="Menu de navegação secundário">
   <button type="button" class="navbar-toggler bg-secondary" data-toggle="collapse" data-target="#navegacaoSecundaria" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Expandir menu') }}">
     <span class="navbar-toggler-icon"></span>
   </button>
