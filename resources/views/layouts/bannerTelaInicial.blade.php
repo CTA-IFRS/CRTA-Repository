@@ -1,5 +1,5 @@
-<div class="container h-50 mw-100 banner">
-	<div class="row justify-content-center ">
+<div class="container h-50  mw-100 banner pb-5">
+	<div class="row justify-content-center pb-5">
 		<div class="col-md-8">
 			<div class="card mt-5">
 				<div class="card-body">

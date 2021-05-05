@@ -14,10 +14,17 @@
 </head>
 <body class="vh-100">
    <!-- A página que herdar esse layout deverá indicar se o banner será carregado e o conteudo dela-->
+   <header>
    @include('layouts.menuNavegacaoSecundario')
    @include('layouts.menuNavegacaoPrincipal')
+   </header>
+
+   <main>
    @yield('bannerTelaInicial')
+
    @yield('conteudo')
+   </main>
+   
    <!-- Scripts -->
    <script src="{{ asset('js/app.js') }}" ></script>
    <script src="{{ __('https://use.fontawesome.com/9193d17150.js')}}"></script>
