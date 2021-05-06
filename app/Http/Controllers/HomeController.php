@@ -804,14 +804,53 @@ class HomeController extends Controller
      */
     public function editarPaginaAprender()
     {
-        $conteudoPagina = Pagina::where('nome','Aprender')->firstOrCreate([
-            'nome' => 'Aprender',
-            'titulo_texto' => "Aprender",
-            'texto' => "Em construção"
+        $conteudoPagina = Pagina::where('nome', 'LIKE' ,'Aprender')->firstOrCreate([
+            'nome' => 'Aprender'
         ]);
         return view('editarPaginaAprender',['conteudoPagina' => $conteudoPagina]);
     }
 
+    /**
+     * Encaminha para o formulário de edição de conteúdo da página 'Sobre'
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function editarPaginaSobre()
+    {
+        $conteudoPagina = Pagina::where('nome', 'LIKE', 'Sobre')->firstOrCreate([
+            'nome' => 'Sobre'
+        ]);
+        return view('editarPaginaSobre',['conteudoPagina' => $conteudoPagina]);
+    }
+
+
+    private function salvarEdicaoPagina(Request $request, Pagina $pagina)
+    {
+        $regras = [
+            'titulo' => 'required|max:255',
+            'descricao' => 'required',
+        ];
+
+        $mensagens = [
+            'titulo.required' => 'É preciso informar um título para o texto da página',
+            'titulo.max' => 'O título deve ter menos de 256 caracteres',
+            'descricao.required'  => 'A página deve possuir um texto ',
+        ];
+
+        $validador = Validator::make($request->all(),$regras,$mensagens);
+
+        //Retorna mensagens de validação no formato JSON caso haja problemas
+        if($validador->fails()){
+            return response()->json($validador->messages(), 422);
+        }
+
+        $pagina->titulo_texto = request('titulo');
+        $pagina->texto = request('descricao');
+
+        $pagina->save();
+
+        return response()->json("Edição publicada com sucesso!", 200);
+    } 
 
     /**
      * Processo o formulário de edição de conteúdo da página 'Aprender'
@@ -820,34 +859,18 @@ class HomeController extends Controller
      */
     public function salvarEdicaoPaginaAprender(Request $request)
     {
-        $regras = [
-         'titulo' => 'required|max:255',
-         'descricao' => 'required',
-     ];
+        return $this->salvarEdicaoPagina($request, Pagina::where('nome', 'LIKE', 'Aprender')->first());
+    } 
 
-     $mensagens = [
-        'titulo.required' => 'É preciso informar um título para o texto da página "Alterar" ',
-        'titulo.max' => 'O título deve ter menos de 256 caracteres',
-        'descricao.required'  => 'A página "Alterar" deve possuir um texto ',
-    ];
-
-    $validador = Validator::make($request->all(),$regras,$mensagens);
-
-        //Retorna mensagens de validação no formato JSON caso haja problemas
-    if($validador->fails()){
-        return response()->json($validador->messages(), 422);
-    }
-
-    $pagina = Pagina::where('nome', 'Aprender')->firstOrFail();
-
-    $pagina->titulo_texto = request('titulo');
-    $pagina->texto = request('descricao');
-
-    $pagina->save();
-
-    return response()->json("Edição publicada com sucesso!", 200);
-} 
-
+/**
+     * Processo o formulário de edição de conteúdo da página 'Sobre'
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function salvarEdicaoPaginaSobre(Request $request)
+    {
+        return $this->salvarEdicaoPagina($request, Pagina::where('nome', 'LIKE', 'Sobre')->first());    
+    } 
 
 
     public function emailNovoRecursoTA($idRecursoTA){
