@@ -18,49 +18,52 @@
 
                     <form id="formCadastroRecursoTA" method="POST" action="{{ route('salvaTA') }}" enctype="multipart/form-data">
                         @csrf
-                        <h3 class="h3">Informações básicas</h3>
-                        <div class="form-group required row mt-3" role="group">
-                            <label for="titulo" class="col-md-2 col-form-label text-md-right">{{ __('Título') }}</label>
-                            <div class="col-md-10">
-                                <input id="titulo" type="text" class="form-control" name="titulo" value="{{ old('titulo') }}" autofocus>
-                            </div>
-                        </div>
+                        <fieldset>
+                            <legend class="h3">Informações básicas</legend>
 
-                        <div class="form-group required row" role="group">
-                            <label for="descricao" id="descricao-label" class="col-md-2 col-form-label text-md-right">
-                                {{ __('Breve descrição') }}
-                            </label>
-                            <div class="col-md-10">
-                                <textarea class="form-control descricao" id="descricao" name="descricao"></textarea>
+                            <div class="form-group required row mt-3" role="group">
+                                <label for="titulo" class="col-md-2 col-form-label text-md-right">{{ __('Título') }}</label>
+                                <div class="col-md-10">
+                                    <input id="titulo" type="text" class="form-control" name="titulo" value="{{ old('titulo') }}" autofocus>
+                                </div>
                             </div>
-                        </div>
 
-                        <fieldset class="form-group required" role="group">
-                            <div class="row">
-                                <legend class="col-form-label col-md-2 pt-0 text-md-center" id="label-legend-text">
-                                    É um produto comercial?
-                                    <div id="legend-label-produtoComercial" class="sr-only"></div>
-                                </legend>
-                                <div class="col-md-2">
-                                    <label class="form-check-label pl-4">
-                                        <input class="form-check-input" type="radio" id="comercial" name="produtoComercial" 
-                                            value="true" aria-labelledby="label-legend-text label-sim">
-                                        <span id="label-sim">{{ __('Sim') }}</span>
-                                    </label>
-                                </div>
-                                <div class="col-md-2">                            
-                                    <label class="form-check-label">
-                                        <input class="form-check-input" type="radio" id="naoComercial" name="produtoComercial" 
-                                        value="false" aria-labelledby="label-legend-text label-nao">
-                                        <span id="label-nao">{{ __('Não') }}</span>
-                                    </label>
+                            <div class="form-group required row" role="group">
+                                <label for="descricao" id="descricao-label" class="col-md-2 col-form-label text-md-right">
+                                    {{ __('Breve descrição') }}
+                                </label>
+                                <div class="col-md-10">
+                                    <textarea class="form-control descricao" id="descricao" name="descricao"></textarea>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <span id="produtoComercial"></span>
+
+                            <fieldset class="form-group required" role="group">
+                                <div class="row">
+                                    <legend class="col-form-label col-md-2 pt-0 text-md-center" id="label-legend-text">
+                                        É um produto comercial?
+                                        <div id="legend-label-produtoComercial" class="sr-only"></div>
+                                    </legend>
+                                    <div class="col-md-2">
+                                        <label class="form-check-label pl-4">
+                                            <input class="form-check-input" type="radio" id="comercial" name="produtoComercial" 
+                                                value="true" aria-labelledby="label-legend-text label-sim">
+                                            <span id="label-sim">{{ __('Sim') }}</span>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-2">                            
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="radio" id="naoComercial" name="produtoComercial" 
+                                            value="false" aria-labelledby="label-legend-text label-nao">
+                                            <span id="label-nao">{{ __('Não') }}</span>
+                                        </label>
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <span id="produtoComercial"></span>
+                                    </div>
+                                </div>
+                            </fieldset>
                         </fieldset>
 
                         <div class="form-group required row">
@@ -83,100 +86,117 @@
                                 <input type="text" class="form-control" name="tags" id="tags"/>
                             </div>
                         </div>
+                        </fieldset>
+
                         <hr>
-                        <h3 id="fotos-label"class="obrigatorio mt-4 h3">Fotos do recurso</h3>
-                        <p>Carregue pelo menos uma foto sobre a tecnologia assistiva no formato png, jpg ou  jpeg</p>
-                        <div id="divFotos" class="form-group required row" role="group" aria-labelledby="fotos-label">
-                            <div id="fotoDestaque" class="col-md-12">
-                                <label for="fotos" id="fotos-label" class="sr-only">
-                                    Adicionar imagens do produto
-                                    <span id="fotos-errors-messages"></span>
-                                </label>
-                                <input id="fotos" name="fotos[]" accept="image/*" type="file" data-browse-on-zone-click="true"  
-                                        multiple data-show-upload="false" data-show-caption="true" 
-                                        data-msg-placeholder="Faça o upload de ao menos uma foto do recurso" 
-                                        data-allowed-file-extensions='["jpg", "jpeg", "png"]'>
+                        
+                        <fieldset>
+                            <legend id="fotos-label"class="obrigatorio mt-4 h3">Fotos do recurso</legend>
+                            <p>Carregue pelo menos uma foto sobre a tecnologia assistiva no formato png, jpg ou  jpeg</p>
+                            <div id="divFotos" class="form-group required row" role="group" aria-labelledby="fotos-label">
+                                <div id="fotoDestaque" class="col-md-12">
+                                    <label for="fotos" id="fotos-label" class="sr-only">
+                                        Adicionar imagens do produto
+                                        <span id="fotos-errors-messages"></span>
+                                    </label>
+                                    <input id="fotos" name="fotos[]" accept="image/*" type="file" data-browse-on-zone-click="true"  
+                                            multiple data-show-upload="false" data-show-caption="true" 
+                                            data-msg-placeholder="Faça o upload de ao menos uma foto do recurso" 
+                                            data-allowed-file-extensions='["jpg", "jpeg", "png"]'>
+                                </div>
+                                <div id="fotos-invalid-msg-placeholder"></div>
                             </div>
-                            <div id="fotos-invalid-msg-placeholder"></div>
-                        </div>
+                        </fieldset>
 
                         <hr>
 
                         <div id="status-adicao-links" class="sr-only" role="status">
                         </div>
 
-                        <h3 id="videos-label" class="mt-4 h3">Vídeos relacionados</h3>
-                        <p> Informe o endereço (url) de vídeos sobre a tecnologia assistiva</p>
-                        <div id="divVideos" class="form-group row" role="group" aria-labelledby="videos-label">
-                            <label for="urlVideo" class="col-md-2 col-form-label text-md-right">{{ __('Link para o vídeo') }}</label>
-                            <div class="col-md-10 form-inline">
-                                <input id="urlVideo" type="url"  class="w-75 form-control @error('videos[]') is-invalid @enderror" name="video" value="{{ old('video') }}">
-                                <button id="btnAdicionarVideo" type="button" class="w-25 btn btn-primary">
-                                    <span class="sr-only">Adicionar o vídeo</span>
-                                    <i class="fa fa-plus-square fa-1"></i>
-                                </button>
-                                @error('videos[]')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
+                        <fieldset>
+                            <legend id="videos-label" class="mt-4 h3">Vídeos relacionados</legend>
+                            <p> Informe o endereço (url) de vídeos sobre a tecnologia assistiva</p>
+                            <div id="divVideos" class="form-group row" role="group" aria-labelledby="videos-label">
+                                <label for="urlVideo" class="col-md-2 col-form-label text-md-right">{{ __('Link para o vídeo') }}</label>
+                                <div class="col-md-10 form-inline">
+                                    <input id="urlVideo" type="url"  class="w-75 form-control @error('videos[]') is-invalid @enderror" name="video" value="{{ old('video') }}">
+                                    <button id="btnAdicionarVideo" type="button" class="w-25 btn btn-primary">
+                                        <span class="sr-only">Adicionar o vídeo</span>
+                                        <i class="fa fa-plus-square fa-1"></i>
+                                    </button>
+                                    @error('videos[]')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                                <div class="offset-md-1 col-md-10 mt-4">
+                                    <p>{{__('Vídeos a serem cadastrados para este recurso:')}}</p>
+                                    <ul id="videos" class="list-group list-group-flush text-center">
+                                        <li id="avisoListaVazia" class="list-group-item">Não serão adicionados vídeos</li>
+                                    </ul>
+                                </div>                        
                             </div>
-                            <div class="offset-md-1 col-md-10 mt-4">
-                                <p>{{__('Vídeos a serem cadastrados para este recurso:')}}</p>
-                                <ul id="videos" class="list-group list-group-flush text-center">
-                                    <li id="avisoListaVazia" class="list-group-item">Não serão adicionados vídeos</li>
-                                </ul>
-                            </div>                        
-                        </div>
+                        </fieldset>
+
                         <hr>
-                        <h3 id="arquivos-label" class="mt-4 h3">Arquivos</h3>
-                        <p> Informe, se houver, endereços (url) para acessar arquivos relacionados ao recurso a ser cadastrado </p>
-                        <div id="divArquivos" class="form-group row" role="group" aria-labelledby="arquivos-label">
-                            <label for="urlArquivo" class="col-md-2 col-form-label text-md-right">{{ __('Link para o arquivo') }}</label>
-                            <div class="col-md-10 form-inline">
-                                <input id="urlArquivo" type="url"  class="w-75 form-control @error('arquivos[]') is-invalid @enderror" name="arquivo" value="{{ old('arquivo') }}">
-                                <button id="btnAdicionarArquivo" type="button" class="w-25 btn btn-primary">
-                                    <span class="sr-only">Adicionar o arquivo</span>
-                                    <i class="fa fa-plus-square fa-1"></i>
-                                </button>
-                                @error('arquivos[]')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
+
+                        <fieldset>
+                            <legend id="arquivos-label" class="mt-4 h3">Arquivos</legend>
+                            <p> Informe, se houver, endereços (url) para acessar arquivos relacionados ao recurso a ser cadastrado </p>
+                            <div id="divArquivos" class="form-group row" role="group" aria-labelledby="arquivos-label">
+                                <label for="urlArquivo" class="col-md-2 col-form-label text-md-right">{{ __('Link para o arquivo') }}</label>
+                                <div class="col-md-10 form-inline">
+                                    <input id="urlArquivo" type="url"  class="w-75 form-control @error('arquivos[]') is-invalid @enderror" name="arquivo" value="{{ old('arquivo') }}">
+                                    <button id="btnAdicionarArquivo" type="button" class="w-25 btn btn-primary">
+                                        <span class="sr-only">Adicionar o arquivo</span>
+                                        <i class="fa fa-plus-square fa-1"></i>
+                                    </button>
+                                    @error('arquivos[]')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                                <div class="offset-md-1 col-md-10 mt-4">
+                                    <p>{{__('Arquivos a serem cadastrados para este recurso:')}}</p>
+                                    <ul id="arquivos" class="list-group list-group-flush text-center">
+                                        <li id="avisoListaVazia" class="list-group-item">Não serão adicionados arquivos</li>
+                                    </ul>                            
+                                </div>                                          
                             </div>
-                            <div class="offset-md-1 col-md-10 mt-4">
-                                <p>{{__('Arquivos a serem cadastrados para este recurso:')}}</p>
-                                <ul id="arquivos" class="list-group list-group-flush text-center">
-                                    <li id="avisoListaVazia" class="list-group-item">Não serão adicionados arquivos</li>
-                                </ul>                            
-                            </div>                                          
-                        </div>
+                        </fieldset>
+
                         <hr>
-                        <h3 id="manuais-label" class="mt-4 h3">Manuais</h3>
-                        <p> Informe, se houver, endereços (url) para acessar manuais relacionados ao recurso a ser cadastrado </p>
-                        <div id="divManuais" class="form-group row" role="group" aria-labelledby="manuais-label">
-                            <label for="urlManual" class="col-md-2 col-form-label text-md-right">{{ __('Link para o manual') }}</label>
-                            <div class="col-md-10 form-inline">
-                                <input id="urlManual" type="url"  class="w-75 form-control @error('manuais[]') is-invalid @enderror" name="manual" value="{{ old('manual') }}">
-                                <button id="btnAdicionarManual" type="button" class="w-25 btn btn-primary">
-                                    <span class="sr-only">Adicionar o manual</span>
-                                    <i class="fa fa-plus-square fa-1"></i>
-                                </button>
-                                @error('manuais[]')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
+
+                        <fieldset>
+                            <legend id="manuais-label" class="mt-4 h3">Manuais</legend>
+                            <p> Informe, se houver, endereços (url) para acessar manuais relacionados ao recurso a ser cadastrado </p>
+                            <div id="divManuais" class="form-group row" role="group" aria-labelledby="manuais-label">
+                                <label for="urlManual" class="col-md-2 col-form-label text-md-right">{{ __('Link para o manual') }}</label>
+                                <div class="col-md-10 form-inline">
+                                    <input id="urlManual" type="url"  class="w-75 form-control @error('manuais[]') is-invalid @enderror" name="manual" value="{{ old('manual') }}">
+                                    <button id="btnAdicionarManual" type="button" class="w-25 btn btn-primary">
+                                        <span class="sr-only">Adicionar o manual</span>
+                                        <i class="fa fa-plus-square fa-1"></i>
+                                    </button>
+                                    @error('manuais[]')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                                <div class="offset-md-1 col-md-10 mt-4">
+                                    <p for="manuais">{{__('Manuais a serem cadastrados para este recurso:')}}</p>
+                                    <ul id="manuais" class="list-group list-group-flush text-center">
+                                        <li id="avisoListaVazia" class="list-group-item">Não serão adicionados manuais</li>
+                                    </ul>
+                                </div> 
                             </div>
-                            <div class="offset-md-1 col-md-10 mt-4">
-                                <p for="manuais">{{__('Manuais a serem cadastrados para este recurso:')}}</p>
-                                <ul id="manuais" class="list-group list-group-flush text-center">
-                                    <li id="avisoListaVazia" class="list-group-item">Não serão adicionados manuais</li>
-                                </ul>
-                            </div> 
-                        </div>
+                        </fieldset>
+
                         <hr>
+                        
                         <div class="form-group row mb-5 mt-4">
                             <div class="col-md-3 offset-md-10">
                                 <button id="btnEnviaForm" type="submit" class="btn btn-success p-4">
@@ -199,7 +219,7 @@
     <div class="modal-content">
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">Sucesso</h4>
+        <h3 class="modal-title h4">Sucesso</h3>
     </div>
     <!-- Modal body -->
     <div class="modal-body">
