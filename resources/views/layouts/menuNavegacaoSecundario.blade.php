@@ -34,11 +34,9 @@ aria-label="Menu de navegação secundário">
       		<li class="nav-item my-2 my-md-0">
         		<a class="nav-link dottedUnderline" href="#">MAPA DO SITE </a>
       		</li>        
+			<li class="nav-item my-2 my-md-0">
+				<a class="nav-link" href="{{url('/entrar')}}"><u> Entrar </u></a>
+			</li>
       	</ul>
 	</div>
-        <div class="navbar-nav navbar-right navbar-header">
-          <li class="nav-item my-2 my-md-0">
-            <a class="nav-link" href="{{url('/entrar')}}"><u> Entrar </u></a>
-          </li>
-        </div>
 </nav>
