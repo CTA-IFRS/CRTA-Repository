@@ -7,22 +7,22 @@ aria-label="Menu de navegação secundário">
 	<div id="navegacaoSecundaria" class="collapse navbar-collapse">
 		    <ul class="navbar-nav">
       		<li class="nav-item">
-        		<a class="nav-link" href="#" accesskey="1"> Ir para o conteúdo
+        		<a class="nav-link" href="#conteudo-principal" accesskey="1"> Ir para o conteúdo
               <span class="badge badge-primary">1</span>
             </a>
       		</li>
       		<li class="nav-item">
-        		<a class="nav-link" href="#" accesskey="2"> Ir para o menu
+        		<a class="nav-link" href="#menu-principal" accesskey="2"> Ir para o menu
               <span class="badge badge-primary">2</span>
             </a>
       		</li>
       		<li class="nav-item">
-        		<a class="nav-link" href="#" accesskey="3">Ir para a busca
+        		<a class="nav-link" href="#caixa-de-busca" accesskey="3">Ir para a busca
               <span class="badge badge-primary">3</span>
             </a>
       		</li>
       		<li class="nav-item">
-        		<a class="nav-link" href="#" accesskey="4"> Ir para o rodapé
+        		<a class="nav-link" href="#inicio-rodape" accesskey="4"> Ir para o rodapé
               <span class="badge badge-primary">4</span>
             </a>
       		</li>
