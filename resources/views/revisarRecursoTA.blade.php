@@ -23,7 +23,7 @@
 			<label for="descricao" class="col-12 col-form-label">{{ __('Breve descrição') }}</label>
 			<div class="col-12">
 				<textarea class="form-control descricao" id="descricao" name="descricao">
-					{{ html_entity_decode(($recursoTA->descricao), ENT_QUOTES, 'UTF-8') }}
+					{{ $recursoTA->descricao }}
 				</textarea>
 			</div>
 		</div>

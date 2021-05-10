@@ -78,7 +78,7 @@ class RecursoTAController extends Controller{
 
   $recursoTA = new RecursoTA();
   $recursoTA->titulo = request('titulo');
-  $recursoTA->descricao = request('descricao');
+  $recursoTA->descricao = nl2br(htmlspecialchars(strip_tags(request('descricao')), ENT_QUOTES, 'UTF-8'));
 
   $recursoTA->produto_comercial = $isProdutoComercial;
   if($isProdutoComercial){

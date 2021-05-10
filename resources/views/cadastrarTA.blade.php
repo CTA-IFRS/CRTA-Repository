@@ -33,7 +33,7 @@
                                     {{ __('Breve descrição') }}
                                 </label>
                                 <div class="col-md-10">
-                                    <textarea class="form-control descricao" id="descricao" name="descricao"></textarea>
+                                    <textarea class="form-control descricao" id="descricao" name="descricao" rows="8"></textarea>
                                 </div>
                             </div>
 
@@ -235,7 +235,6 @@
 </div>
 @endsection
 @section('scripts')
-<script src="{{ asset('node_modules/tinymce/tinymce.js') }}"></script>
 <script>
     var form = $('#formCadastroRecursoTA');
 
@@ -313,26 +312,6 @@
         
         $('[tabindex="500"]').removeAttr("tabindex");
 
-        tinymce.init({
-            selector:'textarea.descricao',
-            language: 'pt_BR',  
-            max_width: 400,
-            height: 400,
-            plugins: 'preview link lists',
-            toolbar: 'preview | styleselect | fontsizeselect forecolor | bold italic underline | alignleft aligncenter alignright alignjustify | outdent indent | numlist bullist | link ',
-            default_link_target: '_blank',
-            setup: function (editor) {
-                editor.on('init', function() {
-                    editor.getContainer().setAttribute("aria-labelledby", "descricao-label");
-                });
-
-                editor.on('change', function () {
-                    tinymce.triggerSave();
-                });     
-            }
-        });
-
-
         var contadorUrls = 0;
 
         $("#modalCadastroRealizado").modal("hide");
@@ -341,8 +320,7 @@
             var formData = new FormData(form[0]);
 
             e.preventDefault();
-            //tinyMCE.triggerSave()
-            $('#' + 'descricao').html( tinymce.get('descricao').getContent() );
+            
             $.ajax({
                 type: "POST",
                 url: form.attr('action'),

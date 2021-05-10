@@ -36,7 +36,7 @@
 			<div class="my-3">
 				<h3 class="my-3 h2">Descrição do Recurso</h3>
 
-				<div>{!! html_entity_decode(stripslashes($recursoTA->descricao), ENT_QUOTES, 'UTF-8')!!}</div>				
+				<div>{!! $recursoTA->descricao !!}</div>				
 			</div>		
 		</div>
 		<div id="colunaDireita" class="card offset-md-1 col-md-3">
