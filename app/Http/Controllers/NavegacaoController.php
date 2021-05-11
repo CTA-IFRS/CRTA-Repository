@@ -24,10 +24,10 @@ class NavegacaoController extends Controller{
 		//Necessário para popular as tags existentes no DB
 		$tagsCadastradas = Tag::where('publicacao_autorizada',true)->pluck('nome');
 		
-		$recursosMaisAcessados = RecursoTA::where('publicacao_autorizada',true)->orderBy('visualizacoes', 'desc')->get();//RecursoTA::all()->sortByDesc("visualizacoes");
+		$recursosMaisAcessados = RecursoTA::where('publicacao_autorizada',true)->orderBy('visualizacoes', 'desc')->get();
 		$oitoRecursosMaisAcessados = collect($recursosMaisAcessados)->take(8);
 
-		$recursosMaisRecentes =  RecursoTA::where('publicacao_autorizada',true)->orderBy('visualizacoes', 'desc')->get();
+		$recursosMaisRecentes =  RecursoTA::where('publicacao_autorizada',true)->orderBy('created_at', 'desc')->get();
 		$oitoRecursosMaisRecentes = collect($recursosMaisRecentes)->take(8);
 		return view('inicio',['listagemDeMaisRelevantes' => false, 
 								'recursosMaisAcessados' => $oitoRecursosMaisAcessados, 
