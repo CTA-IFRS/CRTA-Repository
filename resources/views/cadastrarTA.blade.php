@@ -249,8 +249,8 @@
         removeIcon: "<i class='fa fa-trash' aria-hidden='true'></i>",
         removeLabel: "Remover todas imagens",
         removeFromPreviewOnError: true,
+        showClose: false,
         fileActionSettings: {
-            showZoom: true,
             indicatorNew: '<i class="fa fa-exclamation-triangle text-warning"></i>',
         },
         previewZoomButtonIcons: {
@@ -283,8 +283,10 @@
                         '<div class="explorer-caption" title="{caption}">{caption}'+            
                         '</div> ' + 
                         '<div class="clearfix pl-4">'+
-                            '<input class="form-check-input" type="radio" id="{ID_FOTO_NOVA}" name="fotoDestaque" value="{ID_FOTO_NOVA}" {FOTO_DESTAQUE}><label for="{ID_FOTO_NOVA}">Destaque</label>'+
-                            '<input name="textosAlternativos[{ID_FOTO_NOVA}][textoAlternativo]" type="text" class="form-control" placeholder="Texto alternativo" value="{caption}">'+        
+                            '<label><input class="form-check-input" type="radio" id="{ID_FOTO_NOVA}" name="fotoDestaque" value="{ID_FOTO_NOVA}">' 
+                            + '<span class="sr-only">Informe se a imagem {caption} é</span> Destaque</label>'+
+                            '<input name="textosAlternativos[{ID_FOTO_NOVA}][textoAlternativo]" type="text" class="form-control" ' +
+                            'value="{caption}" aria-label="Texto alternativo para a imagem {caption}">' +
                         '</div>'+
                         '{size}{progress}' +
                         '</div>' +
@@ -299,6 +301,7 @@
                 return $(this).html().replace(/{ID_FOTO_NOVA}/g, 'nova-'+fileId);
             });
         });
+        $('.file-details-cell input').first().focus();
     });
 
     function isUrlValid(url) {
