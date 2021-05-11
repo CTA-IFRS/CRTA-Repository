@@ -147,6 +147,9 @@ class NavegacaoController extends Controller{
 	 */	
 	public function exibeRecursoTA($idRecursoTA){
 		$recursoTA = RecursoTA::findOrFail($idRecursoTA);
+
+		if (!$recursoTA->publicacao_autorizada) abort(404);
+
 		RecursoTA::where('id', $idRecursoTA)->increment('visualizacoes', 1);
 
 		//Busca por todos os recursos TAs que possuem as mesmas tags (já autorizadas)que o recurso a ser exibido
