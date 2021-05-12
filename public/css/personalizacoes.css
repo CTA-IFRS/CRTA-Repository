@@ -92,6 +92,30 @@ button.bg-secondary:hover, button.bg-secondary:focus {
   text-decoration:underline!important;
 text-decoration-style: dotted!important;
 }
+
+.badge-primary {
+  color: #FFFFFF !important;
+  background-color: #3E67B1 !important;
+}
+
+#manuais a, #arquivos a, #fabricante a {
+  color: #2075BC !important;
+}
+
+
+.sr-only {
+  color: #000000 !important;
+  background-color: #FFFFFF !important;
+}
+
+.btn.btn-success {
+  background-color: #26824C !important;
+}
+
+.file-drop-zone-title {
+  color: #757575 !important;
+}
+
 /*
 *
 /*******	Fim da customização dos menus *******/
