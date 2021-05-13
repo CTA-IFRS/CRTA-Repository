@@ -15,6 +15,7 @@
 <body class="vh-100">
    <!-- A página que herdar esse layout deverá indicar se o banner será carregado e o conteudo dela-->
    <header>
+   <a href="#conteudo-principal" class="sr-only">Ir para o conteúdo</a>
    <a href="#" id="menu-principal" class="sr-only">Início do menu</a>
    @include('layouts.menuNavegacaoSecundario')
    @include('layouts.menuNavegacaoPrincipal')
