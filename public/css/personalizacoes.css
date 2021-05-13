@@ -116,6 +116,10 @@ text-decoration-style: dotted!important;
   color: #757575 !important;
 }
 
+a.link-primary {
+  color: #2075BC !important;
+}
+
 /*
 *
 /*******	Fim da customização dos menus *******/
