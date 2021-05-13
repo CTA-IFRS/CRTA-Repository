@@ -274,9 +274,14 @@
 				});
 
 				var f_RemoveThumbLinksFromTabSequence = function () {
+					$('ul[class~="lSPager"] a img')
+						.attr("role", "presentation")
+						.attr("aria-hidden", "true")
+						.attr("alt", "Imagem...");
 					$('ul[class~="lSPager"] a')
-						.attr("tabindex", "-1").prop("tabindex", "-1")
-						.attr("aria-hidden", "true").prop("aria-hidden", "true");
+						.attr("tabindex", "-1")
+						.attr("aria-hidden", "true")
+						.attr("role", "presentation");	
 				};
 
 				f_RemoveThumbLinksFromTabSequence();
