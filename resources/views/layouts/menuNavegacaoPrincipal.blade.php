@@ -2,7 +2,7 @@
 <nav class="menuTelaPrincipal navbar navbar-expand-lg navbar-dark bg-primary"
 	aria-label="Menu de navegação principal">
 	<h1><a class="navbar-brand" href="{{ url('/') }}">RETACE</a></h1>
-	<button type="button" class="navbar-toggler bg-primary" data-toggle="collapse" data-target="#navegacaoPrincipal" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Expandir menu') }}">
+	<button type="button" class="navbar-toggler bg-primary" data-toggle="collapse" data-target="#navegacaoPrincipal" aria-controls="navegacaoPrincipal" aria-expanded="false" aria-label="{{ __('Expandir menu') }}">
     	<span class="navbar-toggler-icon"></span>
   	</button>
 	<div id="navegacaoPrincipal" class="collapse navbar-collapse">

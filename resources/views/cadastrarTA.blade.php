@@ -37,7 +37,7 @@
                                 </div>
                             </div>
 
-                            <fieldset class="form-group required" role="group">
+                            <fieldset class="form-group required">
                                 <div class="row">
                                     <legend class="col-form-label col-md-2 pt-0 text-md-center" id="label-legend-text">
                                         É um produto comercial?
@@ -64,36 +64,35 @@
                                     </div>
                                 </div>
                             </fieldset>
-                        </fieldset>
-
-                        <div class="form-group required row">
-                            <label for="siteFabricante" class="col-md-2 col-form-label text-md-right">{{ __('Site do fabricante') }}</label>
-                            <div class="col-md-10">
-                                <input id="siteFabricante" type="text" class="form-control" name="siteFabricante" value="{{ old('siteFabricante') }}">
+        
+                            <div class="form-group required row">
+                                <label for="siteFabricante" class="col-md-2 col-form-label text-md-right">{{ __('Site do fabricante') }}</label>
+                                <div class="col-md-10">
+                                    <input id="siteFabricante" type="text" class="form-control" name="siteFabricante" value="{{ old('siteFabricante') }}">
+                                </div>
                             </div>
-                        </div>
 
-                        <div id="divLicenca" class="form-group required row d-none">
-                            <label for="licenca" class="col-md-2 col-form-label text-md-right">{{ __('Licença') }}</label>
-                            <div class="col-md-10">
-                                <input id="licenca" type="text" class="form-control" name="licenca" value="{{ old('licenca') }}">
+                            <div id="divLicenca" class="form-group required row d-none">
+                                <label for="licenca" class="col-md-2 col-form-label text-md-right">{{ __('Licença') }}</label>
+                                <div class="col-md-10">
+                                    <input id="licenca" type="text" class="form-control" name="licenca" value="{{ old('licenca') }}">
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group required row">
-                            <label for="tags" id="tags-label" class="col-md-2 col-form-label text-md-right">{{ __('Tags') }}</label>
-                            <div class="col-md-10">
-                                <input type="text" class="form-control" name="tags" id="tags"/>
+                            <div class="form-group required row">
+                                <label for="tags" id="tags-label" class="col-md-2 col-form-label text-md-right">{{ __('Tags') }}</label>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" name="tags" id="tags"/>
+                                </div>
                             </div>
-                        </div>
                         </fieldset>
 
                         <hr>
                         
                         <fieldset>
-                            <legend id="fotos-label"class="obrigatorio mt-4 h3">Fotos do recurso</legend>
+                            <legend id="fotos-label-cab" class="obrigatorio mt-4 h3">Fotos do recurso</legend>
                             <p>Carregue pelo menos uma foto sobre a tecnologia assistiva no formato png, jpg ou  jpeg</p>
-                            <div id="divFotos" class="form-group required row" role="group" aria-labelledby="fotos-label">
+                            <div id="divFotos" class="form-group required row" role="group" aria-labelledby="fotos-label-cab">
                                 <div id="fotoDestaque" class="col-md-12">
                                     <label for="fotos" id="fotos-label" class="sr-only">
                                         Adicionar imagens do produto
@@ -133,7 +132,7 @@
                                 <div class="offset-md-1 col-md-10 mt-4">
                                     <p>{{__('Vídeos a serem cadastrados para este recurso:')}}</p>
                                     <ul id="videos" class="list-group list-group-flush text-center">
-                                        <li id="avisoListaVazia" class="list-group-item">Não serão adicionados vídeos</li>
+                                        <li id="avisoListaVazia-videos" class="list-group-item">Não serão adicionados vídeos</li>
                                     </ul>
                                 </div>                        
                             </div>
@@ -161,7 +160,7 @@
                                 <div class="offset-md-1 col-md-10 mt-4">
                                     <p>{{__('Arquivos a serem cadastrados para este recurso:')}}</p>
                                     <ul id="arquivos" class="list-group list-group-flush text-center">
-                                        <li id="avisoListaVazia" class="list-group-item">Não serão adicionados arquivos</li>
+                                        <li id="avisoListaVazia-arquivos" class="list-group-item">Não serão adicionados arquivos</li>
                                     </ul>                            
                                 </div>                                          
                             </div>
@@ -187,9 +186,9 @@
                                     @enderror
                                 </div>
                                 <div class="offset-md-1 col-md-10 mt-4">
-                                    <p for="manuais">{{__('Manuais a serem cadastrados para este recurso:')}}</p>
+                                    <p>{{__('Manuais a serem cadastrados para este recurso:')}}</p>
                                     <ul id="manuais" class="list-group list-group-flush text-center">
-                                        <li id="avisoListaVazia" class="list-group-item">Não serão adicionados manuais</li>
+                                        <li id="avisoListaVazia-manuais" class="list-group-item">Não serão adicionados manuais</li>
                                     </ul>
                                 </div> 
                             </div>
@@ -201,9 +200,9 @@
                             <div class="col-md-3 offset-md-10">
                                 <button id="btnEnviaForm" type="submit" class="btn btn-success p-4">
                                     <b>{{ __('CADASTRAR') }}</b>
-                                    <div class="spinner-border d-none" role="status">
+                                    <span class="spinner-border d-none" role="status">
                                         <span class="sr-only">Enviando os dados do recurso...</span>
-                                    </div>
+                                    </span>
                                 </button>
                             </div>
                         </div>
@@ -425,8 +424,8 @@
             if(inputUrlVideo.val().length!='0'){
                 if(isUrlValid(inputUrlVideo.val())){
                     //Remove o aviso de lista vazia quando adicionar o primeiro item;
-                    if ($('#videos').find('#avisoListaVazia').length) {
-                        $('#videos').find('#avisoListaVazia').remove();
+                    if ($('#videos').find('#avisoListaVazia-videos').length) {
+                        $('#videos').find('#avisoListaVazia-videos').remove();
                     }
 
                     $("#videos").append(
@@ -478,7 +477,7 @@
 
             if ($('#videos li').length === 0) {
                 $("#videos").append(
-                    '<li id="avisoListaVazia" class="list-group-item">Não serão adicionados vídeos</li>');
+                    '<li id="avisoListaVazia-videos" class="list-group-item">Não serão adicionados vídeos</li>');
             }
         });
 
@@ -494,8 +493,8 @@
             if(inputUrlArquivo.val().length!='0'){ 
                 if(isUrlValid(inputUrlArquivo.val())){
                 //Remove o aviso de lista vazia quando adicionar o primeiro item;
-                if($('#arquivos').find('#avisoListaVazia').length) {
-                    $('#arquivos').find('#avisoListaVazia').remove();
+                if($('#arquivos').find('#avisoListaVazia-arquivos').length) {
+                    $('#arquivos').find('#avisoListaVazia-arquivos').remove();
                 }  
 
                 $("#arquivos").append(
@@ -556,7 +555,7 @@
 
             if ($('#arquivos li').length === 0) {
                 $("#arquivos").append(
-                    '<li id="avisoListaVazia" class="list-group-item">Não serão adicionados vídeos </li>');
+                    '<li id="avisoListaVazia-arquivos" class="list-group-item">Não serão adicionados arquivos </li>');
             }
         });
 
@@ -573,8 +572,8 @@
                 if(isUrlValid(inputUrlManual.val())){
 
                 //Remove o aviso de lista vazia quando adicionar o primeiro item;
-                if($('#manuais').find('#avisoListaVazia').length) {
-                    $('#manuais').find('#avisoListaVazia').remove();
+                if($('#manuais').find('#avisoListaVazia-manuais').length) {
+                    $('#manuais').find('#avisoListaVazia-manuais').remove();
                 }
 
                 $("#manuais").append(
@@ -636,7 +635,7 @@
 
             if ($('#manuais li').length === 0) {
                 $("#manuais").append(
-                    '<li id="avisoListaVazia" class="list-group-item">Não serão adicionados manuais </li>');
+                    '<li id="avisoListaVazia-manuais" class="list-group-item">Não serão adicionados manuais </li>');
             }
         });
 

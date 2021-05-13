@@ -4,7 +4,7 @@
 		<div class="row mb-4 d-flex flex-wrap align-items-center">
 			<!-- Grid column -->
 			<div class="offset-md-1 col-md-5 mt-3">
-				<h2 class="text-uppercase h5">CTA IFRS</h5>
+				<h2 class="text-uppercase h5">CTA IFRS</h2>
 				<p>Centro Tecnológico de Acessibilidade do IFRS</p>
 				<p class="ml-3 mt-3">E-mail: <a href="mailto:cta@ifrs.edu.br">cta@ifrs.edu.br</a></p>
 				<p class="ml-3 mt-1">Telefone: <a href="tel:(54)%203455%20-3261">(54) 3455-3261</a></p>

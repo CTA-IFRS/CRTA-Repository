@@ -1,5 +1,5 @@
 <!--layou para listagens de alguns recursos em que a paginação é desnecessária (ex: recursos relacionados, listagem na página inicial. Se for preciso paginação, utilizar o layout listaCardsRecursos. -->
-<div id="listagemRecursos" class="container mt-5">
+<div class="container mt-5">
 	<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-4">
 		@foreach($recursosTA as $recursoTA)
 		<div class="col mb-4" >
