@@ -1,5 +1,5 @@
 @extends('layouts.siteLayout')
-@section('titulo','RETACE - Aprender')
+@section('titulo','RETACE - Sobre')
 @section('conteudo')
 <div class="container card my-5">
 	<div class="row">

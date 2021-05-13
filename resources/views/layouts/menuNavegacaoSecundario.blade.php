@@ -29,10 +29,10 @@ aria-label="Menu de navegação secundário">
       	</ul>
       	<ul class="navbar-nav navbar-right ml-auto">
       		<li class="nav-item my-2 my-md-0">
-        		<a class="nav-link dottedUnderline" href="#">ACESSIBILIDADE</a>
+        		<a class="nav-link dottedUnderline" href="{{route('acessibilidade')}}">ACESSIBILIDADE</a>
       		</li>
       		<li class="nav-item my-2 my-md-0">
-        		<a class="nav-link dottedUnderline" href="#">MAPA DO SITE </a>
+        		<a class="nav-link dottedUnderline" href="{{route('mapaDoSite')}}">MAPA DO SITE </a>
       		</li>        
 			<li class="nav-item my-2 my-md-0">
 				<a class="nav-link" href="{{url('/entrar')}}"><u> Entrar </u></a>

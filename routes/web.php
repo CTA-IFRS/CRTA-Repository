@@ -49,6 +49,8 @@ Route::get('/editarPaginaSobre','HomeController@editarPaginaSobre');
 Route::get('/exibeRecursoTA/{idRecursoTA}', 'NavegacaoController@exibeRecursoTA');
 Route::get('/aprender', 'NavegacaoController@exibePaginaAprender');
 Route::get('/sobre', 'NavegacaoController@exibePaginaSobre');
+Route::get('/acessibilidade', 'NavegacaoController@exibePaginaAcessibilidade')->name('acessibilidade');
+Route::get('/mapaDoSite', 'NavegacaoController@exibePaginaMapaDoSite')->name('mapaDoSite');
 Route::get('buscaRecursoTAPorTermo', ['as' => 'buscaRecursoTAPorTermo', 'uses' => 'NavegacaoController@buscaRecursoTAPorTermo']);
 
 //Filtro para saber qual busca realizar ao consultar TAs

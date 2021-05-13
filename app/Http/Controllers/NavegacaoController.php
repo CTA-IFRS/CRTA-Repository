@@ -201,5 +201,23 @@ class NavegacaoController extends Controller{
 
 		$conteudoPagina = Pagina::where('nome','Sobre')->firstOrFail();
 		return view('sobre', ['conteudoPagina' => $conteudoPagina]);
-	}		
+	}
+
+	/** 
+	 * Encaminha o usuário para a página "Acessibilidade"
+	 *
+	 *	@return \Illuminate\Contracts\Support\Renderable
+	 */	
+	public function exibePaginaAcessibilidade() {
+		return view('acessibilidade');
+	}
+
+	/** 
+	 * Encaminha o usuário para a página "Mapa do Site"
+	 *
+	 *	@return \Illuminate\Contracts\Support\Renderable
+	 */	
+	public function exibePaginaMapaDoSite() {
+		return view('mapaDoSite');
+	}
 }
