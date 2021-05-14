@@ -23,6 +23,7 @@ Route::get('/', 'NavegacaoController@inicio');
 Route::get('/entrar', 'NavegacaoController@login');
 //Administração de Usuários
 Route::get('/painelAdministrador', 'HomeController@index');
+Route::get('/home', 'HomeController@index');
 Route::get('/administrarUsuarios', 'HomeController@administrarUsuarios');
 Route::get('/adicionarUsuario', 'HomeController@adicionarUsuario');
 Route::post('/cadastrarUsuario', 'HomeController@cadastrarUsuario')->name('cadastrarUsuario');

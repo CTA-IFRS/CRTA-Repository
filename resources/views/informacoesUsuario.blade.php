@@ -8,7 +8,7 @@
 
 @section('content')
 <div class="container">
-	<form method="POST" action="{{route("salvaEdicaoUsuario")}}">
+	<form method="POST" action="{{route('atualizarUsuario', $usuario->id)}}">
 		@csrf
 		<div class="form-group col-sm-6 col-12 mx-auto">
 			<label for="exampleInputEmail1">Nome:</label>
