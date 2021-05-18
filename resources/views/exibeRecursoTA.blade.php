@@ -121,7 +121,7 @@
 					@endif
 				</div>	
 			</div>
-			<div id="avaliacaoPeloUsuario" class="row d-flex align-items-center justify-content-center text-center mt-4">
+			<div id="avaliacaoPeloUsuario" class="row d-flex align-items-center justify-content-center text-center mt-1">
 				@if(Cookie::get('avaliouRecursoTA_'.$recursoTA->id)==null)	
 				<h3 id="label-avaliacaoUsuario" class="h5">Avalie o recurso</h3>		
 				<div class="col-md-6">
@@ -202,7 +202,8 @@
 			language: "pt-BR",
 			theme: "krajee-fa",
 			size: "sm",
-			step: "1"
+			step: "1",
+			clearButton: ""
 		});
 
 		$("#enviarAvaliacaoUsuario-sr").on("click", function (event) {
