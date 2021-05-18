@@ -124,6 +124,7 @@
 			<div id="fotoDestaque" class="col-12">
 				<input id="fotos" name="fotos[]" accept="image/*" type="file" data-browse-on-zone-click="true"  multiple data-show-upload="false" data-show-caption="true" data-msg-placeholder="Faça o upload de ao menos uma foto do recurso" data-allowed-file-extensions='["jpg", "jpeg", "png"]'>
 			</div>
+			<div id="fotos-invalid-msg-placeholder"></div>
 		</div>
 		<hr>
 		<div class="row py-4">
@@ -295,9 +296,13 @@
                                 if(key.search("textoAlternativo")!=-1){
                                 	$('[name^="textosAlternativos"][name$="[textoAlternativo]"]').each(function(i,elemento){ if(!$(this).val()){
                                 		$(this).after('<span class="invalid-feedback font-weight-bold d-block" role="alert">'+val+'</span>')
-                                	}
-                                });
-                                }else{
+                                	}});
+                                } else if (key.search("fotos.") != -1) {
+                                    val.forEach(function (v) {
+                                        $("#fotos-invalid-msg-placeholder").append('<span class="invalid-feedback font-weight-bold d-block">' + v + '</span>');
+                                    });
+                                }
+								else{
                                 	var nomeArray = key.split('.');
                                 	$('[name^="'+nomeArray[0]+'"][name$="['+nomeArray[1]+']['+nomeArray[2]+']"]').after('<span class="invalid-feedback font-weight-bold d-block" role="alert">'+val+'</span>');
                                 }

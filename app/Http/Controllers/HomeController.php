@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 use Image;
 use App\RecursoTA;
@@ -628,7 +629,7 @@ class HomeController extends Controller
          'manuais.*.*' => 'sometimes | required',
          'manuais.*.url' => ['sometimes','regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
          'textosAlternativos.*.textoAlternativo' => 'required',
-         'fotos.*.*' => 'required|mimes:jpg,png',
+         'fotos.*' => 'required|mimetypes:image/jpeg,image/png|dimensions:min_width=200,min_height=150,max_width=800,max_height=600|max:2048',
          'fotoDestaque' => 'required',
      ];
 
@@ -655,7 +656,9 @@ class HomeController extends Controller
         'textosAlternativos.*.textoAlternativo.required' => 'Informe o texto alternativo para a imagem',
         'textosAlternativos.*.textoAlternativo.max' => 'O texto alternativo deve ter menos de 255 caracteres',
         'fotos.required' => 'Faça o upload de ao menos uma foto do recurso',
-        'fotos.mimes' => 'A foto deve ser ou jpeg, ou jpg, ou png.',
+        'fotos.*.mimetypes' => 'A foto deve ser ou jpeg, ou jpg, ou png.',
+        'fotos.*.dimensions' => 'As fotos devem estar dimensionadas com a largura entre 200 e 800 pixels e a altura entre 150 e 600 pixels',
+        'fotos.*.max' => 'O tamanho das fotos deve ser de no máximo 2MB',
         'fotoDestaque.required' =>  'Escolha uma foto para ser exibida primeiro ao listar a tecnologia assistiva',
     ];
 
@@ -720,54 +723,61 @@ class HomeController extends Controller
         $textosAlternativos = request('textosAlternativos');
         $fotosCarregadas = $request->file('fotos');
         $fotos = array();
+        
         foreach ($fotosCarregadas as $key => $foto) {
-            //Torna o nome aleatorio para evitar colisão, evitar possibilidade de bugs futuros
-            $novoNomeFoto = time().'_'.$foto->getClientOriginalName();
-
-            // This will generate an image with transparent background
-            // If you need to have a background you can pass a third parameter (e.g: '#000000')
-            $fotoRedimensionada = Image::canvas(640, 480);
-
-            $fotoEmProcessamento  = Image::make($foto)->resize(640, 480, function($constraint)
-            {
-                $constraint->aspectRatio();
-            })->encode('jpg');
-
-            $fotoRedimensionada->insert($fotoEmProcessamento, 'center');
-            $fotoRedimensionada->save(storage_path('app/public/uploads/').$novoNomeFoto);
-
-            //$caminhoFoto = $foto->storeAs('uploads',$novoNomeFoto,'public');
-            //Processa a imagem para criar a thumbnail
-            $thumbnailFoto = Image::make($foto);
-
-            $larguraMaximaThumbail = 200; //px_close(pxdoc)
-            $alturaMaximaThumbnail = 150; //px
-            //Dependendo da dimensão que for maior, limita o resize.
-            $thumbnailFoto->height() > $thumbnailFoto->width() ? $width=null : $height=null;
-
-            $thumbnailFoto->resize($larguraMaximaThumbail, $alturaMaximaThumbnail, function ($constraint) {
-                $constraint->aspectRatio();
-            });
-
-            //Salva a thumbnail criada a partir da imagem do upload
-            $thumbnailFoto->save(storage_path('app/public/thumbnails/').$novoNomeFoto,100);
-
-            //Instancia uma Foto para adicionar ao array de fotos do RecursoTA
-            $novaFoto = new Foto();
-            $novaFoto->caminho_arquivo= 'uploads/'.$novoNomeFoto;
-            $novaFoto->caminho_thumbnail= 'thumbnails/'.$novoNomeFoto;
-
-            $novaFoto->texto_alternativo = $textosAlternativos['nova-'.$key]['textoAlternativo'];
-            if(preg_match("/nova-".$key."/",request('fotoDestaque'))){
-                $novaFoto->destaque = true;
-            }else{
-                $novaFoto->destaque = false;
-            }
-
-            array_push($fotos,$novaFoto);
+          //Torna o nome aleatorio para evitar colisão, evitar possibilidade de bugs futuros
+          $novoNomeFoto = time().'_'.$foto->getClientOriginalName();
+    
+          // Gera uma imagem com fundo transparente
+          // Se for necessário uma cor no background, informe no terceiro parâmetro (e.g: '#000000')
+          $fotoRedimensionada = Image::canvas(640, 480);
+          
+          $fotoEmProcessamento  = Image::make($foto)->resize(640, 480, function($constraint) {
+            $constraint->aspectRatio();
+          })->encode('jpg');
+          
+          $fotoRedimensionada->insert($fotoEmProcessamento, 'center');
+          $fotoEmProcessamento->destroy();
+    
+          if (!Storage::disk('public')->has('uploads')) {
+            Storage::disk('public')->makeDirectory('uploads', 0775, true, true);
+          }
+          $fotoRedimensionada->save(storage_path('app/public/uploads/').$novoNomeFoto);
+          $fotoRedimensionada->destroy();
+    
+          //Processa a imagem para criar a thumbnail
+          $thumbnailFoto = Image::make($foto);
+    
+          $larguraMaximaThumbail = 200; //px_close(pxdoc)
+          $alturaMaximaThumbnail = 150; //px
+    
+          $thumbnailFoto->resize($larguraMaximaThumbail, $alturaMaximaThumbnail, function ($constraint) {
+            $constraint->aspectRatio();
+          });
+          
+          if (!Storage::disk('public')->has('thumbnails')) {
+            Storage::disk('public')->makeDirectory('thumbnails', 0775, true, true);
+          } 
+          //Salva a thumbnail criada a partir da imagem do upload
+          $thumbnailFoto->save(storage_path('app/public/thumbnails/').$novoNomeFoto,100);
+          $thumbnailFoto->destroy();
+    
+          //Instancia uma Foto para adicionar ao array de fotos do RecursoTA
+          $novaFoto = new Foto();
+          $novaFoto->caminho_arquivo= 'uploads/'.$novoNomeFoto;
+          $novaFoto->caminho_thumbnail= 'thumbnails/'.$novoNomeFoto;
+    
+          $novaFoto->texto_alternativo = $textosAlternativos['nova-'.$key]['textoAlternativo'];
+          if(preg_match("/nova-".$key."/",request('fotoDestaque'))){
+            $novaFoto->destaque = true;
+          }else{
+            $novaFoto->destaque = false;
+          }
+    
+          array_push($fotos,$novaFoto);
         }
         $recursoTA->fotos()->saveMany($fotos);
-    }
+      }
 
     if(!empty(request('arquivos'))){
         $arquivoUrls = array();
