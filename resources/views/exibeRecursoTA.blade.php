@@ -253,6 +253,7 @@
 
 		$('#galeria').lightSlider({
 			gallery:true,
+			adaptiveHeight: true,
 			item:1,
 			loop:false,
 			slideMargin:0,
@@ -260,7 +261,7 @@
 			currentPagerPosition:'left',
 			pager: true,
 			keyPress: false,
-			addClass: "h-20 cursor-pointer",
+			addClass: "cursor-pointer",
 			thumbItem: 5,
 			onSliderLoad: function(el) {
 				$("a.ignore-click-eff").on("click", function (event) {
