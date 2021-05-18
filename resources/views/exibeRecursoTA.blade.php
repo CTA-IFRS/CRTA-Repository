@@ -263,10 +263,6 @@
 			addClass: "h-20 cursor-pointer",
 			thumbItem: 5,
 			onSliderLoad: function(el) {
-				el.lightGallery({
-					selector: '#galeria .lslide'
-				});
-
 				$("a.ignore-click-eff").on("click", function (event) {
 					var elemId = $(this).attr("href");
 					$(elemId).focus();
