@@ -57,14 +57,18 @@
 					@if(sizeof($recursoTA->manuais)!=0)
 					@foreach($recursoTA->manuais as $manual)
 					<div class="col-md-12">
-						<a href="{{__($manual->url)}}">{{$manual->nome}}</a>
+						<a href="{{__($manual->url)}}">
+							{{$manual->nome}}
+							(<span class="sr-only">Formato:</span> {{$manual->formato}}, 
+							<span class="sr-only">Tamanho:</span> {{$manual->tamanho}} MB)
+						</a>
 					</div>
-					<div class="col-md-12">
+					<!-- <div class="col-md-12">
 						<span>Formato: {{$manual->formato}}</span>
 					</div>
 					<div class="col-md-12">
 						<span>Tamanho: {{$manual->tamanho}} Mb</span>
-					</div>
+					</div> -->
 					<hr class="col-md-10"/>
 					@endforeach	
 					@else
@@ -78,18 +82,24 @@
 					@if(sizeof($recursoTA->arquivos)!=0)
 					@foreach($recursoTA->arquivos as $arquivo)
 					<div class="col-md-12">
-						<a href="{{__($arquivo->url)}}">{{$arquivo->nome}}</a>
+						<a href="{{__($arquivo->url)}}">
+							{{$arquivo->nome}}
+							(<span class="sr-only">Formato:</span> {{$arquivo->formato}}, 
+							<span class="sr-only">Tamanho:</span> {{$arquivo->tamanho}} MB)
+						</a>
 					</div>
-					<div class="col-md-12">
+					<!-- <div class="col-md-12">
 						<span>Formato: {{$arquivo->formato}}</span>
 					</div>
 					<div class="col-md-12">
 						<span>Tamanho: {{$arquivo->tamanho}} Mb</span>
-					</div>
+					</div> -->
 					<hr class="col-md-10"/>
 					@endforeach
 					@else
-					<span> Não há arquivos associados ao recurso</span>
+					<div class="col-md-12">
+						<span> Não há arquivos associados ao recurso</span>
+					</div>
 					@endif
 				</div>	
 			</div>
@@ -97,9 +107,14 @@
 				<h3 class="ml-3 w-100 h5"> Fabricante </h3>
 				<div class="ml-4">
 					<div class="col-md-12">
-						<a class="text-break" href="{{__($recursoTA->site_fabricante)}}">{{$recursoTA->site_fabricante}}</a>
-					</div>			
+						<span class="d-block" id="site-{{$recursoTA->id}}">Site do fabricante: </span>
+						<a class="text-break" href="{{__($recursoTA->site_fabricante)}}" aria-labelledby="site-{{$recursoTA->id}}">
+							{{$recursoTA->site_fabricante}}
+						</a>
+					</div>
+					<hr class="col-md-12"/>			
 					<div class="col-md-12">
+						<span class="d-block">Licença: </span>
 						@if($recursoTA->produto_comercial)
 						<span class="text-break"> Produto comercial sob a licença {{$recursoTA->licenca}}</span>
 						@else

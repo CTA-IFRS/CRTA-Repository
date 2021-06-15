@@ -1,6 +1,6 @@
 @extends('layouts.siteLayout')
 
-@section('titulo','RETACE Início')
+@section('titulo','RETACE - Repositório de Tecnologia Assistiva no Contexto Educacional - Início')
 
 @section('bannerTelaInicial')
 	@include('layouts.bannerTelaInicial')
@@ -8,7 +8,7 @@
 @section('conteudo')
 	<h2 class="m-5">Recursos mais vistos</h2>
 	@include('layouts.listaCardsRecursosSemPaginacao',['recursosTA' => $recursosMaisAcessados ])
-	<div class="contaier mt-5 p-5 bg-primary text-light">
+	<div class="contaier mt-5 p-5 bg-primary text-light contribute-strip">
 		<div class="row">
 			<div class="offset-md-1 col-md-2">
 				<i class="fa fa-desktop fa-5x align-middle"></i>

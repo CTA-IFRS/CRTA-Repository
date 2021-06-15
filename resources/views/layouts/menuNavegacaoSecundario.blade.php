@@ -35,7 +35,7 @@ aria-label="Menu de navegação secundário">
         		<a class="nav-link dottedUnderline" href="{{route('mapaDoSite')}}">MAPA DO SITE </a>
       		</li>        
 			<li class="nav-item my-2 my-md-0">
-				<a class="nav-link" href="{{url('/entrar')}}"><u> Entrar </u></a>
+				<a class="nav-link" href="{{url('/entrar')}}"><u> Entrar <span class="sr-only">na área do administrador</span></u></a>
 			</li>
       	</ul>
 	</div>

@@ -18,17 +18,17 @@
 
 			<div class="col-md-2 col-sm-4">
 				<a href="https://cta.ifrs.edu.br/" target="_blank">
-				<img class="img-fluid" src="{{url('/imagens/logoCTA.png')}}" alt="Logotipo do CTA"/>
+				<img class="img-fluid" src="{{url('/imagens/logoCTA.png')}}" alt="Logotipo do CTA - Centro Tecnológico de Acessibilidade"/>
 				</a>
 			</div>
 			<div class="col-md-2  col-sm-4">
 				<a href="https://ifrs.edu.br/institucional/pro-reitorias/proen/" target="_blank">
-				<img class="img-fluid" src="{{url('/imagens/PROEN_Branco.png')}}" alt="Logotipo do PROEN"/>
+				<img class="img-fluid" src="{{url('/imagens/PROEN_Branco.png')}}" alt="Logotipo da PROEN - Pró-Reitoria de Ensino "/>
 				</a>
 			</div>
 			<div class="col-md-2  col-sm-4">
 				<a href="https://ifrs.edu.br/" target="_blank">
-				<img class="img-fluid" src="{{url('/imagens/IFRS_Branco.png')}}" alt="Logotipo do IFRS"/>
+				<img class="img-fluid" src="{{url('/imagens/IFRS_Branco.png')}}" alt="Logotipo do IFRS - Instituto Federal do Rio Grande do Sul"/>
 				</a>
 			</div>
 

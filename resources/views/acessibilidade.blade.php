@@ -10,7 +10,7 @@
         </div>
 		<div id="conteudo" class="col-12 pt-5 pl-5" >
 			<h3>Acessibilidade de nosso site</h3>
-            <p>De acordo com o&nbsp;<a class="link-primary" href="http://www.w3c.br/">W3C</a>&nbsp;(World Wide Web Consortium), 
+            <p>De acordo com o&nbsp;<a class="link-primary" href="http://www.w3c.br/">W3C&nbsp;(World Wide Web Consortium)</a>, 
                 Acessibilidade na Web significa garantir que todas as pessoas, incluindo pessoas com 
                 defici&ecirc;ncia, possam utilizar a Web. Mais especificamente, significa permitir que 
                 pessoas com defici&ecirc;ncia consigam perceber, compreender, navegar, interagir e contribuir
@@ -19,10 +19,9 @@
             </p>
 
             <p>Em nosso site, seguimos as recomenda&ccedil;&otilde;es de acessibilidade dos documentos&nbsp;
-                <a class="link-primary" href="https://www.w3c.br/traducoes/wcag/wcag21-pt-BR/">WCAG 2.1</a> 
-                (Web Content Accessibility Guidelines ou Diretrizes de Acessibilidade para 
-                Conte&uacute;do Web &ndash; internacional) e <a class="link-primary" href="http://emag.governoeletronico.gov.br/">eMAG 3.1</a>&nbsp;
-                (Modelo de Acessibilidade em Governo Eletr&ocirc;nico &ndash; nacional).
+                <a class="link-primary" href="https://www.w3c.br/traducoes/wcag/wcag21-pt-BR/">WCAG 2.1&nbsp;(Web Content Accessibility Guidelines ou Diretrizes de Acessibilidade para 
+                Conte&uacute;do Web &ndash; internacional)</a> 
+                 e <a class="link-primary" href="http://emag.governoeletronico.gov.br/">eMAG 3.1&nbsp;(Modelo de Acessibilidade em Governo Eletr&ocirc;nico &ndash; nacional)</a>.
             </p>
             
             <p>No topo das p&aacute;ginas de nosso site, disponibilizamos uma barra de acessibilidade, que cont&eacute;m:</p>
@@ -41,7 +40,7 @@
             </ul>
 
             <h3>Utilizando os atalhos</h3>
-            <p>Em nosso site, disponibilizamos tr&ecirc;s atalhos de teclado:</p>
+            <p>Em nosso site, disponibilizamos quatro atalhos de teclado:</p>
             <ul>
                 <li>1: Ir para o conte&uacute;do</li>
                 <li>2: Ir para o menu</li>
