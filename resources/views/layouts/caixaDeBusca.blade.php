@@ -3,12 +3,15 @@
 	<div class="row col-sm-12 col-12 justify-content-center justify-content-sm-center no-gutters input-group mb-3">
 		<div class="input-group-prepend">
 			<input type="hidden" name="tipoBusca">
-			<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ver todos</button>
+			<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" 
+					aria-haspopup="true" aria-expanded="false" aria-label="Termo - Pesquisar por termos">
+					Termo
+			</button>
 			<div class="dropdown-menu">
-				<a class="dropdown-item" href="#">TAG</a>
-				<a class="dropdown-item" href="#">Termo</a>
+				<a class="dropdown-item" href="#" aria-label="TAG - Pesquisar por TAGs">TAG</a>
+				<a class="dropdown-item" href="#" aria-label="Termo - Pesquisar por termos">Termo</a>
 				<div role="separator" class="dropdown-divider"></div>
-				<a class="dropdown-item" href="#">Ver todos</a>
+				<a class="dropdown-item" href="#" aria-label="Ver Todos - Retornar todos os recursos registrados">Ver todos</a>
 			</div>					
 		</div>
 		<div class="col-sm-9 col-7">
@@ -25,9 +28,7 @@
 
 <script type="text/javascript">
 	document.addEventListener('DOMContentLoaded', function () {
-		$('input[name="termo"]').attr('disabled','disabled');
-		$('input[name="termo"]').attr("placeholder","Busque por todas as tecnologias assistivas cadastradas");
-		$('input[name="tipoBusca"]').val('todos');
+		$('input[name="tipoBusca"]').val('termo');
 		$("#buscaRecursosTA").attr('action', "{{ route('filtro', ['tipoBusca' => $tipoBusca ?? '' ]) }}")	
 
 		$('.dropdown-item').on('click',  function(){
@@ -36,6 +37,7 @@
 
 			$(seletorFiltro).text(opcaoEscolhida);
 			$(seletorFiltro).val(opcaoEscolhida);
+			$(seletorFiltro).attr('aria-label', $(this).attr('aria-label'));
 
 			if(opcaoEscolhida==="TAG"){
 				$('input[name="termo"]').removeAttr('disabled');
