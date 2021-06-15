@@ -22,7 +22,10 @@
                             <legend class="h3">Informações básicas</legend>
 
                             <div class="form-group required row mt-3" role="group">
-                                <label for="titulo" class="col-md-2 col-form-label text-md-right">{{ __('Título') }}</label>
+                                <label for="titulo" class="col-md-2 col-form-label text-md-right">
+                                    {{ __('Título') }}
+                                    <span class="sr-only">&nbsp;(Campo requerido)</span>
+                                </label>
                                 <div class="col-md-10">
                                     <input id="titulo" type="text" class="form-control" name="titulo" value="{{ old('titulo') }}" autofocus>
                                 </div>
@@ -31,6 +34,7 @@
                             <div class="form-group required row" role="group">
                                 <label for="descricao" id="descricao-label" class="col-md-2 col-form-label text-md-right">
                                     {{ __('Breve descrição') }}
+                                    <span class="sr-only">&nbsp;(Campo requerido)</span>
                                 </label>
                                 <div class="col-md-10">
                                     <textarea class="form-control descricao" id="descricao" name="descricao" rows="8"></textarea>
@@ -41,6 +45,7 @@
                                 <div class="row">
                                     <legend class="col-form-label col-md-2 pt-0 text-md-center" id="label-legend-text">
                                         É um produto comercial?
+                                        <span class="sr-only">&nbsp;(Campo requerido)</span>
                                         <div id="legend-label-produtoComercial" class="sr-only"></div>
                                     </legend>
                                     <div class="col-md-2">
@@ -66,21 +71,30 @@
                             </fieldset>
         
                             <div class="form-group required row">
-                                <label for="siteFabricante" class="col-md-2 col-form-label text-md-right">{{ __('Site do fabricante') }}</label>
+                                <label for="siteFabricante" class="col-md-2 col-form-label text-md-right">
+                                    {{ __('Site do fabricante') }}
+                                    <span class="sr-only">&nbsp;(Campo requerido)</span>
+                                </label>
                                 <div class="col-md-10">
                                     <input id="siteFabricante" type="text" class="form-control" name="siteFabricante" value="{{ old('siteFabricante') }}">
                                 </div>
                             </div>
 
                             <div id="divLicenca" class="form-group required row d-none">
-                                <label for="licenca" class="col-md-2 col-form-label text-md-right">{{ __('Licença') }}</label>
+                                <label for="licenca" class="col-md-2 col-form-label text-md-right">
+                                    {{ __('Licença') }}
+                                    <span class="sr-only">&nbsp;(Campo requerido)</span>
+                                </label>
                                 <div class="col-md-10">
                                     <input id="licenca" type="text" class="form-control" name="licenca" value="{{ old('licenca') }}">
                                 </div>
                             </div>
 
                             <div class="form-group required row">
-                                <label for="tags" id="tags-label" class="col-md-2 col-form-label text-md-right">{{ __('Tags') }}</label>
+                                <label for="tags" id="tags-label" class="col-md-2 col-form-label text-md-right">
+                                    {{ __('Tags') }}
+                                    <span class="sr-only">&nbsp;(Campo requerido)</span>
+                                </label>
                                 <div class="col-md-10">
                                     <input type="text" class="form-control" name="tags" id="tags"/>
                                 </div>
@@ -90,7 +104,10 @@
                         <hr>
                         
                         <fieldset>
-                            <legend id="fotos-label-cab" class="obrigatorio mt-4 h3">Fotos do recurso</legend>
+                            <legend id="fotos-label-cab" class="obrigatorio mt-4 h3">
+                                Fotos do recurso
+                                <span class="sr-only">&nbsp;(Campo requerido)</span>
+                            </legend>
                             <p>Carregue pelo menos uma foto sobre a tecnologia assistiva no formato png, jpg ou  jpeg</p>
                             <div id="divFotos" class="form-group required row" role="group" aria-labelledby="fotos-label-cab">
                                 <div id="fotoDestaque" class="col-md-12">
