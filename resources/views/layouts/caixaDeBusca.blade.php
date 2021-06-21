@@ -41,6 +41,7 @@
 
 			if(opcaoEscolhida==="TAG"){
 				$('input[name="termo"]').removeAttr('disabled');
+				$('input[name="termo"]').removeAttr('required');
 				$('input[name="tipoBusca"]').val('tags');
 				$('input[name="termo"]').amsifySuggestags({
 					showAllSuggestions: true,
@@ -59,6 +60,7 @@
 
 			}else if(opcaoEscolhida==="Termo"){
 				$('input[name="termo"]').amsifySuggestags({}, 'destroy');
+				$('input[name="termo"]').attr('required', '');
 				$('input[name="tipoBusca"]').val('termo');
 				$('input[name="termo"]')
 					.attr("placeholder","Digite e busque por palavras no titulo ou descrição da TA")

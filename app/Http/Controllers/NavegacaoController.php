@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 
 use App\RecursoTA;
 use App\Tag;
@@ -41,7 +42,9 @@ class NavegacaoController extends Controller{
 	 *	@param $tag que servirá como parâmetro de busca
 	 *	@return \Illuminate\Contracts\Support\Renderable
 	 */	
-	public function buscaRecursoTAPorTag(Request $request,$tag){
+	public function buscaRecursoTAPorTag(Request $request,$tag = null){
+		if ($tag === null) return Redirect::back();
+
 		//Necessário para popular as tags existentes no DB
 		$tagsCadastradas = Tag::where('publicacao_autorizada',true)->pluck('nome');
 
@@ -66,7 +69,9 @@ class NavegacaoController extends Controller{
 	 *	@param $termo que servirá como parâmetro de busca
 	 *	@return \Illuminate\Contracts\Support\Renderable
 	 */	
-	public function buscaRecursoTAPorTermo(Request $request,$termo){
+	public function buscaRecursoTAPorTermo(Request $request,$termo = null){
+		if ($termo === null) return Redirect::back();
+
 		//Necessário para popular as tags existentes no DB
 		$tagsCadastradas = Tag::where('publicacao_autorizada',true)->pluck('nome');
 
