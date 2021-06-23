@@ -250,7 +250,8 @@ a.link-primary {
 .high-contrast .file-caption-main .file-caption,
 .high-contrast .dropdown-menu,
 .high-contrast .dropdown-menu .dropdown-item,
-.high-contrast div.btn-file
+.high-contrast div.btn-file,
+.high-contrast a.sr-only
 {
   color: white !important;
   background-color: black !important;
@@ -285,7 +286,7 @@ a.link-primary {
 .high-contrast main #divManuais button,
 .high-contrast button[type="submit"] {
   background-color: black !important;
-  
+  color: white !important;
 } 
 
 .high-contrast input, 
@@ -299,8 +300,10 @@ a.link-primary {
   outline-color: yellow !important;
 }
 
+.high-contrast main a,
+.high-contrast main #colunaDireita a,
 .high-contrast .link-primary {
-  color: #62AAE4 !important;
+  color: #7CB8EA !important;
 }
 
 .high-contrast input:focus, 
@@ -333,7 +336,8 @@ a.link-primary {
   background-color: white;
 }
 
-.high-contrast .badge-primary {
+.high-contrast .badge-primary,
+.high-contrast main #colunaDireita .badge-primary {
   /* background-color: #000088 !important; */
   background-color: #BBBBBB !important;
   color: black !important;
@@ -341,6 +345,10 @@ a.link-primary {
 
 .high-contrast div.file-drop-zone-title {
   color: #DDDDDD !important;
+}
+
+.high-contrast .amsify-list-item.active {
+  color: black !important;
 }
 
 /***************************/
