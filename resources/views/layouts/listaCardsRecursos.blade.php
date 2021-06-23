@@ -3,7 +3,7 @@
 	<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-4">
 		@foreach($recursosTA as $recursoTA)
 		<div class="col mb-4" >
-			<div class="card">
+			<div class="card card-recurso-ta">
 				@foreach($recursoTA->fotos as $foto)
 				@if($foto->destaque==true)
 				<img class="card-img-top" src="{{url(Storage::url('public/'.$foto->caminho_thumbnail))}}" alt="{{$foto->texto_alternativo}}">

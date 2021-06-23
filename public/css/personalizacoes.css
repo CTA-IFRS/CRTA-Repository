@@ -7,18 +7,28 @@ body {
   min-height: 100vh;
 }
 
+/* Outline dos links (geral, menus, rodapé)  */
+input:focus, 
+button:focus,
+textarea:focus,
 a:focus {
-  outline-width: 3px;
-  outline-style: dashed;  
+  outline-width: 3px !important;
+  outline-style: dashed !important;  
 }
 
+a:focus,
+input:focus, 
+button:focus,
+textarea:focus,
 nav.menuTelaPrincipal a:focus, 
 nav.menuNavegacaoSecundario a:focus,
 div.contribute-strip a:focus,
 footer a:focus {
-  outline-color: white;
+  outline-color: black !important;
 }
 
+
+/* Listas no Mapa do Site */
 #mapa-do-site, #mapa-do-site li {
   list-style: none !important;
 }
@@ -216,4 +226,123 @@ a.link-primary {
   font-size: 16px !important;
   background-color: #3E67B1 !important;
 }
+
+
+/***************************/
+/* Alto contraste          */
+/***************************/
+
+.high-contrast body,
+.high-contrast .banner
+.high-contrast main,
+.high-contrast main .container,
+.high-contrast main .container .card,
+.high-contrast input,
+.high-contrast main #divVideos input,
+.high-contrast main #divArquivos input,
+.high-contrast main #divManuais input,
+.high-contrast textarea,
+.high-contrast header,
+.high-contrast header nav,
+.high-contrast .amsify-suggestags-area .form-control,
+.high-contrast .amsify-suggestags-area .amsify-suggestags-list,
+.high-contrast .file-caption-main,
+.high-contrast .file-caption-main .file-caption,
+.high-contrast .dropdown-menu,
+.high-contrast .dropdown-menu .dropdown-item,
+.high-contrast div.btn-file
+{
+  color: white !important;
+  background-color: black !important;
+}
+
+.high-contrast .card-recurso-ta *,
+.high-contrast main .contribute-strip,
+.high-contrast .banner,
+.high-contrast .banner .row,
+.high-contrast .banner .card-body,
+.high-contrast header,
+.high-contrast header nav,
+.high-contrast main .cadastro-ta-card .card,
+.high-contrast main #divVideos *,
+.high-contrast main #divArquivos *,
+.high-contrast main #divManuais *,
+.high-contrast footer,
+.high-contrast footer .footer-copyright,
+.high-contrast #fotosDescricao,
+.high-contrast #colunaDireita
+{
+  background-color: #222222 !important;
+}
+
+.high-contrast ::placeholder {
+  color: white !important;
+}
+
+.high-contrast button,
+.high-contrast main #divVideos button,
+.high-contrast main #divArquivos button,
+.high-contrast main #divManuais button,
+.high-contrast button[type="submit"] {
+  background-color: black !important;
+  
+} 
+
+.high-contrast input, 
+.high-contrast button,
+.high-contrast textarea,
+.high-contrast div.btn-file,
+.high-contrast div.file-caption,
+.high-contrast .amsify-suggestags-area .amsify-suggestags-input-area
+{
+  border-color: white !important;
+  outline-color: yellow !important;
+}
+
+.high-contrast .link-primary {
+  color: #62AAE4 !important;
+}
+
+.high-contrast input:focus, 
+.high-contrast button:focus,
+.high-contrast textarea:focus,
+.high-contrast a:focus,
+.high-contrast .btn-file #fotos:focus,
+.high-contrast nav.menuTelaPrincipal a:focus, 
+.high-contrast nav.menuNavegacaoSecundario a:focus,
+.high-contrast div.contribute-strip a:focus,
+.high-contrast footer a:focus
+{
+  outline-width: 3px !important;
+  outline-style: dashed !important;  
+  outline-color: yellow !important;
+}
+
+.high-contrast .banner .card,
+.high-contrast .card-recurso-ta,
+.high-contrast main .cadastro-ta-card .card
+{
+  border: none;
+}
+
+.high-contrast main .cadastro-ta-card {
+  margin-bottom: 2rem !important;
+}
+
+.high-contrast #colunaDireita hr {
+  background-color: white;
+}
+
+.high-contrast .badge-primary {
+  /* background-color: #000088 !important; */
+  background-color: #BBBBBB !important;
+  color: black !important;
+}
+
+.high-contrast div.file-drop-zone-title {
+  color: #DDDDDD !important;
+}
+
+/***************************/
+
 

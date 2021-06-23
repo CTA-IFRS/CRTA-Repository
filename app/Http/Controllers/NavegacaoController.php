@@ -42,7 +42,7 @@ class NavegacaoController extends Controller{
 	 *	@param $tag que servirá como parâmetro de busca
 	 *	@return \Illuminate\Contracts\Support\Renderable
 	 */	
-	public function buscaRecursoTAPorTag(Request $request,$tag = null){
+	public function buscaRecursoTAPorTag(Request $request, $tag = null){
 		if ($tag === null) return Redirect::back();
 
 		//Necessário para popular as tags existentes no DB
@@ -69,7 +69,7 @@ class NavegacaoController extends Controller{
 	 *	@param $termo que servirá como parâmetro de busca
 	 *	@return \Illuminate\Contracts\Support\Renderable
 	 */	
-	public function buscaRecursoTAPorTermo(Request $request,$termo = null){
+	public function buscaRecursoTAPorTermo(Request $request, $termo = null){
 		if ($termo === null) return Redirect::back();
 
 		//Necessário para popular as tags existentes no DB

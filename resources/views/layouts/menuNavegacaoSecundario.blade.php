@@ -28,6 +28,9 @@ aria-label="Menu de navegação secundário">
       		</li>
       	</ul>
       	<ul class="navbar-nav navbar-right ml-auto">
+		  	<li class="nav-item my-2 my-md-0">
+        		<a class="nav-link dottedUnderline" id="ativar-altocontraste" href="#"></a>
+      		</li>
       		<li class="nav-item my-2 my-md-0">
         		<a class="nav-link dottedUnderline" href="{{route('acessibilidade')}}">ACESSIBILIDADE</a>
       		</li>
@@ -40,3 +43,7 @@ aria-label="Menu de navegação secundário">
       	</ul>
 	</div>
 </nav>
+
+@section('scripts')
+
+@endsection
