@@ -4,6 +4,21 @@
 
 @section('conteudo')
 <div class="container mt-5">
+	<?php 
+        $data = [
+            ['name' => 'RETACE', 'link' => url('/')],
+            ['name' => "Resultado da busca", 'current' => true]
+        ]
+    ?>
+    <div class="row breadcrumb-clear-pad">
+        <div class="col">
+            @include('layouts.breadcrumb', $data)
+        </div>
+    </div>
+</div>
+
+<div class="container mt-3">
+
 	@include('layouts.caixaDeBusca')
 	<div id="resultadoBusca" class="mt-3">
 		@if($buscaPorTag)

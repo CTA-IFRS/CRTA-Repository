@@ -1,7 +1,22 @@
 @extends('layouts.siteLayout')
 @section('titulo','RETACE - Aprender')
 @section('conteudo')
-<div class="container card my-5">
+
+<div class="container mt-5">
+	<?php 
+        $data = [
+            ['name' => 'RETACE', 'link' => url('/')],
+            ['name' => 'Aprender', 'current' => true]
+        ]
+    ?>
+    <div class="row breadcrumb-clear-pad">
+        <div class="col">
+            @include('layouts.breadcrumb', $data)
+        </div>
+    </div>
+</div>
+
+<div class="container card my-3">
 	<div class="row">
         <div class="col-12">
             <div class="row">

@@ -2,6 +2,18 @@
 @section('titulo','RETACE')
 @section('conteudo')
 <div class="container mt-5">
+	<?php 
+        $data = [
+            ['name' => 'RETACE', 'link' => url('/')],
+			['name' => 'Recursos'],
+            ['name' => __($recursoTA->titulo), 'current' => true]
+        ]
+    ?>
+    <div class="row breadcrumb-clear-pad">
+        <div class="col">
+            @include('layouts.breadcrumb', $data)
+        </div>
+    </div>
 	<div class="row">
 		<div id="fotosDescricao" class="card col-md-8 px-5 py-3" >
 			<h2 class="my-1 h1">

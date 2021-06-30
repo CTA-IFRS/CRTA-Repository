@@ -33,6 +33,22 @@ footer a:focus {
   list-style: none !important;
 }
 
+
+/*  Breadcrumb */
+ol.breadcrumb li{
+  color: black !important;
+}
+
+ol.breadcrumb a{
+  color: #0a60a7 !important;
+}
+
+main div.row.breadcrumb-clear-pad, 
+main div.row.breadcrumb-clear-pad div.col
+{
+  padding: 0 !important;
+}
+
 /*
 *******************************************************/
 
@@ -251,6 +267,7 @@ a.link-primary {
 .high-contrast .dropdown-menu,
 .high-contrast .dropdown-menu .dropdown-item,
 .high-contrast div.btn-file,
+.high-contrast ol.breadcrumb,
 .high-contrast a.sr-only
 {
   color: white !important;
@@ -271,12 +288,15 @@ a.link-primary {
 .high-contrast footer,
 .high-contrast footer .footer-copyright,
 .high-contrast #fotosDescricao,
-.high-contrast #colunaDireita
+.high-contrast #colunaDireita,
+.high-contrast main ol.breadcrumb
 {
   background-color: #222222 !important;
 }
 
-.high-contrast ::placeholder {
+.high-contrast ::placeholder,
+.high-contrast main ol.breadcrumb li
+{
   color: white !important;
 }
 

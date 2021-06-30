@@ -2,6 +2,17 @@
 @section('titulo','RETACE Cadastrar Tecnologia Assistiva')
 @section('conteudo')
 <div id="app" class="container cadastro-ta-card mt-5">
+    <?php 
+        $data = [
+            ['name' => 'RETACE', 'link' => url('/')],
+            ['name' => 'Contribuir', 'current' => true]
+        ]
+    ?>
+    <div class="row">
+        <div class="col">
+            @include('layouts.breadcrumb', $data)
+        </div>
+    </div>
     <div class="row ">
         <div class="col-md-12">
             <div class="card border-light">
