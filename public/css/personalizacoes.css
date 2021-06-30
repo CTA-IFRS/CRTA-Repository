@@ -268,6 +268,7 @@ a.link-primary {
 .high-contrast .dropdown-menu .dropdown-item,
 .high-contrast div.btn-file,
 .high-contrast ol.breadcrumb,
+.high-contrast div.modal,
 .high-contrast a.sr-only
 {
   color: white !important;
@@ -289,18 +290,21 @@ a.link-primary {
 .high-contrast footer .footer-copyright,
 .high-contrast #fotosDescricao,
 .high-contrast #colunaDireita,
+.high-contrast div.modal div.modal-content,
 .high-contrast main ol.breadcrumb
 {
   background-color: #222222 !important;
 }
 
 .high-contrast ::placeholder,
-.high-contrast main ol.breadcrumb li
+.high-contrast main ol.breadcrumb li,
+.high-contrast .file-preview-frame .explorer-caption
 {
   color: white !important;
 }
 
 .high-contrast button,
+.high-contrast div.modal a.btn,
 .high-contrast main #divVideos button,
 .high-contrast main #divArquivos button,
 .high-contrast main #divManuais button,
@@ -309,11 +313,13 @@ a.link-primary {
   color: white !important;
 } 
 
+
 .high-contrast input, 
 .high-contrast button,
 .high-contrast textarea,
 .high-contrast div.btn-file,
 .high-contrast div.file-caption,
+.high-contrast div.modal a.btn,
 .high-contrast .amsify-suggestags-area .amsify-suggestags-input-area
 {
   border-color: white !important;
@@ -334,6 +340,7 @@ a.link-primary {
 .high-contrast nav.menuTelaPrincipal a:focus, 
 .high-contrast nav.menuNavegacaoSecundario a:focus,
 .high-contrast div.contribute-strip a:focus,
+.high-contrast div.modal a.btn:focus,
 .high-contrast footer a:focus
 {
   outline-width: 3px !important;
@@ -370,6 +377,11 @@ a.link-primary {
 .high-contrast .amsify-list-item.active {
   color: black !important;
 }
+
+.high-contrast .file-preview-frame:hover {
+  background-color: #333333;
+}
+
 
 /***************************/
 
