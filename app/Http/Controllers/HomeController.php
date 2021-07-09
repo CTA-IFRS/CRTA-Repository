@@ -292,7 +292,7 @@ class HomeController extends Controller
          'manuais.*.*' => 'sometimes | required',
          'manuais.*.url' => ['sometimes','regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
          'textosAlternativos.*.textoAlternativo' => 'required',
-         'fotos.*.*' => 'required|mimes:jpg,png',
+         'fotos.*' => 'required|mimetypes:image/jpeg,image/png|dimensions:min_width=200,min_height=150,max_width=800,max_height=600|max:2048',
          'fotoDestaque' => 'required',
      ];
 
@@ -318,8 +318,9 @@ class HomeController extends Controller
         'manuais.*.url.regex' => 'O endereço de acesso ao arquivo é inválido',
         'textosAlternativos.*.textoAlternativo.required' => 'Informe o texto alternativo para a imagem',
         'textosAlternativos.*.textoAlternativo.max' => 'O texto alternativo deve ter menos de 255 caracteres',
-        'fotos.required' => 'Faça o upload de ao menos uma foto do recurso',
-        'fotos.mimes' => 'A foto deve ser ou jpeg, ou jpg, ou png.',
+        'fotos.*.mimetypes' => 'A foto deve ser ou jpeg, ou jpg, ou png.',
+        'fotos.*.dimensions' => 'As fotos devem estar dimensionadas com a largura entre 200 e 800 pixels e a altura entre 150 e 600 pixels',
+        'fotos.*.max' => 'O tamanho das fotos deve ser de no máximo 2MB',
         'fotoDestaque.required' =>  'Escolha uma foto para ser exibida primeiro ao listar a tecnologia assistiva',
     ];
 
