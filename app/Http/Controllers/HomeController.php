@@ -273,7 +273,7 @@ class HomeController extends Controller
 
 
     /**
-     * Excluir o recurso TA do banco de dados
+     * Editar o recurso de TA do banco de dados
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
@@ -430,16 +430,16 @@ class HomeController extends Controller
             })->encode('jpg');
 
             $fotoRedimensionada->insert($fotoEmProcessamento, 'center');
-            $fotoRedimensionada->save(storage_path('app/public/uploads/').$novoNomeFoto);
+            $fotoEmProcessamento->destroy();
 
-            //$caminhoFoto = $foto->storeAs('uploads',$novoNomeFoto,'public');
+            $fotoRedimensionada->save(storage_path('app/public/uploads/').$novoNomeFoto);
+            $fotoRedimensionada->destroy();
+
             //Processa a imagem para criar a thumbnail
             $thumbnailFoto = Image::make($foto);
 
             $larguraMaximaThumbail = 200; //px_close(pxdoc)
             $alturaMaximaThumbnail = 150; //px
-            //Dependendo da dimensão que for maior, limita o resize.
-            $thumbnailFoto->height() > $thumbnailFoto->width() ? $width=null : $height=null;
 
             $thumbnailFoto->resize($larguraMaximaThumbail, $alturaMaximaThumbnail, function ($constraint) {
                 $constraint->aspectRatio();
@@ -447,6 +447,7 @@ class HomeController extends Controller
 
             //Salva a thumbnail criada a partir da imagem do upload
             $thumbnailFoto->save(storage_path('app/public/thumbnails/').$novoNomeFoto,100);
+            $thumbnailFoto->destroy();
 
             //Instancia uma Foto para adicionar ao array de fotos do RecursoTA
             $novaFoto = new Foto();
