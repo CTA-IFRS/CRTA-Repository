@@ -1006,6 +1006,7 @@ class HomeController extends Controller
      */
     public function atualizarUsuario(Request $request, $idUsuario)
     {
+
         $regras = [ 'name' => ['required', 'string', 'max:255'],
                     'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'. $idUsuario.',id'],
                 ]; 
@@ -1018,9 +1019,15 @@ class HomeController extends Controller
                         'email.string' => 'O nome deve ser uma string',
                         'email.email' => 'Formato de endereço inválido',
                         'email.unique' => 'Já existe uma conta com esse e-mail',
+                        'password.required' => 'Informe a nova senha',
+                        'password.confirmed' => 'A nova senha não confere com a confirmação',
+                        'password.min' => 'Informe uma senha com no mínimo 6 caracteres'
                     ];
 
-         $validador = Validator::make($request->all(),$regras,$mensagens);
+         $validador = Validator::make($request->all(),$regras,$mensagens)
+            ->sometimes('password', ['sometimes', 'required', 'confirmed', 'min:6'], function ($input) {
+                return $input->password !== null;
+            });
 
          //Retorna mensagens de validação no formato JSON caso haja problemas
         if($validador->fails()){
@@ -1033,6 +1040,10 @@ class HomeController extends Controller
         if($usuarioEditado->email != $request->email){
             $this->enviaEmailAlteracaoConta($request->email,$usuarioEditado);
             $usuarioEditado->email = $request->email;
+        }
+
+        if ($request->password !== null) {
+            $usuarioEditado->password = Hash::make($request->password);
         }
 
         $usuarioEditado->save();

@@ -299,6 +299,24 @@
 		</div>
 	</form>
 </div>
+
+<div class="modal alert alert-success hide fade in" data-keyboard="false" data-backdrop="static" id="modalRevisarRecurso">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3 class="modal-title h4">Sucesso</h3>
+    </div>
+    <!-- Modal body -->
+    <div class="modal-body">
+        <p class="server-response"></p>
+    </div>
+    <!-- Modal footer -->
+    <div class="modal-footer">
+        <a class="btn btn-primary" href="{{url('/home')}}">Ok</a>
+    </div>
+</div>
+
 @stop
 
 @section('css')
@@ -312,6 +330,7 @@
 <script type="text/javascript">
 	{{ $contadorArquivos = 0 }}
 
+	$("#modalRevisarRecurso").modal("hide");
 	function isUrlValid(url) {
 		return /^(https?|s?ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(url);
 	}
@@ -436,8 +455,10 @@
                 },
                 success: function(respostaServidor)
                 {
-                       	alert("Recurso de Tecnologia Assistiva publicado com sucesso!");
-                        location.reload();
+					$("#modalRevisarRecurso .server-response")
+						.html("Recurso de Tecnologia Assistiva revisado e publicado com sucesso!");
+					$("#modalRevisarRecurso").modal("show");
+							
                 },
 				complete: function (xhr, status) 
 				{
