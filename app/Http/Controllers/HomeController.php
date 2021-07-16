@@ -606,7 +606,7 @@ class HomeController extends Controller
 
     RecursoTA::destroy($idRecursoTA);
 
-    return view('/administrarRecursosTA')->with(
+    return redirect('/administrarRecursosTA')->with(
         "sucessoExclusao" , "Informações excluídas do RETACE com sucesso!"
     );
 }

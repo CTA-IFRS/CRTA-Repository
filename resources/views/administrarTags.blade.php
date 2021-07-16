@@ -51,18 +51,18 @@
 							@if($tag->publicacao_autorizada==false)
 							<td>
 								<td>
-									<a id="btnAutorizar" href="{{url('/autorizaPublicacaoTag/'.__($tag->id))}}" type="button" class="btn btn-warning"><b>Aprovar</b></a>
+									<a href="{{url('/autorizaPublicacaoTag/'.__($tag->id))}}" type="button" class="btnAutorizar btn btn-warning"><b>Aprovar</b></a>
 								</td>
 							</td>
 							@else
 							<td>
 								<td>
-									<a id="btnOmitir" href="{{url('/omitirPublicacaoTag/'.__($tag->id))}}" type="button" class="btn btn-danger"><b>Ocultar</b></a>
+									<a href="{{url('/omitirPublicacaoTag/'.__($tag->id))}}" type="button" class="btnOmitir btn btn-danger"><b>Ocultar</b></a>
 								</td>
 							</td>
 							@endif
 							<td>
-								<a id="btnEditar" href="{{url('/editarTag/'.__($tag->id))}}"type="button" class="btn btn-primary"><b>Revisar</b></a>
+								<a href="{{url('/editarTag/'.__($tag->id))}}"type="button" class="btnEditar btn btn-primary"><b>Revisar</b></a>
 							</td>
 						</tr>							
 					</table>
@@ -95,6 +95,9 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		var table = $('#tabelaTags').DataTable( {
+			language: {
+				url: "https://cdn.datatables.net/plug-ins/1.10.25/i18n/Portuguese-Brasil.json"
+			},
 			responsive: {
 				details: {
 					type: 'column'
@@ -109,7 +112,7 @@
 			order: [ 1, 'des' ]	
 		} );
 
-		$("#btnAutorizar").click(function(){
+		$(".btnAutorizar").click(function(){
 			if(confirm("Deseja disponibilizar a tag para futuros cadastros de TAs no sistema?")){
 				return true;
 			}	
@@ -118,7 +121,7 @@
 			}
 		});
 
-		$("#btnOmitir").click(function(){
+		$(".btnOmitir").click(function(){
 			if(confirm("Deseja indisponibilizar a tag para futuros cadastros no sistema? Tecnologias Assistivas que possuem a tag continuarão a tê-la, porém não será exibida")){
 				return true;
 			}	

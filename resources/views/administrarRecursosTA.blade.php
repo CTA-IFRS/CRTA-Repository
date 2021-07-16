@@ -11,6 +11,9 @@
 
 @section('content')
 <div class="container">
+	@if (session('sucessoExclusao'))
+		<div class="alert alert-success"> {{ session('sucessoExclusao') }}</div>
+	@endif
 	<table id="tabelaRecursosTA" class="table table-striped table-bordered dt-responsive w-100">
 		<thead>
 			<tr>
@@ -52,13 +55,13 @@
 					<table class="table">
 						<tr>
 							<td>
-								<a id="btnAutorizar" href="{{url('/revisarRecursoTA/'.__($recursoTA->id))}}" class="btn btn-warning"><b>Revisar</b></a>
+								<a href="{{url('/revisarRecursoTA/'.__($recursoTA->id))}}" class="btnAutorizar btn btn-warning"><b>Revisar</b></a>
 							</td>
 							<td class="text-center">
-								<a id="btnOmitir" href="{{url('/omitirRecursoTA/'.__($recursoTA->id))}}" class="btn btn-warning"><b>Omitir</b></a>
+								<a  href="{{url('/omitirRecursoTA/'.__($recursoTA->id))}}" class="btnOmitir btn btn-warning"><b>Omitir</b></a>
 							</td>
 							<td>
-								<a id="btnExcluir" href="{{url('/excluirRecursoTA/'.__($recursoTA->id))}}" class="btn btn-warning"><b>Excluir</b></a>
+								<a href="{{url('/excluirRecursoTA/'.__($recursoTA->id))}}" class="btnExcluir btn btn-warning"><b>Excluir</b></a>
 							</td>
 						</tr>							
 					</table>
@@ -78,9 +81,6 @@
 		</tbody>
 	</table>
 </div>
-@if(!empty($sucessoExclusao))
-  <div class="alert alert-success"> {{ $sucessoExclusao }}</div>
-@endif
 @stop
 
 @section('css')
@@ -93,7 +93,7 @@
 <script src="https://cdn.datatables.net/responsive/2.2.6/js/responsive.bootstrap4.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		$("#btnOmitir").click(function(){
+		$(".btnOmitir").click(function(){
 		if(confirm("Deseja ocultar o recurso? Ele permanecerá no banco de dados, mas não será visível aos usuários do RETACE")){
 			return true;
 		}	
@@ -101,7 +101,7 @@
 			return false;
 		}
 	});
-		$("#btnExcluir").click(function(){
+		$(".btnExcluir").click(function(){
 		if(confirm("Deseja excluir o recurso? Essa ação é irreversível")){
 			return true;
 		}	
@@ -110,6 +110,9 @@
 		}
 	});
 		var table = $('#tabelaRecursosTA').DataTable( {
+			language: {
+				url: "https://cdn.datatables.net/plug-ins/1.10.25/i18n/Portuguese-Brasil.json"
+			},
 			responsive: {
 				details: {
 					type: 'column'
