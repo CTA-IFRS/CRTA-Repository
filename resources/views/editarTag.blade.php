@@ -8,12 +8,18 @@
 
 @section('content')
 <div class="container">
-	<form method="POST" action="{{route("salvaEdicaoTag")}}">
+	<div id="alert-erros-formulario" tabindex="-1" class="alert alert-danger d-none">
+		Por favor verifique o formulário novamente, alguns campos não foram preenchidos corretamente.
+	</div>  
+	<form id="formRevisarTag" method="POST" action="{{route('salvaEdicaoTag')}}">
 		@csrf
 		<input type="text" name="idTag" value="{{__($tag->id)}}" hidden/>
 		<div class="form-group col-sm-6 col-12 mx-auto">
-			<label for="exampleInputEmail1">Nome da Tag</label>
-			<input type="text" class="form-control" name="nomeTag" value="{{__($tag->nome)}}">
+			<label for="nomeTag">Nome da Tag
+				<span class="sr-only error-msg">
+				</span>
+			</label>
+			<input type="text" class="form-control" name="nomeTag" id="nomeTag" value="{{__($tag->nome)}}">
 			@error('nomeTag')
 			<span class="invalid-feedback" role="alert">
 				<strong>{{ $message }}</strong>
@@ -48,11 +54,29 @@
 
 	</form>
 </div>
+
+<div class="modal alert alert-success hide fade in" data-keyboard="false" data-backdrop="static" id="modalTagAtualizada">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3 class="modal-title h4">Sucesso</h3>
+    </div>
+    <!-- Modal body -->
+    <div class="modal-body">
+        <p class="server-response"></p>
+    </div>
+    <!-- Modal footer -->
+    <div class="modal-footer">
+        <a class="btn btn-primary" href="{{url('/administrarTags')}}">Ok</a>
+    </div>
+</div>
 @stop
 
 @section('css')
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css"/>
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.bootstrap4.min.css"/>
+<link href="{{ asset('css/app.css') }}" rel="stylesheet">
 @stop
 
 @section('js')
@@ -60,6 +84,39 @@
 <script src="https://cdn.datatables.net/responsive/2.2.6/js/responsive.bootstrap4.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		$("#modalTagAtualizada").modal("hide");
+		var form = $("#formRevisarTag");
+		form.submit(function (ev) {
+			var formData = new FormData(form[0]);
+			ev.preventDefault();
+			$.ajax({
+					type: "POST",
+					url: form.attr('action'),
+					dataType: 'json',
+					cache: false,
+					processData: false,
+					contentType: false, 
+					data: formData,
+					beforeSend: function(xhr){
+						xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token() }}');
+					},
+					success: function(respostaServidor){
+						$("#modalTagAtualizada .server-response").html(respostaServidor);
+						$("#modalTagAtualizada").modal("show");
+					},
+					error: function(respostaServidor) {
+						$(".invalid-feedback").remove();
+						$("#alert-erros-formulario").addClass("d-block").focus();
+						var errors = JSON.parse(respostaServidor.responseText);
+						$.each(errors, function (elmName, errorMsgs) {
+							$("#" + elmName).parent().find(".error-msg").html(errorMsgs[0]);
+							$("#" + elmName).parent().append('<span class="invalid-feedback d-block" role="alert">'
+								+	'<strong class="error-msg">' + errorMsgs[0] + '</strong>'
+								+ '</span>');
+						});
+					}
+			});
+		});
 	} );
 </script>
 @stop

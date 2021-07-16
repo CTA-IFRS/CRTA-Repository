@@ -313,7 +313,7 @@
     </div>
     <!-- Modal footer -->
     <div class="modal-footer">
-        <a class="btn btn-primary" href="{{url('/home')}}">Ok</a>
+        <a class="btn btn-primary" href="{{url('/administrarRecursosTA')}}">Ok</a>
     </div>
 </div>
 

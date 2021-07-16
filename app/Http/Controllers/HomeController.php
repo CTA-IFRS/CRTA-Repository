@@ -169,8 +169,9 @@ class HomeController extends Controller
     $tagAlvo->publicacao_autorizada = $tagAlvo->publicacao_autorizada; 
     $tagAlvo->save();
 
-    $tags = Tag::all();
-    return view('administrarTags', ['tags' => $tags]);
+    //$tags = Tag::all();
+    //return view('administrarTags', ['tags' => $tags]);
+    return response()->json("Tag atualizada com sucesso!");
 }
 
     /**
