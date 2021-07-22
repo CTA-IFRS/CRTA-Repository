@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 use Image;
 use App\RecursoTA;
@@ -914,7 +915,8 @@ class HomeController extends Controller
     public function administrarUsuarios()
     {
         $usuarios = User::all();
-        return view('administrarUsuarios', ['usuarios' => $usuarios]);
+        return view('administrarUsuarios', ['usuarios' => $usuarios, 
+                    'usuarioAtualId' => Auth::user()->id]);
     }
 
 
@@ -1087,7 +1089,7 @@ class HomeController extends Controller
 
         $this->enviaEmailRecuperacaoSenha($usuario,$senhaGerada);
 
-        return response()->json("Recuperação e envio de senha concluídos com sucesso!");        
+        return redirect('/administrarUsuarios')->with('info', "Recuperação e envio de senha para o usuário {$usuario->name} concluídos com sucesso!");
     }
 
     /**
