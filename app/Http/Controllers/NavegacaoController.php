@@ -55,7 +55,9 @@ class NavegacaoController extends Controller{
 		
 		foreach ($arrayTagsInformadas as $tagInformada) {
 			$auxTag = Tag::firstWhere('nome',$tagInformada);
-			$resultadoBusca = $resultadoBusca->merge($auxTag->recursosTAAprovados());
+			if ($auxTag && $auxTag->publicacao_autorizada){
+				$resultadoBusca = $resultadoBusca->merge($auxTag->recursosTAAprovados());
+			}
 		}
 
 		//Remove duplicatas originadas por TAs em mais de uma tag
