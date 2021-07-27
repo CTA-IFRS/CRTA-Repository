@@ -119,9 +119,8 @@
 				<h3 class="ml-3 w-100 h5"> Fabricante </h3>
 				<div class="ml-4">
 					<div class="col-md-12">
-						<span class="d-block" id="site-{{$recursoTA->id}}">Site do fabricante: </span>
-						<a class="text-break" href="{{__($recursoTA->site_fabricante)}}" aria-labelledby="site-{{$recursoTA->id}}">
-							{{$recursoTA->site_fabricante}}
+						<a class="text-break" href="{{__($recursoTA->site_fabricante)}}">
+							Página do fabricante
 						</a>
 					</div>
 					<hr class="col-md-12"/>			

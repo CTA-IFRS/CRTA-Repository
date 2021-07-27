@@ -23,7 +23,7 @@ class RecursoTAController extends Controller{
     $regras = [
      'titulo' => 'required|max:255',
      'descricao' => 'required',
-     'siteFabricante' => 'required',
+     'siteFabricante' => ['required', 'url'],
      'produtoComercial' => 'required',
      'licenca' => 'required_if:produtoComercial,true|max:255',
      'tags' => 'required',
@@ -41,7 +41,8 @@ class RecursoTAController extends Controller{
     'titulo.required' => 'É preciso informar um título para a Tecnologia Assistiva',
     'titulo.max' => 'O título deve ter menos de 256 caracteres',
     'descricao.required'  => 'Descreva brevemente o que está cadastrando',
-    'siteFabricante.required' => 'Informe um site do fabricante ou instituição',
+    'siteFabricante.required' => 'Informe o site do fabricante ou instituição',
+    'siteFabricante.url' => 'Informe um endereço válido (ex: https://www.meusite.com.br)',
     'produtoComercial.required' => 'Marque se é um produto comercial ou não',
     'licenca.max' => 'Informe a licença em usando menos de 256 caracteres',
     'licenca.required_if' => 'Informe a licença de distribuição desse recurso',
