@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Auth;
 use JeroenNoten\LaravelAdminLte\Events\BuildingMenu;
 use Carbon\Carbon;
 use App\RecursoTA;
@@ -61,12 +62,14 @@ class AppServiceProvider extends ServiceProvider
                 'url'         => url('/editarPaginaSobre'),
                 'icon'        => 'fa fa-info',
             ]);
-            $event->menu->add('Administrar Usuários');
-            $event->menu->add([
-                'text'        => 'Usuários',
-                'url'         => url('/administrarUsuarios'),
-                'icon'        => 'fa fa-users',
-            ]);           
+            if (Auth::user()->isRoot()) {
+                $event->menu->add('Administrar Usuários');
+                $event->menu->add([
+                    'text'        => 'Usuários',
+                    'url'         => url('/administrarUsuarios'),
+                    'icon'        => 'fa fa-users',
+                ]);           
+            }
             $event->menu->add('Dados da conta');
             $event->menu->add([
                 'text'        => 'Informações',

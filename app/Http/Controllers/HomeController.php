@@ -14,6 +14,8 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Gate;
 
 use Image;
 use App\RecursoTA;
@@ -914,6 +916,7 @@ class HomeController extends Controller
      */
     public function administrarUsuarios()
     {
+        if(!Gate::allows('manage-users')) return redirect('home');
         $usuarios = User::all();
         return view('administrarUsuarios', ['usuarios' => $usuarios, 
                     'usuarioAtualId' => Auth::user()->id]);
@@ -927,6 +930,7 @@ class HomeController extends Controller
      */
     public function adicionarUsuario()
     {
+        if(!Gate::allows('manage-users')) return redirect('home');
         return view('adicionarUsuario');
     }
 
@@ -938,6 +942,8 @@ class HomeController extends Controller
      */
     public function cadastrarUsuario(Request $request)
     {
+        if(!Gate::allows('manage-users', Auth::user())) return redirect('home');
+
         $regras = [ 'name' => ['required', 'string', 'max:255'],
                     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 ]; 
@@ -997,6 +1003,7 @@ class HomeController extends Controller
      */
     public function editarUsuario($idUsuario)
     {
+        if(!Gate::allows('manage-users')) return redirect('home');
         $usuario = User::findOrFail($idUsuario);
         return view('editarUsuario', [ 'usuario' => $usuario]);
     }
@@ -1009,6 +1016,7 @@ class HomeController extends Controller
      */
     public function atualizarUsuario(Request $request, $idUsuario)
     {
+        if(!Gate::allows('manage-user', $idUsuario)) return response()->json("Ação inválida", 422);
 
         $regras = [ 'name' => ['required', 'string', 'max:255'],
                     'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'. $idUsuario.',id'],
@@ -1113,6 +1121,7 @@ class HomeController extends Controller
 
 
     public function excluirUsuario(Request $request){
+        if(!Gate::allows('manage-users')) return redirect('home');
 
         $usuario = User::findOrFail($request->idUsuario);
         User::destroy($request->idUsuario);
