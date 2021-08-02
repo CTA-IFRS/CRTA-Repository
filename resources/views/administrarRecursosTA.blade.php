@@ -32,39 +32,21 @@
 				<td></td>
 				<td>{{__($recursoTA->titulo)}}</td>
 				<td>{{__($recursoTA->created_at->translatedFormat('d M Y'))}}</td>
-				<td class="text-center">
-					<table class="table">
-						<tr>
-							@if($recursoTA->publicacao_autorizada==true)
-							<td>
-								<h4>
-									<span class="badge badge-pill badge-success">Sim</span>
-								</h4>
-							</td>
-							@else
-							<td>
-								<h4>
-									<span class="badge badge-pill badge-danger">Não</span>
-								</h4>
-							</td>
-							@endif								
-						</tr>							
-					</table>			
+				<td class="align-middle text-center">
+					@if($recursoTA->publicacao_autorizada==true)
+						<span class="badge badge-pill badge-success">Sim</span>
+					@else
+						<span class="badge badge-pill badge-danger">Não</span>
+					@endif								
 				</td>
-				<td>
-					<table class="table">
-						<tr>
-							<td>
-								<a href="{{url('/revisarRecursoTA/'.__($recursoTA->id))}}" class="btnAutorizar btn btn-warning"><b>Revisar</b></a>
-							</td>
-							<td class="text-center">
-								<a  href="{{url('/omitirRecursoTA/'.__($recursoTA->id))}}" class="btnOmitir btn btn-warning"><b>Omitir</b></a>
-							</td>
-							<td>
-								<a href="{{url('/excluirRecursoTA/'.__($recursoTA->id))}}" class="btnExcluir btn btn-warning"><b>Excluir</b></a>
-							</td>
-						</tr>							
-					</table>
+				<td class="align-middle text-center">
+					
+					<a href="{{url('/revisarRecursoTA/'.__($recursoTA->id))}}" class="btnAutorizar btn btn-warning m-2"><b>Revisar</b></a>
+		
+					<a  href="{{url('/omitirRecursoTA/'.__($recursoTA->id))}}" class="btnOmitir btn btn-warning"><b>Omitir</b></a>
+		
+					<a href="{{url('/excluirRecursoTA/'.__($recursoTA->id))}}" class="btnExcluir btn btn-warning m-2"><b>Excluir</b></a>
+					
 				</td>
 			</tr>
 			@endforeach
@@ -86,6 +68,7 @@
 @section('css')
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css"/>
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.bootstrap4.min.css"/>
+<link href="{{ asset('css/personalizacoes-admin.css') }}" rel="stylesheet">
 @stop
 
 @section('js')

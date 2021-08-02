@@ -1,4 +1,80 @@
 
+a {
+    color: #006ADB;
+}
+
+.btn-primary {
+    background-color: #006ADB;
+    border-color: #006ADB;
+}
+.btn-primary:hover {
+    background-color: #0054AD;
+    border-color: #0054AD;
+}
+.btn.btn-success {
+    background-color: #26824C;
+    border-color: #26824C;
+}
+.btn.btn-outline-danger {
+    color: #CE221C;
+    border-color: #CE221C;
+}
+.btn.btn-outline-danger:hover {
+    color: white;
+}
+.btn.btn-danger {
+    background-color: #D7241D;
+}
+
+
+
+.badge.badge-success {
+    background-color: #1F7F35;
+}
+.table .badge {
+    font-size: 1.15em;
+    padding: 0.6em;
+}
+
+.page-item.active .page-link{
+    background-color: #006ADB;
+    border-color: #006ADB;
+}
+.page-item .page-link {
+    background-color: white;
+    border-color: white;
+    color: #006ADB
+}
+
 .navbar-nav > .user-menu > .dropdown-menu > .user-footer .btn-default {
     color: #646D73;
 }
+
+.sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link, 
+.sidebar-light-primary .nav-sidebar > .nav-item > .nav-link {
+    font-size: 1rem !important; 
+    font-family: "Source Sans Pro",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,
+                "Helvetica Neue",Arial,sans-serif,"Apple Color Emoji",
+                "Segoe UI Emoji","Segoe UI Symbol" !important;
+    
+}
+
+.sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active, 
+.sidebar-light-primary .nav-sidebar > .nav-item > .nav-link.active {
+    background-color: #006ADB !important;
+}
+
+
+div.file-drop-zone-title {
+    color: #666666 !important;
+}
+.file-preview-frame .explorer-caption {
+    color: #666666;
+}
+
+
+span.invalid-feedback {
+    color: #CE221C;
+}
+
+

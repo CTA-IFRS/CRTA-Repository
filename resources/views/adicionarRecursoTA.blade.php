@@ -230,7 +230,7 @@
     	<div class="modal-content">
       		<!-- Modal Header -->
      		<div class="modal-header">
-        		<h4 class="modal-title">Sucesso</h4>
+        		<h2 class="modal-title h4">Sucesso</h2>
     		</div>
     		<!-- Modal body -->
     		<div class="modal-body">
@@ -248,6 +248,7 @@
 
 @section('css')
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+<link href="{{ asset('css/personalizacoes-admin.css') }}" rel="stylesheet">
 @stop
 
 @section('js')
