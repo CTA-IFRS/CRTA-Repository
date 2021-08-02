@@ -11,7 +11,7 @@
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
             <div class="row">
-                <h1 class="display-4">Aprovação de Recursos de TA e Tags</h1>
+                <h2 class="display-4">Aprovação de Recursos de TA e Tags</h2>
             </div>
             <div class="row">
                 <p class="lead">Verifique se há recursos aguardando aprovação</p> 
@@ -21,7 +21,7 @@
     <div class="container-fluid flex-grow-1">
         <div class="row h-100 text-center">
             <div class="card col-sm-6 flex-grow-1 pt-4">
-                <h2 class="display-5 pb-4">Recursos de Tecnologia Assistiva</h2>
+                <h3 class="display-5 pb-4">Recursos de Tecnologia Assistiva</h3>
                 <i class="fa fa-puzzle-piece fa-4 fa-10x" aria-hidden="true"></i>
                 <h4>
                     <span class="badge badge-warning py-3">{{__($qtdRecursosNaoAprovados)}} </span>
@@ -29,7 +29,7 @@
                 </h4>
             </div>
             <div class="card col-sm-6 flex-grow-1 pt-4">
-                <h2 class="display-5 pb-4">Tags</h2>
+                <h3 class="display-5 pb-4">Tags</h3>
                 <i class="fa fa-tags fa-4 fa-10x" aria-hidden="true"></i>
                 <h4>
                     <span class="badge badge-warning py-3">{{__($qtdTagsNaoAprovadas)}} </span>
@@ -42,6 +42,7 @@
 @stop
 
 @section('css')
+    <link href="{{ asset('css/personalizacoes-admin.css') }}" rel="stylesheet">
 @stop
 
 @section('js')
