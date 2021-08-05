@@ -64,6 +64,7 @@
 
 @section('css')
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+<link href="{{ asset('css/personalizacoes-admin.css') }}" rel="stylesheet">
 @endsection
 
 @section('js')
