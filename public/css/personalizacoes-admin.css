@@ -31,7 +31,10 @@ a {
 .badge.badge-success {
     background-color: #1F7F35;
 }
-.table .badge {
+.badge.badge-danger {
+    background-color: #CE221C;
+}
+.table .badge, .badge-block .badge{
     font-size: 1.15em;
     padding: 0.6em;
 }
@@ -77,4 +80,8 @@ span.invalid-feedback {
     color: #CE221C;
 }
 
+.form-text.text-muted {
+    color: #666666 !important;
+    font-size: 0.9rem !important;
+}
 

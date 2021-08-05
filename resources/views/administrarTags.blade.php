@@ -26,46 +26,20 @@
 				<td></td>
 				<td>{{__($tag->nome)}}</td>
 				<td>{{__($tag->created_at->translatedFormat('d M Y'))}}</td>
-				<td class="text-center">
-					<table class="table">
-						<tr>
-							@if($tag->publicacao_autorizada==true)
-							<td>
-								<h4>
-									<span class="badge badge-pill badge-success">Sim</span>
-								</h4>
-							</td>
-							@else
-							<td>
-								<h4>
-									<span class="badge badge-pill badge-danger">Não</span>
-								</h4>
-							</td>
-							@endif								
-						</tr>							
-					</table>			
+				<td class="align-middle text-center">
+					@if($tag->publicacao_autorizada)
+						<span class="badge badge-pill badge-success">Sim</span>
+					@else
+						<span class="badge badge-pill badge-danger">Não</span>
+					@endif								
 				</td>
-				<td>
-					<table class="table">
-						<tr>
-							@if($tag->publicacao_autorizada==false)
-							<td>
-								<td>
-									<a href="{{url('/autorizaPublicacaoTag/'.__($tag->id))}}" type="button" class="btnAutorizar btn btn-warning"><b>Aprovar</b></a>
-								</td>
-							</td>
-							@else
-							<td>
-								<td>
-									<a href="{{url('/omitirPublicacaoTag/'.__($tag->id))}}" type="button" class="btnOmitir btn btn-danger"><b>Ocultar</b></a>
-								</td>
-							</td>
-							@endif
-							<td>
-								<a href="{{url('/editarTag/'.__($tag->id))}}"type="button" class="btnEditar btn btn-primary"><b>Revisar</b></a>
-							</td>
-						</tr>							
-					</table>
+				<td class="align-middle text-center">
+					@if($tag->publicacao_autorizada==false)
+						<a href="{{url('/autorizaPublicacaoTag/'.__($tag->id))}}" type="button" class="btnAutorizar btn btn-warning m-2"><b>Aprovar</b></a>
+					@else
+						<a href="{{url('/omitirPublicacaoTag/'.__($tag->id))}}" type="button" class="btnOmitir btn btn-danger m-2"><b>Ocultar</b></a>
+					@endif
+						<a href="{{url('/editarTag/'.__($tag->id))}}"type="button" class="btnEditar btn btn-primary m-2"><b>Revisar</b></a>
 				</td>
 			</tr>
 			@endforeach
@@ -87,6 +61,7 @@
 @section('css')
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css"/>
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.bootstrap4.min.css"/>
+<link href="{{ asset('css/personalizacoes-admin.css') }}" rel="stylesheet">
 @stop
 
 @section('js')

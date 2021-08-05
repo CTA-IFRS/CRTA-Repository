@@ -13,7 +13,7 @@
 	</div>  
 	<form id="formRevisarTag" method="POST" action="{{route('salvaEdicaoTag')}}">
 		@csrf
-		<input type="text" name="idTag" value="{{__($tag->id)}}" hidden/>
+		<input type="hidden" name="idTag" value="{{__($tag->id)}}"/>
 		<div class="form-group col-sm-6 col-12 mx-auto">
 			<label for="nomeTag">Nome da Tag
 				<span class="sr-only error-msg">
@@ -26,22 +26,15 @@
 			</span>
 			@enderror
 		</div>
-		<div class="form-group col-sm-6 col-12 mx-auto">
-			<label for="exampleInputPassword1">Publicação Autorizada?</label>
-			@if($tag->publicacao_autorizada==true)
-			<td>
-				<h4>
+		<div class="badge-block form-group col-sm-6 col-12 mx-auto">
+			<p>	Publicação Autorizada? &nbsp;
+				@if($tag->publicacao_autorizada==true)
 					<span class="badge badge-pill badge-success">Sim</span>
-				</h4>
-			</td>
-			@else
-			<td>
-				<h4>
+				@else
 					<span class="badge badge-pill badge-danger">Não</span>
-				</h4>
-			</td>
-			@endif
-			<small id="ajudaPublicacaoAutorizada" class="form-text text-muted">*A publicação deve ser autorizada ou revogada na tela de Administração de Tags</small>
+				@endif
+			</p>
+			<p id="ajudaPublicacaoAutorizada" class="form-text text-muted">*A publicação deve ser autorizada ou revogada na tela de Administração de Tags</p>
 		</div>
 		<div class="row justify-content-center">
 			<div class="offset-1 col-2">
@@ -77,6 +70,7 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css"/>
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.bootstrap4.min.css"/>
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+<link href="{{ asset('css/personalizacoes-admin.css') }}" rel="stylesheet">
 @stop
 
 @section('js')
