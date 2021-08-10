@@ -76,6 +76,7 @@
 
 @section('css')
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+<link href="{{ asset('css/personalizacoes-admin.css') }}" rel="stylesheet">
 @stop
 
 @section('js')

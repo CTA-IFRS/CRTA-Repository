@@ -85,6 +85,7 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css"/>
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.bootstrap4.min.css"/>
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+<link href="{{ asset('css/personalizacoes-admin.css') }}" rel="stylesheet">
 @stop
 
 @section('js')

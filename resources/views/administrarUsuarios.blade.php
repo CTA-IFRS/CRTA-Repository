@@ -32,32 +32,22 @@
 				<td>{{$usuario->email}}</td>
 				<td>{{$usuario->created_at->translatedFormat('d M Y')}}</td>
 				<td>
-					<table class="table">
-						<tr>
-							@if ($usuario->id != $usuarioAtualId)
-								<td>
-									<a href="{{url('/editarUsuario/'.__($usuario->id))}}" class="btnEditar btn btn-primary"><b>Editar</b></a>
-								</td>
-								<td>
-									<form class="formExcluirUsuario" method="post" action={{route('excluirUsuario')}}>
-										{{ csrf_field() }}
-										<input name="idUsuario" type="hidden" value="{{$usuario->id}}">
-										<button type="submit" class="btnExcluir btn btn-danger"><b>Excluir</b></button>
-									</form>
-								</td>
-								<td>
-									<a href="{{url('/recuperarSenha/'.__($usuario->id))}}" class="btnResetarSenha btn btn-warning"><b>Enviar e-mail de recuperação de senha</b></a>
-								</td>
-							@else
-								<td>
-									<a href="{{url('/informacoesUsuario')}}" class="btnEditar btn btn-primary"><b>Editar</b></a>
-								</td>
-								<td>
-									<a href="{{url('/informacoesUsuario')}}" class="btn btn-warning"><b>Alterar a senha</b></a>
-								</td>
-							@endif
-						</tr>							
-					</table>
+					@if ($usuario->id != $usuarioAtualId)
+						
+						<a href="{{url('/editarUsuario/'.__($usuario->id))}}" class="btnEditar btn btn-primary m-2"><b>Editar</b></a>
+						<form class="formExcluirUsuario d-inline" method="post" action="{{route('excluirUsuario')}}">
+							{{ csrf_field() }}
+							<input name="idUsuario" type="hidden" value="{{$usuario->id}}">
+							<button type="submit" class="btnExcluir btn btn-danger"><b>Excluir</b></button>
+						</form>
+						<a href="{{url('/recuperarSenha/'.__($usuario->id))}}" class="btnResetarSenha btn btn-warning m-2">
+							<b>Enviar e-mail de recuperação de senha</b>
+						</a>
+						
+					@else
+						<a href="{{url('/informacoesUsuario')}}" class="btnEditar btn btn-primary m-2"><b>Editar</b></a>
+						<a href="{{url('/informacoesUsuario')}}" class="btn btn-warning"><b>Alterar a senha</b></a>
+					@endif
 				</td>
 			</tr>
 			@endforeach
@@ -98,6 +88,7 @@
 @section('css')
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css"/>
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.bootstrap4.min.css"/>
+<link href="{{ asset('css/personalizacoes-admin.css') }}" rel="stylesheet">
 @stop
 
 @section('js')
