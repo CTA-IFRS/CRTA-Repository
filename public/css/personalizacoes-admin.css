@@ -3,6 +3,10 @@ a {
     color: #006ADB;
 }
 
+#painel-fast-access a {
+    color: initial;
+}
+
 .btn-primary {
     background-color: #006ADB;
     border-color: #006ADB;

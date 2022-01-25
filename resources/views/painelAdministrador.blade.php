@@ -18,23 +18,31 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid flex-grow-1">
+    <div id="painel-fast-access" class="container-fluid flex-grow-1">
         <div class="row h-100 text-center">
             <div class="card col-sm-6 flex-grow-1 pt-4">
-                <h3 class="display-5 pb-4">Recursos de Tecnologia Assistiva</h3>
-                <i class="fa fa-puzzle-piece fa-4 fa-10x" aria-hidden="true"></i>
-                <h4>
-                    <span class="badge badge-warning py-3">{{__($qtdRecursosNaoAprovados)}} </span>
-                    novos recursos aguardam aprovação
-                </h4>
+                <a href="{{url('/administrarRecursosTA')}}">
+                    <h3 class="display-5 pb-4">
+                        <span class="sr-only">Acessar</span> Recursos de Tecnologia Assistiva
+                    </h3>
+                    <i class="fa fa-puzzle-piece fa-4 fa-10x" aria-hidden="true"></i>
+                    <h4>
+                        <span class="badge badge-warning py-3">{{__($qtdRecursosNaoAprovados)}} </span>
+                        novos recursos aguardam aprovação
+                    </h4>
+                </a>
             </div>
             <div class="card col-sm-6 flex-grow-1 pt-4">
-                <h3 class="display-5 pb-4">Tags</h3>
-                <i class="fa fa-tags fa-4 fa-10x" aria-hidden="true"></i>
-                <h4>
-                    <span class="badge badge-warning py-3">{{__($qtdTagsNaoAprovadas)}} </span>
-                    novas tags aguardam aprovação
-                </h4>
+                <a href="{{url('/administrarTags')}}">
+                    <h3 class="display-5 pb-4">
+                        <span class="sr-only">Acessar</span> Tags
+                    </h3>
+                    <i class="fa fa-tags fa-4 fa-10x" aria-hidden="true"></i>
+                    <h4>
+                        <span class="badge badge-warning py-3">{{__($qtdTagsNaoAprovadas)}} </span>
+                        novas tags aguardam aprovação
+                    </h4>
+                </a>
             </div>
         </div>
     </div>
