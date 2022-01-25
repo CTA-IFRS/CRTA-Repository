@@ -119,7 +119,12 @@
                                 Fotos do recurso
                                 <span class="sr-only">&nbsp;(Campo requerido)</span>
                             </legend>
-                            <p>Carregue pelo menos uma foto sobre a tecnologia assistiva no formato png, jpg ou  jpeg</p>
+                            <p>
+                                Carregue pelo menos uma foto sobre a tecnologia assistiva no formato png, jpg ou  jpeg
+                                <br/>
+                                Em alguns casos pode ser necessário redimensionar sua imagem para ser aceita pelo sistema, 
+                                para isso utilize o programa de manipulação de imagens de sua preferência.
+                            </p>
                             <div id="divFotos" class="form-group required row" role="group" aria-labelledby="fotos-label-cab">
                                 <div id="fotoDestaque" class="col-md-12">
                                     <label for="fotos" id="fotos-label" class="sr-only">
@@ -148,7 +153,7 @@
                                 <div class="col-md-10 form-inline">
                                     <input id="urlVideo" type="url"  class="w-75 form-control @error('videos[]') is-invalid @enderror" name="video" value="{{ old('video') }}">
                                     <button id="btnAdicionarVideo" type="button" class="w-25 btn btn-primary" aria-label="Adicionar o vídeo">
-                                        <i class="fa fa-plus-square fa-1"></i>
+                                        <i class="fa fa-check-square fa-1"></i>
                                     </button>
                                     @error('videos[]')
                                     <span class="invalid-feedback" role="alert">
@@ -175,7 +180,7 @@
                                 <div class="col-md-10 form-inline">
                                     <input id="urlArquivo" type="url"  class="w-75 form-control @error('arquivos[]') is-invalid @enderror" name="arquivo" value="{{ old('arquivo') }}">
                                     <button id="btnAdicionarArquivo" type="button" class="w-25 btn btn-primary" aria-label="Adicionar o arquivo">
-                                        <i class="fa fa-plus-square fa-1"></i>
+                                        <i class="fa fa-check-square fa-1"></i>
                                     </button>
                                     @error('arquivos[]')
                                     <span class="invalid-feedback" role="alert">
@@ -202,7 +207,7 @@
                                 <div class="col-md-10 form-inline">
                                     <input id="urlManual" type="url"  class="w-75 form-control @error('manuais[]') is-invalid @enderror" name="manual" value="{{ old('manual') }}">
                                     <button id="btnAdicionarManual" type="button" class="w-25 btn btn-primary" aria-label="Adicionar o manual">
-                                        <i class="fa fa-plus-square fa-1"></i>
+                                        <i class="fa fa-check-square fa-1"></i>
                                     </button>
                                     @error('manuais[]')
                                     <span class="invalid-feedback" role="alert">
@@ -310,7 +315,7 @@
                             '<label><input class="form-check-input" type="radio" id="{ID_FOTO_NOVA}" name="fotoDestaque" value="{ID_FOTO_NOVA}">' 
                             + '<span class="sr-only">Informe se a imagem {caption} é</span> Destaque</label>'+
                             '<input name="textosAlternativos[{ID_FOTO_NOVA}][textoAlternativo]" type="text" class="form-control" ' +
-                            'value="{caption}" aria-label="Texto alternativo para a imagem {caption}">' +
+                            'placeholder="Informe o texto alternativo" aria-label="Texto alternativo para a imagem {caption}">' +
                         '</div>'+
                         '{size}{progress}' +
                         '</div>' +
