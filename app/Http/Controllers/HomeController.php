@@ -94,7 +94,7 @@ class HomeController extends Controller
      */
     public function administrarTags()
     {
-        $tags = Tag::all();
+        $tags = Tag::orderBy('publicacao_autorizada', 'asc')->get();
         return view('administrarTags', ['tags' => $tags]);
     }
 

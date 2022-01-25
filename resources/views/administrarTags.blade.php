@@ -84,7 +84,7 @@
 				orderable: false,
 				targets:   0
 			} ],
-			order: [ 1, 'des' ]	
+			order: [ 3, 'asc' ]	
 		} );
 
 		$(".btnAutorizar").click(function(){
