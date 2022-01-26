@@ -189,12 +189,16 @@
 			Fotos do recurso
 			<span class="sr-only">&nbsp;(Campo requerido)</span>
 		</legend>
-		<p>
-			Carregue pelo menos uma foto sobre a tecnologia assistiva no formato png, jpg ou  jpeg.
-			<br/>
-			Em alguns casos pode ser necessário redimensionar sua imagem para ser aceita pelo sistema, 
-			para isso utilize o programa de manipulação de imagens de sua preferência.
-		</p>
+		<ul>
+			<li>Carregue pelo menos uma foto sobre a tecnologia assistiva no formato png, jpg ou  jpeg</li>
+			<li>
+				Em alguns casos pode ser necessário redimensionar sua imagem para ser aceita pelo sistema, 
+				para isso utilize o programa de manipulação de imagens de sua preferência.</li>
+			<li>
+				Para carregar múltiplas imagens, selecione todas as imagens que deseja e arraste até a área abaixo
+				ou clique no botão "Procurar" e selecione todas as imagens que deseja enviar.
+			</li>
+		</ul>
 		
 		<div id="divFotos" class="form-group required row" role="group" aria-labelledby="fotos-label-cab">
 			<div id="fotoDestaque" class="col-md-12">
