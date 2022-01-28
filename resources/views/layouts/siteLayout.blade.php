@@ -39,6 +39,7 @@
    <script src="{{ asset('js/app.js') }}" ></script>
    <script src="{{ __('https://use.fontawesome.com/9193d17150.js')}}"></script>
    <script src="{{__('https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js')}}" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous"></script>
+   <script src="{{ __('https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js')}}"></script>
    <script>
         $(document).ready(function() {
             (function (){

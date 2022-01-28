@@ -229,6 +229,53 @@
                         </fieldset>
 
                         <hr>
+
+                        <fieldset>
+                            <legend class="h3">Informações para contato</legend>
+
+                            <div class="form-group required row mt-3" role="group">
+                                <label for="contato_nome" class="col-md-2 col-form-label text-md-right">
+                                    {{ __('Nome') }}
+                                    <span class="sr-only">&nbsp;(Campo requerido)</span>
+                                </label>
+                                <div class="col-md-10">
+                                    <input id="contato_nome" type="text" class="form-control" name="contato_nome" value="{{ old('contato_nome') }}" autofocus>
+                                </div>
+                            </div>
+
+                            <div class="form-group required row mt-3" role="group">
+                                <label for="contato_email" class="col-md-2 col-form-label text-md-right">
+                                    {{ __('E-mail') }}
+                                    <span class="sr-only">&nbsp;(Campo requerido)</span>
+                                </label>
+                                <div class="col-md-10">
+                                    <input id="contato_email" type="text" class="form-control" name="contato_email" value="{{ old('contato_email') }}" autofocus>
+                                </div>
+                            </div>
+
+                            <div class="form-group required row mt-3" role="group">
+                                <label for="contato_telefone" class="col-md-2 col-form-label text-md-right">
+                                    {{ __('Telefone') }}
+                                    <span class="sr-only">&nbsp;(Campo requerido)</span>
+                                </label>
+                                <div class="col-md-10">
+                                    <input id="contato_telefone" type="text" class="form-control" name="contato_telefone" value="{{ old('contato_telefone') }}" autofocus>
+                                </div>
+                            </div>
+
+                            <div class="form-group row mt-3" role="group">
+                                <label for="contato_instituicao" class="col-md-2 col-form-label text-md-right">
+                                    {{ __('Instituição') }}
+                                    <span class="sr-only">&nbsp;(Campo opcional)</span>
+                                </label>
+                                <div class="col-md-10">
+                                    <input id="contato_instituicao" type="text" class="form-control" name="contato_instituicao" value="{{ old('contato_instituicao') }}" autofocus>
+                                </div>
+                            </div>
+
+                        </fieldset>
+
+                        <hr>
                         
                         <div class="form-group row mb-5 mt-4">
                             <div class="col-md-3 offset-md-10">
@@ -342,6 +389,15 @@
     }
 
     $(document).ready(function () {
+        $('#contato_telefone').mask('(00) 0000-00009', {
+            onKeyPress: function (value, event, field, options) {
+                var rawValue = value.replace(/\D/g, '');
+                $(field).mask(
+                    (rawValue.length > 10) ? '(00) 00000-0000' : '(00) 0000-00009',
+                    options
+                );
+            }
+        });
         
         // Para não bloquear a navegação por teclado
         $("#divFotos .file-caption-name").attr("tabindex", "-1");

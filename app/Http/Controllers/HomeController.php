@@ -298,6 +298,8 @@ class HomeController extends Controller
          'textosAlternativos.*.textoAlternativo' => 'required',
          'fotos.*' => 'required|mimetypes:image/jpeg,image/png|dimensions:min_width=200,min_height=150,max_width=800,max_height=600|max:2048',
          'fotoDestaque' => 'required',
+         'contato_email' => ['nullable', 'email'],
+         'contato_telefone' => ['nullable', 'max:15', 'min:14'],
      ];
 
      $mensagens = [
@@ -327,6 +329,8 @@ class HomeController extends Controller
         'fotos.*.dimensions' => 'As fotos devem estar dimensionadas com a largura entre 200 e 800 pixels e a altura entre 150 e 600 pixels',
         'fotos.*.max' => 'O tamanho das fotos deve ser de no máximo 2MB',
         'fotoDestaque.required' =>  'Escolha uma foto para ser exibida primeiro ao listar a tecnologia assistiva',
+        'contato_telefone.*' => 'Informe um telefone válido, ex: (012) 91234-4567',
+        'contato_email.email' => 'Informe um e-mail válido',
     ];
 
     $validador = Validator::make($request->all(),$regras,$mensagens);
@@ -354,6 +358,10 @@ class HomeController extends Controller
     $recursoTA->site_fabricante = request('siteFabricante');
     //Por estar autenticado como admin, cadastra já com a autorização
     $recursoTA->publicacao_autorizada = true;
+    $recursoTA->contato_nome = request('contato_nome');
+    $recursoTA->contato_email = request('contato_email');
+    $recursoTA->contato_telefone = preg_replace('/\D/', '', request('contato_telefone'));
+    $recursoTA->contato_instituicao = request('contato_instituicao');
     $recursoTA->save();
 
     //Apaga os relacionamentos do RecurstoTA com as tags existentes, para simplificar a lógica de update
@@ -638,6 +646,8 @@ class HomeController extends Controller
          'textosAlternativos.*.textoAlternativo' => 'required',
          'fotos.*' => 'required|mimetypes:image/jpeg,image/png|dimensions:min_width=200,min_height=150,max_width=800,max_height=600|max:2048',
          'fotoDestaque' => 'required',
+         'contato_email' => ['nullable', 'email'],
+         'contato_telefone' => ['nullable', 'max:15', 'min:14'],
      ];
 
      $mensagens = [
@@ -668,6 +678,8 @@ class HomeController extends Controller
         'fotos.*.dimensions' => 'As fotos devem estar dimensionadas com a largura entre 200 e 800 pixels e a altura entre 150 e 600 pixels',
         'fotos.*.max' => 'O tamanho das fotos deve ser de no máximo 2MB',
         'fotoDestaque.required' =>  'Escolha uma foto para ser exibida primeiro ao listar a tecnologia assistiva',
+        'contato_telefone.*' => 'Informe um telefone válido, ex: (012) 91234-4567',
+        'contato_email.email' => 'Informe um e-mail válido',
     ];
 
     $validador = Validator::make($request->all(),$regras,$mensagens);
@@ -694,6 +706,10 @@ class HomeController extends Controller
     $recursoTA->site_fabricante = request('siteFabricante');
     //Por estar autenticado como admin, cadastra já com a autorização
     $recursoTA->publicacao_autorizada = true;
+    $recursoTA->contato_nome = request('contato_nome');
+    $recursoTA->contato_email = request('contato_email');
+    $recursoTA->contato_telefone = preg_replace('/\D/', '', request('contato_telefone'));
+    $recursoTA->contato_instituicao = request('contato_instituicao');
     $recursoTA->save();
 
     /**Processamento de Tags para inserção no DB**/
