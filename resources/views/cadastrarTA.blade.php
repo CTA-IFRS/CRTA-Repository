@@ -596,22 +596,11 @@
                     '<button type="button" aria-label="Remover arquivo" class="btn-remover-arquivo btn btn-danger">' +
                     '<i class="fa fa-trash" aria-hidden="true"></i>'+ 
                     '</button>'+
-                    '<input name="arquivos['+contadorUrls+'][url]" class="form-control mt-2" type="hidden" value="'+inputUrlArquivo.val()+'"/>'+
-                    '<label for="nome-arquivo-'+contadorUrls+'" class="form-group d-block"><span class="sr-only">Nome do arquivo</span>'+
-                    '<input id="nome-arquivo-'+contadorUrls+'" name="arquivos['+contadorUrls+'][nome]" class="form-control mt-2" type="text" placeholder="Nome do arquivo"/>'+
-                    '</label>'+
-                    '<label for="formato-arquivo-'+contadorUrls+'" class="form-group d-block"><span class="sr-only">Formato do arquivo</span>'+
-                    '<input id="formato-arquivo-'+contadorUrls+'"name="arquivos['+contadorUrls+'][formato]" class="form-control mt-2" type="text" placeholder="Formato/extensão do arquivo"/>'+
-                    '</label>'+
-                    '<label for="tamanho-arquivo-'+contadorUrls+'" class="form-group d-block"><span class="sr-only">Tamanho do arquivo</span>'+
-                    '<input id="tamanho-arquivo-'+contadorUrls+'" name="arquivos['+contadorUrls+'][tamanho]" class="form-control mt-2" type="text" placeholder="Tamanho do arquivo (em Megabytes)"/>'+    
-                    '</label>'+
                     '</div>'+
                     '</div>'+
                     '</li>');
                 
                 $("#status-adicao-links").html("Link para o arquivo foi adicionado");
-                $("#nome-arquivo-"+ contadorUrls).focus();
                 contadorUrls++;
             }else{
                 inputUrlArquivo.addClass("is-invalid");
@@ -675,22 +664,11 @@
                     '<button type="button" aria-label="Remover manual" class="btn-remover-manual btn btn-danger">' +
                     '<i class="fa fa-trash" aria-hidden="true"></i>'+ 
                     '</button>'+
-                    '<input name="manuais['+contadorUrls+'][url]" class="form-control mt-2" type="hidden" value="'+inputUrlManual.val()+'"/>'+
-                    '<label for="nome-manual-'+contadorUrls+'" class="form-group d-block"><span class="sr-only">Nome do manual</span>'+
-                    '<input id="nome-manual-'+contadorUrls+'" name="manuais['+contadorUrls+'][nome]" class="form-control mt-2" type="text" placeholder="Nome do manual"/>'+
-                    '</label>'+
-                    '<label for="formato-manual-'+contadorUrls+'" class="form-group d-block"><span class="sr-only">Formato do manual</span>'+
-                    '<input id="formato-manual-'+contadorUrls+'" name="manuais['+contadorUrls+'][formato]" class="form-control mt-2" type="text" placeholder="Formato/extensão do manual"/>'+
-                    '</label>'+
-                    '<label for="tamanho-manual-'+contadorUrls+'" class="form-group d-block"><span class="sr-only">Nome do manual</span>'+
-                    '<input id="tamanho-manual-'+contadorUrls+'" name="manuais['+contadorUrls+'][tamanho]" class="form-control mt-2" type="text" placeholder="Tamanho do manual (em Megabytes)"/>'+
-                    '</label>'+
                     '</div>'+
                     '</div>'+
                     '</li>');
 
                 $("#status-adicao-links").html("Link para o manual foi adicionado");
-                $("#nome-manual-"+ contadorUrls).focus();
                 contadorUrls++;
             }else{
                 inputUrlManual.addClass("is-invalid");
