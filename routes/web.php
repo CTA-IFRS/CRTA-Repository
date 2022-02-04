@@ -43,6 +43,7 @@ Route::get('/adicionarRecursoTA', 'HomeController@adicionarRecursoTA');
 Route::get('/autorizarPublicacaoRecursoTA/{idRecursoTA}', 'HomeController@autorizarPublicacaoRecursoTA');
 Route::get('/omitirRecursoTA/{idRecursoTA}', 'HomeController@omitirRecursoTA');
 Route::get('/excluirRecursoTA/{idRecursoTA}', 'HomeController@excluirRecursoTA');
+Route::get('/excluirUpload/{idUpload}', 'HomeController@excluirUploadContribuicao');
 Route::get('/editarPaginaAprender','HomeController@editarPaginaAprender');
 Route::get('/editarPaginaSobre','HomeController@editarPaginaSobre');
 //Rotas das funcionalidades dos RecursosTA

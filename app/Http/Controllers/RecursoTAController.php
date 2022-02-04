@@ -15,6 +15,8 @@ use App\Video;
 use App\Arquivo;
 use App\Manual;
 use App\Foto;
+use App\Upload;
+use App\UploadTipo;
 use Cookie;
 
 class RecursoTAController extends Controller{
@@ -38,6 +40,11 @@ class RecursoTAController extends Controller{
      'contato_nome' => 'required|max:255',
      'contato_email' => ['required', 'email'],
      'contato_telefone' => ['required', 'max:15', 'min:14'],
+     'arquivo-upload' => ['nullable', 'mimes:zip,rar', 'max:10240'],
+     'manual-upload' => ['nullable', 'mimes:zip,rar,pdf', 'max:10240'],
+     'arquivo-url-alternativa' => ['nullable', 'regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
+     'manual-url-alternativa' => ['nullable', 'regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/']
+
    ];
 
    $mensagens = [
@@ -74,6 +81,12 @@ class RecursoTAController extends Controller{
     'contato_email.email' => 'Informe um e-mail válido',
     'contato_telefone.required' => 'Informe um telefone para contato',
     'contato_telefone.*' => 'Informe um telefone válido, ex: (012) 91234-4567',
+    'arquivo-url-alternativa.regex' => 'Informe um endereço válido (ex: https://www.meusite.com.br)',
+    'manual-url-alternativa.regex' => 'Informe um endereço válido (ex: https://www.meusite.com.br)',
+    'arquivo-upload.mimes' => 'O arquivo deve ser .zip ou .rar',
+    'manual-upload.mimes' => 'O arquivo deve ser .zip, .rar ou .pdf',
+    'arquivo-upload.max' => 'O arquivo deve possuir no máximo 10MB',
+    'manual-upload.max' => 'O arquivo deve possuir no máximo 10MB',
   ];
 
   $validador = Validator::make($request->all(),$regras,$mensagens);
@@ -195,34 +208,59 @@ class RecursoTAController extends Controller{
     $recursoTA->fotos()->saveMany($fotos);
   }
 
-  if(!empty(request('arquivos'))){
-    $arquivoUrls = array();
-    foreach (request('arquivos') as $arquivo) {
-      $novoArquivo = new Arquivo();
-      $novoArquivo->url = $arquivo['url'];
-      $novoArquivo->nome = $arquivo['nome'];
-      $novoArquivo->formato = $arquivo['formato'];
-      $novoArquivo->tamanho = (float)filter_var($arquivo['tamanho'], FILTER_VALIDATE_FLOAT);
-      array_push($arquivoUrls,$novoArquivo);
-    }
-    $recursoTA->arquivos()->saveMany($arquivoUrls);
-  }
+  $this->saveUpload($request, $recursoTA, 'manual');
+  $this->saveUpload($request, $recursoTA, 'arquivo');
 
-  if(!empty(request('manuais'))){
-    $manualUrls = array();
-    foreach (request('manuais') as $manual) {
-      $novoManual = new Manual();
-      $novoManual->url = $manual['url'];
-      $novoManual->nome = $manual['nome'];
-      $novoManual->formato = $manual['formato'];
-      $novoManual->tamanho = (float) $manual['tamanho'];
-      array_push($manualUrls,$novoManual);
-    }
-    $recursoTA->manuais()->saveMany($manualUrls);
-  }
 
   return response()->json("Recurso cadastrado com sucesso!");
 }
+
+  private function saveUpload($request, $recursoTA, $uploadPrefixName) {
+    $uploadFieldName = $uploadPrefixName . '-upload';
+    $urlFieldName = $uploadPrefixName . '-url-alternativa';
+    $uploadType = ($uploadPrefixName == 'manual') ? UploadTipo::MANUAL : UploadTipo::ARQUIVO;
+    $urlAlternativo = $request->get($urlFieldName);
+
+    $path = $this->trySaveUploadedFile($request, $uploadFieldName);
+    $upload = $this->tryCreateContributionUpload($path, $urlAlternativo, $uploadType);
+    
+    if ($path != null || $urlAlternativo != null) {
+      $recursoTA->uploads()->save($upload);
+    }
+  }
+
+  private function trySaveUploadedFile($request, $fileFieldName) {
+    $this->tryCreateContributionUploadDir();
+
+    if ($request->hasFile($fileFieldName)) {
+      $file = $request->file($fileFieldName);
+      $uniqueNamePart = uniqid(date('HisYmd'));
+      $extension = $file->extension();
+      $newName = "{$uniqueNamePart}.{$extension}";
+      $uploadPath = $file->storeAs('/public/contribute_uploads', $newName);
+
+      return '/storage/contribute_uploads/' . $newName;
+    } 
+    return null;
+  }
+  
+  private function tryCreateContributionUploadDir() {
+    if (!Storage::disk('public')->has('contribute_uploads')) {
+      Storage::disk('public')->makeDirectory('contribute_uploads', 0775, true, true);
+    }
+  }
+
+  private function tryCreateContributionUpload($filePath, $alternativeLink, $uploadType) {
+    $upload = new Upload();
+    $upload->url_alternativa = $alternativeLink;
+    $upload->upload_tipo_id = $uploadType;
+    if ($filePath) {        
+      $upload->arquivo = $filePath;
+    }
+
+    return $upload;
+  }
+
 
   /* Antes de exibir a view, popula o form com as tags cadastradas
    *

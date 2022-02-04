@@ -4,6 +4,7 @@ namespace App;
 
 use willvincent\Rateable\Rateable;
 use Illuminate\Database\Eloquent\Model;
+use App\UploadTipo;
 
 class RecursoTa extends Model
 {
@@ -76,5 +77,17 @@ class RecursoTa extends Model
      */
     public function tagsAprovadas() {
         return $this->tags()->where('publicacao_autorizada', true)->get();
+    }
+
+    public function uploads() {
+        return $this->hasMany('App\Upload');
+    }
+
+    public function getUploadArquivos() {
+        return $this->uploads->where('upload_tipo_id', UploadTipo::ARQUIVO);
+    }
+
+    public function getUploadManuais() {
+        return $this->uploads->where('upload_tipo_id', UploadTipo::MANUAL);
     }
 }

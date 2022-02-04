@@ -26,6 +26,7 @@ use App\Manual;
 use App\Foto;
 use App\Pagina;
 use App\User;
+use App\Upload;
 
 class HomeController extends Controller
 {
@@ -617,12 +618,23 @@ class HomeController extends Controller
 
     DB::table('recurso_ta_tag')->where('recurso_ta_id','=',$idRecursoTA)->delete();
 
+    $this->removeUploadContributions($recursoAlvo);
+
     RecursoTA::destroy($idRecursoTA);
 
     return redirect('/administrarRecursosTA')->with(
         "sucessoExclusao" , "Informações excluídas do RETACE com sucesso!"
     );
 }
+
+    private function removeUploadContributions($recursoTA) {
+        foreach ($recursoTA->uploads as $upload) {
+            $fileFullPath = public_path($upload->arquivo);
+            if ($upload->arquivo && File::exists($fileFullPath)) {
+                File::delete($fileFullPath);
+            }
+        }
+    }
 
     /**
      * Insere o RecursoTA no banco de dados, com autorizações já fornecidas
@@ -1167,5 +1179,19 @@ class HomeController extends Controller
 
         return 'Notificação de exclusão de conta enviada com sucesso';
 
+    }
+
+    public function excluirUploadContribuicao($uploadId) {
+        $upload = Upload::findOrFail($uploadId);
+        if ($upload) {
+            $fileFullPath = public_path($upload->arquivo);        
+            if ($upload->arquivo && File::exists($fileFullPath)) {
+                File::delete($fileFullPath);
+            }
+
+            Upload::destroy($uploadId);
+        }
+
+        return back();
     }
 }

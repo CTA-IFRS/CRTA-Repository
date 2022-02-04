@@ -178,53 +178,47 @@
 
                         <fieldset>
                             <legend id="arquivos-label" class="mt-4 h3">Arquivos</legend>
-                            <p> Informe, se houver, endereços (url) para acessar arquivos relacionados ao recurso a ser cadastrado </p>
-                            <div id="divArquivos" class="form-group row" role="group" aria-labelledby="arquivos-label">
-                                <label for="urlArquivo" class="col-md-2 col-form-label text-md-right">{{ __('Link para o arquivo') }}</label>
-                                <div class="col-md-10 form-inline">
-                                    <input id="urlArquivo" type="url"  class="w-75 form-control @error('arquivos[]') is-invalid @enderror" name="arquivo" value="{{ old('arquivo') }}">
-                                    <button id="btnAdicionarArquivo" type="button" class="w-25 btn btn-primary" aria-label="Adicionar o arquivo">
-                                        <i class="fa fa-check-square fa-1"></i>
-                                    </button>
-                                    @error('arquivos[]')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
+                            <p> Carregue os arquivos do projeto em um único arquivo no formato .zip ou .rar. Caso o recurso já possua um site com os arquivos, poderá informar o link no campo abaixo também. </p>
+                            <div class="form-group row">
+                                <div class="col-2">
+                                    <label for="arquivo-upload">Arquivo do projeto</label>
                                 </div>
-                                <div class="offset-md-1 col-md-10 mt-4">
-                                    <p>{{__('Arquivos a serem cadastrados para este recurso:')}}</p>
-                                    <ul id="arquivos" class="list-group list-group-flush text-center">
-                                        <li id="avisoListaVazia-arquivos" class="list-group-item">Não serão adicionados arquivos</li>
-                                    </ul>                            
-                                </div>                                          
+                                <div class="col">
+                                    <input id="arquivo-upload" name="arquivo-upload" type="file" class="w-100" />
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-2">
+                                    <label class="col-form-label" for="manual-url-alternativa">Link para os arquivos</label>
+                                </div>
+                                <div class="col">
+                                    <input class="form-control" id="arquivo-url-alternativa" name="arquivo-url-alternativa"/>
+                                </div>
                             </div>
                         </fieldset>
 
                         <hr>
 
                         <fieldset>
-                            <legend id="manuais-label" class="mt-4 h3">Manuais</legend>
-                            <p> Informe, se houver, endereços (url) para acessar manuais relacionados ao recurso a ser cadastrado </p>
-                            <div id="divManuais" class="form-group row" role="group" aria-labelledby="manuais-label">
-                                <label for="urlManual" class="col-md-2 col-form-label text-md-right">{{ __('Link para o manual') }}</label>
-                                <div class="col-md-10 form-inline">
-                                    <input id="urlManual" type="url"  class="w-75 form-control @error('manuais[]') is-invalid @enderror" name="manual" value="{{ old('manual') }}">
-                                    <button id="btnAdicionarManual" type="button" class="w-25 btn btn-primary" aria-label="Adicionar o manual">
-                                        <i class="fa fa-check-square fa-1"></i>
-                                    </button>
-                                    @error('manuais[]')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
+                            <legend id="manual-label" class="mt-4 h3">Manuais</legend>
+                            <p> Carregue o manual do recurso no formato .pdf ou os manuais nos formatos .zip ou .rar. Caso o recurso já possua um site com os manuais poderá informar o link no campo abaixo também. </p>
+                            <div class="form-group row">
+                                <div class="col-2">
+                                    <label for="manual-upload">Arquivo do projeto</label>
                                 </div>
-                                <div class="offset-md-1 col-md-10 mt-4">
-                                    <p>{{__('Manuais a serem cadastrados para este recurso:')}}</p>
-                                    <ul id="manuais" class="list-group list-group-flush text-center">
-                                        <li id="avisoListaVazia-manuais" class="list-group-item">Não serão adicionados manuais</li>
-                                    </ul>
-                                </div> 
+                                <div class="col">
+                                    <input id="manual-upload" name="manual-upload" type="file" class="w-100"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-2">
+                                    <label class="col-form-label" for="manual-url-alternativa">Link para os manuais</label>
+                                </div>
+                                <div class="col">
+                                    <input class="form-control" id="manual-url-alternativa" name="manual-url-alternativa"/>
+                                </div>
                             </div>
                         </fieldset>
 
