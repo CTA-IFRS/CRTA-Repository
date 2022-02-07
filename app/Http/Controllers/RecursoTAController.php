@@ -15,6 +15,8 @@ use App\Video;
 use App\Arquivo;
 use App\Manual;
 use App\Foto;
+use App\Upload;
+use App\UploadTipo;
 use Cookie;
 
 class RecursoTAController extends Controller{
@@ -195,34 +197,51 @@ class RecursoTAController extends Controller{
     $recursoTA->fotos()->saveMany($fotos);
   }
 
-  if(!empty(request('arquivos'))){
-    $arquivoUrls = array();
-    foreach (request('arquivos') as $arquivo) {
-      $novoArquivo = new Arquivo();
-      $novoArquivo->url = $arquivo['url'];
-      $novoArquivo->nome = $arquivo['nome'];
-      $novoArquivo->formato = $arquivo['formato'];
-      $novoArquivo->tamanho = (float)filter_var($arquivo['tamanho'], FILTER_VALIDATE_FLOAT);
-      array_push($arquivoUrls,$novoArquivo);
-    }
-    $recursoTA->arquivos()->saveMany($arquivoUrls);
+  $arquivoPath = $this->trySaveUploadedFile($request, 'arquivo-upload');
+  $manualPath = $this->trySaveUploadedFile($request, 'manual-upload');
+  $uploadManual = $this->tryCreateContributionUpload($manualPath, '', UploadTipo::find(1)->id);
+  $uploadFile = $this->tryCreateContributionUpload($arquivoPath, '', UploadTipo::find(2)->id);
+  if ($uploadManual) {
+    $recursoTA->uploads()->save($uploadManual);
   }
-
-  if(!empty(request('manuais'))){
-    $manualUrls = array();
-    foreach (request('manuais') as $manual) {
-      $novoManual = new Manual();
-      $novoManual->url = $manual['url'];
-      $novoManual->nome = $manual['nome'];
-      $novoManual->formato = $manual['formato'];
-      $novoManual->tamanho = (float) $manual['tamanho'];
-      array_push($manualUrls,$novoManual);
-    }
-    $recursoTA->manuais()->saveMany($manualUrls);
+  if ($uploadFile) {
+    $recursoTA->uploads()->save($uploadFile);
   }
 
   return response()->json("Recurso cadastrado com sucesso!");
 }
+
+  private function trySaveUploadedFile($request, $fileFieldName) {
+    $this->tryCreateContributionUploadDir();
+
+    if ($request->hasFile($fileFieldName)) {
+      $file = $request->file($fileFieldName);
+      $uniqueNamePart = uniqid(date('HisYmd'));
+      $extension = $file->extension();
+      $newName = "{$uniqueNamePart}.{$extension}";
+      $uploadPath = $file->storeAs('contribute_uploads', $newName);
+
+      return $uploadPath;
+    } 
+    return null;
+  }
+  
+  private function tryCreateContributionUploadDir() {
+    if (!Storage::disk('public')->has('contribute_uploads')) {
+      Storage::disk('public')->makeDirectory('contribute_uploads', 0775, true, true);
+    }
+  }
+
+  private function tryCreateContributionUpload($filePath, $alternativeLink, $uploadType) {
+    if ($filePath) {  
+      $upload = new Upload();
+      $upload->arquivo = $filePath;
+      $upload->upload_tipo_id = $uploadType;
+      return $upload;
+    }
+    return null;
+  }
+
 
   /* Antes de exibir a view, popula o form com as tags cadastradas
    *

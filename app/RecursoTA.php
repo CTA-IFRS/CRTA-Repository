@@ -77,4 +77,8 @@ class RecursoTa extends Model
     public function tagsAprovadas() {
         return $this->tags()->where('publicacao_autorizada', true)->get();
     }
+
+    public function uploads() {
+        return $this->hasMany('App\Upload');
+    }
 }

@@ -11,10 +11,10 @@ class Upload extends Model {
     ];
 
     public function recursoTA() {
-        return $this->belongsTo('App\RecursoTA');
+        return $this->belongsTo('App\RecursoTA', 'recurso_ta_id');
     }
 
-    public function uploadTipo() {
-        return $this->hasOne('App\UploadType');
+    public function tipo() {
+        return $this->belongsTo('App\UploadTipo', 'upload_tipo_id');
     }
 }

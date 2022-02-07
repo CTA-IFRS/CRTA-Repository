@@ -178,6 +178,22 @@
 
                         <fieldset>
                             <legend id="arquivos-label" class="mt-4 h3">Arquivos</legend>
+                            <p> Carregue os arquivos do projeto em um único arquivo no formato .zip ou .rar </p>
+                            <label for="arquivo-upload">Arquivo do projeto:</label>
+                            <input id="arquivo-upload" name="arquivo-upload" type="file" />
+                        </fieldset>
+
+                        <hr>
+
+                        <fieldset>
+                            <legend id="manual-label" class="mt-4 h3">Manuais</legend>
+                            <p> Carregue o manual (.pdf) ou os manuais (.zip ou .rar) </p>
+                            <label for="manual-upload">Arquivo do projeto:</label>
+                            <input id="manual-upload" name="manual-upload" type="file" />
+                        </fieldset>
+
+                        <!-- <fieldset>
+                            <legend id="arquivos-label" class="mt-4 h3">Arquivos</legend>
                             <p> Informe, se houver, endereços (url) para acessar arquivos relacionados ao recurso a ser cadastrado </p>
                             <div id="divArquivos" class="form-group row" role="group" aria-labelledby="arquivos-label">
                                 <label for="urlArquivo" class="col-md-2 col-form-label text-md-right">{{ __('Link para o arquivo') }}</label>
@@ -226,7 +242,7 @@
                                     </ul>
                                 </div> 
                             </div>
-                        </fieldset>
+                        </fieldset> -->
 
                         <hr>
 
