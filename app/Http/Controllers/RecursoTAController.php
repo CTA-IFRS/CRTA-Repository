@@ -40,6 +40,9 @@ class RecursoTAController extends Controller{
      'contato_nome' => 'required|max:255',
      'contato_email' => ['required', 'email'],
      'contato_telefone' => ['required', 'max:15', 'min:14'],
+     'arquivo-url-alternativa' => ['nullable', 'regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
+     'manual-url-alternativa' => ['nullable', 'regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/']
+
    ];
 
    $mensagens = [
@@ -76,6 +79,8 @@ class RecursoTAController extends Controller{
     'contato_email.email' => 'Informe um e-mail válido',
     'contato_telefone.required' => 'Informe um telefone para contato',
     'contato_telefone.*' => 'Informe um telefone válido, ex: (012) 91234-4567',
+    'arquivo-url-alternativa.regex' => 'Informe um endereço válido (ex: https://www.meusite.com.br)',
+    'manual-url-alternativa.regex' => 'Informe um endereço válido (ex: https://www.meusite.com.br)',
   ];
 
   $validador = Validator::make($request->all(),$regras,$mensagens);
@@ -197,19 +202,26 @@ class RecursoTAController extends Controller{
     $recursoTA->fotos()->saveMany($fotos);
   }
 
-  $arquivoPath = $this->trySaveUploadedFile($request, 'arquivo-upload');
-  $manualPath = $this->trySaveUploadedFile($request, 'manual-upload');
-  $uploadManual = $this->tryCreateContributionUpload($manualPath, '', UploadTipo::find(1)->id);
-  $uploadFile = $this->tryCreateContributionUpload($arquivoPath, '', UploadTipo::find(2)->id);
-  if ($uploadManual) {
-    $recursoTA->uploads()->save($uploadManual);
-  }
-  if ($uploadFile) {
-    $recursoTA->uploads()->save($uploadFile);
-  }
+  $this->saveUpload($request, $recursoTA, 'manual');
+  $this->saveUpload($request, $recursoTA, 'arquivo');
+
 
   return response()->json("Recurso cadastrado com sucesso!");
 }
+
+  private function saveUpload($request, $recursoTA, $uploadPrefixName) {
+    $uploadFieldName = $uploadPrefixName . '-upload';
+    $urlFieldName = $uploadPrefixName . '-url-alternativa';
+    $uploadType = ($uploadPrefixName == 'manual') ? UploadTipo::MANUAL : UploadTipo::ARQUIVO;
+    $urlAlternativo = $request->get($urlFieldName);
+
+    $path = $this->trySaveUploadedFile($request, $uploadFieldName);
+    $upload = $this->tryCreateContributionUpload($path, $urlAlternativo, $uploadType);
+    
+    if ($path != null || $urlAlternativo != null) {
+      $recursoTA->uploads()->save($upload);
+    }
+  }
 
   private function trySaveUploadedFile($request, $fileFieldName) {
     $this->tryCreateContributionUploadDir();
@@ -233,13 +245,14 @@ class RecursoTAController extends Controller{
   }
 
   private function tryCreateContributionUpload($filePath, $alternativeLink, $uploadType) {
-    if ($filePath) {  
-      $upload = new Upload();
+    $upload = new Upload();
+    $upload->url_alternativa = $alternativeLink;
+    if ($filePath) {        
       $upload->arquivo = $filePath;
       $upload->upload_tipo_id = $uploadType;
-      return $upload;
     }
-    return null;
+
+    return $upload;
   }
 
 
