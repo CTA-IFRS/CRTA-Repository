@@ -40,6 +40,8 @@ class RecursoTAController extends Controller{
      'contato_nome' => 'required|max:255',
      'contato_email' => ['required', 'email'],
      'contato_telefone' => ['required', 'max:15', 'min:14'],
+     'arquivo-upload' => ['nullable', 'mimes:zip,rar', 'max:10240'],
+     'manual-upload' => ['nullable', 'mimes:zip,rar,pdf', 'max:10240'],
      'arquivo-url-alternativa' => ['nullable', 'regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
      'manual-url-alternativa' => ['nullable', 'regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/']
 
@@ -81,6 +83,10 @@ class RecursoTAController extends Controller{
     'contato_telefone.*' => 'Informe um telefone válido, ex: (012) 91234-4567',
     'arquivo-url-alternativa.regex' => 'Informe um endereço válido (ex: https://www.meusite.com.br)',
     'manual-url-alternativa.regex' => 'Informe um endereço válido (ex: https://www.meusite.com.br)',
+    'arquivo-upload.mimes' => 'O arquivo deve ser .zip ou .rar',
+    'manual-upload.mimes' => 'O arquivo deve ser .zip, .rar ou .pdf',
+    'arquivo-upload.max' => 'O arquivo deve possuir no máximo 10MB',
+    'manual-upload.max' => 'O arquivo deve possuir no máximo 10MB',
   ];
 
   $validador = Validator::make($request->all(),$regras,$mensagens);
@@ -231,9 +237,9 @@ class RecursoTAController extends Controller{
       $uniqueNamePart = uniqid(date('HisYmd'));
       $extension = $file->extension();
       $newName = "{$uniqueNamePart}.{$extension}";
-      $uploadPath = $file->storeAs('contribute_uploads', $newName);
+      $uploadPath = $file->storeAs('/public/contribute_uploads', $newName);
 
-      return $uploadPath;
+      return '/storage/contribute_uploads' . $newName;
     } 
     return null;
   }

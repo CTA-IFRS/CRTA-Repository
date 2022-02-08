@@ -151,6 +151,16 @@
 
 		<fieldset>
 			<legend id="arquivos-label" class="mt-4 h3">Arquivos</legend>
+
+			@if ($recursoTA->uploads->count() > 0)
+				<p>Arquivos enviados pelo usuário contribuidor</p>
+				<ul>
+				@foreach ($recursoTA->uploads as $upload) 
+					<li>{{$upload->arquivo}}</li>
+				@endforeach 
+				</ul>
+			@endif
+
 			<p> Informe, se houver, endereços (url) para acessar arquivos relacionados ao recurso a ser cadastrado </p>
 			<div id="divArquivos" class="form-group row" role="group" aria-labelledby="arquivos-label">
 				<label for="urlArquivo" class="col-md-2 col-form-label text-md-right">{{ __('Link para o arquivo') }}</label>
