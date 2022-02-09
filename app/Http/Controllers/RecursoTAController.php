@@ -239,7 +239,7 @@ class RecursoTAController extends Controller{
       $newName = "{$uniqueNamePart}.{$extension}";
       $uploadPath = $file->storeAs('/public/contribute_uploads', $newName);
 
-      return '/storage/contribute_uploads' . $newName;
+      return '/storage/contribute_uploads/' . $newName;
     } 
     return null;
   }
@@ -253,9 +253,9 @@ class RecursoTAController extends Controller{
   private function tryCreateContributionUpload($filePath, $alternativeLink, $uploadType) {
     $upload = new Upload();
     $upload->url_alternativa = $alternativeLink;
+    $upload->upload_tipo_id = $uploadType;
     if ($filePath) {        
       $upload->arquivo = $filePath;
-      $upload->upload_tipo_id = $uploadType;
     }
 
     return $upload;

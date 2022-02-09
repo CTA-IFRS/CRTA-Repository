@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Upload extends Model {
     protected $fillable = [
     	'arquivo',
-        'url_alternativo'
+        'url_alternativa'
     ];
 
     public function recursoTA() {
@@ -17,4 +17,5 @@ class Upload extends Model {
     public function tipo() {
         return $this->belongsTo('App\UploadTipo', 'upload_tipo_id');
     }
+
 }

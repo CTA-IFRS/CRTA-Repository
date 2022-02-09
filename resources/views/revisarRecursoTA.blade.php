@@ -149,17 +149,53 @@
 
 		<hr>
 
-		<fieldset>
-			<legend id="arquivos-label" class="mt-4 h3">Arquivos</legend>
+
+		<fieldset> 
+			<legend>Arquivos e manuais enviados para revisão</legend>
+			<p class="alert alert-info">
+				Verifique os arquivos enviados pelo usuário contribuinte e caso estejam em conformidades com os termos de uso do sistema, pode-se 
+				hospedar os arquivos no Google Drive e posteriormente registrar os novos links nas seções "Arquivos" e "Manuais" abaixo.
+			</p>
 
 			@if ($recursoTA->uploads->count() > 0)
-				<p>Arquivos enviados pelo usuário contribuidor</p>
-				<ul>
-				@foreach ($recursoTA->uploads as $upload) 
-					<li>{{$upload->arquivo}}</li>
-				@endforeach 
-				</ul>
+				<fieldset class="ml-3 mb-3">
+					<legend class="h5">Arquivos enviados pelo usuário contribuidor</legend>
+					<ul class="list-group">
+					@foreach ($recursoTA->getUploadArquivos() as $upload)
+						<li class="list-group-item">
+							@if ($upload->arquivo)
+								<a href="{{$upload->arquivo}}" class="d-block">Arquivos</a>
+							@endif
+							@if ($upload->url_alternativa)
+								<a href="{{$upload->url_alternativa}}" class="d-block">Link alternativo para os arquivos</a>
+							@endif
+						</li>
+					@endforeach 
+					</ul>
+				</fieldset>
+
+				<fieldset class="ml-3">
+					<legend class="h5">Manuais enviados pelo usuário contribuidor</legend>
+					<ul class="list-group">
+					@foreach ($recursoTA->getUploadManuais() as $upload)
+						<li class="list-group-item">
+							@if ($upload->arquivo)
+								<a href="{{$upload->arquivo}}" class="d-block">Manuais</a>
+							@endif
+							@if ($upload->url_alternativa)
+								<a href="{{$upload->url_alternativa}}" class="d-block">Link alternativo para os manuais</a>
+							@endif
+						</li>
+					@endforeach 
+					</ul>
+				</fieldset>
 			@endif
+		</fieldset>
+
+		<hr>
+
+		<fieldset>
+			<legend id="arquivos-label" class="mt-4 h3">Arquivos</legend>
 
 			<p> Informe, se houver, endereços (url) para acessar arquivos relacionados ao recurso a ser cadastrado </p>
 			<div id="divArquivos" class="form-group row" role="group" aria-labelledby="arquivos-label">
