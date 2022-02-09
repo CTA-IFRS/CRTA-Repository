@@ -163,12 +163,22 @@
 					<ul class="list-group">
 					@foreach ($recursoTA->getUploadArquivos() as $upload)
 						<li class="list-group-item">
-							@if ($upload->arquivo)
-								<a href="{{$upload->arquivo}}" class="d-block">Arquivos</a>
-							@endif
-							@if ($upload->url_alternativa)
-								<a href="{{$upload->url_alternativa}}" class="d-block">Link alternativo para os arquivos</a>
-							@endif
+							<div class="row">
+								<div class="col">
+									@if ($upload->arquivo)
+										<a href="{{$upload->arquivo}}" class="d-block">Arquivos</a>
+									@endif
+									@if ($upload->url_alternativa)
+										<a href="{{$upload->url_alternativa}}" class="d-block">Link alternativo para os arquivos</a>
+									@endif
+								</div>
+								<div class="col-2 text-right">
+									<a href="#" class="btn btn-danger">
+										<i class="fa fa-trash" aria-hidden="true"></i>
+										Remover <span class="sr-only">arquivo do usuário</span>
+									</a>
+								</div>
+							</div>
 						</li>
 					@endforeach 
 					</ul>
@@ -179,12 +189,22 @@
 					<ul class="list-group">
 					@foreach ($recursoTA->getUploadManuais() as $upload)
 						<li class="list-group-item">
-							@if ($upload->arquivo)
-								<a href="{{$upload->arquivo}}" class="d-block">Manuais</a>
-							@endif
-							@if ($upload->url_alternativa)
-								<a href="{{$upload->url_alternativa}}" class="d-block">Link alternativo para os manuais</a>
-							@endif
+							<div class="row">
+								<div class="col">
+									@if ($upload->arquivo)
+										<a href="{{$upload->arquivo}}" class="d-block">Manuais</a>
+									@endif
+									@if ($upload->url_alternativa)
+										<a href="{{$upload->url_alternativa}}" class="d-block">Link alternativo para os manuais</a>
+									@endif
+								</div>
+								<div class="col-2 text-right">
+									<a href="#" class="btn btn-danger">
+										<i class="fa fa-trash" aria-hidden="true"></i>
+										Remover <span class="sr-only">manuais do usuário</span>
+									</a>
+								</div>
+							</div>
 						</li>
 					@endforeach 
 					</ul>
