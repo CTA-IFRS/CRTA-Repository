@@ -26,6 +26,7 @@ use App\Manual;
 use App\Foto;
 use App\Pagina;
 use App\User;
+use App\Upload;
 
 class HomeController extends Controller
 {
@@ -1178,5 +1179,19 @@ class HomeController extends Controller
 
         return 'Notificação de exclusão de conta enviada com sucesso';
 
+    }
+
+    public function excluirUploadContribuicao($uploadId) {
+        $upload = Upload::findOrFail($uploadId);
+        if ($upload) {
+            $fileFullPath = public_path($upload->arquivo);        
+            if ($upload->arquivo && File::exists($fileFullPath)) {
+                File::delete($fileFullPath);
+            }
+
+            Upload::destroy($uploadId);
+        }
+
+        return back();
     }
 }

@@ -173,7 +173,7 @@
 									@endif
 								</div>
 								<div class="col-2 text-right">
-									<a href="#" class="btn btn-danger">
+									<a href="{{url('excluirUpload', [$upload->id])}}" class="btn btn-danger">
 										<i class="fa fa-trash" aria-hidden="true"></i>
 										Remover <span class="sr-only">arquivo do usuário</span>
 									</a>
@@ -199,7 +199,7 @@
 									@endif
 								</div>
 								<div class="col-2 text-right">
-									<a href="#" class="btn btn-danger">
+									<a href="{{url('excluirUpload', [$upload->id])}}" class="btn btn-danger">
 										<i class="fa fa-trash" aria-hidden="true"></i>
 										Remover <span class="sr-only">manuais do usuário</span>
 									</a>
