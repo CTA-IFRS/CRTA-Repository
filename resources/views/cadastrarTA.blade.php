@@ -83,7 +83,7 @@
         
                             <div class="form-group required row">
                                 <label for="siteFabricante" class="col-md-2 col-form-label text-md-right">
-                                    {{ __('Site do fabricante') }}
+                                    {{ __('Site do recurso') }}
                                     <span class="sr-only">&nbsp;(Campo requerido)</span>
                                 </label>
                                 <div class="col-md-10">

@@ -70,7 +70,7 @@
 
 			<div class="form-group required">
 				<label for="siteFabricante" class="text-md-right">
-					{{ __('Site do fabricante') }}
+					{{ __('Site do recurso') }}
 					<span class="sr-only">&nbsp;(Campo requerido)</span>
 				</label>
 				<div class="">
@@ -154,7 +154,7 @@
 			<legend>Arquivos e manuais enviados para revisão</legend>
 			<p class="alert alert-info">
 				Verifique os arquivos enviados pelo usuário contribuinte e caso estejam em conformidades com os termos de uso do sistema, pode-se 
-				hospedar os arquivos no Google Drive e posteriormente registrar os novos links nas seções "Arquivos" e "Manuais" abaixo.
+				hospedá-los no Google Drive e posteriormente registrar os novos links nas seções "Arquivos" e "Manuais" abaixo.
 			</p>
 
 			@if ($recursoTA->uploads->count() > 0)
