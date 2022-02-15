@@ -68,20 +68,16 @@
 				<div class="ml-4">
 					@if(sizeof($recursoTA->manuais)!=0)
 					@foreach($recursoTA->manuais as $manual)
-					<div class="col-md-12">
-						<a href="{{__($manual->url)}}">
-							{{$manual->nome}}
-							(<span class="sr-only">Formato:</span> {{$manual->formato}}, 
-							<span class="sr-only">Tamanho:</span> {{$manual->tamanho}} MB)
-						</a>
-					</div>
-					<!-- <div class="col-md-12">
-						<span>Formato: {{$manual->formato}}</span>
-					</div>
-					<div class="col-md-12">
-						<span>Tamanho: {{$manual->tamanho}} Mb</span>
-					</div> -->
-					<hr class="col-md-10"/>
+						<div class="col-md-12">
+							<a href="{{__($manual->url)}}">
+								{{$manual->nome}}
+								@if ($manual->formato && $manual->tamanho)
+									(<span class="sr-only">Formato:</span> {{$manual->formato}}, 
+									<span class="sr-only">Tamanho:</span> {{$manual->tamanho}} MB)
+								@endif
+							</a>
+						</div>
+						<hr class="col-md-10"/>
 					@endforeach	
 					@else
 					<span> Não há manuais associados ao recurso</span>
@@ -92,22 +88,18 @@
 				<h3 class="ml-3 w-100 h5"> Arquivos </h3>
 				<div class="ml-4">
 					@if(sizeof($recursoTA->arquivos)!=0)
-					@foreach($recursoTA->arquivos as $arquivo)
-					<div class="col-md-12">
-						<a href="{{__($arquivo->url)}}">
-							{{$arquivo->nome}}
-							(<span class="sr-only">Formato:</span> {{$arquivo->formato}}, 
-							<span class="sr-only">Tamanho:</span> {{$arquivo->tamanho}} MB)
-						</a>
-					</div>
-					<!-- <div class="col-md-12">
-						<span>Formato: {{$arquivo->formato}}</span>
-					</div>
-					<div class="col-md-12">
-						<span>Tamanho: {{$arquivo->tamanho}} Mb</span>
-					</div> -->
-					<hr class="col-md-10"/>
-					@endforeach
+						@foreach($recursoTA->arquivos as $arquivo)
+						<div class="col-md-12">
+							<a href="{{__($arquivo->url)}}">
+								{{$arquivo->nome}}
+								@if ($arquivo->formato && $arquivo->tamanho)
+									(<span class="sr-only">Formato:</span> {{$arquivo->formato}},
+									<span class="sr-only">Tamanho:</span> {{$arquivo->tamanho}} MB)
+								@endif
+							</a>
+						</div>
+						<hr class="col-md-10"/>
+						@endforeach
 					@else
 					<div class="col-md-12">
 						<span> Não há arquivos associados ao recurso</span>
