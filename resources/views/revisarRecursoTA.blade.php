@@ -78,10 +78,9 @@
 				</div>
 			</div>
 			
-			<div id="divLicenca" class="form-group required d-none">
+			<div id="divLicenca" class="form-group">
 				<label for="licenca" class="text-md-right">
 					{{ __('Licença') }}
-					<span class="sr-only">&nbsp;(Campo requerido)</span>
 				</label>
 				<div class="">
 					<input id="licenca" type="text" class="form-control" name="licenca" value="{{ $recursoTA->licenca }}">
@@ -689,16 +688,6 @@
 				editor.on('change', function () {
 					tinymce.triggerSave();
 				});		
-			}
-		});
-
-		/**Mostra o input licença quando o for produto comercial**/
-		$('input[type=radio][name=produtoComercial]').change(function () {
-			if($(this).val() === 'true') {
-				$('#divLicenca').removeClass('d-none');
-			}
-			else {
-				$('#divLicenca').addClass('d-none');
 			}
 		});
 

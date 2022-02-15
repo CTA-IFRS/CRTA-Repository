@@ -289,7 +289,7 @@ class HomeController extends Controller
          'descricao' => 'required',
          'siteFabricante' => ['required', 'url'],
          'produtoComercial' => 'required',
-         'licenca' => 'required_if:produtoComercial,true|max:255',
+         'licenca' => 'max:255',
          'tags' => 'required',
          'videos.*.url' => ['sometimes','url'],
          'arquivos.*.*' => 'sometimes | required',
@@ -311,7 +311,7 @@ class HomeController extends Controller
         'siteFabricante.url' => 'Informe um endereço válido (ex: https://www.meusite.com.br)',
         'produtoComercial.required' => 'Marque se é um produto comercial ou não',
         'licenca.max' => 'Informe a licença em usando menos de 256 caracteres',
-        'licenca.required_if' => 'Informe a licença de distribuição desse recurso',
+        // 'licenca.required_if' => 'Informe a licença de distribuição desse recurso',
         'tags.required' => 'Informe ao menos uma tag',
         'videos[].regex' => 'Endereço inválido, fora dos padrões',
         'arquivos.*.nome.required' => 'Informe o nome do arquivo',
@@ -350,11 +350,7 @@ class HomeController extends Controller
     $recursoTA->descricao = request('descricao');
 
     $recursoTA->produto_comercial = $isProdutoComercial;
-    if($isProdutoComercial){
-        $recursoTA->licenca = request('licenca');
-    }else{
-        $recursoTA->licenca = null;
-    }
+    $recursoTA->licenca = request('licenca');
 
     $recursoTA->site_fabricante = request('siteFabricante');
     //Por estar autenticado como admin, cadastra já com a autorização
@@ -648,7 +644,7 @@ class HomeController extends Controller
          'descricao' => 'required',
          'siteFabricante' => ['required', 'url'],
          'produtoComercial' => 'required',
-         'licenca' => 'required_if:produtoComercial,true|max:255',
+         'licenca' => 'max:255',
          'tags' => 'required',
          'videos.*.url' => ['sometimes','url'],
          'arquivos.*.*' => 'sometimes | required',
@@ -670,7 +666,6 @@ class HomeController extends Controller
         'siteFabricante.url' => 'Informe um endereço válido (ex: https://www.meusite.com.br)',
         'produtoComercial.required' => 'Marque se é um produto comercial ou não',
         'licenca.max' => 'Informe a licença em usando menos de 256 caracteres',
-        'licenca.required_if' => 'Informe a licença de distribuição desse recurso',
         'tags.required' => 'Informe ao menos uma tag',
         'videos[].regex' => 'Endereço inválido, fora dos padrões',
         'arquivos.*.nome.required' => 'Informe o nome do arquivo',
@@ -709,11 +704,7 @@ class HomeController extends Controller
     $recursoTA->descricao = request('descricao');
 
     $recursoTA->produto_comercial = $isProdutoComercial;
-    if($isProdutoComercial){
-        $recursoTA->licenca = request('licenca');
-    }else{
-        $recursoTA->licenca = null;
-    }
+    $recursoTA->licenca = request('licenca');
 
     $recursoTA->site_fabricante = request('siteFabricante');
     //Por estar autenticado como admin, cadastra já com a autorização

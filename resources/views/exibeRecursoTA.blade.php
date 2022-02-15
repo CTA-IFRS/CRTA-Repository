@@ -120,16 +120,16 @@
 				<div class="ml-4">
 					<div class="col-md-12">
 						<a class="text-break" href="{{__($recursoTA->site_fabricante)}}">
-							Página do fabricante
+							Página do recurso
 						</a>
 					</div>
 					<hr class="col-md-12"/>			
 					<div class="col-md-12">
 						<span class="d-block">Licença: </span>
-						@if($recursoTA->produto_comercial)
-						<span class="text-break"> Produto comercial sob a licença {{$recursoTA->licenca}}</span>
+						@if($recursoTA->licenca)
+						<span class="text-break"> Produto sob a licença {{$recursoTA->licenca}}</span>
 						@else
-						<span> Produto não comercial</span>
+						<span>Não informado</span>
 						@endif
 					</div>
 				</div>		

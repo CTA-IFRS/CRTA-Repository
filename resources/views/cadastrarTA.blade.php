@@ -91,10 +91,9 @@
                                 </div>
                             </div>
 
-                            <div id="divLicenca" class="form-group required row d-none">
+                            <div id="divLicenca" class="form-group row">
                                 <label for="licenca" class="col-md-2 col-form-label text-md-right">
                                     {{ __('Licença') }}
-                                    <span class="sr-only">&nbsp;(Campo requerido)</span>
                                 </label>
                                 <div class="col-md-10">
                                     <input id="licenca" type="text" class="form-control" name="licenca" value="{{ old('licenca') }}">
@@ -486,16 +485,7 @@
             $("#btnEnviaForm").prop("disabled", true);
         });
 
-        /**Mostra o input licença quando o for produto comercial**/
-        $('input[type=radio][name=produtoComercial]').change(function () {
-            if($(this).val() === 'true') {
-                $('#divLicenca').removeClass('d-none');
-            }
-            else {
-                $('#divLicenca').addClass('d-none');
-            }
-        });
-
+       
         var btnAdicionarVideo = $('#btnAdicionarVideo');
         var inputUrlVideo = $('#urlVideo');
         /**Adiciona a url do input video para a lista de urls**/
