@@ -75,6 +75,9 @@
 									(<span class="sr-only">Formato:</span> {{$manual->formato}}, 
 									<span class="sr-only">Tamanho:</span> {{$manual->tamanho}} MB)
 								@endif
+								@if ($manual->link_externo)
+									<span>(Link externo)</span>
+								@endif
 							</a>
 						</div>
 						<hr class="col-md-10"/>
@@ -95,6 +98,9 @@
 								@if ($arquivo->formato && $arquivo->tamanho)
 									(<span class="sr-only">Formato:</span> {{$arquivo->formato}},
 									<span class="sr-only">Tamanho:</span> {{$arquivo->tamanho}} MB)
+								@endif
+								@if ($arquivo->link_externo)
+									<span>(Link externo)</span>
 								@endif
 							</a>
 						</div>

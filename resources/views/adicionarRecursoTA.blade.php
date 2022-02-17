@@ -590,6 +590,10 @@ $(document).ready(function () {
 				'<label for="nome-arquivo-'+contadorUrls+'" class="form-group d-block"><span class="sr-only">Nome do arquivo</span>'+
 				'<input id="nome-arquivo-'+contadorUrls+'" name="arquivos['+contadorUrls+'][nome]" class="form-control mt-2" type="text" placeholder="Nome do arquivo"/>'+
 				'</label>'+
+				'<div class="form-check text-left">' +
+				'<input id="link-externo-arquivo-'+contadorUrls+'" name="arquivos['+contadorUrls+'][link_externo]" class="form-check-input" type="checkbox"/>'+
+				'<label for="link-externo-arquivo-'+contadorUrls+'" class="form-check-label">Link externo</label>'+
+				'</div>' +
 				'<label for="formato-arquivo-'+contadorUrls+'" class="form-group d-block"><span class="sr-only">Formato do arquivo</span>'+
 				'<input id="formato-arquivo-'+contadorUrls+'"name="arquivos['+contadorUrls+'][formato]" class="form-control mt-2" type="text" placeholder="Formato/extensão do arquivo"/>'+
 				'</label>'+
@@ -669,6 +673,10 @@ $(document).ready(function () {
 				'<label for="nome-manual-'+contadorUrls+'" class="form-group d-block"><span class="sr-only">Nome do manual</span>'+
 				'<input id="nome-manual-'+contadorUrls+'" name="manuais['+contadorUrls+'][nome]" class="form-control mt-2" type="text" placeholder="Nome do manual"/>'+
 				'</label>'+
+				'<div class="form-check text-left">' +
+				'<input id="link-externo-manual-'+contadorUrls+'" name="manuais['+contadorUrls+'][link_externo]" class="form-check-input" type="checkbox"/>'+
+				'<label for="link-externo-manual-'+contadorUrls+'" class="form-check-label">Link externo</label>'+
+				'</div>' +
 				'<label for="formato-manual-'+contadorUrls+'" class="form-group d-block"><span class="sr-only">Formato do manual</span>'+
 				'<input id="formato-manual-'+contadorUrls+'" name="manuais['+contadorUrls+'][formato]" class="form-control mt-2" type="text" placeholder="Formato/extensão do manual"/>'+
 				'</label>'+

@@ -503,6 +503,7 @@ class HomeController extends Controller
             $novoArquivo->nome = $arquivo['nome'];
             $novoArquivo->formato = $arquivo['formato'];
             $novoArquivo->tamanho = (float)filter_var($arquivo['tamanho'], FILTER_VALIDATE_FLOAT);
+            $novoArquivo->link_externo = isset($arquivo['link_externo']);
             array_push($arquivoUrls,$novoArquivo);
         }
         $recursoTA->arquivos()->saveMany($arquivoUrls);
@@ -530,6 +531,7 @@ class HomeController extends Controller
             $novoManual->nome = $manual['nome'];
             $novoManual->formato = $manual['formato'];
             $novoManual->tamanho = (float) $manual['tamanho'];
+            $novoManual->link_externo = isset($manual['link_externo']);
             array_push($manualUrls,$novoManual);
         }
         $recursoTA->manuais()->saveMany($manualUrls);
@@ -647,9 +649,9 @@ class HomeController extends Controller
          'licenca' => 'max:255',
          'tags' => 'required',
          'videos.*.url' => ['sometimes','url'],
-         'arquivos.*.*' => 'sometimes | required',
+         'arquivos.*.nome' => 'required',
          'arquivos.*.url' => ['sometimes','regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
-         'manuais.*.*' => 'sometimes | required',
+         'manuais.*.nome' => 'required',
          'manuais.*.url' => ['sometimes','regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
          'textosAlternativos.*.textoAlternativo' => 'required',
          'fotos.*' => 'required|mimetypes:image/jpeg,image/png|dimensions:min_width=200,min_height=150,max_width=800,max_height=600|max:2048',
@@ -669,13 +671,13 @@ class HomeController extends Controller
         'tags.required' => 'Informe ao menos uma tag',
         'videos[].regex' => 'Endereço inválido, fora dos padrões',
         'arquivos.*.nome.required' => 'Informe o nome do arquivo',
-        'arquivos.*.formato.required' => 'Informe o formato do arquivo',
-        'arquivos.*.tamanho.required' => 'Informe o tamanho do arquivo (em Megabytes)',
+        // 'arquivos.*.formato.required' => 'Informe o formato do arquivo',
+        // 'arquivos.*.tamanho.required' => 'Informe o tamanho do arquivo (em Megabytes)',
         'arquivos.*.url.required' => 'Informe o endereço de acesso ao arquivo',
         'arquivos.*.url.regex' => 'O endereço de acesso ao arquivo é inválido',
         'manuais.*.nome.required' => 'Informe o nome do manual',
-        'manuais.*.formato.required' => 'Informe o formato do manual',
-        'manuais.*.tamanho.required' => 'Informe o tamanho do manual (em Megabytes)',
+        // 'manuais.*.formato.required' => 'Informe o formato do manual',
+        // 'manuais.*.tamanho.required' => 'Informe o tamanho do manual (em Megabytes)',
         'manuais.*.url.required' => 'Informe o endereço de acesso ao manual',
         'manuais.*.url.regex' => 'O endereço de acesso ao arquivo é inválido',
         'textosAlternativos.*.textoAlternativo.required' => 'Informe o texto alternativo para a imagem',
@@ -814,6 +816,7 @@ class HomeController extends Controller
             $novoArquivo->nome = $arquivo['nome'];
             $novoArquivo->formato = $arquivo['formato'];
             $novoArquivo->tamanho = (float)filter_var($arquivo['tamanho'], FILTER_VALIDATE_FLOAT);
+            $novoArquivo->link_externo = isset($arquivo['link_externo']);
             array_push($arquivoUrls,$novoArquivo);
         }
         $recursoTA->arquivos()->saveMany($arquivoUrls);
@@ -827,6 +830,7 @@ class HomeController extends Controller
             $novoManual->nome = $manual['nome'];
             $novoManual->formato = $manual['formato'];
             $novoManual->tamanho = (float) $manual['tamanho'];
+            $novoManual->link_externo = isset($manual['link_externo']);
             array_push($manualUrls,$novoManual);
         }
         $recursoTA->manuais()->saveMany($manualUrls);

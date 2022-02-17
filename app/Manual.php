@@ -15,7 +15,8 @@ class Manual extends Model
         'url',
     	'nome',
     	'formato',
-    	'tamanho'
+    	'tamanho',
+        'link_externo'
     ];
 
     public function recursoTA()
