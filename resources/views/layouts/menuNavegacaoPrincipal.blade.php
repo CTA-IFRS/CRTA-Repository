@@ -15,9 +15,13 @@
       		<li class="nav-item">
         		<a class="nav-link dottedUnderline" href="{{ url('/aprender')}}">Aprender</a>
       		</li>
+			<li class="nav-item">
+        		<a class="nav-link dottedUnderline" href="{{url('/verTodosOsRecursos')}}">Mostrar todos os recursos</a>
+      		</li>
       		<li class="nav-item">
         		<a class="nav-link dottedUnderline" href="{{url('/cadastrarTA')}}">Contribuir</a>
       		</li>
+			  
       	</ul>
       	<ul class="navbar-nav navbar-right col-xs-3">
       		<li class="nav-item my-2 my-lg-0">

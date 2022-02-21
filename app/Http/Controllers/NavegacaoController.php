@@ -22,9 +22,6 @@ class NavegacaoController extends Controller{
 	 *	@return \Illuminate\Contracts\Support\Renderable
 	 */	
 	public function inicio(Request $request){
-		//Necessário para popular as tags existentes no DB
-		$tagsCadastradas = Tag::where('publicacao_autorizada',true)->pluck('nome');
-		
 		$recursosMaisAcessados = RecursoTA::where('publicacao_autorizada',true)->orderBy('visualizacoes', 'desc')->get();
 		$oitoRecursosMaisAcessados = collect($recursosMaisAcessados)->take(8);
 
@@ -32,81 +29,68 @@ class NavegacaoController extends Controller{
 		$oitoRecursosMaisRecentes = collect($recursosMaisRecentes)->take(8);
 		return view('inicio',['listagemDeMaisRelevantes' => false, 
 								'recursosMaisAcessados' => $oitoRecursosMaisAcessados, 
-								'recursosMaisRecentes' => $oitoRecursosMaisRecentes,
-								'tagsCadastradas' => $tagsCadastradas
+								'recursosMaisRecentes' => $oitoRecursosMaisRecentes
 				    ]);
 	}
 
-	/** 
-	 * Efetua a busca por TAG e então exibe a tela com o resultado da busca
-	 *	@param $tag que servirá como parâmetro de busca
-	 *	@return \Illuminate\Contracts\Support\Renderable
-	 */	
-	public function buscaRecursoTAPorTag(Request $request, $tag = null){
-		if ($tag === null) return Redirect::back();
+	public function buscarPorTexto(Request $request) {
+		$texto = $request->get('texto');
+		if ($texto === null) return Redirect::back();
 
-		//Necessário para popular as tags existentes no DB
-		$tagsCadastradas = Tag::where('publicacao_autorizada',true)->pluck('nome');
+		$termos = explode(' ', $texto);
 
-		$arrayTagsInformadas = explode(",",$tag);
+		$idsTagsPublicadas = Tag::where('publicacao_autorizada', true)
+							->where(function ($query) use ($termos) {
+								$this->apppendOrWhere($query, 'nome', $termos);
+							})
+							->select('id')
+							->get()
+							->map(function ($item) { return $item->id;})
+							->toArray();
 
-		//Busca por todos os recursos TAs que possuem as mesmas tags que o recurso a ser exibido
-		$resultadoBusca = new Collection();
+		$idsRecursosPorTags = DB::table('recurso_ta_tag')
+							->whereIn('tag_id', $idsTagsPublicadas)
+							->select('recurso_ta_id')
+							->get()
+							->map(function ($item) { return $item->recurso_ta_id;})
+							->toArray();
 		
-		foreach ($arrayTagsInformadas as $tagInformada) {
-			$auxTag = Tag::firstWhere('nome',$tagInformada);
-			if ($auxTag && $auxTag->publicacao_autorizada){
-				$resultadoBusca = $resultadoBusca->merge($auxTag->recursosTAAprovados());
-			}
-		}
+		$recursosPorTags = RecursoTA::whereIn('id', $idsRecursosPorTags);
 
-		//Remove duplicatas originadas por TAs em mais de uma tag
-		$conjuntoOrdenado = $resultadoBusca->unique('id')->sortBy('attributes.visualizacoes');
-		
-		return view('buscaRecursoTA',[ 'tagsCadastradas' => $tagsCadastradas, 'buscaPorTag' => true, 'parametro' => $arrayTagsInformadas, 'recursosTA' => $conjuntoOrdenado]);
+		$recursosPublicados = RecursoTA::where('publicacao_autorizada', true)
+								->where(function ($query) use ($termos) {
+									$this->apppendOrWhere($query, 'titulo', $termos);
+									$this->apppendOrWhere($query, 'descricao', $termos);
+								})
+								->union($recursosPorTags);
+	
+			
+		return view('buscaRecursoTA',['parametro' => $texto, 'recursosTA' => $recursosPublicados->get()]);
 	}
 
-	/** 
-	 * Efetua a busca por termo e então exibe a tela com o resultado da busca
-	 *	@param $termo que servirá como parâmetro de busca
-	 *	@return \Illuminate\Contracts\Support\Renderable
-	 */	
-	public function buscaRecursoTAPorTermo(Request $request, $termo = null){
-		if ($termo === null) return Redirect::back();
-
-		//Necessário para popular as tags existentes no DB
-		$tagsCadastradas = Tag::where('publicacao_autorizada',true)->pluck('nome');
-
-		$arrayTermos = explode(" ", $termo);
-		
-		//Busca por todos os recursos TAs que possuem as mesmas tags que o recurso a ser exibido
-		$resultadoBusca = new Collection();
-
-		foreach ($arrayTermos as $termoInformado) {
-			$recursosTA =  RecursoTA::where('publicacao_autorizada',true)
-							->where(function ($query) use ($termoInformado) {
-									$query->where('recursos_ta.titulo', 'LIKE', "%$termoInformado%")
-										  ->orWhere('recursos_ta.descricao', 'LIKE', "%$termoInformado%");
-							})->get();
-            $resultadoBusca = $resultadoBusca->merge($recursosTA);     
+	private function createWhereOptionsArray($likeLeftOperand, $likeRightOperands) {
+		$result = [];
+		for ($i = 0; $i < count($likeRightOperands); $i++) {
+			$result[] = [$likeLeftOperand, 'like', '%' . $likeRightOperands[$i] . '%'];
 		}
-
-		//Remove duplicatas originadas por TAs em mais de uma tag
-		$conjuntoOrdenado = $resultadoBusca->unique('id')->sortBy('attributes.visualizacoes');
-		
-		return view('buscaRecursoTA',[ 'tagsCadastradas' => $tagsCadastradas, 'buscaPorTag' => false,'parametro' => $termo, 'recursosTA' => $conjuntoOrdenado]);
+		return $result;
 	}
+
+	private function apppendOrWhere($query, $columnName,  $terms) {
+		$options = $this->createWhereOptionsArray($columnName, $terms);
+		foreach ($options as $option) {
+			$query->orWhere($option[0], $option[1], $option[2]);
+		}
+	}
+
 
 	/** 
 	 * Efetua a busca por todos os recursos TA
 	 *	@return \Illuminate\Contracts\Support\Renderable
 	 */	
 	public function buscaPorTodosRecursosTA(Request $request){
-		//Necessário para popular as tags existentes no DB
-		$tagsCadastradas = Tag::where('publicacao_autorizada',true)->pluck('nome');
-
 		$recursosTA = RecursoTA::where('publicacao_autorizada',true)->get();
-		return view('buscaRecursoTA',[ 'tagsCadastradas' => $tagsCadastradas, 'buscaPorTag' => false,'parametro' => 'Todos os recursos', 'recursosTA' => $recursosTA]);		
+		return view('buscaRecursoTA',['parametro' => 'Todos os recursos', 'recursosTA' => $recursosTA]);		
 	}
 
 	/** 
