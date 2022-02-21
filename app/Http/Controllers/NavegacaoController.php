@@ -37,6 +37,34 @@ class NavegacaoController extends Controller{
 				    ]);
 	}
 
+	public function buscarPorTexto(Request $request, $texto) {
+		if ($texto === null) return Redirect::back();
+
+		$tagsPublicadas = Tag::where('publicacao_autorizada', true)
+							->where('nome', 'like', '%' . $texto . '%')
+							->select('id')
+							->get()
+							->map(function ($item) { return $item->id;})
+							->toArray();
+
+		$recursosIDsPorTags = DB::table('recurso_ta_tag')
+							->whereIn('tag_id', $tagsPublicadas)
+							->select('recurso_ta_id')
+							->get()
+							->map(function ($item) { return $item->recurso_ta_id;})
+							->toArray();
+		
+		$recursosPorTags = RecursoTA::whereIn('id', $recursosIDsPorTags);
+
+		$recursosPublicados = RecursoTA::where('publicacao_autorizada', true)
+								->where('titulo', 'like', '%' . $texto . '%')
+								->orWhere('descricao', 'like', '%' . $texto . '%')
+								->union($recursosPorTags)
+								->get();
+			
+		return view('buscaRecursoTA',['parametro' => $texto, 'recursosTA' => $recursosPublicados]);
+	}
+
 	/** 
 	 * Efetua a busca por TAG e então exibe a tela com o resultado da busca
 	 *	@param $tag que servirá como parâmetro de busca
