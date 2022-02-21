@@ -57,18 +57,20 @@ Route::get('buscaRecursoTAPorTermo', ['as' => 'buscaRecursoTAPorTermo', 'uses' =
 
 //Filtro para saber qual busca realizar ao consultar TAs
 Route::get('/filtro', function(Illuminate\Http\Request $request) {
-	if(strcmp($request['tipoBusca'],"tags")===0){
-		return redirect()->route('buscaPorTag', ['tag' => $request['termo'] ]);
-	}else if(strcmp($request['tipoBusca'],"termo")===0){
-		return redirect()->route('buscaPorTermo', ['termo' => $request['termo'] ]);
-	}else{
-		return redirect()->route('buscaTodos');
-	}
+	return redirect()->route('buscarPorTexto', ['texto' => $request['termo']]);
+	// if(strcmp($request['tipoBusca'],"tags")===0){
+	// 	return redirect()->route('buscaPorTag', ['tag' => $request['termo'] ]);
+	// }else if(strcmp($request['tipoBusca'],"termo")===0){
+	// 	return redirect()->route('buscaPorTermo', ['termo' => $request['termo'] ]);
+	// }else{
+	// 	return redirect()->route('buscaTodos');
+	// }
 })->name('filtro');
 
 Route::get('/buscaRecursoTAPorTag/{tag?}', 'NavegacaoController@buscaRecursoTAPorTag')->name('buscaPorTag');
 Route::get('/buscaRecursoTAPorTermo/{termo?}', 'NavegacaoController@buscaRecursoTAPorTermo')->name('buscaPorTermo');
 Route::get('/buscaPorTodosRecursosTA', 'NavegacaoController@buscaPorTodosRecursosTA')->name('buscaTodos');
+Route::get('/buscarPorTexto/{texto?}', 'NavegacaoController@buscarPorTexto')->name('buscarPorTexto');
 Route::get('/cadastrarTA','RecursoTAController@create');
 Route::get('/listarTA','RecursoTAController@retrieveAll');
 Route::get('/listaCardsRecursos','RecursoTAController@atualizaListaAssincronamente');
