@@ -180,7 +180,7 @@
                             <p> Carregue os arquivos do projeto em um único arquivo no formato .zip ou .rar. Caso o recurso já possua um site com os arquivos, poderá informar o link no campo abaixo também. </p>
                             <div class="form-group row">
                                 <div class="col-2">
-                                    <label for="arquivo-upload">Arquivo do projeto</label>
+                                    <label for="arquivo-upload">Arquivos do projeto</label>
                                 </div>
                                 <div class="col">
                                     <input id="arquivo-upload" name="arquivo-upload" type="file" class="w-100" />
@@ -204,7 +204,7 @@
                             <p> Carregue o manual do recurso no formato .pdf ou os manuais nos formatos .zip ou .rar. Caso o recurso já possua um site com os manuais poderá informar o link no campo abaixo também. </p>
                             <div class="form-group row">
                                 <div class="col-2">
-                                    <label for="manual-upload">Arquivo do projeto</label>
+                                    <label for="manual-upload">Manuais do projeto</label>
                                 </div>
                                 <div class="col">
                                     <input id="manual-upload" name="manual-upload" type="file" class="w-100"/>
