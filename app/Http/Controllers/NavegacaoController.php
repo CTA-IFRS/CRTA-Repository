@@ -41,21 +41,21 @@ class NavegacaoController extends Controller{
 		$texto = $request->get('texto');
 		if ($texto === null) return Redirect::back();
 
-		$tagsPublicadas = Tag::where('publicacao_autorizada', true)
+		$idsTagsPublicadas = Tag::where('publicacao_autorizada', true)
 							->where('nome', 'like', '%' . $texto . '%')
 							->select('id')
 							->get()
 							->map(function ($item) { return $item->id;})
 							->toArray();
 
-		$recursosIDsPorTags = DB::table('recurso_ta_tag')
-							->whereIn('tag_id', $tagsPublicadas)
+		$idsRecursosPorTags = DB::table('recurso_ta_tag')
+							->whereIn('tag_id', $idsTagsPublicadas)
 							->select('recurso_ta_id')
 							->get()
 							->map(function ($item) { return $item->recurso_ta_id;})
 							->toArray();
 		
-		$recursosPorTags = RecursoTA::whereIn('id', $recursosIDsPorTags);
+		$recursosPorTags = RecursoTA::whereIn('id', $idsRecursosPorTags);
 
 		$recursosPublicados = RecursoTA::where('publicacao_autorizada', true)
 								->where('titulo', 'like', '%' . $texto . '%')

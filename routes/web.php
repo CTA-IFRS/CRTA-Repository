@@ -56,6 +56,7 @@ Route::get('/mapaDoSite', 'NavegacaoController@exibePaginaMapaDoSite')->name('ma
 Route::get('buscaRecursoTAPorTermo', ['as' => 'buscaRecursoTAPorTermo', 'uses' => 'NavegacaoController@buscaRecursoTAPorTermo']);
 
 Route::get('/filtro', 'NavegacaoController@buscarPorTexto')->name('filtro');
+Route::get('/verTodosOsRecursos', 'NavegacaoController@buscaPorTodosRecursosTA')->name('verTodosOsRecursos');
 Route::get('/cadastrarTA','RecursoTAController@create');
 Route::get('/listarTA','RecursoTAController@retrieveAll');
 Route::get('/listaCardsRecursos','RecursoTAController@atualizaListaAssincronamente');
