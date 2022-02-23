@@ -22,9 +22,6 @@ class NavegacaoController extends Controller{
 	 *	@return \Illuminate\Contracts\Support\Renderable
 	 */	
 	public function inicio(Request $request){
-		//Necessário para popular as tags existentes no DB
-		//$tagsCadastradas = Tag::where('publicacao_autorizada',true)->pluck('nome');
-		
 		$recursosMaisAcessados = RecursoTA::where('publicacao_autorizada',true)->orderBy('visualizacoes', 'desc')->get();
 		$oitoRecursosMaisAcessados = collect($recursosMaisAcessados)->take(8);
 
@@ -32,8 +29,7 @@ class NavegacaoController extends Controller{
 		$oitoRecursosMaisRecentes = collect($recursosMaisRecentes)->take(8);
 		return view('inicio',['listagemDeMaisRelevantes' => false, 
 								'recursosMaisAcessados' => $oitoRecursosMaisAcessados, 
-								'recursosMaisRecentes' => $oitoRecursosMaisRecentes,
-								//'tagsCadastradas' => $tagsCadastradas
+								'recursosMaisRecentes' => $oitoRecursosMaisRecentes
 				    ]);
 	}
 
@@ -41,8 +37,12 @@ class NavegacaoController extends Controller{
 		$texto = $request->get('texto');
 		if ($texto === null) return Redirect::back();
 
+		$termos = explode(' ', $texto);
+
 		$idsTagsPublicadas = Tag::where('publicacao_autorizada', true)
-							->where('nome', 'like', '%' . $texto . '%')
+							->where(function ($query) use ($termos) {
+								$this->apppendOrWhere($query, 'nome', $termos);
+							})
 							->select('id')
 							->get()
 							->map(function ($item) { return $item->id;})
@@ -58,12 +58,29 @@ class NavegacaoController extends Controller{
 		$recursosPorTags = RecursoTA::whereIn('id', $idsRecursosPorTags);
 
 		$recursosPublicados = RecursoTA::where('publicacao_autorizada', true)
-								->where('titulo', 'like', '%' . $texto . '%')
-								->orWhere('descricao', 'like', '%' . $texto . '%')
-								->union($recursosPorTags)
-								->get();
+								->where(function ($query) use ($termos) {
+									$this->apppendOrWhere($query, 'titulo', $termos);
+									$this->apppendOrWhere($query, 'descricao', $termos);
+								})
+								->union($recursosPorTags);
+	
 			
-		return view('buscaRecursoTA',['parametro' => $texto, 'recursosTA' => $recursosPublicados]);
+		return view('buscaRecursoTA',['parametro' => $texto, 'recursosTA' => $recursosPublicados->get()]);
+	}
+
+	private function createWhereOptionsArray($likeLeftOperand, $likeRightOperands) {
+		$result = [];
+		for ($i = 0; $i < count($likeRightOperands); $i++) {
+			$result[] = [$likeLeftOperand, 'like', '%' . $likeRightOperands[$i] . '%'];
+		}
+		return $result;
+	}
+
+	private function apppendOrWhere($query, $columnName,  $terms) {
+		$options = $this->createWhereOptionsArray($columnName, $terms);
+		foreach ($options as $option) {
+			$query->orWhere($option[0], $option[1], $option[2]);
+		}
 	}
 
 
@@ -72,11 +89,8 @@ class NavegacaoController extends Controller{
 	 *	@return \Illuminate\Contracts\Support\Renderable
 	 */	
 	public function buscaPorTodosRecursosTA(Request $request){
-		//Necessário para popular as tags existentes no DB
-		$tagsCadastradas = Tag::where('publicacao_autorizada',true)->pluck('nome');
-
 		$recursosTA = RecursoTA::where('publicacao_autorizada',true)->get();
-		return view('buscaRecursoTA',[ 'tagsCadastradas' => $tagsCadastradas, 'buscaPorTag' => false,'parametro' => 'Todos os recursos', 'recursosTA' => $recursosTA]);		
+		return view('buscaRecursoTA',['parametro' => 'Todos os recursos', 'recursosTA' => $recursosTA]);		
 	}
 
 	/** 
