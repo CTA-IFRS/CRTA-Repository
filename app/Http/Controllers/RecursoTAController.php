@@ -104,11 +104,7 @@ class RecursoTAController extends Controller{
   $recursoTA->descricao = nl2br(htmlspecialchars(strip_tags(request('descricao')), ENT_QUOTES, 'UTF-8'));
 
   $recursoTA->produto_comercial = $isProdutoComercial;
-  if($isProdutoComercial){
-    $recursoTA->licenca = request('licenca');
-  }else{
-    $recursoTA->licenca = null;
-  }
+  $recursoTA->licenca = request('licenca');  
 
   $recursoTA->site_fabricante = request('siteFabricante');
   $recursoTA->publicacao_autorizada = false;
