@@ -138,7 +138,7 @@
 					<?php $tagsAprovadas = $recursoTA->tagsAprovadas() ?>
 					@if(sizeof($tagsAprovadas) > 0)
 					@foreach($tagsAprovadas as $tag)
-					<h4 class="d-inline-block"><a href="{{url('buscaRecursoTAPorTag/'.$tag->nome)}}" class="badge badge-primary">{{$tag->nome}}</a></h4>
+					<h4 class="d-inline-block"><a href="{{url('filtro/'.$tag->nome)}}" class="badge badge-primary">{{$tag->nome}}</a></h4>
 					@endforeach	
 					@else
 					<span class="text-danger"> Recurso sem tags associadas</span>

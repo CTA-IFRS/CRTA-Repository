@@ -83,6 +83,31 @@ class NavegacaoController extends Controller{
 		}
 	}
 
+	/** 
+	 * Efetua a busca por TAG e então exibe a tela com o resultado da busca
+	 *	@param $tag que servirá como parâmetro de busca
+	 *	@return \Illuminate\Contracts\Support\Renderable
+	 */	
+	public function buscaRecursoTAPorTag(Request $request, $tag = null){
+		if ($tag === null) return Redirect::back();
+
+		$arrayTagsInformadas = explode(",",$tag);
+
+		//Busca por todos os recursos TAs que possuem as mesmas tags que o recurso a ser exibido
+		$resultadoBusca = new Collection();
+		foreach ($arrayTagsInformadas as $tagInformada) {
+			$auxTag = Tag::firstWhere('nome',$tagInformada);
+			if ($auxTag && $auxTag->publicacao_autorizada){
+				$resultadoBusca = $resultadoBusca->merge($auxTag->recursosTAAprovados());
+			}
+		}
+
+		//Remove duplicatas originadas por TAs em mais de uma tag
+		$conjuntoOrdenado = $resultadoBusca->unique('id')->sortBy('attributes.visualizacoes');
+
+		return view('buscaRecursoTA',['parametro' => $tag, 'recursosTA' => $conjuntoOrdenado]);
+	}
+
 
 	/** 
 	 * Efetua a busca por todos os recursos TA

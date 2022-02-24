@@ -55,6 +55,7 @@ Route::get('/acessibilidade', 'NavegacaoController@exibePaginaAcessibilidade')->
 Route::get('/mapaDoSite', 'NavegacaoController@exibePaginaMapaDoSite')->name('mapaDoSite');
 Route::get('buscaRecursoTAPorTermo', ['as' => 'buscaRecursoTAPorTermo', 'uses' => 'NavegacaoController@buscaRecursoTAPorTermo']);
 
+Route::get('/filtro/{tag}', 'NavegacaoController@buscaRecursoTAPorTag')->name('filtroTag');
 Route::get('/filtro', 'NavegacaoController@buscarPorTexto')->name('filtro');
 Route::get('/verTodosOsRecursos', 'NavegacaoController@buscaPorTodosRecursosTA')->name('verTodosOsRecursos');
 Route::get('/cadastrarTA','RecursoTAController@create');
