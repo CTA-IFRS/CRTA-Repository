@@ -165,7 +165,7 @@
 							<div class="row">
 								<div class="col">
 									@if ($upload->arquivo)
-										<a href="{{$upload->arquivo}}" class="d-block">Arquivos</a>
+										<a href="{{url($upload->arquivo)}}" class="d-block">Arquivos</a>
 									@endif
 									@if ($upload->url_alternativa)
 										<a href="{{$upload->url_alternativa}}" class="d-block">Link alternativo para os arquivos</a>
@@ -191,7 +191,7 @@
 							<div class="row">
 								<div class="col">
 									@if ($upload->arquivo)
-										<a href="{{$upload->arquivo}}" class="d-block">Manuais</a>
+										<a href="{{url($upload->arquivo)}}" class="d-block">Manuais</a>
 									@endif
 									@if ($upload->url_alternativa)
 										<a href="{{$upload->url_alternativa}}" class="d-block">Link alternativo para os manuais</a>
