@@ -9,19 +9,18 @@
 	<a href="#" id="menu-principal" class="sr-only">Início do menu</a>
 	<div id="navegacaoPrincipal" class="collapse navbar-collapse">
 		<ul class="navbar-nav mr-auto col-xs-9">
-      		<li class="nav-item">
-        		<a class="nav-link dottedUnderline" href="{{ url('/sobre')}}">Sobre</a>
+			<li class="nav-item">
+        		<a class="nav-link dottedUnderline" href="{{url('/verTodosOsRecursos')}}">Todos os recursos</a>
       		</li>
-      		<li class="nav-item">
+			<li class="nav-item">
         		<a class="nav-link dottedUnderline" href="{{ url('/aprender')}}">Aprender</a>
       		</li>
 			<li class="nav-item">
-        		<a class="nav-link dottedUnderline" href="{{url('/verTodosOsRecursos')}}">Mostrar todos os recursos</a>
-      		</li>
-      		<li class="nav-item">
         		<a class="nav-link dottedUnderline" href="{{url('/cadastrarTA')}}">Contribuir</a>
       		</li>
-			  
+      		<li class="nav-item">
+        		<a class="nav-link dottedUnderline" href="{{ url('/sobre')}}">Sobre</a>
+      		</li>	  
       	</ul>
       	<ul class="navbar-nav navbar-right col-xs-3">
       		<li class="nav-item my-2 my-lg-0">
