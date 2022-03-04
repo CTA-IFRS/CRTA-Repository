@@ -27,15 +27,21 @@ class NavegacaoController extends Controller{
 
 		$recursosMaisRecentes =  RecursoTA::where('publicacao_autorizada',true)->orderBy('created_at', 'desc')->get();
 		$oitoRecursosMaisRecentes = collect($recursosMaisRecentes)->take(8);
+
+		$tags = Tag::where('publicacao_autorizada', true)->get()->pluck('nome');
+
 		return view('inicio',['listagemDeMaisRelevantes' => false, 
 								'recursosMaisAcessados' => $oitoRecursosMaisAcessados, 
-								'recursosMaisRecentes' => $oitoRecursosMaisRecentes
+								'recursosMaisRecentes' => $oitoRecursosMaisRecentes,
+								'tags' => $tags
 				    ]);
 	}
 
 	public function buscarPorTexto(Request $request) {
 		$texto = $request->get('texto');
 		if ($texto === null) return Redirect::back();
+
+		$tags = Tag::where('publicacao_autorizada', true)->get()->pluck('nome');
 
 		$termos = explode(' ', $texto);
 
@@ -55,7 +61,8 @@ class NavegacaoController extends Controller{
 							->map(function ($item) { return $item->recurso_ta_id;})
 							->toArray();
 		
-		$recursosPorTags = RecursoTA::whereIn('id', $idsRecursosPorTags);
+		$recursosPorTags = RecursoTA::whereIn('id', $idsRecursosPorTags)
+									  ->where('publicacao_autorizada',true);
 
 		$recursosPublicados = RecursoTA::where('publicacao_autorizada', true)
 								->where(function ($query) use ($termos) {
@@ -63,9 +70,9 @@ class NavegacaoController extends Controller{
 									$this->apppendOrWhere($query, 'descricao', $termos);
 								})
 								->union($recursosPorTags);
-	
-			
-		return view('buscaRecursoTA',['parametro' => $texto, 'recursosTA' => $recursosPublicados->get()]);
+
+
+		return view('buscaRecursoTA',['tags' => $tags,'parametro' => $texto, 'recursosTA' => $recursosPublicados->get()]);
 	}
 
 	private function createWhereOptionsArray($likeLeftOperand, $likeRightOperands) {
@@ -91,6 +98,8 @@ class NavegacaoController extends Controller{
 	public function buscaRecursoTAPorTag(Request $request, $tag = null){
 		if ($tag === null) return Redirect::back();
 
+		$tags = Tag::where('publicacao_autorizada', true)->get()->pluck('nome');
+
 		$arrayTagsInformadas = explode(",",$tag);
 
 		//Busca por todos os recursos TAs que possuem as mesmas tags que o recurso a ser exibido
@@ -105,7 +114,7 @@ class NavegacaoController extends Controller{
 		//Remove duplicatas originadas por TAs em mais de uma tag
 		$conjuntoOrdenado = $resultadoBusca->unique('id')->sortBy('attributes.visualizacoes');
 
-		return view('buscaRecursoTA',['parametro' => $tag, 'recursosTA' => $conjuntoOrdenado]);
+		return view('buscaRecursoTA',['tags' => $tags, 'parametro' => $tag, 'recursosTA' => $conjuntoOrdenado]);
 	}
 
 
@@ -115,7 +124,8 @@ class NavegacaoController extends Controller{
 	 */	
 	public function buscaPorTodosRecursosTA(Request $request){
 		$recursosTA = RecursoTA::where('publicacao_autorizada',true)->get();
-		return view('buscaRecursoTA',['parametro' => 'Todos os recursos', 'recursosTA' => $recursosTA]);		
+		$tags = Tag::where('publicacao_autorizada', true)->get()->pluck('nome');
+		return view('buscaRecursoTA',['tags' => $tags, 'parametro' => 'Todos os recursos', 'recursosTA' => $recursosTA]);		
 	}
 
 	/** 

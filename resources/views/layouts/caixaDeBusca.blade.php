@@ -2,7 +2,7 @@
 <form id="buscaRecursosTA" method="get" action="{{url('/filtro')}}">
 	<div class="row col-sm-12 col-12 justify-content-center justify-content-sm-center no-gutters input-group mb-3">
 		<div class="col-sm-9 col-7">
-			<input type="text" name="texto" class="form-control" placeholder="Busque recursos de tecnologia assistiva" aria-label="Campo de busca com seletor para optar entre buscar por TAGs ou termos" required>
+			<input type="text" name="texto" class="form-control" placeholder="Busque recursos de tecnologia assistiva" aria-label="Campo de busca com seletor para optar entre buscar por TAGs ou termos">
 		</div>
 		<div class="col-sm-1 col-1 input-group-append">
 			<button class="btn btn-primary" type="submit" id="btnSearch">
@@ -14,7 +14,21 @@
 </form>
 
 <script type="text/javascript">
-	
+	document.addEventListener('DOMContentLoaded', function () {
+		$('input[name="texto"]').autocomplete({
+			source: {!! $tags ?? '{}' !!},
+			messages: {
+				noResults: 'Sem resultados',
+				results: function(amount) {
+					if (amount > 1) {
+						return 'Foram encontrados ' + amount + ' resultados';
+					} else {
+						return 'Foi encontrado 1 resultado';
+					}
+				}
+    		}
+		});
+	});
 </script>
 
 

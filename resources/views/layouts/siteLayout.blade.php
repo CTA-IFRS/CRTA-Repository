@@ -18,6 +18,7 @@
     <!-- Estilos -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/personalizacoes.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{__('https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css')}}" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body class="vh-100">
    <!-- A página que herdar esse layout deverá indicar se o banner será carregado e o conteudo dela-->
