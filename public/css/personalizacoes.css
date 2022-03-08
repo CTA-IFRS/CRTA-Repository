@@ -388,6 +388,6 @@ a.link-primary {
 
 ul.ui-autocomplete {
    overflow: auto !important;
-   height: 300px !important;
+   max-height: 300px !important;
 }
 
