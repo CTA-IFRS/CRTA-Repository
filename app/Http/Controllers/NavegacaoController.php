@@ -43,7 +43,7 @@ class NavegacaoController extends Controller{
 
 		$tags = Tag::where('publicacao_autorizada', true)->get()->pluck('nome');
 
-		$termos = explode(' ', $texto);
+		$termos = explode(' ', preg_replace('/((\s+)((a|o|e|de|do|da|de|das|por|para|com|ou|como)(\s+))*)/', ' ', $texto));
 
 		$idsTagsPublicadas = Tag::where('publicacao_autorizada', true)
 							->where(function ($query) use ($termos) {
