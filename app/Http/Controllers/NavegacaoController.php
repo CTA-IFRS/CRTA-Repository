@@ -37,13 +37,19 @@ class NavegacaoController extends Controller{
 				    ]);
 	}
 
+	
 	public function buscarPorTexto(Request $request) {
 		$texto = $request->get('texto');
 		if ($texto === null) return Redirect::back();
+		
+		$RANK_TAG_POINTS = 70;
+		$RANK_TITULO_POINTS = 25;
+		$RANK_DESCRICAO_POINTS = 5;
 
 		$tags = Tag::where('publicacao_autorizada', true)->get()->pluck('nome');
 
-		$termos = explode(' ', preg_replace('/((\s+)((a|o|e|de|do|da|de|das|por|para|com|ou|como)(\s+))*)/', ' ', $texto));
+		$temp = str_replace(['?', '%', '_'], ['\?', '\%', '\_'], $texto);
+		$termos = explode(' ', preg_replace('/((\s+)((a|o|e|de|do|da|de|das|por|para|com|ou|como)(\s+))*)/', ' ', $temp));
 
 		$idsTagsPublicadas = Tag::where('publicacao_autorizada', true)
 							->where(function ($query) use ($termos) {
@@ -60,17 +66,20 @@ class NavegacaoController extends Controller{
 							->get()
 							->map(function ($item) { return $item->recurso_ta_id;})
 							->toArray();
-		
-		$recursosPorTags = RecursoTA::whereIn('id', $idsRecursosPorTags)
-									  ->where('publicacao_autorizada',true);
 
+		$idsRecursosPorTagsString = (count($idsRecursosPorTags) > 0) ? ('(' . implode(',', $idsRecursosPorTags) . ')') : '(0)';
 		$recursosPublicados = RecursoTA::where('publicacao_autorizada', true)
-								->where(function ($query) use ($termos) {
+								->where(function ($query) use ($termos, $idsRecursosPorTags) {
+									$query->whereIn('id', $idsRecursosPorTags);
 									$this->apppendOrWhere($query, 'titulo', $termos);
 									$this->apppendOrWhere($query, 'descricao', $termos);
 								})
-								->union($recursosPorTags);
-
+								->select(['*', 
+										  DB::raw("(CASE WHEN id IN $idsRecursosPorTagsString THEN $RANK_TAG_POINTS ELSE 0 END) AS rank_tag"),
+										  DB::raw($this->createTextCase('titulo', $termos, $RANK_TITULO_POINTS, 'rank_titulo')),
+										  DB::raw($this->createTextCase('descricao', $termos, $RANK_DESCRICAO_POINTS, 'rank_descricao'))
+										 ])
+								->orderByRaw('(rank_tag + rank_titulo + rank_descricao) DESC');
 
 		return view('buscaRecursoTA',['tags' => $tags,'parametro' => $texto, 'recursosTA' => $recursosPublicados->get()]);
 	}
@@ -88,6 +97,23 @@ class NavegacaoController extends Controller{
 		foreach ($options as $option) {
 			$query->orWhere($option[0], $option[1], $option[2]);
 		}
+	}
+
+	private function createTextWhen($field, $text, $value) {
+		$when = "WHEN {?} LIKE {?} THEN {?}";
+		$quotedText = DB::getReadPDO()->quote($text);
+		$quotedText = "CONCAT('%', $quotedText, '%')";
+		return preg_replace(['/\{\?\}/','/\{\?\}/','/\{\?\}/'], [$field, $quotedText, $value], $when, 1);
+	}
+
+	private function createTextCase($field, array $texts, $value, $knowAs, $default = '0') {
+		$case = "(CASE {?} ELSE {?} END) AS {?}";
+		$whenBlock = [];
+		foreach ($texts as $text) {
+			$whenBlock[] = $this->createTextWhen($field, $text, $value);
+		}
+		$whenBlockString = implode(' ', $whenBlock);
+		return preg_replace(['/\{\?\}/','/\{\?\}/','/\{\?\}/'], [$whenBlockString, $default, $knowAs], $case, 1);
 	}
 
 	/** 
