@@ -54,6 +54,20 @@ main div.row.breadcrumb-clear-pad div.col
   justify-content: flex-end;
 }
 
+#card-retace-intro, #card-retace-busca {
+  background-color: #3E67B1;
+  color: white;
+  border: none;
+}
+#card-retace-busca > .card-body >.row{
+  margin-top: 3em;
+}
+#btnSearch {
+  background-color: #10538a !important;
+  border: 1px solid #10538a !important;
+}
+
+
 /*
 *******************************************************/
 
@@ -274,10 +288,14 @@ a.link-primary {
 .high-contrast div.btn-file,
 .high-contrast ol.breadcrumb,
 .high-contrast div.modal,
-.high-contrast a.sr-only
+.high-contrast a.sr-only,
+.high-contrast #btnSearch
 {
   color: white !important;
   background-color: black !important;
+}
+.high-contrast #btnSearch {
+  border: 1px solid white !important;
 }
 
 .high-contrast .card-recurso-ta *,
