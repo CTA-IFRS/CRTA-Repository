@@ -11,8 +11,8 @@
 							<p class="pl-5 pr-5 text-justify">
 								Esse repositório tem como objetivo reunir recursos de tecnologia assistiva
 								que podem ser utilizados no contexto educacional assim como materiais didático 
-								pedagógicos acessíveis, disponibilizando informações, manuais e instruções de como 
-								reproduzir.
+								pedagógicos acessíveis, informações, manuais e instruções de como 
+								reproduzir esses recursos.
 							</p>
 						</div>
 					</div>
@@ -25,7 +25,7 @@
 					<div class="row justify-content-center">
 						<div class="col-md-12">
 							<h2 class="text-center h2">
-								Buscar no reposiório
+								Buscar no repositório
 							</h2>
 						</div>
 					</div>
