@@ -8,7 +8,7 @@
 
 	<a href="#" id="menu-principal" class="sr-only">Início do menu</a>
 	<div id="navegacaoPrincipal" class="collapse navbar-collapse">
-		<ul class="navbar-nav mr-auto col-xs-9">
+		<ul class="navbar-nav col-xs-9">
 			<li class="nav-item">
         		<a class="nav-link dottedUnderline" href="{{url('/verTodosOsRecursos')}}">Todos os recursos</a>
       		</li>
@@ -21,14 +21,6 @@
       		<li class="nav-item">
         		<a class="nav-link dottedUnderline" href="{{ url('/sobre')}}">Sobre</a>
       		</li>	  
-      	</ul>
-      	<ul class="navbar-nav navbar-right col-xs-3">
-      		<li class="nav-item my-2 my-lg-0">
-        		<a class="nav-link" href="https://www.facebook.com/ctaifrs/"><img class="iconePequeno" src="{{url('/imagens/f_logo_white.png')}}" alt="Facebook do Centro Tecnológico de Acessibilidade do IFRS"/></a>
-      		</li>
-      		<li class="nav-item my-2 my-lg-0">
-        		<a class="nav-link" href="https://www.youtube.com/c/CTA-IFRS/"><img class="iconePequeno pt-1" src="{{url('/imagens/youtube_social_icon_white.png')}}" alt="Canal no YouTube do Centro Tecnológico de Acessibilidade do IFRS"/></a>
-      		</li>
       	</ul>
 	</div>
 	<a href="#" class="sr-only">Final do menu</a>

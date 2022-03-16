@@ -49,6 +49,11 @@ main div.row.breadcrumb-clear-pad div.col
   padding: 0 !important;
 }
 
+/* Menu de navegação */
+#navegacaoPrincipal {
+  justify-content: flex-end;
+}
+
 /*
 *******************************************************/
 

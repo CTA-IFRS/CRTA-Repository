@@ -44,8 +44,10 @@
    <script>
         $(document).ready(function() {
             (function (){
-                var normalContrast = '<i class="fa fa-adjust" aria-hidden="true"></i><span class="sr-only">Mudar para o Contraste Normal</span>';
-                var highContrast = '<i class="fa fa-adjust" aria-hidden="true"></i><span class="sr-only">Mudar para o Alto contraste</span>';
+                // var normalContrast = '<i class="fa fa-adjust" aria-hidden="true"></i><span class="sr-only">Mudar para o Contraste Normal</span>';
+                // var highContrast = '<i class="fa fa-adjust" aria-hidden="true"></i><span class="sr-only">Mudar para o Alto contraste</span>';
+                var normalContrast = '<i class="fa fa-adjust mr-1" aria-hidden="true"></i><span>Contraste Normal</span>';
+                var highContrast = '<i class="fa fa-adjust mr-1" aria-hidden="true"></i><span>Alto contraste</span>';
 
                 $("#ativar-altocontraste").click(function (e) {
                     e.preventDefault();

@@ -28,18 +28,12 @@ aria-label="Menu de navegação secundário">
       		</li>
       	</ul>
       	<ul class="navbar-nav navbar-right ml-auto">
-		  	<li class="nav-item my-2 my-md-0">
+		  	<li class="nav-item my-2 my-md-0 mr-2">
         		<a class="nav-link dottedUnderline" id="ativar-altocontraste" href="#"></a>
       		</li>
       		<li class="nav-item my-2 my-md-0">
-        		<a class="nav-link dottedUnderline" href="{{route('acessibilidade')}}">ACESSIBILIDADE</a>
+        		<a class="nav-link dottedUnderline" href="{{route('acessibilidade')}}"><i class="fa fa-check-square mr-1"></i> Acessibilidade</a>
       		</li>
-      		<li class="nav-item my-2 my-md-0">
-        		<a class="nav-link dottedUnderline" href="{{route('mapaDoSite')}}">MAPA DO SITE </a>
-      		</li>        
-			<li class="nav-item my-2 my-md-0">
-				<a class="nav-link" href="{{url('/entrar')}}"><u> Entrar <span class="sr-only">na área do administrador</span></u></a>
-			</li>
       	</ul>
 	</div>
 </nav>
