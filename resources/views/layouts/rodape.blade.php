@@ -1,9 +1,9 @@
 <footer class="page-footer font-small bg-primary pt-4">
-	<div class="container">
+	<div class="container-fluid">
 		<!-- Grid row -->
 		<div class="row mb-4 d-flex flex-wrap align-items-center">
 			<!-- Grid column -->
-			<div class="col-md-8 mt-3">
+			<div class="col-md-8	 mt-3">
 				<h2 class="text-uppercase h5">Entre em contato</h2>
 				<p>
 					Para conhecer mais sobre os trabalhos e projetos desenvolvidos pelo CTA acesse nosso site ou redes sociais disponíveis na lista abaixo.
@@ -17,7 +17,7 @@
 				</ul>
 			</div>
 
-			<div class="col-4 mt-4 pt-5">
+			<div class="col-4 mt-4 pt-5 logos">
 				<div class="row">
 					<div class="col-8">
 						<img class="w-100 border rounded" src="{{url('/imagens/logo-cta-cor.png')}}">

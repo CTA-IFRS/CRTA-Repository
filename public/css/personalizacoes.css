@@ -231,6 +231,16 @@ a.link-primary {
   color: rgba(255, 255, 255, 0.8) !important;
 }
 
+.page-footer .logos > .row {
+  max-width: 500px;
+  min-width: 250px;
+  margin-left: auto;
+}
+.page-footer .container-fluid > div.d-flex {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
 /*********** Diferentes opacidades porque o Bootstrap não definiu
 *
 */
