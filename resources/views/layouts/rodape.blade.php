@@ -20,11 +20,11 @@
 			<div class="col-4 mt-4 pt-5 logos">
 				<div class="row">
 					<div class="col-8">
-						<img class="w-100 border rounded" src="{{url('/imagens/logo-cta-cor.png')}}">
+						<img class="w-100 border rounded" alt="Logo do CTA" src="{{url('/imagens/logo-cta-cor.png')}}">
 					</div>
 					<div class="col-4">
-						<img class="w-100 border rounded mb-4" src="{{url('/imagens/logo-proen-cor.png')}}">
-						<img class="w-100 border rounded" src="{{url('/imagens/logo-ifrs-cor.png')}}">
+						<img class="w-100 border rounded mb-4" alt="Logo da PROEN" src="{{url('/imagens/logo-proen-cor.png')}}">
+						<img class="w-100 border rounded" alt="Logo do IFRS" src="{{url('/imagens/logo-ifrs-cor.png')}}">
 					</div>
 				</div>
 			</div>
