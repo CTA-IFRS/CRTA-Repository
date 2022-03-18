@@ -32,6 +32,6 @@
 		</div>
 	</div>
 	<div class="footer-copyright bg-secondary text-center py-3">
-		<span>CRTA | CTA | IFRS - 2020</span>
+		<span>CRTA | CTA | IFRS - {{date('Y')}}</span>
 	</div>
 </footer>
