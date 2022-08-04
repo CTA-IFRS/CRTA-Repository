@@ -18,7 +18,7 @@
             <div class="card border-light">
                 <div class="card-header">
                     <h2 class="h1">
-                        {{ __('Cadastrar Tecnologia Assistiva') }}
+                        {{ __('Cadastrar Tecnologia Assistiva / Material pedagógico') }}
                     </h2>
                 </div>
 
@@ -81,7 +81,7 @@
                                 </div>
                             </fieldset>
         
-                            <div class="form-group required row">
+                            <div class="form-group row">
                                 <label for="siteFabricante" class="col-md-2 col-form-label text-md-right">
                                     {{ __('Site do recurso') }}
                                     <span class="sr-only">&nbsp;(Campo requerido)</span>
@@ -100,7 +100,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group required row">
+                            <div class="form-group row">
                                 <label for="tags" id="tags-label" class="col-md-2 col-form-label text-md-right">
                                     {{ __('Tags') }}
                                     <span class="sr-only">&nbsp;(Campo requerido)</span>
@@ -115,11 +115,11 @@
                         
                         <fieldset>
                             <legend id="fotos-label-cab" class="obrigatorio mt-4 h3">
-                                Fotos do recurso
+                                Fotos
                                 <span class="sr-only">&nbsp;(Campo requerido)</span>
                             </legend>
                             <ul>
-                                <li>Carregue pelo menos uma foto sobre a tecnologia assistiva no formato png, jpg ou  jpeg</li>
+                                <li>Carregue pelo menos uma foto sobre a tecnologia assistiva ou material pedagógico no formato png, jpg ou  jpeg</li>
                                 <li>
                                     Em alguns casos pode ser necessário redimensionar sua imagem para ser aceita pelo sistema, 
                                     para isso utilize o programa de manipulação de imagens de sua preferência.</li>
@@ -225,7 +225,9 @@
 
                         <fieldset>
                             <legend class="h3">Informações para contato</legend>
-
+                            <p>Essas informações não ficarão disponíveis na página do recurso. 
+                                Elas servirão apenas para os moderadores poderem entrar em contato caso haja alguma dúvida sobre o recurso ou material.
+                            </p>
                             <div class="form-group required row mt-3" role="group">
                                 <label for="contato_nome" class="col-md-2 col-form-label text-md-right">
                                     {{ __('Nome') }}
