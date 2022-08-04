@@ -25,10 +25,10 @@ class RecursoTAController extends Controller{
     $regras = [
      'titulo' => 'required|max:255',
      'descricao' => 'required',
-     'siteFabricante' => ['required', 'url'],
+     'siteFabricante' => [/*'required',*/ 'nullable', 'url'],
      'produtoComercial' => 'required',
      'licenca' => 'max:255',
-     'tags' => 'required',
+     //'tags' => 'required',
      'videos.*.url' => ['sometimes','url'],
      //'arquivos.*.*' => 'sometimes | required',
      'arquivos.*.url' => ['sometimes','regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/'],
@@ -51,12 +51,12 @@ class RecursoTAController extends Controller{
     'titulo.required' => 'É preciso informar um título para a Tecnologia Assistiva',
     'titulo.max' => 'O título deve ter menos de 256 caracteres',
     'descricao.required'  => 'Descreva brevemente o que está cadastrando',
-    'siteFabricante.required' => 'Informe o site do recurso',
+    // 'siteFabricante.required' => 'Informe o site do recurso',
     'siteFabricante.url' => 'Informe um endereço válido (ex: https://www.meusite.com.br)',
     'produtoComercial.required' => 'Marque se é um produto comercial ou não',
     'licenca.max' => 'Informe a licença em usando menos de 256 caracteres',
     // 'licenca.required_if' => 'Informe a licença de distribuição desse recurso',
-    'tags.required' => 'Informe ao menos uma tag',
+    //'tags.required' => 'Informe ao menos uma tag',
     'videos[].regex' => 'Endereço inválido, fora dos padrões',
     //'arquivos.*.nome.required' => 'Informe o nome do arquivo',
     //'arquivos.*.formato.required' => 'Informe o formato do arquivo',
@@ -118,20 +118,22 @@ class RecursoTAController extends Controller{
   /** Transforma a string com as tags recebidas em array**/
   $arrayTagsInformadas = explode(",",request('tags'));
 
-  $arrayIdsTags = array();
-      //Pesquisa no DB se a tag existe ou não, para montar o array de IDs necessários para a relação *:*
-  foreach($arrayTagsInformadas as $tagInformada){
-    if(Tag::where('nome', $tagInformada)->exists()){
-      array_push($arrayIdsTags,Tag::where('nome',$tagInformada)->get()->pluck('id')->get(0));
-    }else{
-      $novaTag = new Tag();
-      $novaTag->nome = $tagInformada;
-      $novaTag->publicacao_autorizada = false;
-      $novaTag->save();
-      array_push($arrayIdsTags,$novaTag->id);
+  if (count($arrayTagsInformadas) > 0) {
+    $arrayIdsTags = array();
+        //Pesquisa no DB se a tag existe ou não, para montar o array de IDs necessários para a relação *:*
+    foreach($arrayTagsInformadas as $tagInformada){
+      if(Tag::where('nome', $tagInformada)->exists()){
+        array_push($arrayIdsTags,Tag::where('nome',$tagInformada)->get()->pluck('id')->get(0));
+      }else{
+        $novaTag = new Tag();
+        $novaTag->nome = $tagInformada;
+        $novaTag->publicacao_autorizada = false;
+        $novaTag->save();
+        array_push($arrayIdsTags,$novaTag->id);
+      }
     }
+    $recursoTA->tags()->attach($arrayIdsTags);
   }
-  $recursoTA->tags()->attach($arrayIdsTags);
 
   if(!empty(request('videos'))){             
     $videoUrls = array();

@@ -117,9 +117,13 @@
 				<h3 class="ml-3 w-100 h5"> Fabricante </h3>
 				<div class="ml-4">
 					<div class="col-md-12">
-						<a class="text-break" href="{{__($recursoTA->site_fabricante)}}">
-							Página do recurso
-						</a>
+						@if ($recursoTA->site_fabricante)
+							<a class="text-break" href="{{__($recursoTA->site_fabricante)}}">
+								Página do recurso
+							</a>
+						@else
+							<span>Site do recurso não informado</span>
+						@endif
 					</div>
 					<hr class="col-md-12"/>			
 					<div class="col-md-12">

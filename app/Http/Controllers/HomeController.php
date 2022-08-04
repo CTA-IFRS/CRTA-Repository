@@ -287,7 +287,7 @@ class HomeController extends Controller
         $regras = [
          'titulo' => 'required|max:255',
          'descricao' => 'required',
-         'siteFabricante' => ['required', 'url'],
+         'siteFabricante' => [/*'required'*/ 'nullable', 'url'],
          'produtoComercial' => 'required',
          'licenca' => 'max:255',
          'tags' => 'required',
@@ -307,7 +307,7 @@ class HomeController extends Controller
         'titulo.required' => 'É preciso informar um título para a Tecnologia Assistiva',
         'titulo.max' => 'O título deve ter menos de 256 caracteres',
         'descricao.required'  => 'Descreva brevemente o que está cadastrando',
-        'siteFabricante.required' => 'Informe o site do recurso',
+        //'siteFabricante.required' => 'Informe o site do recurso',
         'siteFabricante.url' => 'Informe um endereço válido (ex: https://www.meusite.com.br)',
         'produtoComercial.required' => 'Marque se é um produto comercial ou não',
         'licenca.max' => 'Informe a licença em usando menos de 256 caracteres',
@@ -644,7 +644,7 @@ class HomeController extends Controller
         $regras = [
          'titulo' => 'required|max:255',
          'descricao' => 'required',
-         'siteFabricante' => ['required', 'url'],
+         'siteFabricante' => [/*'required'*/ 'nullable', 'url'],
          'produtoComercial' => 'required',
          'licenca' => 'max:255',
          'tags' => 'required',
