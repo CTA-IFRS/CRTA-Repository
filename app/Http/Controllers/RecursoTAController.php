@@ -114,11 +114,10 @@ class RecursoTAController extends Controller{
   $recursoTA->contato_instituicao = request('contato_instituicao');
   $recursoTA->save();
 
-  /**Processamento de Tags para inserção no DB**/
-  /** Transforma a string com as tags recebidas em array**/
-  $arrayTagsInformadas = explode(",",request('tags'));
-
-  if (count($arrayTagsInformadas) > 0) {
+  if (trim(request('tags')) !== "") {
+    /**Processamento de Tags para inserção no DB**/
+    /** Transforma a string com as tags recebidas em array**/
+    $arrayTagsInformadas = explode(",",request('tags'));
     $arrayIdsTags = array();
         //Pesquisa no DB se a tag existe ou não, para montar o array de IDs necessários para a relação *:*
     foreach($arrayTagsInformadas as $tagInformada){
