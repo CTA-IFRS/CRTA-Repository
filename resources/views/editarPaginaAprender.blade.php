@@ -79,8 +79,8 @@
 			language: 'pt_BR',  
 			max_width: 400,
 			height: 400,
-			plugins: 'preview link lists',
-			toolbar: 'undo redo | styleselect | forecolor | fontselect fontsizeselect bold italic | alignleft aligncenter alignright alignjustify | numlist bullist | outdent indent | link | preview',
+			plugins: 'preview link lists code',
+			toolbar: 'preview | styleselect | fontsizeselect forecolor | bold italic underline | alignleft aligncenter alignright alignjustify | outdent indent | numlist bullist | link | code ',
 			default_link_target: '_blank',
 			setup: function (editor) {
 				editor.on('change', function () {
