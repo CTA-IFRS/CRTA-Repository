@@ -10,13 +10,16 @@
 	<div id="navegacaoPrincipal" class="collapse navbar-collapse">
 		<ul class="navbar-nav col-xs-9">
 			<li class="nav-item">
-        		<a class="nav-link dottedUnderline" href="{{url('/verTodosOsRecursos')}}">Todos os recursos</a>
+        		<a class="nav-link dottedUnderline" href="{{url('/filtro', ['tecnologia assistiva'])}}">Tecnologia assistiva</a>
       		</li>
 			<li class="nav-item">
-        		<a class="nav-link dottedUnderline" href="{{ url('/aprender')}}">Aprender</a>
+        		<a class="nav-link dottedUnderline" href="{{url('/filtro', ['material pedagógico'])}}">Material pedagógico</a>
       		</li>
 			<li class="nav-item">
         		<a class="nav-link dottedUnderline" href="{{url('/cadastrarTA')}}">Contribuir</a>
+      		</li>
+			<li class="nav-item">
+        		<a class="nav-link dottedUnderline" href="{{ url('/aprender')}}">Aprender</a>
       		</li>
       		<li class="nav-item">
         		<a class="nav-link dottedUnderline" href="{{ url('/sobre')}}">Sobre</a>
