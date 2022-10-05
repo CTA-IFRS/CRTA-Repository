@@ -27,6 +27,7 @@ use App\Foto;
 use App\Pagina;
 use App\User;
 use App\Upload;
+use App\RecursoTaTag;
 
 class HomeController extends Controller
 {
@@ -142,6 +143,15 @@ class HomeController extends Controller
         $tagAlvo = Tag::findOrFail($idTag);
 
         return view('editarTag', ['tag' => $tagAlvo]);
+    }
+
+    public function removerTag($idTag) {
+        $tag = Tag::findOrFail($idTag);
+        RecursoTaTag::where('tag_id', $idTag)->delete();
+        $tag->delete();
+
+        $tags = Tag::all();
+        return view('administrarTags', ['tags' => $tags]);
     }
 
     /**

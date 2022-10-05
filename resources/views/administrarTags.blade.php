@@ -39,7 +39,8 @@
 					@else
 						<a href="{{url('/omitirPublicacaoTag/'.__($tag->id))}}" type="button" class="btnOmitir btn btn-danger m-2"><b>Ocultar</b></a>
 					@endif
-						<a href="{{url('/editarTag/'.__($tag->id))}}"type="button" class="btnEditar btn btn-primary m-2"><b>Revisar</b></a>
+						<a href="{{url('/editarTag/'.__($tag->id))}}" type="button" class="btnEditar btn btn-primary m-2"><b>Revisar</b></a>
+						<a href="{{url('/removerTag/'.__($tag->id))}}" type="button" class="btnRemover btn btn-outline-danger m-2"><b>Remover</b></a>
 				</td>
 			</tr>
 			@endforeach
@@ -88,7 +89,7 @@
 		} );
 
 		$(".btnAutorizar").click(function(){
-			if(confirm("Deseja disponibilizar a tag para futuros cadastros de TAs no sistema?")){
+			if(confirm("Deseja disponibilizar a tag para futuros cadastros de Recursos de TA no sistema?")){
 				return true;
 			}	
 			else{
@@ -97,7 +98,16 @@
 		});
 
 		$(".btnOmitir").click(function(){
-			if(confirm("Deseja indisponibilizar a tag para futuros cadastros no sistema? Tecnologias Assistivas que possuem a tag continuarão a tê-la, porém não será exibida")){
+			if(confirm("Deseja indisponibilizar a tag para futuros cadastros no sistema? Recursos de TA que possuem a tag continuarão a tê-la, porém não será exibida")){
+				return true;
+			}	
+			else{
+				return false;
+			}
+		});
+
+		$(".btnRemover").click(function(){
+			if(confirm("Deseja remover a tag do sistema ? Recursos de TA que fiquem sem uma tag associada irão solicitar uma durante a revisão")){
 				return true;
 			}	
 			else{

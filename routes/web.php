@@ -38,6 +38,7 @@ Route::get('/administrarTags', 'HomeController@administrarTags');
 Route::get('/autorizaPublicacaoTag/{idTag}', 'HomeController@autorizaPublicacaoTag');
 Route::get('/omitirPublicacaoTag/{idTag}', 'HomeController@omitirPublicacaoTag');
 Route::get('/editarTag/{idTag}', 'HomeController@editarTag');
+Route::get('/removerTag/{idTag}', 'HomeController@removerTag');
 Route::get('/revisarRecursoTA/{idRecursoTA}', 'HomeController@revisarRecursoTA');
 Route::get('/adicionarRecursoTA', 'HomeController@adicionarRecursoTA');
 Route::get('/autorizarPublicacaoRecursoTA/{idRecursoTA}', 'HomeController@autorizarPublicacaoRecursoTA');
