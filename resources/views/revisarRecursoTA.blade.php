@@ -415,8 +415,16 @@
 			<div class="col-3"	>
 				<a id="btnRejeitar" href="{{url('/administrarRecursosTA')}}" class="btn btn-outline-danger p-4"><b>{{__('Cancelar')}}</b></a>
 			</div>
-			<div class="offset-7 col-2">
-				<button id="btnEnviaForm" type="submit" class="btn btn-success p-4">
+			<div class="offset-5 col-2">
+				<button id="btnEnviaFormSalvar" type="submit" name="enviar" value="salvar" class="btn btn-outline-success p-4">
+					<b>{{ __('SALVAR') }}</b>
+					<span class="spinner-border d-none" role="status">
+						<span class="sr-only">Salvando os dados do recurso...</span>
+					</span>
+				</button>
+			</div>
+			<div class="col-2">
+				<button id="btnEnviaFormPublicar" type="submit" name="enviar" value="publicar" class="btn btn-success p-4">
 					<b>{{ __('PUBLICAR') }}</b>
 					<span class="spinner-border d-none" role="status">
 						<span class="sr-only">Publicando os dados do recurso...</span>
@@ -579,6 +587,8 @@
 
         form.submit(function(e) {
             var formData = new FormData(form[0]);
+			var btnSubmitter = e.originalEvent.submitter;
+			formData.append('enviar', btnSubmitter.value);
 
             e.preventDefault();
             //tinyMCE.triggerSave()
@@ -597,16 +607,19 @@
                 },
                 success: function(respostaServidor)
                 {
+					var msg = (btnSubmitter.value == 'publicar') ? "Recurso de Tecnologia Assistiva revisado e publicado com sucesso!" :
+																   "Recurso de Tecnologia Assistiva salvo com sucesso!";
+
 					$("#modalRevisarRecurso .server-response")
-						.html("Recurso de Tecnologia Assistiva revisado e publicado com sucesso!");
+						.html(msg);
 					$("#modalRevisarRecurso").modal("show");
 							
                 },
 				complete: function (xhr, status) 
 				{
-					$("#btnEnviaForm").children().first().removeClass("d-none");
-					$("#btnEnviaForm").children().last().addClass("d-none");
-					$("#btnEnviaForm").prop("disabled", false);
+					$(btnSubmitter).children().first().removeClass("d-none");
+					$(btnSubmitter).children().last().addClass("d-none");
+					$(btnSubmitter).prop("disabled", false);
 				},
 				error: function(respostaServidor)
 				{
@@ -660,9 +673,9 @@
 				}
             });
 
-			$("#btnEnviaForm").children().first().addClass("d-none");
-			$("#btnEnviaForm").children().last().removeClass("d-none");
-			$("#btnEnviaForm").prop("disabled", true);
+			$(btnSubmitter).children().first().addClass("d-none");
+			$(btnSubmitter).children().last().removeClass("d-none");
+			$(btnSubmitter).prop("disabled", true);
         });
 
         // Preenche os campos de cada foto já cadastrada com as informações do banco

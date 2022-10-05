@@ -353,8 +353,11 @@ class HomeController extends Controller
     $recursoTA->licenca = request('licenca');
 
     $recursoTA->site_fabricante = request('siteFabricante');
-    //Por estar autenticado como admin, cadastra já com a autorização
-    $recursoTA->publicacao_autorizada = true;
+
+    if (request('enviar') === 'publicar') {
+        $recursoTA->publicacao_autorizada = true;
+    }
+    
     $recursoTA->contato_nome = request('contato_nome');
     $recursoTA->contato_email = request('contato_email');
     $recursoTA->contato_telefone = preg_replace('/\D/', '', request('contato_telefone'));
