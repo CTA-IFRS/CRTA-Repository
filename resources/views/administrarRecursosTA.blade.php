@@ -17,7 +17,6 @@
 	<table id="tabelaRecursosTA" class="table table-striped table-bordered dt-responsive w-100">
 		<thead>
 			<tr>
-				<th>Ações</th>
 				<th>Título</th>
 				<th>Cadastrado em</th>
 				<th>Autorizado?</th>
@@ -29,9 +28,13 @@
 			@if(count($recursosTA)>0)
 			@foreach($recursosTA as $recursoTA)
 			<tr>
-				<td></td>
 				<td>{{__($recursoTA->titulo)}}</td>
-				<td>{{__($recursoTA->created_at->translatedFormat('d M Y'))}}</td>
+				<td>
+					<span class="d-none" aria-hidden="true">
+						{{$recursoTA->created_at}}
+					</span>
+					{{__($recursoTA->created_at->translatedFormat('d M Y'))}}
+				</td>
 				<td class="align-middle text-center">
 					@if($recursoTA->publicacao_autorizada==true)
 						<span class="badge badge-pill badge-success">Sim</span>
@@ -102,12 +105,10 @@
 				}
 			},
 			columnDefs: [
-			{
-				className: 'dtr-control',
-				orderable: false,
-				targets:   0
-			} ],
-			order: [ 1, 'des' ]	
+				// { className: 'dtr-control', orderable: false, targets:   0} 
+				{ orderable: false, targets:   3} 
+			],
+			order: [[ 2, 'asc' ], [1, 'asc']]
 		} );
 	} );
 </script>

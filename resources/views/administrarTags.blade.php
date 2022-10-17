@@ -11,7 +11,6 @@
 	<table id="tabelaTags" class="table table-striped table-bordered dt-responsive w-100">
 		<thead>
 			<tr>
-				<th>Ações</th>
 				<th>Nome</th>
 				<th>Cadastrada em</th>
 				<th>Autorizada?</th>
@@ -23,9 +22,11 @@
 			@if(count($tags)>0)
 			@foreach($tags as $tag)
 			<tr>
-				<td></td>
 				<td>{{__($tag->nome)}}</td>
-				<td>{{__($tag->created_at->translatedFormat('d M Y'))}}</td>
+				<td>
+					<span class="d-none" aria-hidden="true"> {{$tag->created_at}} </span>
+					{{__($tag->created_at->translatedFormat('d M Y'))}}
+				</td>
 				<td class="align-middle text-center">
 					@if($tag->publicacao_autorizada)
 						<span class="badge badge-pill badge-success">Sim</span>
@@ -80,12 +81,10 @@
 				}
 			},
 			columnDefs: [
-			{
-				className: 'dtr-control',
-				orderable: false,
-				targets:   0
-			} ],
-			order: [ 3, 'asc' ]	
+				// { className: 'dtr-control', orderable: false, targets:   0} 
+				{ orderable: false, targets:   3} 
+			],
+			order: [[ 2, 'asc' ], [1, 'asc']]	
 		} );
 
 		$(".btnAutorizar").click(function(){
