@@ -14,7 +14,7 @@
 		<div class="form-group required row mt-3" role="group" aria-labelledby="titulo">
 			<label for="titulo" class="col-12 col-form-label">{{ __('Título do Texto') }}</label>
 			<div class="col-md-12">
-				<input id="titulo" type="text" class="form-control" name="titulo" value="{!! html_entity_decode(stripslashes($conteudoPagina->titulo_texto), ENT_QUOTES, 'UTF-8')!!} 
+				<input id="titulo" type="text" class="form-control" spellcheck="true" name="titulo" value="{!! html_entity_decode(stripslashes($conteudoPagina->titulo_texto), ENT_QUOTES, 'UTF-8')!!} 
 " autofocus>
 				<span class="invalid-feedback bold" role="alert" hidden></span>
 			</div>
@@ -23,7 +23,7 @@
 		<div class="form-group required row" role="group" aria-labelledby="descricao">
 			<label for="descricao" class="col-12 col-form-label">{{ __('Texto da Página') }}</label>
 			<div class="col-12">
-				<textarea class="form-control descricao" id="descricao" name="descricao">
+				<textarea class="form-control descricao" id="descricao" name="descricao" spellcheck="true">
 					{!! html_entity_decode(stripslashes($conteudoPagina->texto), ENT_QUOTES, 'UTF-8')!!}
 				</textarea>
 			</div>
@@ -77,6 +77,8 @@
 		tinymce.init({
 			selector:'textarea.descricao',
 			language: 'pt_BR',  
+			browser_spellcheck: true,
+			contextmenu: false,
 			max_width: 400,
 			height: 400,
 			plugins: 'preview link lists code',

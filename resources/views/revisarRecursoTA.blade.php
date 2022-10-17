@@ -23,7 +23,7 @@
 					<span class="sr-only">&nbsp;(Campo requerido)</span>
 				</label>
 				<div class="">
-					<input id="titulo" type="text" class="form-control" name="titulo" value="{{ $recursoTA->titulo }}" autofocus>
+					<input id="titulo" type="text" class="form-control" name="titulo" value="{{ $recursoTA->titulo }}" autofocus spellcheck="true">
 				</div>
 			</div>
 			
@@ -33,7 +33,7 @@
 					<span class="sr-only">&nbsp;(Campo requerido)</span>
 				</label>
 				<div class="">
-					<textarea class="form-control descricao" id="descricao" name="descricao" rows="8">{{$recursoTA->descricao}}</textarea>
+					<textarea class="form-control descricao" id="descricao" name="descricao" rows="8" spellcheck="true">{{$recursoTA->descricao}}</textarea>
 				</div>
 			</div>
 			
@@ -701,7 +701,9 @@
 		
 		tinymce.init({
 			selector:'textarea.descricao',
-			language: 'pt_BR',  
+			language: 'pt_BR',
+			browser_spellcheck: true,
+			contextmenu: false,  
 			max_width: 400,
 			height: 400,
 			plugins: 'preview link lists code',

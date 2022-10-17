@@ -38,7 +38,7 @@
                                     <span class="sr-only">&nbsp;(Campo requerido)</span>
                                 </label>
                                 <div class="col-md-10">
-                                    <input id="titulo" type="text" class="form-control" name="titulo" value="{{ old('titulo') }}" autofocus>
+                                    <input id="titulo" type="text" class="form-control" name="titulo" value="{{ old('titulo') }}" autofocus spellcheck="true">
                                 </div>
                             </div>
 
@@ -48,7 +48,7 @@
                                     <span class="sr-only">&nbsp;(Campo requerido)</span>
                                 </label>
                                 <div class="col-md-10">
-                                    <textarea class="form-control descricao" id="descricao" name="descricao" rows="8"></textarea>
+                                    <textarea class="form-control descricao" id="descricao" name="descricao" rows="8" spellcheck="true"></textarea>
                                 </div>
                             </div>
 
