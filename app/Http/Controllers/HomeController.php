@@ -163,12 +163,13 @@ class HomeController extends Controller
     public function salvaEdicaoTag(Request $request)
     {
         $regras = [
-         'nomeTag' => 'required|max:255',
+         'nomeTag' => 'required|max:255|unique:App\Tag,nome',
      ];
 
      $mensagens = [
         'nomeTag.required' => 'É preciso informar um nome para a Tag',
         'nomeTag.max' => 'A Tag deve ter menos de 256 caracteres',
+        'nomeTag.unique' => 'Este nome já foi utilizado por outra Tag'
     ];
 
     $validador = Validator::make($request->all(),$regras,$mensagens);
@@ -200,7 +201,7 @@ class HomeController extends Controller
 
         $recursoAlvo = RecursoTA::findOrFail($idRecursoTA);
 
-        $tagsDoSistema = Tag::all(['nome'])->pluck('nome');
+        $tagsDoSistema = Tag::where('publicacao_autorizada', true)->pluck('nome');;
         $tagsDoRecursoTA = implode(',',$recursoAlvo->tags->pluck('nome')->toArray());
 
         return view('revisarRecursoTA', ['recursoTA' => $recursoAlvo,
@@ -219,7 +220,7 @@ class HomeController extends Controller
         //Necessário para coordenar os arrays que compõem os inputs de manuais, arquivos e vídeos
         $contadorUrls = 0;
 
-        $tagsDoSistema = Tag::all(['nome'])->pluck('nome');
+        $tagsDoSistema = Tag::where('publicacao_autorizada', true)->pluck('nome');
 
         return view('adicionarRecursoTA',['tagsDoSistema' =>$tagsDoSistema]);
     }  
