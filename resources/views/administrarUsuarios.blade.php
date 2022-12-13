@@ -13,6 +13,8 @@
 <div class="container">
 	@if (session('info'))
 		<div class="alert alert-success"> {{ session('info') }}</div>
+	@elseif (session('warn'))
+		<div class="alert alert-warning"> {{ session('warn') }}</div>
 	@endif
 	<table id="tabelaUsuarios" class="table table-striped table-bordered dt-responsive w-100">
 		<thead>
@@ -70,11 +72,11 @@
 		<div class="modal-content">
 			<!-- Modal Header -->
 			<div class="modal-header">
-				<h4 class="modal-title">Exclusão bem sucedida</h4>
+				<h4 class="modal-title">Exclusão de usuário</h4>
 			</div>
 			<!-- Modal body -->
 			<div class="modal-body">
-				<p>Usuário excluído com sucesso!</p>
+				<p class="server-response"></p>
 			</div>
 			<!-- Modal footer -->
 			<div class="modal-footer">
@@ -115,31 +117,23 @@
 				},
 				success: function(respostaServidor)
 				{
-                        // open the other modal
-                        $("#modalSucessoExclusao").modal("show");
-                    },
-                    error: function(respostaServidor)
-                    {
-                    	alert("Erro ao excluir usuário");
-                    }
-                });
+					$("#modalSucessoExclusao .server-response").html(respostaServidor);
+					$("#modalSucessoExclusao").modal("show");
+				},
+				error: function(respostaServidor)
+				{
+					$("#modalSucessoExclusao .server-response").html(respostaServidor.responseJSON);
+					$("#modalSucessoExclusao").modal("show");
+				}
+			});
 		});
 		$(".btnResetarSenha").click(function(){
-			if(confirm("Deseja redefinir a senha do usuário?")){
-				return true;
-			}	
-			else{
-				return false;
-			}
+			return confirm("Deseja redefinir a senha do usuário?");
+			
 		});
 
 		$(".btnExcluir").click(function(){
-			if(confirm("Deseja excluir o usuário? Essa ação é irreversível")){
-				return true;
-			}	
-			else{
-				return false;
-			}
+			return confirm("Deseja excluir o usuário? Essa ação é irreversível");
 		});
 		
 		var table = $('#tabelaUsuarios').DataTable( {

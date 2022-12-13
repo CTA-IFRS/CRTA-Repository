@@ -104,14 +104,20 @@
 			},
 			error: function(respostaServidor) {
 				$(".invalid-feedback").remove();
-				$("#alert-erros-formulario").addClass("d-block").focus();
 				var errors = JSON.parse(respostaServidor.responseText);
-				$.each(errors, function (elmName, errorMsgs) {
-					$("#" + elmName).parent().find(".error-msg").html(errorMsgs[0]);
-					$("#" + elmName).parent().append('<span class="invalid-feedback d-block" role="alert">'
-						+	'<strong class="error-msg">' + errorMsgs[0] + '</strong>'
-						+ '</span>');
-				});
+				if (typeof(errors) === "string") {
+					$("#modalUsuarioAtualizado .server-response").html(respostaServidor.responseJSON);
+					$("#modalUsuarioAtualizado .modal-title").html("Aviso");
+					$("#modalUsuarioAtualizado").modal("show");
+				} else {
+					$("#alert-erros-formulario").addClass("d-block").focus();
+					$.each(errors, function (elmName, errorMsgs) {
+						$("#" + elmName).parent().find(".error-msg").html(errorMsgs[0]);
+						$("#" + elmName).parent().append('<span class="invalid-feedback d-block" role="alert">'
+							+	'<strong class="error-msg">' + errorMsgs[0] + '</strong>'
+							+ '</span>');
+					});
+				}
 			}
 		});
 	});                    

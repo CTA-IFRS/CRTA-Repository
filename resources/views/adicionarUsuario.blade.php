@@ -55,16 +55,17 @@
 			</div>
 			<!-- Modal body -->
 			<div class="modal-body">
-				<p>Usuário cadastrado com sucesso. Deseja adicionar outro ou retornar à administração de usuários?</p>
+				<p class="server-response">Usuário cadastrado com sucesso. Deseja adicionar outro ou retornar à administração de usuários?</p>
 			</div>
 			<!-- Modal footer -->
 			<div class="modal-footer">
 				<a class="btn btn-primary" href="{{url('/administrarUsuarios')}}">Ir para administração de usuários</a>
-				<a class="btn btn-primary" href="{{url('/adicionarUsuarios')}}">Adicionar novo usuário</a>
+				<a class="btn btn-primary" href="{{url('/adicionarUsuario')}}">Adicionar novo usuário</a>
 			</div>
 		</div>
 	</div>
 </div>
+
 @stop
 
 @section('css')
@@ -93,32 +94,33 @@
 			},
 			success: function(respostaServidor)
 			{
-                        // open the other modal
-                        $("#modalCadastroRealizado").modal("show");
-                    },
-                    error: function(respostaServidor)
-                    {
-                    	$('.invalid-feedback').remove();
-                    	var erros = JSON.parse(respostaServidor.responseText);
-                    	if(erros){
-                    		$.map(erros, function(val, key) {
-                            //testa se é um campo simples
-                            if(key.lastIndexOf(".")==-1){
-                            	$('#'+key).after('<span class="invalid-feedback font-weight-bold d-block" role="alert">'+val+'</span>');
-                            }
-                        });
-                    		$('html,body').animate({scrollTop: $('.invalid-feedback').first().offset().top - 50},'slow');
-                    	}
-                    }
-                });
+				$("#modalCadastroRealizado .server-response").html(respostaServidor);
+                $("#modalCadastroRealizado").modal("show");
+			},
+			error: function(respostaServidor)
+			{
+				$('.invalid-feedback').remove();
+				var erros = JSON.parse(respostaServidor.responseText);
+				if(erros){
+					if (typeof(erros) === "string") {
+						$("#modalCadastroRealizado .server-response").html(respostaServidor.responseJSON);
+						$("#modalCadastroRealizado .modal-title").html("Aviso");
+						$("#modalCadastroRealizado").modal("show");
+					} else {
+						$.map(erros, function(val, key) {
+							//testa se é um campo simples
+							if(key.lastIndexOf(".")==-1){
+								$('#'+key).after('<span class="invalid-feedback font-weight-bold d-block" role="alert">'+val+'</span>');
+							}
+						});
+						$('html,body').animate({scrollTop: $('.invalid-feedback').first().offset().top - 50},'slow');
+					}
+				}
+			}
+		});
 	});
 	$("#btnAutorizar").click(function(){
-		if(confirm("Deseja confirmar o cadastro?")){
-			return true;
-		}	
-		else{
-			return false;
-		}
+		return confirm("Deseja confirmar o cadastro?");
 	});
 
                     

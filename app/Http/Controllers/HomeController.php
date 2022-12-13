@@ -927,26 +927,6 @@ class HomeController extends Controller
         return $this->salvarEdicaoPagina($request, Pagina::where('nome', 'LIKE', 'Sobre')->first());    
     } 
 
-
-    public function emailNovoRecursoTA($idRecursoTA){
-
-        $recursoTA = RecursoTA::findOrFail($idRecursoTA);
-
-
-        $to_name = 'Guilherme';
-        $to_email = 'gmottin27@gmail.com';
-        $data = array('tituloRecurso'=> $recursoTA->titulo, 'idRecursoTA' => $idRecursoTA);
-
-        Mail::send('emailNovoRecursoTA', $data, function($message) use ($to_name, $to_email) {
-            $message->to($to_email, $to_name)
-            ->subject('Teste de envio de email Laravel');
-            $message->from('cta@ifrs.edu.br','Email de Teste');
-        }); 
-
-    return 'Email sent Successfully';
-
-    }
-
     /**
      * Encaminha para a página onde todos os usuários cadastrados
      * serão listados.
@@ -1011,16 +991,19 @@ class HomeController extends Controller
         $novoUsuario->password = Hash::make($senhaGerada);
         $novoUsuario->save();
 
-        $this->enviaEmailNovoUsuario($novoUsuario,$senhaGerada);
+        try {
+            $this->enviaEmailNovoUsuario($novoUsuario,$senhaGerada);
+        } catch (\Exception $e) {
+            return response()->json("Usuário cadastrado, mas não foi possível enviar o e-mail de boas vindas", 422);    
+        }
 
-        return response()->json("Usuário cadastrado com sucesso!");
+        return response()->json("Usuário cadastrado com sucesso. Deseja adicionar outro ou retornar à administração de usuários?");
     }
 
     /**
     * Método acessório para notificar o usuário de que a conta foi criada
     */
     private function enviaEmailNovoUsuario(User $novoUsuario,$senhaGerada){
-
         $to_name = $novoUsuario->name;
         $to_email = $novoUsuario->email;
         $data = array('nomeUsuario'=> $novoUsuario->name, 'senha' => $senhaGerada);
@@ -1055,7 +1038,7 @@ class HomeController extends Controller
      */
     public function atualizarUsuario(Request $request, $idUsuario)
     {
-        if(!Gate::allows('manage-user', $idUsuario)) return response()->json("Ação inválida", 422);
+        if(!Gate::allows('manage-user', $idUsuario)) return response()->json("Ação inválida, somente o próprio usuário pode ediatr suas informações", 422);
 
         $regras = [ 'name' => ['required', 'string', 'max:255'],
                     'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'. $idUsuario.',id'],
@@ -1086,17 +1069,22 @@ class HomeController extends Controller
 
         $usuarioEditado = User::findOrFail($idUsuario);
         $usuarioEditado->name = $request->name;
-
-        if($usuarioEditado->email != $request->email){
-            $this->enviaEmailAlteracaoConta($request->email,$usuarioEditado);
-            $usuarioEditado->email = $request->email;
-        }
-
+        $oldEmail = $usuarioEditado->email;
+        $usuarioEditado->email = $request->email;
+    
         if ($request->password !== null) {
             $usuarioEditado->password = Hash::make($request->password);
         }
 
         $usuarioEditado->save();
+
+        if($usuarioEditado->email != $oldEmail){
+            try {
+                $this->enviaEmailAlteracaoConta($oldEmail,$usuarioEditado);
+            } catch (\Exception $e) {
+                return response()->json("Usuário atualizado, mas não foi possível enviar e-mail informativo", 422);        
+            }
+        }
         
         return response()->json("Usuário editado com sucesso!");
     }
@@ -1105,14 +1093,13 @@ class HomeController extends Controller
      * Método acessório para enviar mensagens aos endereços de e-mail antigo e novo para
      * notificar a alteração.
      */
-    private function enviaEmailAlteracaoConta($emailNovo,User $usuarioEditado){
-
+    private function enviaEmailAlteracaoConta($emailAntigo,User $usuarioEditado){
         $to_name = $usuarioEditado->name;
-        $to_email = $usuarioEditado->email;
-        $data = array('nomeUsuario'=> $usuarioEditado->name, 'emailAntigo' => $usuarioEditado->email, 'emailNovo' => $emailNovo);
+        $emailNovo = $usuarioEditado->email;
+        $data = array('nomeUsuario'=> $usuarioEditado->name, 'emailNovo' => $usuarioEditado->email, 'emailAntigo' => $emailAntigo);
 
-        Mail::send('emailAlteracaoContaUsuario', $data, function($message) use ($to_name, $to_email) {
-            $message->to($to_email, $to_name)
+        Mail::send('emailAlteracaoContaUsuario', $data, function($message) use ($to_name, $emailAntigo) {
+            $message->to($emailAntigo, $to_name)
             ->subject('E-mail de acesso ao RETACE alterado');
             $message->from('cta@ifrs.edu.br','RETACE');
         });
@@ -1134,7 +1121,11 @@ class HomeController extends Controller
         $usuario->password = Hash::make($senhaGerada);
         $usuario->save();
 
-        $this->enviaEmailRecuperacaoSenha($usuario,$senhaGerada);
+        try {
+            $this->enviaEmailRecuperacaoSenha($usuario,$senhaGerada);
+        } catch (\Exception $e) {
+            return redirect('/administrarUsuarios')->with('warn', "Não foi possível enviar o e-mail de recuperação de senha para o usuário {$usuario->name}");
+        }
 
         return redirect('/administrarUsuarios')->with('info', "Recuperação e envio de senha para o usuário {$usuario->name} concluídos com sucesso!");
     }
@@ -1143,7 +1134,6 @@ class HomeController extends Controller
     * Método acessório para enviar ao usuário uma nova senha de acesso.
     */
     private function enviaEmailRecuperacaoSenha(User $usuario,$senhaGerada){
-
         $to_name = $usuario->name;
         $to_email = $usuario->email;
         $data = array('nomeUsuario'=> $usuario->name, 'senha' => $senhaGerada);
@@ -1165,8 +1155,11 @@ class HomeController extends Controller
         $usuario = User::findOrFail($request->idUsuario);
         User::destroy($request->idUsuario);
 
-
-        $this->enviaEmailExclusaoConta($usuario);
+        try {
+            $this->enviaEmailExclusaoConta($usuario);
+        } catch (\Exception $e) {
+            return response()->json("Exclusão realizada mas não foi possível enviar notificação por e-mail");            
+        }
 
         return response()->json("Exclusão e envio de notificação concluídos com sucesso!");        
     }
@@ -1175,7 +1168,6 @@ class HomeController extends Controller
     * Método acessório para enviar ao usuário a notificação de exclusão da conta.
     */
     private function enviaEmailExclusaoConta(User $usuario){
-
         $to_name = $usuario->name;
         $to_email = $usuario->email;
         $data = array('nomeUsuario'=> $usuario->name);
