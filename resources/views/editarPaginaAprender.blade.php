@@ -55,7 +55,8 @@
     		</div>
    			<!-- Modal footer -->
     		<div class="modal-footer">
-        		<a class="btn btn-primary" href="{{url('/administrarRecursosTA')}}">Ir para administração de recursos</a>
+				<a class="btn btn-primary" href="{{url('/editarPaginaAprender')}}">Ok</a>
+        		<!-- <a class="btn btn-primary" href="{{url('/administrarRecursosTA')}}">Ir para administração de recursos</a> -->
     		</div>
 		</div>
 	</div>
