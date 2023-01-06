@@ -162,31 +162,32 @@ class HomeController extends Controller
      */
     public function salvaEdicaoTag(Request $request)
     {
+        $tagAlvo = Tag::findOrFail($request->idTag);
+        
         $regras = [
-         'nomeTag' => 'required|max:255|unique:App\Tag,nome',
-     ];
+         'nomeTag' => 'required|max:255|unique:App\Tag,nome,' . $tagAlvo->id,
+        ];
 
-     $mensagens = [
-        'nomeTag.required' => 'É preciso informar um nome para a Tag',
-        'nomeTag.max' => 'A Tag deve ter menos de 256 caracteres',
-        'nomeTag.unique' => 'Este nome já foi utilizado por outra Tag'
-    ];
+        $mensagens = [
+            'nomeTag.required' => 'É preciso informar um nome para a Tag',
+            'nomeTag.max' => 'A Tag deve ter menos de 256 caracteres',
+            'nomeTag.unique' => 'Este nome já foi utilizado por outra Tag'
+        ];
 
-    $validador = Validator::make($request->all(),$regras,$mensagens);
+        $validador = Validator::make($request->all(),$regras,$mensagens);
 
-      //Retorna mensagens de validação no formato JSON caso haja problemas
-    if($validador->fails()){
-        return response()->json($validador->messages(), 422);
-    }
+        //Retorna mensagens de validação no formato JSON caso haja problemas
+        if($validador->fails()){
+            return response()->json($validador->messages(), 422);
+        }
 
-    $tagAlvo = Tag::findOrFail($request->idTag);
-    $tagAlvo->nome = $request->nomeTag;
-    $tagAlvo->publicacao_autorizada = $tagAlvo->publicacao_autorizada; 
-    $tagAlvo->save();
+        $tagAlvo->nome = $request->nomeTag;
+        $tagAlvo->publicacao_autorizada = $tagAlvo->publicacao_autorizada; 
+        $tagAlvo->save();
 
-    //$tags = Tag::all();
-    //return view('administrarTags', ['tags' => $tags]);
-    return response()->json("Tag atualizada com sucesso!");
+        //$tags = Tag::all();
+        //return view('administrarTags', ['tags' => $tags]);
+        return response()->json("Tag atualizada com sucesso!");
 }
 
     /**
