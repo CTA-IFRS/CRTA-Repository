@@ -27,7 +27,7 @@
                 <ul>
                     <li><a class="link-primary" href="{{url('/sobre')}}">Sobre</a></li>
                     <li><a class="link-primary" href="{{url('/aprender')}}">Aprender</a></li>
-                    <li><a class="link-primary" href="{{url('/cadastrarTA')}}">Contribuir</a></li>
+                    <li><a class="link-primary" href="{{route('cadastrarTA')}}">Contribuir</a></li>
                     <li><a class="link-primary" href="{{url('/#caixa-de-busca')}}">Procurar recursos</a></li>
                 </ul>
             </ul>

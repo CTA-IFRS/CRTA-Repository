@@ -39,7 +39,7 @@ class NavegacaoController extends Controller{
 
 	
 	public function buscarPorTexto(Request $request) {
-		$texto = $request->get('texto');
+		$texto = request('texto');
 		if ($texto === null) return Redirect::back();
 		
 		$RANK_TAG_POINTS = 70;
@@ -192,17 +192,26 @@ class NavegacaoController extends Controller{
 		return view('cadastrarTA');
 	}
 
+	// Exibe recurso de TA pelo slug
+	public function exibeRecursoTA_slug($slug) {
+		$recursoTA = RecursoTA::where('slug', $slug)->first();
+		return $this->exibeRecursoTA($recursoTA);
+	}
+		
+	public function exibeRecursoTA_id($idRecursoTA){
+		$recursoTA = RecursoTA::findOrFail($idRecursoTA);
+		return $this->exibeRecursoTA($recursoTA);
+	}
+
 	/** 
 	 * Exibe um Recurso de Tecnologia Assistiva em específico
 	 *
 	 *	@return \Illuminate\Contracts\Support\Renderable
-	 */	
-	public function exibeRecursoTA($idRecursoTA){
-		$recursoTA = RecursoTA::findOrFail($idRecursoTA);
-
+	 */
+	public function exibeRecursoTA(RecursoTA $recursoTA) {
 		if (!$recursoTA->publicacao_autorizada) abort(404);
-
-		RecursoTA::where('id', $idRecursoTA)->increment('visualizacoes', 1);
+		
+		RecursoTA::where('id', $recursoTA->id)->increment('visualizacoes', 1);
 
 		//Busca por todos os recursos TAs que possuem as mesmas tags (já autorizadas)que o recurso a ser exibido
 		$recursosRelacionados = new Collection();

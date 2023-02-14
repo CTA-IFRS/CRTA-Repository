@@ -5,7 +5,7 @@
 @section('content_header')
 <div class="row">
 	<h1 class="display-3 col-md-10">Administrar Usuários</h1>
-	<a href="{{url('/adicionarUsuario')}}" class="btn btn-primary col-md-2"><b>Adicionar Usuário</b></a>
+	<a href="{{route('adicionarUsuario')}}" class="btn btn-primary col-md-2"><b>Adicionar Usuário</b></a>
 </div>
 @stop
 
@@ -36,19 +36,20 @@
 				<td>
 					@if ($usuario->id != $usuarioAtualId)
 						
-						<a href="{{url('/editarUsuario/'.__($usuario->id))}}" class="btnEditar btn btn-primary m-2"><b>Editar</b></a>
+					<a href="{{ route('editarUsuario', $usuario->id) }}" class="btnEditar btn btn-primary m-2"><b>Editar</b></a>
+						<!-- <a href="{{url('/editarUsuario/'.__($usuario->id))}}" class="btnEditar btn btn-primary m-2"><b>Editar</b></a> -->
 						<form class="formExcluirUsuario d-inline" method="post" action="{{route('excluirUsuario')}}">
 							{{ csrf_field() }}
 							<input name="idUsuario" type="hidden" value="{{$usuario->id}}">
 							<button type="submit" class="btnExcluir btn btn-danger"><b>Excluir</b></button>
 						</form>
-						<a href="{{url('/recuperarSenha/'.__($usuario->id))}}" class="btnResetarSenha btn btn-warning m-2">
+						<a href="{{route('recuperarSenha', $usuario->id)}}" class="btnResetarSenha btn btn-warning m-2">
 							<b>Enviar e-mail de recuperação de senha</b>
 						</a>
 						
 					@else
-						<a href="{{url('/informacoesUsuario')}}" class="btnEditar btn btn-primary m-2"><b>Editar</b></a>
-						<a href="{{url('/informacoesUsuario')}}" class="btn btn-warning"><b>Alterar a senha</b></a>
+						<a href="{{route('informacoesUsuario')}}" class="btnEditar btn btn-primary m-2"><b>Editar</b></a>
+						<a href="{{route('informacoesUsuario')}}" class="btn btn-warning"><b>Alterar a senha</b></a>
 					@endif
 				</td>
 			</tr>
@@ -80,7 +81,7 @@
 			</div>
 			<!-- Modal footer -->
 			<div class="modal-footer">
-				<a class="btn btn-primary" href="{{url('/administrarUsuarios')}}">Ok</a>
+				<a class="btn btn-primary" href="{{route('administrarUsuarios')}}">Ok</a>
 			</div>
 		</div>
 	</div>

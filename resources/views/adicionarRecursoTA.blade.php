@@ -28,6 +28,22 @@
 			</div>
 		</div>
 
+		<div class="form-group required mt-3" role="group">
+				<label for="slug" class="text-md-right">
+					{{ __('Slug') }}
+					<span class="sr-only">&nbsp;(Campo requerido)</span>
+					<span class="small">
+						(Uma sugestão de slug será gerada com base no título informado, porém, o slug deve ser único para cada
+						recurso, assim pode ser necessário editá-lo)
+					</span>
+				</label>
+				<div class="">
+					<input id="slug" type="text" class="form-control" 
+					name="slug" value="{{ old('slug') }}" 
+					placeholder="Preencha o título para gerar o slug" autofocus spellcheck="true">
+				</div>
+			</div>
+
 		<div class="form-group required" role="group">
 			<label for="descricao" id="descricao-label" class="text-md-right">
 				{{ __('Breve descrição') }}
@@ -267,7 +283,7 @@
 	
 	<div class="row mt-4">
 		<div class="col-md-2 mb-3">
-			<a class="btn btn-outline-danger p-4" href="{{url('/administrarRecursosTA')}}">
+			<a class="btn btn-outline-danger p-4" href="{{route('administrarRecursosTA')}}">
 				Cancelar
 			</a>
 		</div>
@@ -296,8 +312,8 @@
     		</div>
    			<!-- Modal footer -->
     		<div class="modal-footer">
-        		<a class="btn btn-primary" href="{{url('/administrarRecursosTA')}}">Ir para administração de recursos</a>
-        		<a class="btn btn-primary" href="{{url('/adicionarRecursoTA')}}">Adicionar novo recurso</a>
+        		<a class="btn btn-primary" href="{{route('administrarRecursosTA')}}">Ir para administração de recursos</a>
+        		<a class="btn btn-primary" href="{{route('adicionarRecursoTA')}}">Adicionar novo recurso</a>
     		</div>
 		</div>
 	</div>
@@ -396,6 +412,24 @@ $(document).ready(function () {
 				options
 			);
 		}
+	});
+
+	$("#titulo").change(function (ev) {
+		var titulo = $("#titulo").val();
+		
+		$.ajax({
+			type: "POST",
+			url: "{{ route("criarSlug") }}",
+			headers: {'X-CSRF-TOKEN': "{{ csrf_token() }}"},
+			dataType: 'json',
+			cache: false,
+			data: {
+				"titulo": titulo
+			},
+			success: function (resposta) {
+				$("#slug").val(resposta);
+			}
+		})
 	});
 	
 	// Para não bloquear a navegação por teclado

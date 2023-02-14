@@ -21,7 +21,7 @@
     <div id="painel-fast-access" class="container-fluid flex-grow-1">
         <div class="row h-100 text-center">
             <div class="card col-sm-6 flex-grow-1 pt-4">
-                <a href="{{url('/administrarRecursosTA')}}">
+                <a href="{{route('administrarRecursosTA')}}">
                     <h3 class="display-5 pb-4">
                         <span class="sr-only">Acessar</span> Recursos de Tecnologia Assistiva
                     </h3>
@@ -33,7 +33,7 @@
                 </a>
             </div>
             <div class="card col-sm-6 flex-grow-1 pt-4">
-                <a href="{{url('/administrarTags')}}">
+                <a href="{{route('administrarTags')}}">
                     <h3 class="display-5 pb-4">
                         <span class="sr-only">Acessar</span> Tags
                     </h3>

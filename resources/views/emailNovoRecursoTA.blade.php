@@ -9,7 +9,7 @@
 			
 			<p> O recurso <b>{{ $tituloRecurso }}</b> foi adicionado ao RETACE por um visitante.</p>
 
-			<p> Acesse o Painel do Administrador ou o recurso cadastrado em {{url('/revisarRecursoTA/'.$idRecursoTA) }} para revisar as informações inseridas e publicar a tecnologia assistiva no repositório.</p>
+			<p> Acesse o Painel do Administrador ou o recurso cadastrado em {{route('revisarRecursoTA', $idRecursoTA) }} para revisar as informações inseridas e publicar a tecnologia assistiva no repositório.</p>
 
 			<p> Lembre-se de verificar se foram cadastradas novas tags na página de administração de tags </p>
 		</div>

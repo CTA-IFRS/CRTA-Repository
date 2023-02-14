@@ -29,7 +29,7 @@
 				<i class="ml-3 fa fa-info-circle fa-5x align-middle"></i>
 			</div>
 			<div class="col-md-3">
-				<h3> <a href="{{ url('/cadastrarTA')}}" class="text-white"> <u> Contribuir </u></a> </h3>
+				<h3> <a href="{{ route('cadastrarTA')}}" class="text-white"> <u> Contribuir </u></a> </h3>
 				<p> Disponibilize neste repositório seu recurso de TA, metodologia, material pedagógico acessível e outros </p>
 			</div>
 		</div>

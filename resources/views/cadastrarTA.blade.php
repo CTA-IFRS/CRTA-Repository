@@ -303,7 +303,7 @@
     <!-- Modal footer -->
     <div class="modal-footer">
         <a class="btn btn-primary" href="{{url('/')}}">Ir para a página inicial</a>
-        <a class="btn btn-primary" href="{{url('/cadastrarTA')}}">Adicionar novo recurso</a>
+        <a class="btn btn-primary" href="{{route('cadastrarTA')}}">Adicionar novo recurso</a>
     </div>
 </div>
 </div>

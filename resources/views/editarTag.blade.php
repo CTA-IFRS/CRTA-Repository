@@ -38,7 +38,7 @@
 		</div>
 		<div class="row justify-content-center">
 			<div class="offset-1 col-2">
-				<a href="{{url('/administrarTags')}}" class="btn btn-primary"><b>Cancelar</b></a>
+				<a href="{{route('administrarTags')}}" class="btn btn-primary"><b>Cancelar</b></a>
 			</div>
 			<div class="offset-1 col-2">
 				<button type="submit" class="btn btn-primary"><b>Salvar</b></button>
@@ -61,7 +61,7 @@
     </div>
     <!-- Modal footer -->
     <div class="modal-footer">
-        <a class="btn btn-primary" href="{{url('/administrarTags')}}">Ok</a>
+        <a class="btn btn-primary" href="{{route('administrarTags')}}">Ok</a>
     </div>
 </div>
 @stop

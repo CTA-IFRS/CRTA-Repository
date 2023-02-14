@@ -26,6 +26,23 @@
 					<input id="titulo" type="text" class="form-control" name="titulo" value="{{ $recursoTA->titulo }}" autofocus spellcheck="true">
 				</div>
 			</div>
+
+			<div class="form-group required mt-3" role="group">
+				<label for="slug" class="text-md-right">
+					{{ __('Slug') }}
+					<span class="sr-only">&nbsp;(Campo requerido)</span>
+					<span class="small">
+						(Cuidado ao alterar o slug de recursos publicados, pois os links compartilahdos com o slug antigo deixarão de funcionar)
+					</span>
+					<!-- <span class="small">
+						(Uma sugestão de slug será gerada com base no título informado, porém, o slug deve ser único para cada
+						recurso, assim pode ser necessário editá-lo)
+					</span> -->
+				</label>
+				<div class="">
+					<input id="slug" type="text" class="form-control" name="slug" value="{{ $recursoTA->slug }}" autofocus spellcheck="true">
+				</div>
+			</div>
 			
 			<div class="form-group required" role="group">
 				<label for="descricao" id="descricao-label" class="text-md-right">
@@ -172,7 +189,7 @@
 									@endif
 								</div>
 								<div class="col-2 text-right">
-									<a href="{{url('excluirUpload', [$upload->id])}}" class="btn btn-danger">
+									<a href="{{route('excluirUpload', [$upload->id])}}" class="btn btn-danger">
 										<i class="fa fa-trash" aria-hidden="true"></i>
 										Remover <span class="sr-only">arquivo do usuário</span>
 									</a>
@@ -198,7 +215,7 @@
 									@endif
 								</div>
 								<div class="col-2 text-right">
-									<a href="{{url('excluirUpload', [$upload->id])}}" class="btn btn-danger">
+									<a href="{{route('excluirUpload', [$upload->id])}}" class="btn btn-danger">
 										<i class="fa fa-trash" aria-hidden="true"></i>
 										Remover <span class="sr-only">manuais do usuário</span>
 									</a>
@@ -413,7 +430,7 @@
 
 		<div class="row py-4">
 			<div class="col-3"	>
-				<a id="btnRejeitar" href="{{url('/administrarRecursosTA')}}" class="btn btn-outline-danger p-4"><b>{{__('Cancelar')}}</b></a>
+				<a id="btnRejeitar" href="{{route('administrarRecursosTA')}}" class="btn btn-outline-danger p-4"><b>{{__('Cancelar')}}</b></a>
 			</div>
 			<div class="offset-5 col-2">
 				<button id="btnEnviaFormSalvar" type="submit" name="enviar" value="salvar" class="btn btn-outline-success p-4">
@@ -448,7 +465,7 @@
     </div>
     <!-- Modal footer -->
     <div class="modal-footer">
-        <a class="btn btn-primary" href="{{url('/administrarRecursosTA')}}">Ok</a>
+        <a class="btn btn-primary" href="{{route('administrarRecursosTA')}}">Ok</a>
     </div>
 </div>
 
@@ -518,7 +535,7 @@
 		@foreach($recursoTA->fotos as $foto) 
 			{!! '{ caption: "'.$foto->texto_alternativo.'",
 				  size:"'.filesize(storage_path('app/public/'.$foto->caminho_arquivo)).'", 
-				  url:"'.url('/removeFoto/'.$foto->id).'" }'
+				  url:"'.url('/remover/foto/'.$foto->id).'" }'
 				  !!},
 		 @endforeach			
 		],
@@ -580,6 +597,24 @@
 				);
 			}
     	});
+
+		// $("#titulo").change(function (ev) {
+		// var titulo = $("#titulo").val();
+		
+		// $.ajax({
+		// 	type: "POST",
+		// 	url: "{{ route("criarSlug") }}",
+		// 	headers: {'X-CSRF-TOKEN': "{{ csrf_token() }}"},
+		// 	dataType: 'json',
+		// 	cache: false,
+		// 	data: {
+		// 		"titulo": titulo
+		// 	},
+		// 	success: function (resposta) {
+		// 		$("#slug").val(resposta);
+		// 	}
+		// });
+	//});
 
 		var contadorUrls = {{$contadorUrls}};
 

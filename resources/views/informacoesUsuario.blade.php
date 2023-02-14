@@ -55,7 +55,7 @@
 		</div>
 		<div class="row justify-content-center">
 			<div class="offset-1 col-2">
-				<a href="{{url('/painelAdministrador')}}" class="btn btn-primary"><b>Cancelar</b></a>
+				<a href="{{route('painelAdministrador')}}" class="btn btn-primary"><b>Cancelar</b></a>
 			</div>
 			<div class="offset-1 col-2">
 				<button type="submit" class="btn btn-primary"><b>Salvar</b></button>

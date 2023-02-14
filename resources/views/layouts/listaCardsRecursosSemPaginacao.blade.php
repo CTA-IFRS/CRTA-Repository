@@ -10,7 +10,7 @@
 				@endif
 				@endforeach
 				<div class="card-body">
-					<h3 class="card-title"><a href="{{url('exibeRecursoTA/'.$recursoTA->id)}}" class="card-link">{{ $recursoTA->titulo }}</a></h3>
+					<h3 class="card-title"><a href="{{route('exibeRecursoTASlug', $recursoTA->slug)}}" class="card-link">{{ $recursoTA->titulo }}</a></h3>
 					<p class="card-text">{{ html_entity_decode(substr(strip_tags($recursoTA->descricao), 0, 200), ENT_QUOTES, 'UTF-8')." ..." }}</p>
 				</div>
 			</div>

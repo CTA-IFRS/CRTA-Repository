@@ -8,6 +8,7 @@ require '../vendor/autoload.php';
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Image;
 use App\RecursoTA;
 use App\Tag;
@@ -112,6 +113,13 @@ class RecursoTAController extends Controller{
   $recursoTA->contato_email = request('contato_email');
   $recursoTA->contato_telefone = preg_replace('/\D/', '', request('contato_telefone'));
   $recursoTA->contato_instituicao = request('contato_instituicao');
+  $recursoTA->save();
+
+  $slug = Str::slug($recursoTA->titulo, '-');
+  if (RecursoTA::where('slug', $slug)->exists()) {
+    $slug = $slug . '-' . $recursoTA->id;
+  }
+  $recursoTA->slug = $slug;
   $recursoTA->save();
 
   if (trim(request('tags')) !== "") {

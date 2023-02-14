@@ -59,8 +59,8 @@
 			</div>
 			<!-- Modal footer -->
 			<div class="modal-footer">
-				<a class="btn btn-primary" href="{{url('/administrarUsuarios')}}">Ir para administração de usuários</a>
-				<a class="btn btn-primary" href="{{url('/adicionarUsuario')}}">Adicionar novo usuário</a>
+				<a class="btn btn-primary" href="{{route('administrarUsuarios')}}">Ir para administração de usuários</a>
+				<a class="btn btn-primary" href="{{route('adicionarUsuario')}}">Adicionar novo usuário</a>
 			</div>
 		</div>
 	</div>

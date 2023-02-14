@@ -39,14 +39,14 @@ class AppServiceProvider extends ServiceProvider
             $event->menu->add('Administrar Repositório');
             $event->menu->add([
                 'text'        => 'Recursos TA',
-                'url'         => url('/administrarRecursosTA'),
+                'url'         => route('administrarRecursosTA'),
                 'icon'        => 'fa fa-puzzle-piece',
                 'label'       =>  RecursoTA::where('publicacao_autorizada','false')->count(),
                 'label_color' => 'warning',
             ]);
             $event->menu->add([
                 'text'        => 'Tags',
-                'url'         => url('/administrarTags'),
+                'url'         => route('administrarTags'),
                 'icon'        => 'fa fa-tags',
                 'label'       =>  Tag::where('publicacao_autorizada','false')->count(),
                 'label_color' => 'warning',
@@ -54,26 +54,26 @@ class AppServiceProvider extends ServiceProvider
             $event->menu->add('Administrar Páginas');
             $event->menu->add([
                 'text'        => 'Aprender',
-                'url'         => url('/editarPaginaAprender'),
+                'url'         => route('editarPaginaAprender'),
                 'icon'        => 'fa fa-book',
             ]);
             $event->menu->add([
                 'text'        => 'Sobre',
-                'url'         => url('/editarPaginaSobre'),
+                'url'         => route('editarPaginaSobre'),
                 'icon'        => 'fa fa-info',
             ]);
             if (Auth::user()->isRoot()) {
                 $event->menu->add('Administrar Usuários');
                 $event->menu->add([
                     'text'        => 'Usuários',
-                    'url'         => url('/administrarUsuarios'),
+                    'url'         => route('administrarUsuarios'),
                     'icon'        => 'fa fa-users',
                 ]);           
             }
             $event->menu->add('Dados da conta');
             $event->menu->add([
                 'text'        => 'Informações',
-                'url'         => url('/informacoesUsuario'),
+                'url'         => route('informacoesUsuario'),
                 'icon'        => 'fa fa-id-card',
             ]);
         });

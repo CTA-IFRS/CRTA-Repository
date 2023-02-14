@@ -31,7 +31,7 @@
 		<hr>
 		<div class="row py-4">
 			<div class="col-3"	>
-				<a id="btnVoltar" href="{{url('/painelAdministrador')}}" class="btn btn-danger"><b>{{ __('Voltar') }}</b></a>
+				<a id="btnVoltar" href="{{route('painelAdministrador')}}" class="btn btn-danger"><b>{{ __('Voltar') }}</b></a>
 			</div>
 			<div class="offset-7 col-2">
 				<button id="btnEnviaForm" type="submit" class="btn btn-success">
@@ -55,8 +55,8 @@
     		</div>
    			<!-- Modal footer -->
     		<div class="modal-footer">
-				<a class="btn btn-primary" href="{{url('/editarPaginaAprender')}}">Ok</a>
-        		<!-- <a class="btn btn-primary" href="{{url('/administrarRecursosTA')}}">Ir para administração de recursos</a> -->
+				<a class="btn btn-primary" href="{{route('editarPaginaAprender')}}">Ok</a>
+        		<!-- <a class="btn btn-primary" href="{{route('administrarRecursosTA')}}">Ir para administração de recursos</a> -->
     		</div>
 		</div>
 	</div>

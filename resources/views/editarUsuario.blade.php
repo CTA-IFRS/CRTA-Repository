@@ -68,7 +68,7 @@
     </div>
     <!-- Modal footer -->
     <div class="modal-footer">
-        <a class="btn btn-primary" href="{{url('/administrarUsuarios')}}">Ok</a>
+        <a class="btn btn-primary" href="{{route('administrarUsuarios')}}">Ok</a>
     </div>
 </div>
 

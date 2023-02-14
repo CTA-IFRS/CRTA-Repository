@@ -237,7 +237,7 @@ class HomeController extends Controller
         $recursoAlvo->publicacao_autorizada = true;
         $recursoAlvo->save();
 
-        return redirect('/administrarRecursosTA');
+        return redirect()->route('administrarRecursosTA');
     }
 
     /**
@@ -251,7 +251,7 @@ class HomeController extends Controller
         $recursoAlvo->publicacao_autorizada = false;
         $recursoAlvo->save();
 
-        return redirect('/administrarRecursosTA');
+        return redirect()->route('administrarRecursosTA');
     }
 
     /**
@@ -298,6 +298,7 @@ class HomeController extends Controller
     {   
         $regras = [
          'titulo' => 'required|max:255',
+         'slug' => 'required|max:255|regex:/^[a-z0-9\-]+$/|unique:App\RecursoTA,slug,' . $idRecursoTA,
          'descricao' => 'required',
          'siteFabricante' => [/*'required'*/ 'nullable', 'url'],
          'produtoComercial' => 'required',
@@ -318,6 +319,10 @@ class HomeController extends Controller
      $mensagens = [
         'titulo.required' => 'É preciso informar um título para a Tecnologia Assistiva',
         'titulo.max' => 'O título deve ter menos de 256 caracteres',
+        'slug.required' => 'Informe o slug do recurso',
+        'slug.max' => 'O slug deve ter menos de 256 caracteres',
+        'slug.regex' => 'O slug deve ser composto por letras, dígitos e hiféns.',
+        'slug.unique' => 'O slug deve ser único, este slug já está sendo utilizado por outro recurso',
         'descricao.required'  => 'Descreva brevemente o que está cadastrando',
         //'siteFabricante.required' => 'Informe o site do recurso',
         'siteFabricante.url' => 'Informe um endereço válido (ex: https://www.meusite.com.br)',
@@ -374,6 +379,7 @@ class HomeController extends Controller
     $recursoTA->contato_email = request('contato_email');
     $recursoTA->contato_telefone = preg_replace('/\D/', '', request('contato_telefone'));
     $recursoTA->contato_instituicao = request('contato_instituicao');
+    $recursoTA->slug = request('slug');
     $recursoTA->save();
 
     //Apaga os relacionamentos do RecurstoTA com as tags existentes, para simplificar a lógica de update
@@ -635,7 +641,7 @@ class HomeController extends Controller
 
     RecursoTA::destroy($idRecursoTA);
 
-    return redirect('/administrarRecursosTA')->with(
+    return redirect()->route('administrarRecursosTA')->with(
         "sucessoExclusao" , "Informações excluídas do RETACE com sucesso!"
     );
 }
@@ -649,6 +655,15 @@ class HomeController extends Controller
         }
     }
 
+    public function makeSlugForTitulo(Request $request) {
+        $titulo = $request->input('titulo');
+        $slug = Str::slug($titulo, '-');
+        // if (RecursoTA::where('slug', $slug)->exists()) {
+        //     $slug = $slug . '-' . uniqid("", true);
+        // }
+        return response()->json($slug);
+    }
+
     /**
      * Insere o RecursoTA no banco de dados, com autorizações já fornecidas
      *
@@ -658,6 +673,7 @@ class HomeController extends Controller
 
         $regras = [
          'titulo' => 'required|max:255',
+         'slug' => 'required|max:255|regex:/^[a-z0-9\-]+$/|unique:App\RecursoTA,slug',
          'descricao' => 'required',
          'siteFabricante' => [/*'required'*/ 'nullable', 'url'],
          'produtoComercial' => 'required',
@@ -678,6 +694,10 @@ class HomeController extends Controller
      $mensagens = [
         'titulo.required' => 'É preciso informar um título para a Tecnologia Assistiva',
         'titulo.max' => 'O título deve ter menos de 256 caracteres',
+        'slug.required' => 'Informe o slug do recurso',
+        'slug.max' => 'O slug deve ter menos de 256 caracteres',
+        'slug.unique' => 'O slug deve ser único, este já está sendo utilizado por outro recurso',
+        'slug.regex' => 'O slug deve ser composto por letras, dígitos e hiféns.',
         'descricao.required'  => 'Descreva brevemente o que está cadastrando',
         'siteFabricante.required' => 'Informe o site do recurso',
         'siteFabricante.url' => 'Informe um endereço válido (ex: https://www.meusite.com.br)',
@@ -730,6 +750,7 @@ class HomeController extends Controller
     $recursoTA->contato_email = request('contato_email');
     $recursoTA->contato_telefone = preg_replace('/\D/', '', request('contato_telefone'));
     $recursoTA->contato_instituicao = request('contato_instituicao');
+    $recursoTA->slug = request('slug');
     $recursoTA->save();
 
     /**Processamento de Tags para inserção no DB**/
@@ -1125,10 +1146,10 @@ class HomeController extends Controller
         try {
             $this->enviaEmailRecuperacaoSenha($usuario,$senhaGerada);
         } catch (\Exception $e) {
-            return redirect('/administrarUsuarios')->with('warn', "Não foi possível enviar o e-mail de recuperação de senha para o usuário {$usuario->name}");
+            return redirect()->route('administrarUsuarios')->with('warn', "Não foi possível enviar o e-mail de recuperação de senha para o usuário {$usuario->name}");
         }
 
-        return redirect('/administrarUsuarios')->with('info', "Recuperação e envio de senha para o usuário {$usuario->name} concluídos com sucesso!");
+        return redirect()->route('administrarUsuarios')->with('info', "Recuperação e envio de senha para o usuário {$usuario->name} concluídos com sucesso!");
     }
 
     /**

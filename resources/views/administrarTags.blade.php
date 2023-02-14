@@ -36,12 +36,12 @@
 				</td>
 				<td class="align-middle text-center">
 					@if($tag->publicacao_autorizada==false)
-						<a href="{{url('/autorizaPublicacaoTag/'.__($tag->id))}}" type="button" class="btnAutorizar btn btn-warning m-2"><b>Aprovar</b></a>
+						<a href="{{route('autorizaPublicacaoTag', $tag->id)}}" type="button" class="btnAutorizar btn btn-warning m-2"><b>Aprovar</b></a>
 					@else
-						<a href="{{url('/omitirPublicacaoTag/'.__($tag->id))}}" type="button" class="btnOmitir btn btn-danger m-2"><b>Ocultar</b></a>
+						<a href="{{route('omitirPublicacaoTag', $tag->id)}}" type="button" class="btnOmitir btn btn-danger m-2"><b>Ocultar</b></a>
 					@endif
-						<a href="{{url('/editarTag/'.__($tag->id))}}" type="button" class="btnEditar btn btn-primary m-2"><b>Revisar</b></a>
-						<a href="{{url('/removerTag/'.__($tag->id))}}" type="button" class="btnRemover btn btn-outline-danger m-2"><b>Remover</b></a>
+						<a href="{{route('editarTag',$tag->id)}}" type="button" class="btnEditar btn btn-primary m-2"><b>Revisar</b></a>
+						<a href="{{route('removerTag', $tag->id)}}" type="button" class="btnRemover btn btn-outline-danger m-2"><b>Remover</b></a>
 				</td>
 			</tr>
 			@endforeach

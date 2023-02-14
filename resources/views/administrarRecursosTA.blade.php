@@ -5,7 +5,7 @@
 @section('content_header')
 <div class="row">
 	<h1 class="display-3 col-md-10">Administrar Recursos de Tecnologia Assistiva</h1>
-	<a href="{{url('/adicionarRecursoTA')}}" class="btn btn-primary col-md-2"><b>Adicionar Recurso</b></a>
+	<a href="{{route('adicionarRecursoTA')}}" class="btn btn-primary col-md-2"><b>Adicionar Recurso</b></a>
 </div>
 @stop
 
@@ -44,11 +44,11 @@
 				</td>
 				<td class="align-middle text-center">
 					
-					<a href="{{url('/revisarRecursoTA/'.__($recursoTA->id))}}" class="btnAutorizar btn btn-warning m-2"><b>Revisar</b></a>
+					<a href="{{route('revisarRecursoTA', $recursoTA->id)}}" class="btnAutorizar btn btn-warning m-2"><b>Revisar</b></a>
 		
-					<a  href="{{url('/omitirRecursoTA/'.__($recursoTA->id))}}" class="btnOmitir btn btn-warning"><b>Omitir</b></a>
+					<a  href="{{route('omitirRecursoTA', $recursoTA->id)}}" class="btnOmitir btn btn-warning"><b>Omitir</b></a>
 		
-					<a href="{{url('/excluirRecursoTA/'.__($recursoTA->id))}}" class="btnExcluir btn btn-warning m-2"><b>Excluir</b></a>
+					<a href="{{route('excluirRecursoTA', $recursoTA->id)}}" class="btnExcluir btn btn-warning m-2"><b>Excluir</b></a>
 					
 				</td>
 			</tr>
