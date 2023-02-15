@@ -32,7 +32,7 @@
 					{{ __('Slug') }}
 					<span class="sr-only">&nbsp;(Campo requerido)</span>
 					<span class="small">
-						(Cuidado ao alterar o slug de recursos publicados, pois os links compartilahdos com o slug antigo deixarão de funcionar)
+						(Cuidado ao alterar o slug de recursos publicados, pois os links compartilhados com o slug antigo deixarão de funcionar)
 					</span>
 					<!-- <span class="small">
 						(Uma sugestão de slug será gerada com base no título informado, porém, o slug deve ser único para cada
