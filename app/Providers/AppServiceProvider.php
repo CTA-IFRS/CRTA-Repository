@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Pagination\Paginator;
 use JeroenNoten\LaravelAdminLte\Events\BuildingMenu;
 use Carbon\Carbon;
 use App\RecursoTA;
@@ -77,5 +78,7 @@ class AppServiceProvider extends ServiceProvider
                 'icon'        => 'fa fa-id-card',
             ]);
         });
+
+        Paginator::useBootstrapFour();
     }
 }

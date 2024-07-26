@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+//use Intervention\Image\Laravel\Facades\Image as Image;
 use Image;
 use App\RecursoTA;
 use App\Tag;
