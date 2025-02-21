@@ -424,3 +424,50 @@ ul.ui-autocomplete {
    max-height: 300px !important;
 }
 
+/*ATUALIZAÇÃOES A PARTIR DE 20/02/2025*/
+@import url(https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap);
+.bg-secondary {
+  background-color: #e7e7e9 !important;
+}
+.navbar-dark .navbar-nav .nav-link {
+  color: #383838;
+}
+.badge-primary {
+  color: #383838 !important;
+  background-color: rgba(255, 255, 255, 0.4) !important;
+}
+.banner {
+  background: url(../imagens/fundo_banner.jpg) center no-repeat;
+  background-size: cover;
+  max-width: calc(100% - 120px) !important;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  box-sizing: border-box;
+  border-radius: 25px;
+  margin-top: 60px;
+}
+.navbar-brand span.h4 {
+  background: url(../imagens/logo-retace.png) center no-repeat;
+  background-size: contain;
+  display: flex;
+  width: 112px;
+  height: 23px;
+  text-indent: -9999px;
+}
+header .bg-primary {
+  background-color: #f9efe4 !important;
+  box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.1);
+}
+body {
+  background-color: #f9efe4;
+}
+#card-retace-intro, #card-retace-busca {
+  background-color: transparent;
+}
+.banner h2 {
+  font-family: "Source Sans 3";
+  font-weight: 900;
+  font-size: 55px;
+  line-height: 56px;
+}
