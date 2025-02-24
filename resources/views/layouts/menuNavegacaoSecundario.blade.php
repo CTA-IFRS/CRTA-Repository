@@ -1,5 +1,5 @@
 <!-- barra de navegação secundária -->
-<nav class="menuNavegacaoSecundario navbar navbar-expand-lg navbar-dark bg-secondary fixed-top py-0 py-sm-2"
+<nav class="menuNavegacaoSecundario navbar navbar-expand-lg navbar-light bg-secondary fixed-top py-0 py-sm-2"
 aria-label="Menu de navegação secundário">
   <button type="button" class="navbar-toggler bg-secondary" data-toggle="collapse" data-target="#navegacaoSecundaria" aria-controls="navegacaoSecundaria" aria-expanded="false" aria-label="{{ __('Expandir menu') }}">
     <span class="navbar-toggler-icon"></span>
@@ -8,22 +8,22 @@ aria-label="Menu de navegação secundário">
 		    <ul class="navbar-nav">
       		<li class="nav-item">
         		<a class="nav-link" href="#conteudo-principal" accesskey="1"> Ir para o conteúdo
-              <span class="badge badge-primary">1</span>
+              <span class="badge badge-light">1</span>
             </a>
       		</li>
       		<li class="nav-item">
         		<a class="nav-link" href="#menu-principal" accesskey="2"> Ir para o menu
-              <span class="badge badge-primary">2</span>
+              <span class="badge badge-light">2</span>
             </a>
       		</li>
       		<li class="nav-item">
         		<a class="nav-link" href="#caixa-de-busca" accesskey="3">Ir para a busca
-              <span class="badge badge-primary">3</span>
+              <span class="badge badge-light">3</span>
             </a>
       		</li>
       		<li class="nav-item">
         		<a class="nav-link" href="#inicio-rodape" accesskey="4"> Ir para o rodapé
-              <span class="badge badge-primary">4</span>
+              <span class="badge badge-light">4</span>
             </a>
       		</li>
       	</ul>

@@ -1,10 +1,10 @@
-<footer class="page-footer font-small bg-primary pt-4">
-	<div class="container-fluid">
+<footer class="page-footer font-small bg-primary pt-4 mt-3">
+	<div class="container">
 		<!-- Grid row -->
 		<div class="row mb-4 d-flex flex-wrap align-items-center">
 			<!-- Grid column -->
 			<div class="col-md-8	 mt-3">
-				<h2 class="text-uppercase h5">Entre em contato</h2>
+				<h2 class="h5">Entre em Contato</h2>
 				<p>
 					Para conhecer mais sobre os trabalhos e projetos desenvolvidos pelo CTA acesse nosso site ou redes sociais disponíveis na lista abaixo.
 				</p>

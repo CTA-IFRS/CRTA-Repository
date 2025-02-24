@@ -1,6 +1,6 @@
 
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
+    <ol class="breadcrumb bg-transparent">
         <li>Você está em:&nbsp;</li>
         @foreach ($data as $item)
             @if (isset($item['link']))

@@ -1,5 +1,5 @@
 <!-- Menu a ser exibido na tela principal, contendo imagem -->
-<nav class="menuTelaPrincipal navbar navbar-expand-lg navbar-dark bg-primary"
+<nav class="menuTelaPrincipal navbar navbar-expand-lg navbar-light bg-transparent shadow-sm"
 	aria-label="Menu de navegação principal">
 	<h1><a class="navbar-brand" href="{{ url('/') }}"><span class="h4">RETACE</span></a></h1>
 	<button type="button" class="navbar-toggler bg-primary" data-toggle="collapse" data-target="#navegacaoPrincipal" aria-controls="navegacaoPrincipal" aria-expanded="false" aria-label="{{ __('Expandir menu') }}">

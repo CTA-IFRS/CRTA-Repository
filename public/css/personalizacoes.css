@@ -59,9 +59,6 @@ main div.row.breadcrumb-clear-pad div.col
   color: white;
   border: none;
 }
-#card-retace-busca > .card-body >.row{
-  margin-top: 3em;
-}
 #btnSearch {
   background-color: #10538a !important;
   border: 1px solid #10538a !important;
@@ -438,6 +435,17 @@ ul.ui-autocomplete {
 }
 @font-face {
   font-family: 'Source Sans 3';
+  src: url('/fonts/vendor/lightgallery/src/SourceSans3-SemiBold.eot');
+  src: url('/fonts/vendor/lightgallery/src/SourceSans3-SemiBold.eot?#iefix') format('embedded-opentype'),
+      url('/fonts/vendor/lightgallery/src/SourceSans3-SemiBold.woff2') format('woff2'),
+      url('/fonts/vendor/lightgallery/src/SourceSans3-SemiBold.woff') format('woff'),
+      url('/fonts/vendor/lightgallery/src/SourceSans3-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Source Sans 3';
   src: url('/fonts/vendor/lightgallery/src/SourceSans3-Bold.eot');
   src: url('/fonts/vendor/lightgallery/src/SourceSans3-Bold.eot?#iefix') format('embedded-opentype'),
       url('/fonts/vendor/lightgallery/src/SourceSans3-Bold.woff2') format('woff2'),
@@ -445,6 +453,17 @@ ul.ui-autocomplete {
       url('/fonts/vendor/lightgallery/src/SourceSans3-Bold.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Source Sans 3';
+  src: url('/fonts/vendor/lightgallery/src/SourceSans3-BoldItalic.eot');
+  src: url('/fonts/vendor/lightgallery/src/SourceSans3-BoldItalic.eot?#iefix') format('embedded-opentype'),
+      url('/fonts/vendor/lightgallery/src/SourceSans3-BoldItalic.woff2') format('woff2'),
+      url('/fonts/vendor/lightgallery/src/SourceSans3-BoldItalic.woff') format('woff'),
+      url('/fonts/vendor/lightgallery/src/SourceSans3-BoldItalic.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
   font-display: swap;
 }
 @font-face {
@@ -458,20 +477,39 @@ ul.ui-autocomplete {
   font-style: normal;
   font-display: swap;
 }
+.bg-primary {
+  background-color: #383838 !important;
+}
+a.bg-primary:hover,
+a.bg-primary:focus,
+button.bg-primary:hover,
+button.bg-primary:focus {
+  background-color: #383838 !important;
+}
 .bg-secondary {
   background-color: #e7e7e9 !important;
 }
-.navbar-dark .navbar-nav .nav-link {
-  color: #383838;
+a.bg-secondary:hover,
+a.bg-secondary:focus,
+button.bg-secondary:hover,
+button.bg-secondary:focus {
+  background-color: #b2b2d9 !important;
 }
-.badge-primary {
-  color: #383838 !important;
-  background-color: rgba(255, 255, 255, 0.4) !important;
+.bg-blue {
+  background-color: #d0e4ea;
+}
+.badge-light {
+  color: #383838;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+.navbar-light .navbar-nav .nav-link {
+  color: #383838;
 }
 .banner {
   background: url(../imagens/fundo_banner.jpg) center no-repeat;
   background-size: cover;
-  max-width: calc(100% - 120px) !important;
+  width: 1800px;
+  max-width: calc(100% - 80px) !important;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
@@ -487,40 +525,35 @@ ul.ui-autocomplete {
   height: 23px;
   text-indent: -9999px;
 }
-header .bg-primary {
-  background-color: #f9efe4 !important;
-  box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.1);
-}
 body {
   background-color: #f9efe4;
 }
 #card-retace-intro, #card-retace-busca {
   background-color: transparent;
 }
-.banner #card-retace-intro h2 {
+.banner #card-retace-intro h2.h1 {
   font-family: "Source Sans 3";
   font-weight: 900;
   font-size: 55px;
   line-height: 56px;
   max-width: 900px;
+  color: #ffffff;
   margin: 0 auto;
-}
-#card-retace-busca > .card-body > .row {
-  margin-top: 0;
 }
 .banner #card-retace-busca h2 {
   font-family: "Source Sans 3";
   font-weight: normal;
   font-size: 30px;
   line-height: 32px;
+  color: #ffffff;
   margin-top: 3px;
   margin-bottom: 26px;
 }
-#card-retace-busca #buscaRecursosTA #box-form {
+#box-form {
   background-color: #ffffff;
   display: grid;
   grid-template-columns: 1fr 78px;
-  max-width: 840px;
+  max-width: 100%;
   width: 100%;
   height: 65px;
   border-radius: 32.5px;
@@ -528,14 +561,17 @@ body {
   overflow: hidden;
   margin: 0 auto;
 }
-#card-retace-busca #buscaRecursosTA #box-form input {
+.banner #box-form {
+  max-width: 840px;
+}
+#box-form input {
   height: 100%;
   font-size: 18px;
   color: #343434;
   opacity: 1;
   padding-left: 27px;
 }
-#card-retace-busca #buscaRecursosTA #box-form button {
+#box-form button {
   width: 100%;
 }
 #btnSearch {
@@ -555,10 +591,10 @@ body {
   border-radius: 32.5px;
   overflow: hidden;
 }
-.form-control {
+#box-form .form-control {
   border: none;
 }
-.form-control:focus {
+#box-form .form-control:focus {
   box-shadow: none !important;
   outline-style: none !important;
 }
@@ -566,22 +602,235 @@ body {
   font-size: 20px;
 }
 header .navbar {
-  padding: 0.5rem 3.5rem;
+  padding: 0.5rem 40px;
 }
 #navegacaoSecundaria {
   margin: 0 -8px;
 }
-#navegacaoCategorias {
-  background-color: #f9efe4 !important;
-  box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.1);
-  border-radius: 54px;
+.badge-primary {
+  background-color: #383838 !important;
 }
-.container-xl, .container-lg, .container-md, .container-sm, .container {
+#navegacaoCategorias {
+  border-radius: 54px;
+  padding: 26px 38px;
+}
+.container {
   max-width: 1320px;
 }
 #navegacaoCategorias.navbar-light .navbar-brand {
-  font-family: "Source Sans 3" !important;
+  font-family: "Source Sans 3";
   font-weight: 700;
   font-size: 24px;
   color: #383838;
 }
+#navegacaoCategorias.navbar-light .navbar-nav {
+  gap: 10px;
+}
+#navegacaoCategorias.navbar-light .navbar-nav .nav-link {
+  font-family: "Source Sans 3";
+  font-weight: 700;
+  font-size: 20px;
+  border: 2px solid #383838;
+  border-radius: 27.5px;
+  padding: 10px 23px;
+}
+#navegacaoCategorias.navbar-light .navbar-nav .nav-link:hover {
+  background-color: #383838;
+  color: #f9efe4;
+}
+.navbar-light .navbar-nav .nav-link:hover, .navbar-light .navbar-nav .nav-link:focus {
+  color: #000;
+}
+main h2 {
+  font-family: "Source Sans 3";
+  font-weight: 700;
+  font-size: 40px;
+  color: #383838;
+}
+.footer-copyright span {
+  color: #383838;
+  font-size: 16px;
+}
+.container {
+  padding: 0;
+}
+footer .h5 {
+  font-family: "Source Sans 3";
+  font-weight: 700;
+  font-size: 24px;
+}
+footer p,
+footer a {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  max-width: 500px;
+}
+footer a i {
+  margin-right: 4px;
+}
+ol.breadcrumb li {
+  font-family: "Source Sans 3";
+  font-weight: 700;
+  font-size: 20px;
+  color: #383838 !important;
+}
+ol.breadcrumb li:first-child {
+  font-weight: 600;
+}
+ol.breadcrumb a {
+  color: #383838 !important;
+  text-decoration: underline;
+}
+.card {
+  border: none;
+  border-radius: 12px;
+}
+.card-link {
+  font-family: "Source Sans 3";
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 22px;
+  color: #383838;
+}
+.card-text {
+  font-size: 16px;
+  line-height: 22px;
+  color: #2f2f2f;
+}
+.breadcrumb {
+  margin-bottom: 0;
+}
+#resultadoBusca .h3 {
+  font-family: "Source Sans 3";
+  font-weight: 700;
+  font-size: 27px;
+  color: #383838;
+}
+#listagemRecursos h3 {
+  font-family: "Source Sans 3";
+  font-weight: 600;
+  font-size: 24px;
+  color: #383838;
+}
+.container-xl {
+  max-width: 1658px;
+  width: calc(100% - 80px);
+  padding: 0;
+  margin: 0 auto;
+}
+#listagem_filtros {
+  display: grid;
+  grid-template-columns: 355px 1fr;
+  gap: 30px;
+}
+.box-filtros {
+  padding: 28px;
+  box-sizing: border-box;
+}
+.box-filtros h4 {
+  font-family: "Source Sans 3";
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 30px;
+  color: #383838;
+}
+hr {
+  border-top: 1px solid #9b9b9b;
+}
+details summary {
+  cursor: pointer;
+  list-style: none;
+  position: relative;
+  font-family: "Source Sans 3";
+  font-weight: 600;
+  font-size: 17px;
+  color: #383838;
+}
+details summary::before {
+  background: url(../imagens/seta_filtros.png) center no-repeat;
+  background-size: contain;
+  width: 15px;
+  height: 10px;
+  content: "";
+  font-size: 18px;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  transition: transform 0.3s ease;
+}
+details[open] summary::before {
+  transform: rotate(180deg);
+}
+.filter-options ul {
+  list-style: none;
+  padding-left: 0;
+}
+.custom-checkbox:checked {
+  background-color: #383838;
+}
+.custom-control-input:checked ~ .custom-control-label::before {
+  color: #fff;
+  border-color: #383838;
+  background-color: #383838;
+}
+#aprender_contribuir {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  max-width: 1608px;
+  width: calc(100% - 80px);
+  margin: 0 auto;
+}
+#aprender,
+#contribuir {
+  padding: 65px;
+  padding-left: 345px;
+  border-radius: 18px;
+}
+#aprender {
+  background: #d0e4ea url(../imagens/img_aprender.png) center left 40px no-repeat;
+  background-size: 240px;
+}
+#contribuir {
+  background: #d0e4ea url(../imagens/img_contrubuir.png) center left 40px no-repeat;
+  background-size: 270px;
+}
+#aprender_contribuir h3 a {
+  font-family: "Source Sans 3";
+  font-weight: 700;
+  font-size: 42px;
+  color: #2f2f30;
+}
+#aprender_contribuir p {
+  font-family: "Source Sans 3";
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 32px;
+  color: #2f2f30;
+}
+.card-img-top {
+  object-fit: contain;
+}
+.card-title {
+  font-size: 20px;
+}
+.shadow-sm {
+  box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.1) !important;
+}
+
+
+
+
+
+
+
+
+
+/*
+tirar filt5ros do grid e colocar com col
+
+
+breakpoint 1480
+*/
