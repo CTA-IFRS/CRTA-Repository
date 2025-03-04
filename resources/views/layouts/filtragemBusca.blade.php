@@ -1,4 +1,4 @@
-<div class="container box-filtros bg-white">
+<div class="container box-filtros bg-white rounded-lg">
     <h4>Filtros</h4>
     <hr>
     <details class="filter-category">
