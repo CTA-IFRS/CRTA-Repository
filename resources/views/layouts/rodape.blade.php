@@ -13,7 +13,7 @@
 					<li class=""><a class="text-black-50 text-decoration-none" href="https://cta.ifrs.edu.br/"><i class="bi bi-cursor"> </i>cta.ifrs.edu.br</a></li>
 					<li class=""><a class="text-black-50 text-decoration-none" href="https://instagram.com/cta-ifrs"><i class="bi bi-instagram"> </i>instagram.com/cta-ifrs</a></li>
 					<li class=""><a class="text-black-50 text-decoration-none" href="https://youtube.com/cta-ifrs"><i class="bi bi-youtube"> </i>youtube.com/cta-ifrs</a></li>
-					<pli class=""><a class="text-black-50 text-decoration-none" href="https://facebook.com/cta-ifrs"><i class="bi bi-facebook"> </i>facebook.com/cta-ifrs</a></li>
+					<li class=""><a class="text-black-50 text-decoration-none" href="https://facebook.com/cta-ifrs"><i class="bi bi-facebook"> </i>facebook.com/cta-ifrs</a></li>
 				</ul>
 			</div>
 
