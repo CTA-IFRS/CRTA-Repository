@@ -1,60 +1,63 @@
 @extends('layouts.siteLayout')
 @section('titulo','RETACE Cadastrar Tecnologia Assistiva')
 @section('conteudo')
-<div id="app" class="container cadastro-ta-card mt-5">
+<div id="app" class="container custom_content cadastro-ta-card mt-5">
     <?php 
         $data = [
             ['name' => 'RETACE', 'link' => url('/')],
             ['name' => 'Contribuir', 'current' => true]
         ]
     ?>
-    <div class="row">
+    <div class="row breadcrumb-clear-pad">
         <div class="col">
             @include('layouts.breadcrumb', $data)
         </div>
     </div>
+    <hr class="mt-0">
     <div class="row ">
         <div class="col-md-12">
-            <div class="card border-light">
-                <div class="card-header">
-                    <h2 class="h1">
+            <div class="card border-light bg-transparent">
+                <div class="card-header bg-transparent p-0 sem-borda">
+                    <h2 class="h1 mt-4 mb-4">
                         {{ __('Cadastrar Tecnologia Assistiva / Material pedagógico') }}
                     </h2>
                 </div>
 
-                <div class="card-body">
+                <div class="card-body p-0">
                     <div id="alert-erros-formulario" tabindex="-1" class="alert alert-danger d-none">
                         Por favor verifique o formulário novamente, alguns campos não foram preenchidos corretamente.
                     </div>  
 
                     <form id="formCadastroRecursoTA" method="POST" action="{{ route('salvaTA') }}" enctype="multipart/form-data">
                         @csrf
-                        <fieldset>
-                            <legend class="h3">Informações básicas</legend>
-
-                            <div class="form-group required row mt-3" role="group">
-                                <label for="titulo" class="col-md-2 col-form-label text-md-right">
+                        <fieldset class="bg-white p-4 rounded-lg">
+                            <div>
+                                <legend class="h3">1. Informações básicas</legend>
+                            </div>
+                            <hr>
+                            <div class="form-group required mt-3" role="group">
+                                <label for="titulo" class="col-form-label text-md-right">
                                     {{ __('Título') }}
                                     <span class="sr-only">&nbsp;(Campo requerido)</span>
                                 </label>
-                                <div class="col-md-10">
-                                    <input id="titulo" type="text" class="form-control" name="titulo" value="{{ old('titulo') }}" autofocus spellcheck="true">
+                                <div>
+                                    <input id="titulo" type="text" class="form-control bg-gray" name="titulo" value="{{ old('titulo') }}" autofocus spellcheck="true">
                                 </div>
                             </div>
 
-                            <div class="form-group required row" role="group">
-                                <label for="descricao" id="descricao-label" class="col-md-2 col-form-label text-md-right">
+                            <div class="form-group required" role="group">
+                                <label for="descricao" id="descricao-label" class="col-form-label text-md-right">
                                     {{ __('Breve descrição') }}
                                     <span class="sr-only">&nbsp;(Campo requerido)</span>
                                 </label>
-                                <div class="col-md-10">
-                                    <textarea class="form-control descricao" id="descricao" name="descricao" rows="8" spellcheck="true"></textarea>
+                                <div>
+                                    <textarea class="form-control descricao bg-gray" id="descricao" name="descricao" rows="8" spellcheck="true"></textarea>
                                 </div>
                             </div>
 
                             <fieldset class="form-group required">
                                 <div class="row">
-                                    <legend class="col-form-label col-md-2 pt-0 text-md-center" id="label-legend-text">
+                                    <legend class="col-form-label col-md-12 pt-0" id="label-legend-text">
                                         É um produto comercial?
                                         <span class="sr-only">&nbsp;(Campo requerido)</span>
                                         <div id="legend-label-produtoComercial" class="sr-only"></div>
@@ -81,43 +84,46 @@
                                 </div>
                             </fieldset>
         
-                            <div class="form-group row">
-                                <label for="siteFabricante" class="col-md-2 col-form-label text-md-right">
+                            <div class="form-group">
+                                <label for="siteFabricante" class="col-form-label text-md-right">
                                     {{ __('Site do recurso') }}
                                     <span class="sr-only">&nbsp;(Campo requerido)</span>
                                 </label>
-                                <div class="col-md-10">
-                                    <input id="siteFabricante" type="text" class="form-control" name="siteFabricante" value="{{ old('siteFabricante') }}">
+                                <div>
+                                    <input id="siteFabricante" type="text" class="form-control bg-gray" name="siteFabricante" value="{{ old('siteFabricante') }}">
                                 </div>
                             </div>
 
-                            <div id="divLicenca" class="form-group row">
-                                <label for="licenca" class="col-md-2 col-form-label text-md-right">
+                            <div id="divLicenca" class="form-group">
+                                <label for="licenca" class="col-form-label text-md-right">
                                     {{ __('Licença') }}
                                 </label>
-                                <div class="col-md-10">
-                                    <input id="licenca" type="text" class="form-control" name="licenca" value="{{ old('licenca') }}">
+                                <div>
+                                    <input id="licenca" type="text" class="form-control bg-gray" name="licenca" value="{{ old('licenca') }}">
                                 </div>
                             </div>
 
-                            <div class="form-group row">
-                                <label for="tags" id="tags-label" class="col-md-2 col-form-label text-md-right">
+                            <div class="form-group">
+                                <label for="tags" id="tags-label" class="col-form-label text-md-right">
                                     {{ __('Tags') }}
                                     <span class="sr-only">&nbsp;(Campo requerido)</span>
                                 </label>
-                                <div class="col-md-10">
-                                    <input type="text" class="form-control" name="tags" id="tags"/>
+                                <div>
+                                    <input type="text" class="form-control bg-gray" name="tags" id="tags"/>
                                 </div>
                             </div>
                         </fieldset>
 
-                        <hr>
+                        <br>
                         
-                        <fieldset>
-                            <legend id="fotos-label-cab" class="obrigatorio mt-4 h3">
-                                Fotos
-                                <span class="sr-only">&nbsp;(Campo requerido)</span>
-                            </legend>
+                        <fieldset class="bg-white p-4 rounded-lg">
+                            <div>
+                                <legend id="fotos-label-cab" class="obrigatorio h3">
+                                    2. Fotos
+                                    <span class="sr-only">&nbsp;(Campo requerido)</span>
+                                </legend>
+                            </div>
+                            <hr>
                             <ul>
                                 <li>Carregue pelo menos uma foto sobre a tecnologia assistiva ou material pedagógico no formato png, jpg ou  jpeg</li>
                                 <li>
@@ -143,20 +149,23 @@
                             </div>
                         </fieldset>
 
-                        <hr>
+                        <br>
 
                         <div id="status-adicao-links" class="sr-only" role="status">
                         </div>
 
-                        <fieldset>
-                            <legend id="videos-label" class="mt-4 h3">Vídeos relacionados</legend>
+                        <fieldset class="bg-white p-4 rounded-lg">
+                            <div>
+                                <legend id="videos-label" class="h3">3. Vídeos relacionados</legend>
+                            </div>
+                            <hr>
                             <p> Informe o endereço (url) de vídeos sobre a tecnologia assistiva</p>
-                            <div id="divVideos" class="form-group row" role="group" aria-labelledby="videos-label">
-                                <label for="urlVideo" class="col-md-2 col-form-label text-md-right">{{ __('Link para o vídeo') }}</label>
-                                <div class="col-md-10 form-inline">
-                                    <input id="urlVideo" type="url"  class="w-75 form-control @error('videos[]') is-invalid @enderror" name="video" value="{{ old('video') }}">
-                                    <button id="btnAdicionarVideo" type="button" class="w-25 btn btn-primary" aria-label="Adicionar o vídeo">
-                                        <i class="fa fa-check-square fa-1"></i>
+                            <div id="divVideos" class="form-group" role="group" aria-labelledby="videos-label">
+                                <label for="urlVideo" class="col-form-label text-md-right">{{ __('Link para o vídeo') }}</label>
+                                <div class="form-inline">
+                                    <input id="urlVideo" type="url"  class="bg-gray form-control @error('videos[]') is-invalid @enderror" name="video" value="{{ old('video') }}">
+                                    <button id="btnAdicionarVideo" type="button" class="btn btn-primary" aria-label="Adicionar o vídeo">
+                                        Inserir
                                     </button>
                                     @error('videos[]')
                                     <span class="invalid-feedback" role="alert">
@@ -164,7 +173,7 @@
                                     </span>
                                     @enderror
                                 </div>
-                                <div class="offset-md-1 col-md-10 mt-4">
+                                <div class="bg-gray p-3 mt-4 rounded-8 bloco_videos">
                                     <p>{{__('Vídeos a serem cadastrados para este recurso:')}}</p>
                                     <ul id="videos" class="list-group list-group-flush text-center">
                                         <li id="avisoListaVazia-videos" class="list-group-item">Não serão adicionados vídeos</li>
@@ -173,108 +182,121 @@
                             </div>
                         </fieldset>
 
-                        <hr>
+                        <br>
 
-                        <fieldset>
-                            <legend id="arquivos-label" class="mt-4 h3">Arquivos</legend>
+                        <fieldset class="bg-white p-4 rounded-lg">
+                            <div>
+                                <legend id="arquivos-label" class="h3">4. Arquivos</legend>
+                            </div>
+                            <hr>
                             <p> Carregue os arquivos do projeto em um único arquivo no formato .zip ou .rar. Caso o recurso já possua um site com os arquivos, poderá informar o link no campo abaixo também. </p>
-                            <div class="form-group row">
-                                <div class="col-2">
+                            <div class="form-group">
+                                <div>
                                     <label for="arquivo-upload">Arquivos do projeto</label>
                                 </div>
-                                <div class="col">
-                                    <input id="arquivo-upload" name="arquivo-upload" type="file" class="w-100" />
+
+                                <div class="custom-file">
+                                    <input id="arquivo-upload" name="arquivo-upload" type="file" class="w-100 form-control bg-gray custom-file-input">
+                                    <label class="custom-file-label bg-gray" for="arquivo-upload"></label>
                                 </div>
                             </div>
 
-                            <div class="form-group row">
-                                <div class="col-2">
+                            <div class="form-group">
+                                <div>
                                     <label class="col-form-label" for="manual-url-alternativa">Link para os arquivos</label>
                                 </div>
-                                <div class="col">
-                                    <input class="form-control" id="arquivo-url-alternativa" name="arquivo-url-alternativa"/>
+                                <div>
+                                    <input class="form-control bg-gray" id="arquivo-url-alternativa" name="arquivo-url-alternativa"/>
                                 </div>
                             </div>
                         </fieldset>
 
-                        <hr>
+                        <br>
 
-                        <fieldset>
-                            <legend id="manual-label" class="mt-4 h3">Manuais</legend>
+                        <fieldset class="bg-white p-4 rounded-lg">
+                            <div>
+                                <legend id="manual-label" class="h3">5. Manuais</legend>
+                            </div>
+                            <hr>
                             <p> Carregue o manual do recurso no formato .pdf ou os manuais nos formatos .zip ou .rar. Caso o recurso já possua um site com os manuais poderá informar o link no campo abaixo também. </p>
-                            <div class="form-group row">
-                                <div class="col-2">
+                            <div class="form-group">
+                                <div>
                                     <label for="manual-upload">Manuais do projeto</label>
                                 </div>
-                                <div class="col">
-                                    <input id="manual-upload" name="manual-upload" type="file" class="w-100"/>
+                                
+                                <div class="custom-file">
+                                    <input id="manual-upload" name="manual-upload" type="file" class="w-100 form-control bg-gray custom-file-input">
+                                    <label class="custom-file-label bg-gray" for="manual-upload"></label>
                                 </div>
                             </div>
 
-                            <div class="form-group row">
-                                <div class="col-2">
+                            <div class="form-group">
+                                <div>
                                     <label class="col-form-label" for="manual-url-alternativa">Link para os manuais</label>
                                 </div>
-                                <div class="col">
-                                    <input class="form-control" id="manual-url-alternativa" name="manual-url-alternativa"/>
+                                <div>
+                                    <input class="form-control bg-gray" id="manual-url-alternativa" name="manual-url-alternativa"/>
                                 </div>
                             </div>
                         </fieldset>
 
-                        <hr>
+                        <br>
 
-                        <fieldset>
-                            <legend class="h3">Informações para contato</legend>
+                        <fieldset class="bg-white p-4 rounded-lg">
+                            <div>
+                                <legend class="h3">6. Informações para contato</legend>
+                            </div>
+                            <hr>
                             <p>Essas informações não ficarão disponíveis na página do recurso. 
                                 Elas servirão apenas para os moderadores poderem entrar em contato caso haja alguma dúvida sobre o recurso ou material.
                             </p>
-                            <div class="form-group required row mt-3" role="group">
-                                <label for="contato_nome" class="col-md-2 col-form-label text-md-right">
+                            <div class="form-group required mt-3" role="group">
+                                <label for="contato_nome" class="col-form-label text-md-right">
                                     {{ __('Nome') }}
                                     <span class="sr-only">&nbsp;(Campo requerido)</span>
                                 </label>
-                                <div class="col-md-10">
-                                    <input id="contato_nome" type="text" class="form-control" name="contato_nome" value="{{ old('contato_nome') }}" autofocus>
+                                <div>
+                                    <input id="contato_nome" type="text" class="form-control bg-gray" name="contato_nome" value="{{ old('contato_nome') }}" autofocus>
                                 </div>
                             </div>
 
-                            <div class="form-group required row mt-3" role="group">
-                                <label for="contato_email" class="col-md-2 col-form-label text-md-right">
+                            <div class="form-group required mt-3" role="group">
+                                <label for="contato_email" class="col-form-label text-md-right">
                                     {{ __('E-mail') }}
                                     <span class="sr-only">&nbsp;(Campo requerido)</span>
                                 </label>
-                                <div class="col-md-10">
-                                    <input id="contato_email" type="text" class="form-control" name="contato_email" value="{{ old('contato_email') }}" autofocus>
+                                <div>
+                                    <input id="contato_email" type="text" class="form-control bg-gray" name="contato_email" value="{{ old('contato_email') }}" autofocus>
                                 </div>
                             </div>
 
-                            <div class="form-group required row mt-3" role="group">
-                                <label for="contato_telefone" class="col-md-2 col-form-label text-md-right">
+                            <div class="form-group required mt-3" role="group">
+                                <label for="contato_telefone" class="col-form-label text-md-right">
                                     {{ __('Telefone') }}
                                     <span class="sr-only">&nbsp;(Campo requerido)</span>
                                 </label>
-                                <div class="col-md-10">
-                                    <input id="contato_telefone" type="text" class="form-control" name="contato_telefone" value="{{ old('contato_telefone') }}" autofocus>
+                                <div>
+                                    <input id="contato_telefone" type="text" class="form-control bg-gray" name="contato_telefone" value="{{ old('contato_telefone') }}" autofocus>
                                 </div>
                             </div>
 
-                            <div class="form-group row mt-3" role="group">
-                                <label for="contato_instituicao" class="col-md-2 col-form-label text-md-right">
+                            <div class="form-group mt-3" role="group">
+                                <label for="contato_instituicao" class="col-form-label text-md-right">
                                     {{ __('Instituição') }}
                                     <span class="sr-only">&nbsp;(Campo opcional)</span>
                                 </label>
-                                <div class="col-md-10">
-                                    <input id="contato_instituicao" type="text" class="form-control" name="contato_instituicao" value="{{ old('contato_instituicao') }}" autofocus>
+                                <div>
+                                    <input id="contato_instituicao" type="text" class="form-control bg-gray" name="contato_instituicao" value="{{ old('contato_instituicao') }}" autofocus>
                                 </div>
                             </div>
 
                         </fieldset>
 
-                        <hr>
+                        <br>
                         
-                        <div class="form-group row mb-5 mt-4">
-                            <div class="col-md-3 offset-md-10">
-                                <button id="btnEnviaForm" type="submit" class="btn btn-success p-4">
+                        <div class="form-group mb-5 mt-1">
+                            <div class="d-flex justify-content-end">
+                                <button id="btnEnviaForm" type="submit" class="btn badge-primary p-4">
                                     <b>{{ __('CADASTRAR') }}</b>
                                     <span class="spinner-border d-none" role="status">
                                         <span class="sr-only">Enviando os dados do recurso...</span>
