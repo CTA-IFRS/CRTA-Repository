@@ -20,13 +20,13 @@
 	<div class="row">
         <div class="col-12">
             <div class="row">
-                <h2 class="h1 m-auto pt-4">Sobre o RETACE</h2>
+                <h2 class="h1 m-sm-auto pt-4 ml-3">Sobre o RETACE</h2>
             </div>
         </div>
         
-		<div id="conteudo" class="col-12 pt-2 pl-2">
-			<div class="my-3">
-				<p style="text-align: center;">O RETACE é um repositório de Tecnologia Assistiva, vinculado ao contexto da educação, com o objetivo de permitir que os usuários encontrem possibilidades de tecnologia assistiva e todas as informações referentes a cada recurso em um só local.</p>
+		<div id="conteudo" class="col-12 pt-2 pl-sm-2 py-0">
+			<div class="mt-sm-3 mb-sm-3 mt-1">
+				<p class="text-sm-center">O RETACE é um repositório de Tecnologia Assistiva, vinculado ao contexto da educação, com o objetivo de permitir que os usuários encontrem possibilidades de tecnologia assistiva e todas as informações referentes a cada recurso em um só local.</p>
                 <br>
                 <h3>Buscando um recurso</h3>
                 <p>A busca pode ser realizada por termo ou por categoria. Ainda, através do menu, é possível acessar todos os recursos de Tecnologia Assistiva, bem como os materiais pedagógicos acessíveis cadastrados.</p>
@@ -34,23 +34,23 @@
                 <h3>Acessando um recurso</h3>
                 <p>Ao acessar um recurso, são disponibilizadas diversas informações, tais como: descrição do recurso, imagens e/ou vídeos relacionados; manuais de desenvolvimento (quando for o caso) e de uso, além de recursos relacionados. Também são disponibilizadas informações sobre fabricante/desenvolvedor, licença, número de visitas e avaliações.</p>
                 <img class="img-fluid rounded shadow-sm mt-4" src="{{url('/imagens/sobre_img1.jpg')}}" alt="imagem mostrando o menu com o mapa do site">
-                <div class="bg-white frase_destaque p-4 rounded-lg my-5">
-                    <p style="text-align: center;" class="m-0">O intuito do RETACE é permitir que os usuários<br> <b>encontrem possibilidades de tecnologia assistiva</b><br> e todas as informações referentes a cada recurso em um só local.</p>
+                <div class="bg-white frase_destaque p-3 p-sm-4 rounded-lg my-5">
+                    <p class="m-0 text-center">O intuito do RETACE é permitir que os usuários<br> <b>encontrem possibilidades de tecnologia assistiva</b><br> e todas as informações referentes a cada recurso em um só local.</p>
                 </div>
                 <div class="row w-100 m-0" id="aprender_contribuir">
-                    <div class="d-flex flex-column justify-content-between bg-blue p-4 rounded-lg">
+                    <div class="d-flex flex-column justify-content-between bg-blue px-sm-4 px-3 py-4 rounded-lg">
                         <div>
-                            <h3 style="text-align: left;">Quer CONTRIBUIR com algum recurso?</h3>
+                            <h3 class="text-left">Quer CONTRIBUIR com algum recurso?</h3>
                             <p>A área CONTRIBUIR do repositório permite que qualquer pessoa possa incluir recursos de Tecnologia Assistiva ainda não cadastrados no repositório.</p>
                         </div>
-                        <img class="img-fluid rounded mt-3" src="{{url('/imagens/sobre_img2.jpg')}}" alt="imagem mostrando o menu com o mapa do site">
+                        <img class="img-fluid rounded mt-sm-3 mt-2" src="{{url('/imagens/sobre_img2.jpg')}}" alt="imagem mostrando o menu com o mapa do site">
                     </div>
-                    <div class="d-flex flex-column justify-content-between bg-blue p-4 rounded-lg">
+                    <div class="d-flex flex-column justify-content-between bg-blue px-sm-4 px-3 py-4 rounded-lg">
                         <div>
                             <h3>Quer APRENDER sobre Tecnologia Assistiva?</h3>
                             <p>Na área APRENDER do repositório você encontra cursos, publicações e outros materiais que possibilitem aprender mais sobre Tecnologia Assistiva e sua aplicabilidade no contexto educacional.</p>
                         </div>
-                        <img class="img-fluid rounded mt-3" src="{{url('/imagens/sobre_img3.jpg')}}" alt="imagem mostrando o menu com o mapa do site">
+                        <img class="img-fluid rounded mt-sm-3 mt-2" src="{{url('/imagens/sobre_img3.jpg')}}" alt="imagem mostrando o menu com o mapa do site">
                     </div>
                 </div>
                 <div style="max-width: 944px;" class="mx-auto mt-5 mb-5 historico">

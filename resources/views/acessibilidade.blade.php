@@ -45,7 +45,7 @@
             
             <ul class="d-flex flex-column p-0 pt-2">
                 <li class="bg-white d-flex rounded-lg">
-                    <div class="row w-100 m-0 py-4 px-3">
+                    <div class="row w-100 m-0 py-3 py-sm-4 px-1 px-sm-3">
                         <div class="col-12 d-flex flex-column">
                             <strong class="mb-2">Atalhos de teclado</strong>
                             Permitem ir diretamente a um bloco do site, 
@@ -55,26 +55,26 @@
                     </div>
                 </li>
                 <li class="bg-white d-flex rounded-lg">
-                    <div class="row w-100 m-0 py-4 px-3">
-                        <div class="col-7 d-flex flex-column">
+                    <div class="row w-100 m-0 py-3 py-sm-4 px-1 px-sm-3">
+                        <div class="col-md-7 col-12 d-flex flex-column">
                             <strong class="mb-2">P&aacute;gina de acessibilidade</strong>
                             Apresenta informa&ccedil;&otilde;es sobre 
                             a acessibilidade do site, recursos oferecidos e testes realizados;
                         </div>
-                        <div class="col-5">
+                        <div class="col-md-5 col-12 mt-3 mt-md-0">
                         <img src="{{url('/imagens/pag_acessibilidade.png')}}" alt="imagem mostrando a página de acessibilidade" class="img-fluid rounded">
                         </div>
                     </div>
                 </li>
                 <li class="bg-white d-flex rounded-lg">
-                    <div class="row w-100 m-0 py-4 px-3">
-                        <div class="col-7 d-flex flex-column">
+                    <div class="row w-100 m-0 py-3 py-sm-4 px-1 px-sm-3">
+                        <div class="col-md-7 col-12 d-flex flex-column">
                             <strong class="mb-2">Mapa do site</strong>
                             Disponibiliza todas as p&aacute;ginas do site de 
                             forma hier&aacute;rquica, permitindo que o usu&aacute;rio conhe&ccedil;a toda a estrutura 
                             do site e acesse diretamente a p&aacute;gina desejada.
                         </div>
-                        <div class="col-5">
+                        <div class="col-md-5 col-12 mt-3 mt-md-0">
                             <img src="{{url('/imagens/mapa_site.png')}}" alt="imagem mostrando o menu com o mapa do site" class="img-fluid rounded">
                         </div>
                     </div>
@@ -126,7 +126,7 @@
             <p>No Mac OS, substitua o &ldquo;Ctrl&rsquo; pela tecla &ldquo;Command&rdquo;.</p>
             <br>
 
-            <div class="card bg-secondary px-5 py-4 mb-4">
+            <div class="card bg-secondary px-sm-5 px-3 py-sm-4 py-2 mb-4">
                 <h3 class="mt-2 mb-4">Avalia&ccedil;&atilde;o de acessibilidade</h3>
                 <p>
                     <b>&Uacute;ltima avalia&ccedil;&atilde;o autom&aacute;tica de acessibilidade realizada no site: maio/2021.</b>

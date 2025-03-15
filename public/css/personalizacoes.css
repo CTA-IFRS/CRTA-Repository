@@ -81,7 +81,7 @@ main div.row.breadcrumb-clear-pad div.col
 /************* Banner da tela principal **************/
 .banner{
 	/*background: url(/imagens/fundoMenuPrincipal.jpg) scroll center no-repeat;*/
-  background-color: #3E67B1!important;
+  background-color: #383838!important;
   /**background-size: cover;**/
 }
 /***************************/
@@ -354,6 +354,9 @@ button.bg-primary:focus {
 .bg-secondary {
   background-color: #e7e7e9 !important;
 }
+.bg-sepia {
+  background-color: #f9efe4;
+}
 a.bg-secondary:hover,
 a.bg-secondary:focus,
 button.bg-secondary:hover,
@@ -573,13 +576,11 @@ ol.breadcrumb a {
   font-family: "Source Sans 3";
   font-weight: 700;
   font-size: 27px;
-  color: #383838;
 }
 #listagemRecursos h3 {
   font-family: "Source Sans 3";
   font-weight: 600;
   font-size: 24px;
-  color: #383838;
 }
 .container-xl {
   max-width: 1658px;
@@ -602,7 +603,6 @@ ol.breadcrumb a {
   font-weight: 700;
   font-size: 26px;
   line-height: 30px;
-  color: #383838;
 }
 hr {
   border-top: 1px solid #9b9b9b;
@@ -614,7 +614,6 @@ details summary {
   font-family: "Source Sans 3";
   font-weight: 600;
   font-size: 17px;
-  color: #383838;
 }
 details summary::before {
   background: url(../imagens/seta_filtros.png) center no-repeat;
@@ -791,7 +790,7 @@ details[open] summary::before {
   font-weight: 600;
   font-size: 20px;
   line-height: 26px;
-  max-width: 560px;
+  padding-right: 90px;
 }
 .custom_content .card h3 a {
   color: #383838 !important;
@@ -959,7 +958,7 @@ details[open] summary::before {
 .card-title {
   line-height: 22px;
 }
-#listagemRecursos .col {
+#listagem_recursos_paginacao .col {
   padding-right: 8px;
   padding-left: 8px;
 }
@@ -973,19 +972,32 @@ details[open] summary::before {
 .col-7_5 {
   flex: 0 0 79%;
   max-width: 79%;
+  position: relative;
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .col-md-2_5 {
+    flex: 0 0 21%;
+    max-width: 21%;
+  }
+  .col-md-7_5 {
+    flex: 0 0 79%;
+    max-width: 79%;
+  }
 }
 .pagination {
-  gap: 4px;
+  gap: 8px;
 }
 .page-link {
   display: flex;
   align-items: center;
   justify-content: center;
   width: fit-content;
-  height: 40px;
-  padding: 0.5rem 0.93rem;
+  height: 44px;
+  padding: 0.5rem 1rem;
   border: 1px solid #383838;
   border-radius: 4px !important;
+  font-size: 18px;
   color: #383838 !important;
   cursor: pointer;
 }
@@ -999,23 +1011,259 @@ details[open] summary::before {
   border-color: #636363;
   color: #ffffff !important;
 }
-
-
-
-
-
+.page-item.disabled .page-link {
+  cursor: unset;
+}
+#pagRecurso h2 {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 32px;
+  text-align: left;
+}
+#acessos .fa {
+  font-size: 18px;
+}
+#acessos span {
+  font-size: 16px;
+}
+.star .fa,
+.rating-sm {
+  font-size: 18px;
+}
 /*
-
-
-breakpoint 1480
-*/
-
-
-
-
-
-
-
+#DescricaoDetalhes {
+  margin: -8px !important;
+}*/
+#tituloRecurso,
+#fotosRecurso {
+  padding: 15px !important;
+}
+#DescricaoDetalhes {
+  padding: 15px 0 !important;
+}
+#pagRecurso .card:not(#recursosRelacionados .card) {
+  padding: 15px;
+}
+#DescricaoDetalhes .custom_content .card h3 {
+  font-size: 22px;
+}
+#manuais a, #arquivos a, #fabricante a, #manuais span, #arquivos span, #fabricante span {
+  font-size: 16px;
+  line-height: 22px;
+}
+#colunaEsquerda .h2 {
+  font-size: 28px;
+  line-height: 32px;
+}
+#btn_filtros {
+  background-color: #fff !important;
+  font-family: "Source Sans 3";
+  font-weight: 700;
+  font-size: 20px;
+  border: 2px solid #383838 !important;
+  border-radius: 27.5px;
+  padding: 8px 22px;
+  color: #383838;
+  width: 100%;
+}
+a.badge-primary:hover {
+  color: #fff !important;
+  background-color: #5e5e5e !important;
+}
+@media(max-width: 1550px) {
+  .banner #card-retace-intro h2.h1 {
+    font-size: 50px;
+    line-height: 51px;
+    max-width: 800px;
+  }
+  .categorias_inicial {
+    max-width: 1200px;
+  }
+  #navegacaoCategorias.navbar-light .navbar-brand {
+    font-size: 22px;
+  }
+  #navegacaoCategorias.navbar-light .navbar-nav .nav-link {
+    font-size: 18px;
+    padding: 8px 22px;
+  }
+  .container {
+    width: calc(100% - 80px);
+  }
+  #aprender, #contribuir {
+    padding: 55px;
+    padding-left: 280px;
+  }
+  #aprender {
+    background-size: 200px;
+  }
+  #contribuir {
+    background: #d0e4ea url(../imagens/img_contrubuir.png) center left 30px no-repeat;
+    background-size: 230px;
+  }
+}
+@media(max-width: 1000px) {
+  #aprender_contribuir {
+    grid-template-columns: 1fr;
+  }
+  .banner #card-retace-intro h2.h1 {
+    font-size: 40px;
+    line-height: 44px;
+    max-width: 620px;
+  }
+  .page-footer .logos > .row {
+    margin-left: -16px;
+  }
+  .custom_content h2 {
+    font-size: 40px;
+    line-height: 40px;
+  }
+  .custom_content .frase_destaque p b {
+    font-size: 26px;
+  }
+  .custom_content .frase_destaque p {
+    font-size: 23px;
+    line-height: 32px;
+  }
+  #conteudo_aprender .navbar-expand-lg .navbar-nav {
+    flex-direction: row;
+    justify-content: center;
+  }
+  #listagem_recursos_paginacao {
+    margin-left: 0;
+  }
+  #box-form {
+    height: 55px;
+  }
+}
+@media(max-width: 600px) {
+  .container {
+    width: calc(100% - 40px);
+    max-width: calc(100% - 40px) !important;
+  }
+  header .navbar {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .banner #card-retace-intro h2.h1,
+  .custom_content h2 {
+    font-size: 32px;
+    line-height: 36px;
+    font-weight: 700;
+  }
+  .banner #card-retace-busca h2 {
+    font-size: 24px;
+    line-height: 28px;
+  }
+  #box-form {
+    height: 50px;
+    grid-template-columns: 1fr 55px;
+  }
+  #box-form input {
+    font-size: 16px;
+  }
+  #navegacaoCategorias {
+    border-radius: 25px;
+    padding: 20px;
+  }
+  #navegacaoCategorias.navbar-light .navbar-brand {
+    font-size: 19px;
+  }
+  main h2 {
+    font-size: 28px;
+  }
+  #aprender {
+    background: #d0e4ea url(../imagens/img_aprender.png) center top 20px no-repeat;
+    background-size: 180px;
+  }
+  #contribuir {
+    background: #d0e4ea url(../imagens/img_contrubuir.png) center top 20px no-repeat;
+    background-size: 200px;
+  }
+  #aprender, #contribuir {
+    padding: 20px;
+    padding-top: 198px;
+  }
+  #aprender_contribuir h3 a {
+    font-size: 30px;
+  }
+  #aprender_contribuir p {
+    font-size: 17px !important;
+    line-height: 27px;
+  }
+  #aprender_contribuir {
+    width: calc(100% - 40px);
+  }
+  #acessibilidade h3,
+  .custom_content h3 {
+    font-size: 24px;
+    line-height: 28px;
+  }
+  .custom_content p {
+    font-family: "Nunito", sans-serif;
+    font-size: 17px;
+    line-height: 27px;
+  }
+  .custom_content p b {
+    font-size: 18px;
+  }
+  .custom_content ul {
+    font-size: 17px;
+    line-height: 27px;
+    padding-left: 17px;
+  }
+  .custom_content .card h3 {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 26px;
+    padding-right: 0;
+  }
+  .custom_content .frase_destaque p {
+    font-size: 18px;
+    line-height: 26px;
+  }
+  .custom_content .frase_destaque p b {
+    font-size: 20px;
+  }
+  .custom_content #aprender_contribuir h3 {
+    font-size: 24px;
+    line-height: 28px;
+  }
+  .custom_content #aprender_contribuir p {
+    line-height: 25px;
+  }
+  .custom_content .card .badge {
+    right: unset;
+    left: 17px;
+  }
+  #conteudo_aprender .col-12 {
+    padding: 0;
+  }
+  #app h2 {
+    font-size: 26px;
+    line-height: 32px;
+  }
+  .custom_content legend.h3 {
+    font-size: 23px;
+  }
+  .container-xl {
+    width: calc(100% - 40px);
+    padding: 0;
+  }
+  #resultadoBusca .h3 {
+    font-size: 20px;
+  }
+  #listagemRecursos h3 {
+    font-size: 18px;
+  }
+  #listagem_recursos_paginacao .col {
+    padding-right: 0;
+    padding-left: 0;
+  }
+  #pagRecurso h2 {
+    font-size: 28px;
+    line-height: 28px;
+  }
+}
 
 
 
@@ -1065,7 +1313,6 @@ breakpoint 1480
 }
 
 .high-contrast .card-recurso-ta *,
-.high-contrast main .contribute-strip,
 .high-contrast .banner,
 .high-contrast .banner .row,
 .high-contrast .banner .card-body,
@@ -1079,8 +1326,9 @@ breakpoint 1480
 .high-contrast footer .footer-copyright,
 .high-contrast #fotosDescricao,
 .high-contrast #colunaDireita,
+.high-contrast #colunaEsquerda,
 .high-contrast div.modal div.modal-content,
-.high-contrast main ol.breadcrumb
+.high-contrast main #conteudo_aprender.container .card
 {
   background-color: #222222 !important;
 }
@@ -1148,12 +1396,15 @@ breakpoint 1480
   margin-bottom: 2rem !important;
 }
 
-.high-contrast #colunaDireita hr {
+.high-contrast #colunaDireita hr,
+.high-contrast #colunaEsquerda hr {
   background-color: white;
 }
 
 .high-contrast .badge-primary,
-.high-contrast main #colunaDireita .badge-primary {
+.high-contrast main #colunaDireita .badge-primary,
+.high-contrast main #colunaEsquerda .badge-primary,
+.high-contrast main #conteudo_aprender.container .badge {
   /* background-color: #000088 !important; */
   background-color: #BBBBBB !important;
   color: black !important;
@@ -1175,7 +1426,9 @@ breakpoint 1480
 .high-contrast .bg-blue,
 .high-contrast .bg-purple,
 .high-contrast .bg-secondary,
-.high-contrast main .container .card.bg-secondary {
+.high-contrast main .container .card.bg-secondary,
+.high-contrast main .container .card.bg-white,
+.high-contrast main .container #listagem_recursos_paginacao .card {
   background-color: #222 !important;
 }
 .high-contrast .bg-blue p,
@@ -1235,4 +1488,31 @@ breakpoint 1480
 }
 .high-contrast .file-preview-thumbnails {
   background-color: #000;
+}
+.high-contrast details summary::before {
+  filter: brightness(100);
+}
+.high-contrast .page-link,
+.high-contrast .page-item.disabled .page-link {
+  border: 2px solid #fff !important;
+  background: black;
+  color: #fff !important;
+  font-weight: 500;
+}
+.high-contrast .page-item.disabled .page-link {
+  border: 2px solid #383838 !important;
+}
+.high-contrast .page-item.active .page-link {
+  background-color: #fff;
+  color: #000 !important;
+  font-weight: 600;
+}
+.high-contrast .navbar-light .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.5%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+.high-contrast #navegacaoPrincipal {
+  background-color: #000000;
+}
+.high-contrast header button.bg-secondary:focus {
+  background-color: transparent !important;
 }

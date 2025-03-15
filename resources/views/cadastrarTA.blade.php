@@ -30,7 +30,7 @@
 
                     <form id="formCadastroRecursoTA" method="POST" action="{{ route('salvaTA') }}" enctype="multipart/form-data">
                         @csrf
-                        <fieldset class="bg-white p-4 rounded-lg">
+                        <fieldset class="bg-white py-4 px-3 px-sm-4 rounded-lg">
                             <div>
                                 <legend class="h3">1. Informações básicas</legend>
                             </div>
@@ -62,14 +62,14 @@
                                         <span class="sr-only">&nbsp;(Campo requerido)</span>
                                         <div id="legend-label-produtoComercial" class="sr-only"></div>
                                     </legend>
-                                    <div class="col-md-2">
+                                    <div class="col-4 col-sm-2">
                                         <label class="form-check-label pl-4">
                                             <input class="form-check-input" type="radio" id="comercial" name="produtoComercial" 
                                                 value="true" aria-labelledby="label-legend-text label-sim">
                                             <span id="label-sim">{{ __('Sim') }}</span>
                                         </label>
                                     </div>
-                                    <div class="col-md-2">                            
+                                    <div class="col-4 col-sm-2">                            
                                         <label class="form-check-label">
                                             <input class="form-check-input" type="radio" id="naoComercial" name="produtoComercial" 
                                             value="false" aria-labelledby="label-legend-text label-nao">
@@ -116,7 +116,7 @@
 
                         <br>
                         
-                        <fieldset class="bg-white p-4 rounded-lg">
+                        <fieldset class="bg-white py-4 px-3 px-sm-4 rounded-lg">
                             <div>
                                 <legend id="fotos-label-cab" class="obrigatorio h3">
                                     2. Fotos
@@ -154,7 +154,7 @@
                         <div id="status-adicao-links" class="sr-only" role="status">
                         </div>
 
-                        <fieldset class="bg-white p-4 rounded-lg">
+                        <fieldset class="bg-white py-4 px-3 px-sm-4 rounded-lg">
                             <div>
                                 <legend id="videos-label" class="h3">3. Vídeos relacionados</legend>
                             </div>
@@ -184,7 +184,7 @@
 
                         <br>
 
-                        <fieldset class="bg-white p-4 rounded-lg">
+                        <fieldset class="bg-white py-4 px-3 px-sm-4 rounded-lg">
                             <div>
                                 <legend id="arquivos-label" class="h3">4. Arquivos</legend>
                             </div>
@@ -213,7 +213,7 @@
 
                         <br>
 
-                        <fieldset class="bg-white p-4 rounded-lg">
+                        <fieldset class="bg-white py-4 px-3 px-sm-4 rounded-lg">
                             <div>
                                 <legend id="manual-label" class="h3">5. Manuais</legend>
                             </div>
@@ -242,7 +242,7 @@
 
                         <br>
 
-                        <fieldset class="bg-white p-4 rounded-lg">
+                        <fieldset class="bg-white py-4 px-3 px-sm-4 rounded-lg">
                             <div>
                                 <legend class="h3">6. Informações para contato</legend>
                             </div>

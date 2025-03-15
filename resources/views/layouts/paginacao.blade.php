@@ -1,15 +1,15 @@
-<ul id="pagination" class="pagination col-7_5 ml-auto d-flex justify-content-center">
-    <li class="page-item anterior" onclick="mudarPagina('anterior')">
+<ul id="pagination" class="pagination col-7_5 ml-md-auto ml-0 d-flex justify-content-center" role="navigation" aria-label="Paginação">
+    <li class="page-item anterior" onclick="mudarPagina('anterior')" tabindex="0" role="button" aria-label="Ir para página anterior">
         <a class="page-link">Anterior</a>
     </li>
-    <li class="page-item proxima" onclick="mudarPagina('proxima')">
+    <li class="page-item proxima" onclick="mudarPagina('proxima')" tabindex="0" role="button" aria-label="Ir para próxima página">
         <a class="page-link">Próxima</a>
     </li>
 </ul>
 
 <script>
     let itens = document.querySelectorAll("#listagem_recursos_paginacao .col");
-    let itensPorPagina = 20;
+    let itensPorPagina = 12;
     let paginaAtual = 1;
 
     const ativar = (elemento) => {
@@ -31,6 +31,30 @@
                 item.style.display = "none";
             }
         });
+
+        let totalPaginas = Math.ceil(itens.length / itensPorPagina);
+        let anteriorBtn = document.querySelector(".pagination .anterior");
+        let proximaBtn = document.querySelector(".pagination .proxima");
+
+        if (paginaAtual === 1) {
+            anteriorBtn.classList.add("disabled");
+            anteriorBtn.setAttribute("aria-disabled", "true");
+            anteriorBtn.setAttribute("tabindex", "-1");
+        } else {
+            anteriorBtn.classList.remove("disabled");
+            anteriorBtn.setAttribute("aria-disabled", "false");
+            anteriorBtn.setAttribute("tabindex", "0");
+        }
+
+        if (paginaAtual === totalPaginas) {
+            proximaBtn.classList.add("disabled");
+            proximaBtn.setAttribute("aria-disabled", "true");
+            proximaBtn.setAttribute("tabindex", "-1");
+        } else {
+            proximaBtn.classList.remove("disabled");
+            proximaBtn.setAttribute("aria-disabled", "false");
+            proximaBtn.setAttribute("tabindex", "0");
+        }
     };
 
     const gerarPaginacao = () => {
@@ -48,18 +72,27 @@
             let li = document.createElement('li');
             li.classList.add('page-item');
             li.setAttribute('onclick', `mudarPagina(${i})`);
+            li.setAttribute('tabindex', '0');
+            li.setAttribute('role', 'button');
+            li.setAttribute('aria-label', `Ir para página ${i}`);
             li.innerHTML = `<a class="page-link">${i}</a>`;
+
+            li.addEventListener('keydown', (e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    li.click();
+                }
+            });
+            
             paginationContainer.insertBefore(li, paginationContainer.querySelector('.proxima'));
         }
 
         let itensPagina = document.querySelectorAll(".pagination .page-item");
-        itensPagina[1].classList.add("active");
+        if (itensPagina.length > 1) {
+            itensPagina[1].classList.add("active");
+        }
 
         document.querySelector(".pagination .anterior").classList.add("disabled");
-
-        if (paginaAtual === totalPaginas) {
-            document.querySelector(".pagination .proxima").classList.add("disabled");
-        }
     };
 
     const mudarPagina = (pagina) => {
@@ -84,19 +117,35 @@
         itensPagina[paginaAtual].classList.add("active");
 
         window.scrollTo(0, 280);
-
-        if (paginaAtual === 1) {
-            document.querySelector(".pagination .anterior").classList.add("disabled");
-        } else {
-            document.querySelector(".pagination .anterior").classList.remove("disabled");
-        }
-
-        if (paginaAtual === totalPaginas) {
-            document.querySelector(".pagination .proxima").classList.add("disabled");
-        } else {
-            document.querySelector(".pagination .proxima").classList.remove("disabled");
-        }
     };
+
+    document.querySelectorAll('.page-item').forEach(item => {
+        item.addEventListener('keydown', (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                item.click();
+            }
+        });
+
+        item.addEventListener('focus', () => {
+            if (item.classList.contains('anterior')) {
+                item.addEventListener('keydown', (e) => {
+                    if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+                        mudarPagina('anterior');
+                    }
+                });
+            } else if (item.classList.contains('proxima')) {
+                item.addEventListener('keydown', (e) => {
+                    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+                        mudarPagina('proxima');
+                    }
+                });
+            }
+        });
+
+        item.addEventListener('blur', () => {
+        });
+    });
 
     gerarPaginacao();
     atualizarPaginacao();

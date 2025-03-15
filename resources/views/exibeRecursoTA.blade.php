@@ -1,7 +1,7 @@
 @extends('layouts.siteLayout')
 @section('titulo','RETACE')
 @section('conteudo')
-<div class="container mt-5">
+<div id="pagRecurso" class="container mt-5 custom_content">
 	<?php 
         $data = [
             ['name' => 'RETACE', 'link' => url('/')],
@@ -14,11 +14,26 @@
             @include('layouts.breadcrumb', $data)
         </div>
     </div>
-	<div class="row">
-		<div id="fotosDescricao" class="card col-md-8 px-5 py-3" >
-			<h2 class="my-1 h1">
-				{{ __($recursoTA->titulo) }}
-			</h2>
+	<div id="tituloRecurso">
+		<div class="p-3 p-sm-4 bg-white card row">
+			<div class="row">
+				<div class="col-12 col-md-10">
+					<h2 class="my-1 h1">
+						{{ __($recursoTA->titulo) }}
+					</h2>
+					<div id="avaliacoes">
+						<input id="avaliacaoMediaRecurso" name="avaliacaoMediaRecurso" value="{{$mediaAvaliacao}}"  class="rating-loading" aria-label="Avaliação média do recurso">				
+					</div>
+				</div>
+				<div id="acessos" class="col-12 col-md-2" style="height: fit-content;margin-top: auto;">
+					<i class="fa fa-eye" aria-hidden="true"></i>
+					<span> Visitado {{$recursoTA->visualizacoes}} vezes</span>	
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="fotosRecurso">
+		<div id="fotosDescricao" class="card px-5 py-3 row bg-white" >
 			<a href="#fim-galeria" id="inicio-galeria" class="sr-only">Início da galeria de imagens e vídeos do recurso, clique para pular</a>
 			<ul id="galeria">
 				@foreach($recursoTA->fotos as $foto)
@@ -44,140 +59,137 @@
 				@endforeach				
 			</ul>
 			<a href="#inicio-galeria" id="fim-galeria" class="sr-only">Final da galeria de imagens e vídeos do recurso, clique para voltar ao início</a>
-
-			<div class="my-3">
-				<h3 class="my-3 h2">Descrição do Recurso</h3>
-
-				<div>{!! $recursoTA->descricao !!}</div>				
-			</div>		
 		</div>
-		<div id="colunaDireita" class="card offset-md-1 col-md-3">
-			<div id="indicadores" class="row d-flex align-items-center justify-content-center text-center mt-4">
-				<div id="avaliacoes" class="col-md-6">					
-					<input id="avaliacaoMediaRecurso" name="avaliacaoMediaRecurso" value="{{$mediaAvaliacao}}" 
-						class="rating-loading" aria-label="Avaliação média do recurso">				
-				</div>
-				<div id="acessos" class="col-md-6">
-					<i class="fa fa-eye" aria-hidden="true"></i>
-					<span> Visitado {{$recursoTA->visualizacoes}} vezes</span>	
-				</div>
-				<hr class="col-md-10"/>
-			</div>
-			<div id="manuais" class="row mt-3">
-				<h3 class="ml-3 w-100 h5"> Manuais </h3>
-				<div class="ml-4">
-					@if(sizeof($recursoTA->manuais)!=0)
-					@foreach($recursoTA->manuais as $manual)
-						<div class="col-md-12">
-							<a href="{{__($manual->url)}}">
-								{{$manual->nome}}
-								@if ($manual->formato && $manual->tamanho)
-									(<span class="sr-only">Formato:</span> {{$manual->formato}}, 
-									<span class="sr-only">Tamanho:</span> {{$manual->tamanho}} MB)
-								@endif
-								@if ($manual->link_externo)
-									<span>(Link externo)</span>
-								@endif
-							</a>
-						</div>
-						<hr class="col-md-10"/>
-					@endforeach	
-					@else
-					<span> Não há manuais associados ao recurso</span>
-					@endif
-				</div>				
-			</div>
-			<div id="arquivos" class="row mt-3">
-				<h3 class="ml-3 w-100 h5"> Arquivos </h3>
-				<div class="ml-4">
-					@if(sizeof($recursoTA->arquivos)!=0)
-						@foreach($recursoTA->arquivos as $arquivo)
-						<div class="col-md-12">
-							<a href="{{__($arquivo->url)}}">
-								{{$arquivo->nome}}
-								@if ($arquivo->formato && $arquivo->tamanho)
-									(<span class="sr-only">Formato:</span> {{$arquivo->formato}},
-									<span class="sr-only">Tamanho:</span> {{$arquivo->tamanho}} MB)
-								@endif
-								@if ($arquivo->link_externo)
-									<span>(Link externo)</span>
-								@endif
-							</a>
-						</div>
-						<hr class="col-md-10"/>
-						@endforeach
-					@else
-					<div class="col-md-12">
-						<span> Não há arquivos associados ao recurso</span>
-					</div>
-					@endif
-				</div>	
-			</div>
-			<div id="fabricante" class="row mt-3">
-				<h3 class="ml-3 w-100 h5"> Fabricante </h3>
-				<div class="ml-4">
-					<div class="col-md-12">
-						@if ($recursoTA->site_fabricante)
-							<a class="text-break" href="{{__($recursoTA->site_fabricante)}}">
-								Página do recurso
-							</a>
-						@else
-							<span>Site do recurso não informado</span>
-						@endif
-					</div>
-					<hr class="col-md-12"/>			
-					<div class="col-md-12">
-						<span class="d-block">Licença: </span>
-						@if($recursoTA->licenca)
-						<span class="text-break"> Produto sob a licença {{$recursoTA->licenca}}</span>
-						@else
-						<span>Não informado</span>
-						@endif
-					</div>
-				</div>		
-			</div>
-			<div id="tags" class="row mt-4">
-				<h3 class="ml-3 w-100 h5"> Tags </h3>
-				<div class="col-md-12 ml-4">
-					<?php $tagsAprovadas = $recursoTA->tagsAprovadas() ?>
-					@if(sizeof($tagsAprovadas) > 0)
-					@foreach($tagsAprovadas as $tag)
-					<h4 class="d-inline-block"><a href="{{route('filtroTag', $tag->nome)}}" class="badge badge-primary">{{$tag->nome}}</a></h4>
-					@endforeach	
-					@else
-					<span class="text-danger"> Recurso sem tags associadas</span>
-					@endif
-				</div>	
-			</div>
-			<div id="avaliacaoPeloUsuario" class="row d-flex align-items-center justify-content-center text-center mt-1">
-				@if(Cookie::get('avaliouRecursoTA_'.$recursoTA->id)==null)	
-				<h3 id="label-avaliacaoUsuario" class="h5">Avalie o recurso</h3>		
-				<div class="col-md-6">
-					<input id="avaliacaoUsuario" name="avaliacaoUsuario" value="0" class="rating-loading" 
-						aria-labelledby="label-avaliacaoUsuario" tabindex="-1">
-					<div id="formAvaliacao-sr" class="sr-only">
-						<select id="avaliacaoUsuario-sr" aria-labelledby="label-avaliacaoUsuario">
-							<option value="0">Não avaliado</option>
-							<option value="1">Uma estrela</option>
-							<option value="2">Duas estrelas</option>
-							<option value="3">Três estrelas</option>
-							<option value="4">Quatro estrelas</option>
-							<option value="5">Cinco estrelas</option>
-						</select>		
-						<button id="enviarAvaliacaoUsuario-sr" type="button">Enviar avaliação</button>		
-					</div>
-				</div>
-				<p id="agradecimento-avaliacao" tabindex="-1" class="h5 text-success d-none">Agradecemos sua avaliação</p>
-				@else
-				<h3 class="text-success h5">Recurso já avaliado</h3>
-				@endif			
-				<hr class="col-md-10"/>
-			</div>
-		</div>			
 	</div>
-	<div id="recursosRelacionados" class="card col-md-12 my-5">
-		<h2 class="my-3">Recursos Relacionados</h2>
-		@include('layouts.listaCardsRecursosSemPaginacao')
+	<div class="row" id="DescricaoDetalhes">
+		<div class="col col-md-8 col-12">
+		<div id="colunaEsquerda" class="card p-3 p-sm-4">
+				<h3 class="mb-3 h2">Descrição do Recurso</h3>
+				<div>{!! $recursoTA->descricao !!}</div>
+				<hr>
+				<div id="tags" class="my-1">
+					<h3 class="w-100 h5"> Tags </h3>
+					<div class="col-md-12 p-0">
+						<?php $tagsAprovadas = $recursoTA->tagsAprovadas() ?>
+						@if(sizeof($tagsAprovadas) > 0)
+						@foreach($tagsAprovadas as $tag)
+						<h4 class="d-inline-block"><a href="{{route('filtroTag', $tag->nome)}}" class="badge badge-primary">{{$tag->nome}}</a></h4>
+						@endforeach	
+						@else
+						<span class="text-danger"> Recurso sem tags associadas</span>
+						@endif
+					</div>	
+				</div>
+				<hr>
+				<div id="avaliacaoPeloUsuario" class="d-flex align-items-center mt-1 flex-wrap">
+					@if(Cookie::get('avaliouRecursoTA_'.$recursoTA->id)==null)	
+					<h3 id="label-avaliacaoUsuario" class="h5 m-0 pr-3">Avalie o recurso</h3>		
+					<div class="">
+						<input id="avaliacaoUsuario" name="avaliacaoUsuario" value="0" class="rating-loading" 
+							aria-labelledby="label-avaliacaoUsuario" tabindex="-1">
+						<div id="formAvaliacao-sr" class="sr-only">
+							<select id="avaliacaoUsuario-sr" aria-labelledby="label-avaliacaoUsuario">
+								<option value="0">Não avaliado</option>
+								<option value="1">Uma estrela</option>
+								<option value="2">Duas estrelas</option>
+								<option value="3">Três estrelas</option>
+								<option value="4">Quatro estrelas</option>
+								<option value="5">Cinco estrelas</option>
+							</select>		
+							<button id="enviarAvaliacaoUsuario-sr" type="button">Enviar avaliação</button>		
+						</div>
+					</div>
+					<p id="agradecimento-avaliacao" tabindex="-1" class="h5 text-success d-none text-center">Agradecemos sua avaliação</p>
+					@else
+					<h3 class="text-success h5">Recurso já avaliado</h3>
+					@endif
+				</div>
+			</div>
+		</div>
+		<div class="col col-md-4 col-12">
+		<div id="colunaDireita" class="card p-3 p-sm-4 mt-sm-4 mt-md-0 mt-4">
+				<div id="manuais" class="row">
+					<h3 class="ml-3 w-100 h5"> Manuais </h3>
+					<div>
+						@if(sizeof($recursoTA->manuais)!=0)
+						@foreach($recursoTA->manuais as $manual)
+							<div class="col-md-12">
+								<a href="{{__($manual->url)}}">
+									{{$manual->nome}}
+									@if ($manual->formato && $manual->tamanho)
+										(<span class="sr-only">Formato:</span> {{$manual->formato}}, 
+										<span class="sr-only">Tamanho:</span> {{$manual->tamanho}} MB)
+									@endif
+									@if ($manual->link_externo)
+										<span>(Link externo)</span>
+									@endif
+								</a>
+							</div>
+							<br>
+						@endforeach	
+						@else
+						<div class="col-md-12">
+							<span> Não há manuais associados ao recurso</span>
+						</div>
+						@endif
+					</div>				
+				</div>
+				<div id="arquivos" class="row mt-3 mb-1">
+					<h3 class="ml-3 w-100 h5"> Arquivos </h3>
+					<div>
+						@if(sizeof($recursoTA->arquivos)!=0)
+							@foreach($recursoTA->arquivos as $arquivo)
+							<div class="col-md-12">
+								<a href="{{__($arquivo->url)}}">
+									{{$arquivo->nome}}
+									@if ($arquivo->formato && $arquivo->tamanho)
+										(<span class="sr-only">Formato:</span> {{$arquivo->formato}},
+										<span class="sr-only">Tamanho:</span> {{$arquivo->tamanho}} MB)
+									@endif
+									@if ($arquivo->link_externo)
+										<span>(Link externo)</span>
+									@endif
+								</a>
+							</div>
+							<hr class="col-md-10"/>
+							@endforeach
+						@else
+						<div class="col-md-12">
+							<span> Não há arquivos associados ao recurso</span>
+						</div>
+						@endif
+					</div>	
+				</div>
+				<hr/>
+				<div id="fabricante" class="row mt-1">
+					<h3 class="ml-3 w-100 h5"> Fabricante </h3>
+					<div>
+						<div class="col-md-12">
+							@if ($recursoTA->site_fabricante)
+								<a class="text-break" href="{{__($recursoTA->site_fabricante)}}">
+									Página do recurso
+								</a>
+							@else
+								<span>Site do recurso não informado</span>
+							@endif
+						</div>		
+						<div class="col-md-12 mt-2">
+							<span class="d-block"><b>Licença:</b> </span>
+							@if($recursoTA->licenca)
+							<span class="text-break"> Produto sob a licença {{$recursoTA->licenca}}</span>
+							@else
+							<span>Não informado</span>
+							@endif
+						</div>
+					</div>		
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div id="recursosRelacionados" class="card col-md-12 my-5 bg-transparent p-0">
+		<h2 class="mt-3 text-center">Recursos Relacionados</h2>
+		@include('layouts.listaCardsRecursosVertical')
 	</div>
 </div>
 <!-- Modal -->

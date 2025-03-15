@@ -23,7 +23,7 @@
     <a href="#" class="sr-only">Final da caixa de busca</a>
 </div>
 <div class="container-xl">
-    <div id="resultadoBusca" class="mt-5">
+    <div id="resultadoBusca" class="mt-4 mt-sm-5">
 		@if(strlen($parametro)!=0)
 			<h2 class="h3"> Resultado da busca por <i>{{$parametro}}</i> </h2>
 		@else

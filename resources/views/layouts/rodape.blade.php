@@ -17,7 +17,7 @@
 				</ul>
 			</div>
 
-			<div class="col-4 mt-4 pt-5 logos">
+			<div class="col-md-4 col-10 mt-4 pt-md-5 pt-2 logos">
 				<div class="row">
 					<div class="col-8">
 						<img class="w-100 border rounded" alt="Logo do CTA" src="{{url('/imagens/logo-cta-cor.png')}}">
