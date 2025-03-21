@@ -8,10 +8,9 @@
 			@foreach($recursosTA as $recursoTA)
 			<div class="col mb-4" >
 				<div class="card card-recurso-ta d-flex flex-column h-100">
-					<!--tirar depois--><img class="card-img-top m-auto p-2 pt-3" src="https://cta-api.ifrs.edu.br/repositorio/storage/thumbnails/1640888757_Foto DarkReader.jpg" alt="Foto DarkReader">
 					@foreach($recursoTA->fotos as $foto)
 					@if($foto->destaque==true)
-					<img class="card-img-top" src="{{url(Storage::url('public/'.$foto->caminho_thumbnail))}}" alt="{{$foto->texto_alternativo}}">
+					<img class="card-img-top m-auto p-2 pt-3" src="{{url(Storage::url('public/'.$foto->caminho_thumbnail))}}" alt="{{$foto->texto_alternativo}}">
 					@endif
 					@endforeach
 					<div class="card-body">

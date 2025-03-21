@@ -1,14 +1,14 @@
 <!-- Botão de Filtros visível apenas em telas pequenas -->
-<button id="btn_filtros" class="btn btn-primary d-block d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#filtroDiv" aria-expanded="false" aria-controls="filtroDiv">
+<button id="btn_filtros" class="btn btn-primary d-block d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#filtroDiv" aria-expanded="false" aria-controls="filtroDiv">
   Exibir Filtros
   <i class="fa fa-filter" aria-hidden="true"></i>
 </button>
 
 <!-- Box de filtros com colapso em telas pequenas -->
-<div class="collapse d-md-block" id="filtroDiv">
-  <div class="box-filtros bg-white rounded-lg p-3">
-    <h4 class="d-none d-md-block">Filtros</h4>
-    <hr class="d-none d-md-block">
+<div class="collapse d-lg-block" id="filtroDiv">
+  <form class="box-filtros bg-white rounded p-4">
+    <h4 class="d-none d-lg-block">Filtros</h4>
+    <hr class="d-none d-lg-block">
     <details class="filter-category">
       <summary class="mb-2">Categoria 1</summary>
       <div class="filter-options">
@@ -59,9 +59,21 @@
         </ul>
       </div>
     </details>
-  </div>
+    <div class="d-flex justify-content-between mt-2 g-10 flex-column flex-md-row flex-xl-column">
+      <button type="button" class="btn btn-outline-secondary" id="resetFilters">Limpar Filtros</button>
+      <button type="submit" class="btn btn-primary">Aplicar Filtros</button>
+    </div>
+  </form>
 </div>
 
 
 <!-- Arquivo JavaScript do Bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  document.getElementById('resetFilters').addEventListener('click', function() {
+    const checkboxes = document.querySelectorAll('.custom-control-input');
+    checkboxes.forEach(function(checkbox) {
+      checkbox.checked = false;
+    });
+  });
+</script>

@@ -91,7 +91,7 @@
                 <div class="card publicacao p-4 mt-1 mb-4" style="border-left: 10px #e2d3ea solid;">
                     <div class="row">
                     <span class="badge bg-purple position-absolute">publicação</span>
-                        <div class="col-sm-3 col-8 p-0 mt-4 pt-2 mt-sm-0 pt-sm-0"><img class="img-fluid col-12" src="{{url('/imagens/conexoes-assistivas.png')}}" alt="capa do livro"></div>
+                        <div class="col-sm-3 col-12 p-0 mt-4 pt-2 mt-sm-0 pt-sm-0"><img class="img-fluid col-12" src="{{url('/imagens/conexoes-assistivas.png')}}" alt="capa do livro"></div>
                         <div class="col-sm-9 col-12 pr-sm-5 pr-0 pt-4 pt-sm-0">
                             <h3 dir="ltr"><a href="https://drive.google.com/file/d/1_BM6zQywOF1XtAiU45MmOcAh9_2PgRoI/view" target="_blank" rel="noopener">Conexões Assistivas: Tecnologia Assistiva e Materiais Didáticos Acessíveis</a></h3>
                             <p dir="ltr">&nbsp;É um produto do projeto Centro de Referência em Tecnologia Assistiva (CRTA), que tem como objetivo principal disseminar para toda a Rede Federal de EPCT os conhecimentos sobre o uso e o desenvolvimento de Tecnologia Assistiva (TA), com base no conceito estabelecido na Lei Nº 13.146/2015 e nas experiências do Centro Tecnológico de Acessibilidade (CTA) na pesquisa, elaboração e legitimação de recursos para serem utilizados no processo de ensino e aprendizagem de pessoas com necessidades educacionais específicas.&nbsp;</p>
@@ -106,7 +106,7 @@
                 <div class="card publicacao p-4 mt-1 mb-4" style="border-left: 10px #e2d3ea solid;">
                     <div class="row">
                     <span class="badge bg-purple position-absolute">publicação</span>
-                        <div class="col-sm-3 col-8 p-0 mt-4 pt-2 mt-sm-0 pt-sm-0"><img class="img-fluid col-12" src="{{url('/imagens/afirmar.png')}}" alt="capa do livro"></div>
+                        <div class="col-sm-3 col-12 p-0 mt-4 pt-2 mt-sm-0 pt-sm-0"><img class="img-fluid col-12" src="{{url('/imagens/afirmar.png')}}" alt="capa do livro"></div>
                         <div class="col-sm-9 col-12 pr-sm-5 pr-0 pt-4 pt-sm-0">
                             <h3 dir="ltr"><a href="https://drive.google.com/file/d/1eTHcEJm7oykouKkg5-GFBKATAlEUWXp1/view" target="_blank" rel="noopener">AFIRMAR – A inclusão e as diversidades no IFRS: ações e reflexões</a></h3>
                             <p dir="ltr">Traz um panorama de práticas e ações relacionadas às políticas de ações afirmativas, inclusivas e de diversidade propostas pelo Instituto Federal do Rio Grande do Sul (IFRS), que são pilares importantes do Projeto Pedagógico Institucional. O livro traz dois capítulos sobre tecnologia assistiva no contexto educacional:</p>
@@ -125,7 +125,7 @@
                 <div class="card publicacao p-4 mt-1 mb-4" style="border-left: 10px #e2d3ea solid;">
                     <div class="row">
                     <span class="badge bg-purple position-absolute">publicação</span>
-                        <div class="col-sm-3 col-8 p-0 mt-4 pt-2 mt-sm-0 pt-sm-0"><img class="img-fluid col-12" src="{{url('/imagens/reflexoes.png')}}" alt="capa do livro"></div>
+                        <div class="col-sm-3 col-12 p-0 mt-4 pt-2 mt-sm-0 pt-sm-0"><img class="img-fluid col-12" src="{{url('/imagens/reflexoes.png')}}" alt="capa do livro"></div>
                         <div class="col-sm-9 col-12 pr-sm-5 pr-0 pt-4 pt-sm-0">
                             <h3 dir="ltr"><a href="https://drive.google.com/file/d/1yecsiaMZKwTQhkC_En-zWaU8OqG8ErvV/view" target="_blank" rel="noopener">Reflexões sobre o Currículo Inclusivo</a></h3>
                             <p dir="ltr">Aborda conceitos relevantes vinculados às adaptações curriculares, retratando algumas das importantes ações realizadas em prol de um currículo verdadeiramente inclusivo.</p>
@@ -140,7 +140,7 @@
                 <div class="card publicacao p-4 mt-1 mb-4" style="border-left: 10px #e2d3ea solid;">
                     <div class="row">
                     <span class="badge bg-purple position-absolute">publicação</span>
-                        <div class="col-sm-3 col-8 p-0 mt-4 pt-2 mt-sm-0 pt-sm-0"><img class="img-fluid col-12" src="{{url('/imagens/manual.png')}}" alt="capa do livro"></div>
+                        <div class="col-sm-3 col-12 p-0 mt-4 pt-2 mt-sm-0 pt-sm-0"><img class="img-fluid col-12" src="{{url('/imagens/manual.png')}}" alt="capa do livro"></div>
                         <div class="col-sm-9 col-12 pr-sm-5 pr-0 pt-4 pt-sm-0">
                             <h3 dir="ltr"><a href="https://drive.google.com/file/d/1prnE3MJfTsxARpWR2cOLbWmtK3x6aLNt/view" target="_blank" rel="noopener">Manual de Acessibilidade em Documentos Digitais</a></h3>
                             <p dir="ltr">Surge para atender a demandas crescentes, tanto daqueles que encontram barreiras de acesso e utilização no meio digital, quanto dos que desejam trabalhar para a garantia de um mundo digital mais inclusivo, de modo que ele traga possibilidades e quebra de barreiras, que seja um facilitador na vida de todas as pessoas, inclusive das com alguma deficiência ou outras especificidades.</p>
@@ -155,7 +155,7 @@
                 <div class="card publicacao p-4 mt-1 mb-4" style="border-left: 10px #e2d3ea solid;">
                     <div class="row">
                     <span class="badge bg-purple position-absolute">publicação</span>
-                        <div class="col-sm-3 col-8 p-0 mt-4 pt-2 mt-sm-0 pt-sm-0"><img class="img-fluid col-12" src="{{url('/imagens/uso-pedagogico.png')}}" alt="capa do livro"></div>
+                        <div class="col-sm-3 col-12 p-0 mt-4 pt-2 mt-sm-0 pt-sm-0"><img class="img-fluid col-12" src="{{url('/imagens/uso-pedagogico.png')}}" alt="capa do livro"></div>
                         <div class="col-sm-9 col-12 pr-sm-5 pr-0 pt-4 pt-sm-0">
                             <h3 dir="ltr"><a href="https://drive.google.com/file/d/1MMQrZX7LtFIS4eGCCY5IlZmRe0RMDgiR/view" target="_blank" rel="noopener">O Uso Pedagógico dos Recursos de Tecnologia Assistiva</a></h3>
                             <p dir="ltr">É fruto de nossa terceira edição do curso de aperfeiçoamento “O uso pedagógico dos recursos de Tecnologia Assistiva”, o qual faz parte das ações da Rede Nacional de Formação Continuada dos Profissionais do Magistério da Educação Básica Pública (RENAFORM), subsidiado pela Secretaria de Educação Continuada, Alfabetização, Diversidade e Inclusão (SECADI) do Ministério da Educação – MEC.</p>
@@ -170,7 +170,7 @@
                 <div class="card publicacao p-4 mt-1 mb-4" style="border-left: 10px #e2d3ea solid;">
                     <div class="row">
                     <span class="badge bg-purple position-absolute">publicação</span>
-                        <div class="col-sm-3 col-8 p-0 mt-4 pt-2 mt-sm-0 pt-sm-0"><img class="img-fluid col-12" src="{{url('/imagens/solucoes.png')}}" alt="capa do livro"></div>
+                        <div class="col-sm-3 col-12 p-0 mt-4 pt-2 mt-sm-0 pt-sm-0"><img class="img-fluid col-12" src="{{url('/imagens/solucoes.png')}}" alt="capa do livro"></div>
                         <div class="col-sm-9 col-12 pr-sm-5 pr-0 pt-4 pt-sm-0">
                             <h3 dir="ltr"><a href="https://drive.google.com/file/d/17CuUwrkrEQHJ8PKicd62oR98at0vokLG/view" target="_blank" rel="noopener">Soluções Acessíveis: experiências inclusivas no IFRS</a></h3>
                             <p dir="ltr">O livro engloba diversos artigos nas áreas de inclusão e acessibilidade.</p>
@@ -185,7 +185,7 @@
                 <div class="card publicacao p-4 mt-1 mb-4" style="border-left: 10px #e2d3ea solid;">
                     <div class="row">
                     <span class="badge bg-purple position-absolute">publicação</span>
-                        <div class="col-sm-3 col-8 p-0 mt-4 pt-2 mt-sm-0 pt-sm-0"><img class="img-fluid col-12" src="{{url('/imagens/acessibilidade.png')}}" alt="capa do livro"></div>
+                        <div class="col-sm-3 col-12 p-0 mt-4 pt-2 mt-sm-0 pt-sm-0"><img class="img-fluid col-12" src="{{url('/imagens/acessibilidade.png')}}" alt="capa do livro"></div>
                         <div class="col-sm-9 col-12 pr-sm-5 pr-0 pt-4 pt-sm-0">
                             <h3 dir="ltr"><a href="https://drive.google.com/file/d/1wtpwN4govndQFhGOYwtHnCVZ3bCegrJ0/view" target="_blank" rel="noopener">Acessibilidade e Tecnologia Assistiva: Pensando a Inclusão Sociodigital de Pessoas com Necessidades Especiais</a></h3>
                             <p dir="ltr">O livro discorre sobre a acessibilidade e as tecnologias assistivas, tentando tornar as etapas do processo de inclusão mais claras para os educadores ou apenas auxiliando quem têm interesse em adquirir um pouco mais de conhecimento nesta área.</p>

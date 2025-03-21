@@ -9,7 +9,7 @@
 
 <script>
     let itens = document.querySelectorAll("#listagem_recursos_paginacao .col");
-    let itensPorPagina = 12;
+    let itensPorPagina = 4;
     let paginaAtual = 1;
 
     const ativar = (elemento) => {

@@ -33,7 +33,7 @@
 		</div>
 	</div>
 	<div id="fotosRecurso">
-		<div id="fotosDescricao" class="card px-5 py-3 row bg-white" >
+		<!--div id="fotosDescricao" class="card px-5 py-3 row bg-white" >
 			<a href="#fim-galeria" id="inicio-galeria" class="sr-only">Início da galeria de imagens e vídeos do recurso, clique para pular</a>
 			<ul id="galeria">
 				@foreach($recursoTA->fotos as $foto)
@@ -59,7 +59,44 @@
 				@endforeach				
 			</ul>
 			<a href="#inicio-galeria" id="fim-galeria" class="sr-only">Final da galeria de imagens e vídeos do recurso, clique para voltar ao início</a>
+		</div-->
+		<div id="fotosDescricao" class="card col-md-12 px-5 py-3 bg-white">
+			<a href="#fim-galeria" id="inicio-galeria" class="sr-only">Início da galeria de imagens e vídeos do recurso, clique para pular</a>
+			<ul id="galeria">
+				@foreach($recursoTA->fotos as $foto)
+				<li data-thumb="{{url(Storage::url('public/'.$foto->caminho_thumbnail))}}" data-src="{{url(Storage::url('public/'.$foto->caminho_arquivo))}}">
+					<a href="#">
+						<img class="fotoSelecionada img-fluid" src="{{url(Storage::url('public/'.$foto->caminho_arquivo))}}" alt="{{$foto->texto_alternativo}}"/>
+					</a>
+				</li>
+				@endforeach
+				@foreach($informacoesVideos as $infoVideo)
+				<li class="hasVideo embed-responsive embed-responsive-4by3" data-src="{{$infoVideo->image}}" data-thumb="{{$infoVideo->image}}" data-iframe="{{$infoVideo->url}}">
+					<?php $uniqueId = uniqid(""); ?>
+					<a href="#fim-video-{{$uniqueId}}" id="inicio-video-{{$uniqueId}}" 
+						class="sr-only ignore-click-eff">Início do vídeo "{{$infoVideo->title}}", clique para pular o vídeo
+					</a>
+
+						{!! html_entity_decode($infoVideo->code) !!}
+						
+					<a href="#inicio-video-{{$uniqueId}}" id="fim-video-{{$uniqueId}}" class="sr-only ignore-click-eff">
+						Fim do vídeo "{{$infoVideo->title}}", clique para voltar ao início
+					</a>
+				</li>
+				@endforeach				
+			</ul>
+			<a href="#inicio-galeria" id="fim-galeria" class="sr-only">Final da galeria de imagens e vídeos do recurso, clique para voltar ao início</a>	
 		</div>
+
+
+
+
+
+
+
+
+
+
 	</div>
 	<div class="row" id="DescricaoDetalhes">
 		<div class="col col-md-8 col-12">
@@ -82,11 +119,12 @@
 				</div>
 				<hr>
 				<div id="avaliacaoPeloUsuario" class="d-flex align-items-center mt-1 flex-wrap">
+					<!--a href="#fim-avaliacao" id="inicio-avaliacao" class="sr-only">Início da avaliacao do recurso, clique para pular</a-->
 					@if(Cookie::get('avaliouRecursoTA_'.$recursoTA->id)==null)	
 					<h3 id="label-avaliacaoUsuario" class="h5 m-0 pr-3">Avalie o recurso</h3>		
 					<div class="">
 						<input id="avaliacaoUsuario" name="avaliacaoUsuario" value="0" class="rating-loading" 
-							aria-labelledby="label-avaliacaoUsuario" tabindex="-1">
+							aria-labelledby="label-avaliacaoUsuario" tabindex="1">
 						<div id="formAvaliacao-sr" class="sr-only">
 							<select id="avaliacaoUsuario-sr" aria-labelledby="label-avaliacaoUsuario">
 								<option value="0">Não avaliado</option>
@@ -95,14 +133,15 @@
 								<option value="3">Três estrelas</option>
 								<option value="4">Quatro estrelas</option>
 								<option value="5">Cinco estrelas</option>
-							</select>		
+							</select>
 							<button id="enviarAvaliacaoUsuario-sr" type="button">Enviar avaliação</button>		
 						</div>
 					</div>
-					<p id="agradecimento-avaliacao" tabindex="-1" class="h5 text-success d-none text-center">Agradecemos sua avaliação</p>
+					<p id="agradecimento-avaliacao" tabindex="1" class="h5 text-success d-none text-center">Agradecemos sua avaliação</p>
 					@else
 					<h3 class="text-success h5">Recurso já avaliado</h3>
 					@endif
+					<!--a href="#inicio-avaliacao" id="fim-avaliacao" class="sr-only">Final da avaliacao do recurso, clique para voltar ao início</a-->	
 				</div>
 			</div>
 		</div>

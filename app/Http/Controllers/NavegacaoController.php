@@ -23,10 +23,10 @@ class NavegacaoController extends Controller{
 	 */	
 	public function inicio(Request $request){
 		$recursosMaisAcessados = RecursoTA::where('publicacao_autorizada',true)->orderBy('visualizacoes', 'desc')->get();
-		$oitoRecursosMaisAcessados = collect($recursosMaisAcessados)->take(8);
+		$oitoRecursosMaisAcessados = collect($recursosMaisAcessados)->take(6);
 
 		$recursosMaisRecentes =  RecursoTA::where('publicacao_autorizada',true)->orderBy('created_at', 'desc')->get();
-		$oitoRecursosMaisRecentes = collect($recursosMaisRecentes)->take(8);
+		$oitoRecursosMaisRecentes = collect($recursosMaisRecentes)->take(6);
 
 		$tags = Tag::where('publicacao_autorizada', true)->get()->pluck('nome');
 

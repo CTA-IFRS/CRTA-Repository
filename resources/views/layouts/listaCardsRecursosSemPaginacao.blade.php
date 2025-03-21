@@ -5,7 +5,6 @@
 		<div class="col mb-4" >
 			<div class="card card-recurso-ta py-2 pl-4 pr-3 d-flex flex-column h-100 bg-white"> <!--style="min-width: 18rem;"-->
 				<div class="row mt-auto mb-auto">
-					<!--tirar depois--><img class="card-img-top col-sm-5 col-12 m-auto" src="https://cta-api.ifrs.edu.br/repositorio/storage/thumbnails/1640888757_Foto DarkReader.jpg" alt="Foto DarkReader">
 					@foreach($recursoTA->fotos as $foto)
 					@if($foto->destaque==true)
 					<img class="card-img-top col-sm-5 col-12 m-auto" src="{{url(Storage::url('public/'.$foto->caminho_thumbnail))}}" alt="{{$foto->texto_alternativo}}">
