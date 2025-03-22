@@ -47,4 +47,22 @@
 		});
 
 	});
+
+	document.addEventListener('DOMContentLoaded', function() {
+
+		const links = document.querySelectorAll('.card-link');
+
+		links.forEach(link => {
+			const h3 = link.closest('.card-title');
+	
+			link.addEventListener('focus', () => {
+				h3.classList.add('focused');
+			});
+	
+			link.addEventListener('blur', () => {
+				h3.classList.remove('focused');
+			});
+		});
+	});
+
 </script>

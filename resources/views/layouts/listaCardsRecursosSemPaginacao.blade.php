@@ -1,5 +1,5 @@
 <!--layou para listagens de alguns recursos em que a paginação é desnecessária (ex: recursos relacionados, listagem na página inicial. Se for preciso paginação, utilizar o layout listaCardsRecursos. -->
-<div class="container mt-3 mt-sm-5">
+<div class="container mt-3 mt-sm-5" id="recursos-sem-paginacao">
 	<div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-2 row-cols-xl-2">
 		@foreach($recursosTA as $recursoTA)
 		<div class="col mb-4" >
@@ -21,3 +21,24 @@
 		@endforeach
 	</div>
 </div>
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function() {
+	
+	const links = document.querySelectorAll('.card-link');
+
+	links.forEach(link => {
+		const h3 = link.closest('.card-title');
+
+		link.addEventListener('focus', () => {
+			h3.classList.add('focused');
+		});
+
+		link.addEventListener('blur', () => {
+			h3.classList.remove('focused');
+		});
+	});
+});
+
+</script>

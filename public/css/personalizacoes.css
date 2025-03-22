@@ -12,9 +12,6 @@ input:focus,
 button:focus,
 textarea:focus,
 a:focus {
-  outline-width: 3px !important;
-  outline-style: dashed !important;  
-
   outline-width: 2px !important;
   outline-style: solid !important;
   border-radius: 5px;
@@ -27,9 +24,23 @@ textarea:focus,
 nav.menuTelaPrincipal a:focus, 
 nav.menuNavegacaoSecundario a:focus,
 div.contribute-strip a:focus,
-footer a:focus {
+footer a:focus
+*:focus {
   outline-color: black !important;
   box-shadow: 0 0 0 3px #d0e4ea;
+}
+
+.card .card-title.focused a {
+  outline-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.card .card-title.focused {
+  border: 2px solid black;
+  box-shadow: 0 0 0 3px #d0e4ea;
+  border-radius: 5px;
+  margin: -2px;
+  margin-bottom: 11px;
 }
 
 .form-control:focus,
@@ -40,16 +51,6 @@ footer a:focus {
 #navegacaoCategorias a:focus {
   box-shadow: 0 0 0 5px #d0e4ea;
 }
-
-a:focus:not(nav.menuTelaPrincipal a:focus, 
-nav.menuNavegacaoSecundario a:focus, #navegacaoCategorias a:focus),
-a.navbar-brand:focus {
-  padding-left: 7px;
-  padding-right: 7px;
-  margin-left: -7px;
-  margin-right: -7px;
-}
-
 
 /* Listas no Mapa do Site */
 #mapa-do-site, #mapa-do-site li {
@@ -808,6 +809,8 @@ details[open] summary::before {
   font-weight: 600;
   font-size: 20px;
   line-height: 26px;
+}
+#conteudo_aprender .card h3 {
   padding-right: 90px;
 }
 .custom_content .card h3 a {
@@ -1156,9 +1159,24 @@ ul.lSPager.lSGallery li img {
   background-color: #383838 !important;
   color: #ffffff !important;
 }
-
-
- 
+#avaliacaoUsuario-sr {
+  font-weight: 400;
+  height: 29px;
+  padding: 0 10px;
+  border: none;
+  border-radius: 8px;
+}
+#enviarAvaliacaoUsuario-sr {
+  font-family: "Source Sans 3";
+  font-weight: 600;
+  font-size: 14px;
+  color: #fff;
+  text-transform: uppercase;
+  height: 29px;
+  padding: 0 10px;
+  border: none;
+  border-radius: 8px;
+}
 @media(max-width: 1550px) {
   .banner #card-retace-intro h2.h1 {
     font-size: 50px;
@@ -1222,6 +1240,14 @@ ul.lSPager.lSGallery li img {
   }
   #box-form {
     height: 55px;
+  }
+  #btn_filtros {
+    position: relative;
+    z-index: 2;
+  }
+  #filtroDiv .box-filtros {
+    margin-top: -30px;
+    padding-top: 54px !important;
   }
 }
 @media(max-width: 600px) {
@@ -1560,7 +1586,9 @@ ul.lSPager.lSGallery li img {
 .high-contrast #btnAdicionarVideo {
   border: 1px solid #ced4da;
 }
-.high-contrast #btnEnviaForm {
+.high-contrast #btnEnviaForm,
+.high-contrast #navegacaoCategorias,
+.high-contrast #navegacaoCategorias button {
   background-color: #222 !important;
 }
 .high-contrast .file-preview-thumbnails {
@@ -1606,4 +1634,19 @@ ul.lSPager.lSGallery li img {
 
 .high-contrast .lSAction > a {
   filter: brightness(100);
+}
+
+.high-contrast #avaliacaoUsuario-sr,
+.high-contrast #enviarAvaliacaoUsuario-sr {
+  background-color: #bbb !important;
+  color: black !important;
+  border: none !important;
+}
+
+.high-contrast .card .card-title.focused {
+  box-shadow: 0 0 0 3px yellow;
+}
+
+.high-contrast #btn_filtros {
+  background-color: #383838 !important;
 }

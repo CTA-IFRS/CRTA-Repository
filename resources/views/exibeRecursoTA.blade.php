@@ -81,13 +81,13 @@
 					</div>	
 				</div>
 				<hr>
-				<div id="avaliacaoPeloUsuario" class="d-flex align-items-center mt-1 flex-wrap">
+				<div id="avaliacaoPeloUsuario" class="d-flex align-items-center mt-1 flex-wrap" tabindex="0">
 					@if(Cookie::get('avaliouRecursoTA_'.$recursoTA->id)==null)	
 					<h3 id="label-avaliacaoUsuario" class="h5 m-0 pr-3">Avalie o recurso</h3>		
-					<div class="">
+					<div>
 						<input id="avaliacaoUsuario" name="avaliacaoUsuario" value="0" class="rating-loading" 
-							aria-labelledby="label-avaliacaoUsuario" tabindex="1">
-						<div id="formAvaliacao-sr" class="sr-only">
+							aria-labelledby="label-avaliacaoUsuario" tabindex="-1">
+						<div id="formAvaliacao-sr" class="sr-only mt-2">
 							<select id="avaliacaoUsuario-sr" aria-labelledby="label-avaliacaoUsuario">
 								<option value="0">Não avaliado</option>
 								<option value="1">Uma estrela</option>
@@ -96,7 +96,7 @@
 								<option value="4">Quatro estrelas</option>
 								<option value="5">Cinco estrelas</option>
 							</select>	
-							<button id="enviarAvaliacaoUsuario-sr" type="button">Enviar avaliação</button>		
+							<button id="enviarAvaliacaoUsuario-sr" type="button" class="bg-primary">Enviar avaliação</button>		
 						</div>
 					</div>
 					<p id="agradecimento-avaliacao" tabindex="-1" class="h5 text-success d-none text-center">Agradecemos sua avaliação</p>
@@ -151,7 +151,7 @@
 									@endif
 								</a>
 							</div>
-							<hr class="col-md-10"/>
+							<br>
 							@endforeach
 						@else
 						<div class="col-md-12">
@@ -274,6 +274,7 @@
 							$('#avaliacaoMediaRecurso').rating('refresh',{displayOnly:true,value:resposta[1]});
 							$('#formAvaliacao-sr').hide();
 							$('#agradecimento-avaliacao').removeClass('d-none');
+							$('#agradecimento-avaliacao').addClass('mb-0 ml-2');
 							$('#agradecimento-avaliacao').focus();
 						},
 						error: function(resposta){
@@ -333,6 +334,15 @@
 		$('.video-stream').addClass("embed-responsive-item");
 		
 	});
+
+	const formAvaliacao = document.getElementById('formAvaliacao-sr');
+	   
+	document.getElementById('avaliacaoPeloUsuario').addEventListener('focus', function() {
+		if (event.target.matches(':focus-visible')) {
+			formAvaliacao.classList.remove('sr-only');
+		}
+	});
+
 </script>
 @endsection
 
