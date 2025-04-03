@@ -29,8 +29,8 @@
                     <br><br>
                     Os cursos são gratuitos, sem tutoria, geram certificado e são ofertados pela plataforma Moodle do Instituto Federal do Rio Grande do Sul (IFRS). Para se inscrever, é preciso ter cadastro no Moodle do IFRS. Se você ainda não tem cadastro, será preciso criar uma conta.</span>
                 </p>
-                <nav id="navegacaoCategorias" class="navbar navbar-expand-lg navbar-light bg-transparent px-0">
-                    <div class="navbar-collapse justify-content-center pb-3" id="navbarNav">
+                <nav id="navegacaoCategorias" class="navbar navbar-expand-lg navbar-light shadow-sm bg-white ml-auto mr-auto mb-5">
+                    <div class="navbar-collapse justify-content-center" id="navbarNav">
                         <ul class="navbar-nav p-0">
                             <li class="nav-item">
                                 <button class="nav-link" id="mostrarTudoBtn" onclick="mostrarTudo()">Tudo</button>
