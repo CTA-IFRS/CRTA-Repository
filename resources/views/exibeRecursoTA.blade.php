@@ -337,13 +337,29 @@
 
 	const formAvaliacao = document.getElementById('formAvaliacao-sr');
 	   
-	document.getElementById('avaliacaoPeloUsuario').addEventListener('focus', function() {
+	document.getElementById('avaliacaoPeloUsuario').addEventListener('focus', function(event) {
 		if (event.target.matches(':focus-visible')) {
 			formAvaliacao.classList.remove('sr-only');
 		}
 	});
 
+	document.getElementById('avaliacaoPeloUsuario').addEventListener('blur', function(event) {
+		if (!event.relatedTarget || !event.relatedTarget.closest('#avaliacaoPeloUsuario')) {
+			formAvaliacao.classList.add('sr-only');
+		}
+	}, true);
+
+
+	document.addEventListener('DOMContentLoaded', function () {
+		setTimeout(function() {
+			var ulElement = document.querySelector('.lSPager.lSGallery');
+			var slideWrapper = document.querySelector('.lSSlideWrapper');
+
+			if (ulElement && slideWrapper && ulElement.querySelectorAll('li').length === 0) {
+			slideWrapper.style.cssText = 'display: flex; justify-content: center; flex: 0 0 100%; max-width: 100%';
+			}
+		}, 100);
+	});
+
 </script>
 @endsection
-
-
