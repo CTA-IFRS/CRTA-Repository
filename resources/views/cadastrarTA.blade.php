@@ -18,9 +18,10 @@
         <div class="col-md-12">
             <div class="card border-light bg-transparent">
                 <div class="card-header bg-transparent p-0 sem-borda">
-                    <h2 class="h1 mt-4 mb-4">
+                    <h2 class="h1 mt-4">
                         {{ __('Cadastrar Tecnologia Assistiva / Material pedagógico') }}
                     </h2>
+                    <p class="h1 mt-3 mb-5">Utilize o formulário a seguir para cadastrar um recurso de tecnologia assistiva ou material pedagógico acessível, com aplicação no contexto educacional. Os recursos cadastrados passarão por moderação de nossa equipe antes de serem incluídos no repositório.</p>
                 </div>
 
                 <div class="card-body p-0">
