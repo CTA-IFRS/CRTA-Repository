@@ -23,16 +23,16 @@ class NavegacaoController extends Controller{
 	 */	
 	public function inicio(Request $request){
 		$recursosMaisAcessados = RecursoTA::where('publicacao_autorizada',true)->orderBy('visualizacoes', 'desc')->get();
-		$oitoRecursosMaisAcessados = collect($recursosMaisAcessados)->take(6);
+		$cincoRecursosMaisAcessados = collect($recursosMaisAcessados)->take(5);
 
 		$recursosMaisRecentes =  RecursoTA::where('publicacao_autorizada',true)->orderBy('created_at', 'desc')->get();
-		$oitoRecursosMaisRecentes = collect($recursosMaisRecentes)->take(6);
+		$cincoRecursosMaisRecentes = collect($recursosMaisRecentes)->take(5);
 
 		$tags = Tag::where('publicacao_autorizada', true)->get()->pluck('nome');
 
 		return view('inicio',['listagemDeMaisRelevantes' => false, 
-								'recursosMaisAcessados' => $oitoRecursosMaisAcessados, 
-								'recursosMaisRecentes' => $oitoRecursosMaisRecentes,
+								'recursosMaisAcessados' => $cincoRecursosMaisAcessados, 
+								'recursosMaisRecentes' => $cincoRecursosMaisRecentes,
 								'tags' => $tags
 				    ]);
 	}
