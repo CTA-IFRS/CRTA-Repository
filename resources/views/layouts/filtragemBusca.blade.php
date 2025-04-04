@@ -59,9 +59,9 @@
         </ul>
       </div>
     </details>
-    <div class="d-flex justify-content-between mt-2 g-10 flex-column flex-md-row flex-xl-column">
-      <button type="button" class="btn btn-outline-secondary" id="resetFilters">Limpar Filtros</button>
-      <button type="submit" class="btn btn-primary">Aplicar Filtros</button>
+    <div class="d-flex justify-content-between mt-2 g-10 flex-column flex-md-row flex-xl-row">
+      <button type="button" class="btn btn-outline-secondary col-md-6" id="resetFilters">Limpar Filtros</button>
+      <button type="submit" class="btn btn-primary col-md-6">Aplicar Filtros</button>
     </div>
   </form>
 </div>

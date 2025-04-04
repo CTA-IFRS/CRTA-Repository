@@ -308,55 +308,55 @@ ul.ui-autocomplete {
 /*ATUALIZAÇÃOES A PARTIR DE 20/02/2025*/
 @font-face {
   font-family: 'Source Sans 3';
-  src: url('/fonts/vendor/lightgallery/src/SourceSans3-Regular.eot');
-  src: url('/fonts/vendor/lightgallery/src/SourceSans3-Regular.eot?#iefix') format('embedded-opentype'),
-      url('/fonts/vendor/lightgallery/src/SourceSans3-Regular.woff2') format('woff2'),
-      url('/fonts/vendor/lightgallery/src/SourceSans3-Regular.woff') format('woff'),
-      url('/fonts/vendor/lightgallery/src/SourceSans3-Regular.ttf') format('truetype');
+  src: url('../fonts/vendor/lightgallery/src/SourceSans3-Regular.eot');
+  src: url('../fonts/vendor/lightgallery/src/SourceSans3-Regular.eot?#iefix') format('embedded-opentype'),
+      url('../fonts/vendor/lightgallery/src/SourceSans3-Regular.woff2') format('woff2'),
+      url('../fonts/vendor/lightgallery/src/SourceSans3-Regular.woff') format('woff'),
+      url('../fonts/vendor/lightgallery/src/SourceSans3-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Source Sans 3';
-  src: url('/fonts/vendor/lightgallery/src/SourceSans3-SemiBold.eot');
-  src: url('/fonts/vendor/lightgallery/src/SourceSans3-SemiBold.eot?#iefix') format('embedded-opentype'),
-      url('/fonts/vendor/lightgallery/src/SourceSans3-SemiBold.woff2') format('woff2'),
-      url('/fonts/vendor/lightgallery/src/SourceSans3-SemiBold.woff') format('woff'),
-      url('/fonts/vendor/lightgallery/src/SourceSans3-SemiBold.ttf') format('truetype');
+  src: url('../fonts/vendor/lightgallery/src/SourceSans3-SemiBold.eot');
+  src: url('../fonts/vendor/lightgallery/src/SourceSans3-SemiBold.eot?#iefix') format('embedded-opentype'),
+      url('../fonts/vendor/lightgallery/src/SourceSans3-SemiBold.woff2') format('woff2'),
+      url('../fonts/vendor/lightgallery/src/SourceSans3-SemiBold.woff') format('woff'),
+      url('../fonts/vendor/lightgallery/src/SourceSans3-SemiBold.ttf') format('truetype');
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Source Sans 3';
-  src: url('/fonts/vendor/lightgallery/src/SourceSans3-Bold.eot');
-  src: url('/fonts/vendor/lightgallery/src/SourceSans3-Bold.eot?#iefix') format('embedded-opentype'),
-      url('/fonts/vendor/lightgallery/src/SourceSans3-Bold.woff2') format('woff2'),
-      url('/fonts/vendor/lightgallery/src/SourceSans3-Bold.woff') format('woff'),
-      url('/fonts/vendor/lightgallery/src/SourceSans3-Bold.ttf') format('truetype');
+  src: url('../fonts/vendor/lightgallery/src/SourceSans3-Bold.eot');
+  src: url('../fonts/vendor/lightgallery/src/SourceSans3-Bold.eot?#iefix') format('embedded-opentype'),
+      url('../fonts/vendor/lightgallery/src/SourceSans3-Bold.woff2') format('woff2'),
+      url('../fonts/vendor/lightgallery/src/SourceSans3-Bold.woff') format('woff'),
+      url('../fonts/vendor/lightgallery/src/SourceSans3-Bold.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Source Sans 3';
-  src: url('/fonts/vendor/lightgallery/src/SourceSans3-BoldItalic.eot');
-  src: url('/fonts/vendor/lightgallery/src/SourceSans3-BoldItalic.eot?#iefix') format('embedded-opentype'),
-      url('/fonts/vendor/lightgallery/src/SourceSans3-BoldItalic.woff2') format('woff2'),
-      url('/fonts/vendor/lightgallery/src/SourceSans3-BoldItalic.woff') format('woff'),
-      url('/fonts/vendor/lightgallery/src/SourceSans3-BoldItalic.ttf') format('truetype');
+  src: url('../fonts/vendor/lightgallery/src/SourceSans3-BoldItalic.eot');
+  src: url('../fonts/vendor/lightgallery/src/SourceSans3-BoldItalic.eot?#iefix') format('embedded-opentype'),
+      url('../fonts/vendor/lightgallery/src/SourceSans3-BoldItalic.woff2') format('woff2'),
+      url('../fonts/vendor/lightgallery/src/SourceSans3-BoldItalic.woff') format('woff'),
+      url('../fonts/vendor/lightgallery/src/SourceSans3-BoldItalic.ttf') format('truetype');
   font-weight: bold;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: 'Source Sans 3';
-  src: url('/fonts/vendor/lightgallery/src/SourceSans3-Black.eot');
-  src: url('/fonts/vendor/lightgallery/src/SourceSans3-Black.eot?#iefix') format('embedded-opentype'),
-      url('/fonts/vendor/lightgallery/src/SourceSans3-Black.woff2') format('woff2'),
-      url('/fonts/vendor/lightgallery/src/SourceSans3-Black.woff') format('woff'),
-      url('/fonts/vendor/lightgallery/src/SourceSans3-Black.ttf') format('truetype');
+  src: url('../fonts/vendor/lightgallery/src/SourceSans3-Black.eot');
+  src: url('../fonts/vendor/lightgallery/src/SourceSans3-Black.eot?#iefix') format('embedded-opentype'),
+      url('../fonts/vendor/lightgallery/src/SourceSans3-Black.woff2') format('woff2'),
+      url('../fonts/vendor/lightgallery/src/SourceSans3-Black.woff') format('woff'),
+      url('../fonts/vendor/lightgallery/src/SourceSans3-Black.ttf') format('truetype');
   font-weight: 900;
   font-style: normal;
   font-display: swap;
@@ -400,6 +400,9 @@ button.bg-secondary:focus {
 .navbar-light .navbar-nav .nav-link {
   color: #383838;
 }
+.menuTelaPrincipal {
+  background-color: #f2f2f2 !important;
+}
 .banner {
   background: url(../imagens/fundo_banner.jpg) center no-repeat;
   background-size: cover;
@@ -421,14 +424,14 @@ button.bg-secondary:focus {
   text-indent: -9999px;
 }
 body {
-  background-color: #f9efe4;
+  background-color: #f6f0e9;
   color: #383838;
 }
 #card-retace-intro, #card-retace-busca {
   background-color: transparent;
 }
 .banner #card-retace-intro h2.h1 {
-  font-family: "Source Sans 3";
+  font-family: "Source Sans 3", sans-serif;
   font-weight: 900;
   font-size: 55px;
   line-height: 56px;
@@ -437,7 +440,7 @@ body {
   margin: 0 auto;
 }
 .banner #card-retace-busca h2 {
-  font-family: "Source Sans 3";
+  font-family: "Source Sans 3", sans-serif;
   font-weight: normal;
   font-size: 30px;
   line-height: 32px;
@@ -504,6 +507,7 @@ header .navbar {
   background-color: #383838 !important;
 }
 #navegacaoCategorias {
+  width: fit-content;
   border-radius: 54px;
   padding: 26px 38px;
 }
@@ -511,8 +515,8 @@ header .navbar {
   max-width: 1320px;
 }
 #navegacaoCategorias.navbar-light .navbar-brand {
-  font-family: "Source Sans 3";
-  font-weight: 700;
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 600;
   font-size: 24px;
   color: #383838;
 }
@@ -520,11 +524,11 @@ header .navbar {
   gap: 10px;
 }
 #navegacaoCategorias.navbar-light .navbar-nav .nav-link {
-  background-color: #f9efe4;
-  font-family: "Source Sans 3";
-  font-weight: 700;
+  background-color: #fff;
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 400;
   font-size: 20px;
-  border: 2px solid #383838;
+  border: 1px solid #383838;
   border-radius: 27.5px;
   padding: 10px 23px;
 }
@@ -536,7 +540,7 @@ header .navbar {
   color: #000 !important;
 }
 main h2 {
-  font-family: "Source Sans 3";
+  font-family: "Source Sans 3", sans-serif;
   font-weight: 700;
   font-size: 40px;
 }
@@ -548,7 +552,7 @@ main h2 {
   padding: 0;
 }
 footer .h5 {
-  font-family: "Source Sans 3";
+  font-family: "Source Sans 3", sans-serif;
   font-weight: 700;
   font-size: 24px;
 }
@@ -562,8 +566,21 @@ footer a {
 footer a i {
   margin-right: 4px;
 }
+.page-footer .logos {
+  height: 100%;
+  padding: 30px !important;
+  display: flex;
+  margin-top: -20px;
+  border-radius: 12px 12px 0 0;
+  box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.1) !important;
+}
+.page-footer .logos .logos-menores {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
 ol.breadcrumb li {
-  font-family: "Source Sans 3";
+  font-family: "Source Sans 3", sans-serif;
   font-weight: 700;
   font-size: 19px;
   color: #383838 !important;
@@ -580,7 +597,7 @@ ol.breadcrumb a {
   border-radius: 12px;
 }
 .card-link {
-  font-family: "Source Sans 3";
+  font-family: "Source Sans 3", sans-serif;
   font-weight: 700;
   font-size: 20px;
   line-height: 22px;
@@ -594,12 +611,12 @@ ol.breadcrumb a {
   margin-bottom: 0;
 }
 #resultadoBusca .h3 {
-  font-family: "Source Sans 3";
+  font-family: "Source Sans 3", sans-serif;
   font-weight: 700;
   font-size: 27px;
 }
 #listagemRecursos h3 {
-  font-family: "Source Sans 3";
+  font-family: "Source Sans 3", sans-serif;
   font-weight: 600;
   font-size: 24px;
 }
@@ -618,7 +635,7 @@ ol.breadcrumb a {
   box-sizing: border-box;
 }
 .box-filtros h4 {
-  font-family: "Source Sans 3";
+  font-family: "Source Sans 3", sans-serif;
   font-weight: 700;
   font-size: 26px;
   line-height: 30px;
@@ -630,7 +647,7 @@ details summary {
   cursor: pointer;
   list-style: none;
   position: relative;
-  font-family: "Source Sans 3";
+  font-family: "Source Sans 3", sans-serif;
   font-weight: 600;
   font-size: 17px;
 }
@@ -685,13 +702,13 @@ details[open] summary::before {
   background-size: 270px;
 }
 #aprender_contribuir h3 a {
-  font-family: "Source Sans 3";
+  font-family: "Source Sans 3", sans-serif;
   font-weight: 700;
   font-size: 42px;
   color: #2f2f30;
 }
 #aprender_contribuir p {
-  font-family: "Source Sans 3";
+  font-family: "Source Sans 3", sans-serif;
   font-weight: 400;
   font-size: 20px !important;
   line-height: 32px;
@@ -734,20 +751,20 @@ details[open] summary::before {
   line-height: 26px;
 }
 .custom_content ul.d-flex strong {
-  font-family: "Source Sans 3";
+  font-family: "Source Sans 3", sans-serif;
   font-weight: 700;
   font-size: 20px;
   line-height: 28px;
 }
 .custom_content h2 {
-  font-family: "Source Sans 3";
+  font-family: "Source Sans 3", sans-serif;
   font-weight: 900;
   font-size: 45px;
   line-height: 45px;
   text-align: center;
 }
 .custom_content h3 {
-  font-family: "Source Sans 3";
+  font-family: "Source Sans 3", sans-serif;
   font-weight: 700;
   font-size: 30px;
   line-height: 36px;
@@ -775,13 +792,13 @@ details[open] summary::before {
   line-height: 26px;
 }
 .custom_content p {
-  font-family: "Source Sans 3";
+  font-family: "Source Sans 3", sans-serif;
   font-weight: 400;
   font-size: 19px;
   line-height: 30px;
 }
 .custom_content #aprender_contribuir h3 {
-  font-family: "Source Sans 3";
+  font-family: "Source Sans 3", sans-serif;
   font-weight: 700;
   font-size: 30px;
   line-height: 36px;
@@ -829,7 +846,7 @@ details[open] summary::before {
   line-height: 26px;
 }
 .custom_content .card .badge {
-  font-family: "Source Sans 3";
+  font-family: "Source Sans 3", sans-serif;
   font-weight: 700;
   font-size: 16px;
   text-transform: uppercase;
@@ -866,13 +883,13 @@ details[open] summary::before {
   border: none;
 }
 .custom_content legend.h3 {
-  font-family: "Source Sans 3";
+  font-family: "Source Sans 3", sans-serif;
   font-weight: 600;
   font-size: 27px;
 }
 .custom_content label,
 .custom_content .col-form-label {
-  font-family: "Source Sans 3";
+  font-family: "Source Sans 3", sans-serif;
   font-weight: 600;
   font-size: 17px;
   line-height: 20px;
@@ -898,7 +915,7 @@ details[open] summary::before {
 #btnAdicionarVideo {
   content: "Procurar..." !important;
   background-color: #383838 !important;
-  font-family: "Source Sans 3" !important;
+  font-family: "Source Sans 3", sans-serif !important;
   font-weight: 600;
   font-size: 14px !important;
   text-transform: uppercase;
@@ -921,7 +938,7 @@ details[open] summary::before {
 }
 .custom_content .card #divVideos p,
 .custom_content .card #divVideos ul {
-  font-family: "Source Sans 3" !important;
+  font-family: "Source Sans 3", sans-serif !important;
   font-weight: 600;
   font-size: 16px;
   line-height: 20px;
@@ -940,7 +957,7 @@ details[open] summary::before {
   padding: 0;
 }
 #videos .card-body a {
-  font-family: "Source Sans 3" !important;
+  font-family: "Source Sans 3", sans-serif !important;
   font-weight: 400;
   font-size: 16px;
   line-height: 20px;
@@ -980,7 +997,7 @@ details[open] summary::before {
 .card-title {
   line-height: 22px;
 }
-#listagem_recursos_paginacao .col {
+.listagem_recursos_sem_paginacao .col {
   padding-right: 8px;
   padding-left: 8px;
 }
@@ -999,12 +1016,12 @@ details[open] summary::before {
 }
 @media (min-width: 992px) {
   .col-md-2_5 {
-    flex: 0 0 21%;
-    max-width: 21%;
+    flex: 0 0 300px;
+    max-width: 300px;
   }
   .col-md-7_5 {
-    flex: 0 0 79%;
-    max-width: 79%;
+    flex: 0 0 calc(100% - 300px);
+    max-width: calc(100% - 300px);
   }
 }
 .pagination {
@@ -1074,7 +1091,7 @@ details[open] summary::before {
 }
 #btn_filtros {
   background-color: #fff !important;
-  font-family: "Source Sans 3";
+  font-family: "Source Sans 3", sans-serif;
   font-weight: 700;
   font-size: 20px;
   border: 2px solid #383838 !important;
@@ -1146,7 +1163,7 @@ ul.lSPager.lSGallery li img {
 }
 #filtroDiv .btn {
   background-color: transparent !important;
-  font-family: "Source Sans 3";
+  font-family: "Source Sans 3", sans-serif;
   font-weight: 700;
   font-size: 17px;
   border: 2px solid #383838 !important;
@@ -1167,7 +1184,7 @@ ul.lSPager.lSGallery li img {
   border-radius: 8px;
 }
 #enviarAvaliacaoUsuario-sr {
-  font-family: "Source Sans 3";
+  font-family: "Source Sans 3", sans-serif;
   font-weight: 600;
   font-size: 14px;
   color: #fff;
@@ -1176,6 +1193,95 @@ ul.lSPager.lSGallery li img {
   padding: 0 10px;
   border: none;
   border-radius: 8px;
+}
+#navegacaoPrincipal .navbar-nav {
+  gap: 6px;
+  border-bottom: 1px solid #383838;
+}
+#navegacaoPrincipal .navbar-nav .nav-link {
+  font-weight: 400;
+  font-size: 16px;
+  padding: 0.3rem 1rem;
+  border-bottom: 2px solid transparent;
+}
+#navegacaoPrincipal .navbar-nav .nav-link.selected {
+  font-weight: 600;
+  border-bottom: 2px solid #383838;
+}
+#navegacaoPrincipal .navbar-nav .nav-link:focus {
+  border-bottom: none !important;
+  border-radius: 5px;
+}
+.alert-danger {
+  font-size: 16px;
+}
+.invalid-feedback {
+  font-size: 92%;
+}
+#galeria.lSSlide li {
+  height: 500px;
+}
+.frase_destaque .aspas {
+  background: url(../imagens/aspas.png) center no-repeat;
+  background-size: contain;
+  display: flex;
+  width: 62px;
+  height: 44px;
+  margin-top: -45px;
+  margin-left: 20px;
+}
+#conteudo .frase-inicial {
+  font-size: 21px;
+  line-height: 34px;
+  margin-bottom: 25px;
+}
+#recursos-sem-paginacao #cardRow {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 15px;
+}
+.destaqueTitulo {
+  background-color: #383838;
+  display: flex;
+  width: 80px;
+  height: 2px;
+  margin: 0 50px;
+}
+.cardsInicial {
+  width: 1450px;
+  max-width: calc(100% - 80px);
+}
+.listagem_recursos_sem_paginacao {
+  margin-left: -8px;
+  margin-right: -8px;
+}
+.card-img-top {
+  object-fit: cover;
+  height: 12rem;
+}
+.cardsInicial .btn-secondary {
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  border-radius: 27.5px;
+  padding: 7px 22px;
+  padding-right: 15px;
+  color: #383838;
+  text-transform: uppercase;
+  border: 2px solid #383838;
+  margin-left: auto;
+  margin-right: auto;
+}
+.cardsInicial .btn-secondary:hover {
+  background-color: #383838 !important;
+  color: #ffffff !important;
+}
+@media (min-width: 1500px) {
+  /*exibir 4 recursos na listagem somente em resolução maior que 1500px*/
+  #listagem_recursos_paginacao.row-cols-xl-3 > * {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
 }
 @media(max-width: 1550px) {
   .banner #card-retace-intro h2.h1 {
@@ -1235,7 +1341,7 @@ ul.lSPager.lSGallery li img {
     flex-direction: row;
     justify-content: center;
   }
-  #listagem_recursos_paginacao {
+  .listagem_recursos_sem_paginacao {
     margin-left: 0;
   }
   #box-form {
@@ -1370,7 +1476,7 @@ ul.lSPager.lSGallery li img {
   #listagemRecursos h3 {
     font-size: 18px;
   }
-  #listagem_recursos_paginacao .col {
+  .listagem_recursos_sem_paginacao .col {
     padding-right: 0;
     padding-left: 0;
   }
@@ -1508,7 +1614,6 @@ ul.lSPager.lSGallery li img {
 .high-contrast main #colunaDireita .badge-primary,
 .high-contrast main #colunaEsquerda .badge-primary,
 .high-contrast main #conteudo_aprender.container .badge {
-  /* background-color: #000088 !important; */
   background-color: #BBBBBB !important;
   color: black !important;
 }
@@ -1531,12 +1636,13 @@ ul.lSPager.lSGallery li img {
 .high-contrast .bg-secondary,
 .high-contrast main .container .card.bg-secondary,
 .high-contrast main .container .card.bg-white,
-.high-contrast main .container #listagem_recursos_paginacao .card {
+.high-contrast main .container .listagem_recursos_sem_paginacao .card {
   background-color: #222 !important;
 }
 .high-contrast .bg-blue p,
 .high-contrast .bg-purple p,
-.high-contrast .footer-copyright span {
+.high-contrast .footer-copyright span,
+.high-contrast #aprender_contribuir .bg-white p {
   color: #fff !important;
 }
 .high-contrast main .container.banner {
@@ -1615,9 +1721,6 @@ ul.lSPager.lSGallery li img {
 .high-contrast .navbar-light .navbar-toggler-icon {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.5%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
-/*.high-contrast #navegacaoPrincipal {
-  background-color: #000000;
-}*/
 .high-contrast header button.bg-secondary:focus {
   background-color: transparent !important;
 }
@@ -1649,4 +1752,17 @@ ul.lSPager.lSGallery li img {
 
 .high-contrast #btn_filtros {
   background-color: #383838 !important;
+}
+
+.high-contrast .frase_destaque .aspas {
+  filter: brightness(100);
+}
+.high-contrast .logos.bg-white {
+  background-color: #ffffff !important;
+}
+.high-contrast #navegacaoPrincipal .navbar-nav {
+  border-bottom: 1px solid #f9efe4;
+}
+.high-contrast #navegacaoPrincipal .navbar-nav .nav-link.selected {
+  border-bottom: 3px solid #f9efe4;
 }

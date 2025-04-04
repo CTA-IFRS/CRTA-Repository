@@ -4,7 +4,7 @@
 		<div class="col-md-2_5 col-12 p-0">
 		@include('layouts.filtragemBusca')
 		</div>
-		<div id="listagem_recursos_paginacao" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-4 col-md-7_5 col-12 p-0">
+		<div id="listagem_recursos_paginacao" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-3 col-md-7_5 col-12 p-0">
 			@foreach($recursosTA as $recursoTA)
 			<div class="col mb-4" >
 				<div class="card card-recurso-ta d-flex flex-column h-100">

@@ -1,44 +1,42 @@
-<!--layou para listagens de alguns recursos em que a paginação é desnecessária (ex: recursos relacionados, listagem na página inicial. Se for preciso paginação, utilizar o layout listaCardsRecursos. -->
-<div class="container mt-3 mt-sm-5" id="recursos-sem-paginacao">
-	<div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-2 row-cols-xl-2">
-		@foreach($recursosTA as $recursoTA)
-		<div class="col mb-4" >
-			<div class="card card-recurso-ta py-2 pl-4 pr-3 d-flex flex-column h-100 bg-white"> <!--style="min-width: 18rem;"-->
-				<div class="row mt-auto mb-auto">
-					@foreach($recursoTA->fotos as $foto)
-					@if($foto->destaque==true)
-					<img class="card-img-top col-sm-5 col-12 m-auto" src="{{url(Storage::url('public/'.$foto->caminho_thumbnail))}}" alt="{{$foto->texto_alternativo}}">
-					@endif
-					@endforeach
-					<div class="card-body col-sm-7 col-12 pl-2">
-						<h3 class="card-title"><a href="{{route('exibeRecursoTASlug', $recursoTA->slug)}}" class="card-link">{{ $recursoTA->titulo }}</a></h3>
-						<p class="card-text">{{ html_entity_decode(substr(strip_tags($recursoTA->descricao), 0, 200), ENT_QUOTES, 'UTF-8')." ..." }}</p>
-					</div>
-				</div>
-				
-			</div>
-		</div>
-		@endforeach
-	</div>
+<!--recursos exibidos na página inicial-->
+<div class="mt-4">
+    <div class="listagem_recursos_sem_paginacao row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 row-cols-xl-5 p-0">
+        @foreach($recursosTA as $recursoTA)
+        <div class="col mb-4" >
+            <div class="card card-recurso-ta d-flex flex-column h-100">
+                @foreach($recursoTA->fotos as $foto)
+                @if($foto->destaque==true)
+                <img class="card-img-top m-auto p-2 pt-3" src="{{url(Storage::url('public/'.$foto->caminho_thumbnail))}}" alt="{{$foto->texto_alternativo}}">
+                @endif
+                @endforeach
+                <div class="card-body">
+                    <h3 class="card-title"><a href="{{route('exibeRecursoTASlug', $recursoTA->slug)}}" class="card-link">{{ $recursoTA->titulo }}</a></h3>
+                    <p class="card-text">{{ html_entity_decode(substr(strip_tags($recursoTA->descricao), 0, 150), ENT_QUOTES, 'UTF-8')." ..." }}</p>
+                </div>
+
+            </div>
+        </div>
+        @endforeach
+    </div>
 </div>
 
 <script>
 
 document.addEventListener('DOMContentLoaded', function() {
-	
-	const links = document.querySelectorAll('.card-link');
 
-	links.forEach(link => {
-		const h3 = link.closest('.card-title');
+    const links = document.querySelectorAll('.card-link');
 
-		link.addEventListener('focus', () => {
-			h3.classList.add('focused');
-		});
+    links.forEach(link => {
+        const h3 = link.closest('.card-title');
 
-		link.addEventListener('blur', () => {
-			h3.classList.remove('focused');
-		});
-	});
+        link.addEventListener('focus', () => {
+            h3.classList.add('focused');
+        });
+
+        link.addEventListener('blur', () => {
+            h3.classList.remove('focused');
+        });
+    });
 });
 
 </script>
