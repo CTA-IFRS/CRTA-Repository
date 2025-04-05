@@ -17,7 +17,11 @@
 		<div class="row">
 			<div class="col-12 d-flex flex-column">
 				<h2 class="text-center d-flex flex-row align-items-center justify-content-center"><span class="destaqueTitulo"></span>Recursos mais recentes<span class="destaqueTitulo"></span></h2>
-				@include('layouts.listaCardsRecursosSemPaginacao',['recursosTA' => $recursosMaisRecentes ])
+				<div class="mt-4">
+    				<div class="listagem_recursos_sem_paginacao row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 row-cols-xl-5 p-0">
+					@include('layouts.listaCardsRecursosSemPaginacao',['recursosTA' => $recursosMaisRecentes ])
+					</div>
+				</div>
 				<a class="btn btn-secondary bg-transparent" href="{{ route('filtroTag', ['tecnologia assistiva']) }}">Ver mais<span class="sr-only">Ver mais recursos de tecnologia assistiva</span><i class="fa fa-chevron-right mr-1" aria-hidden="true" style="margin-left: 12px;font-size: 16px;"></i></a>
 			</div>
 		</div>
@@ -36,7 +40,11 @@
 		<div class="row">
 			<div class="col-12 d-flex flex-column">
 				<h2 class="text-center d-flex flex-row align-items-center justify-content-center"><span class="destaqueTitulo"></span>Recursos mais vistos<span class="destaqueTitulo"></span></h2>
-				@include('layouts.listaCardsRecursosSemPaginacao',['recursosTA' => $recursosMaisAcessados ])
+				<div class="mt-4">
+    				<div class="listagem_recursos_sem_paginacao row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 row-cols-xl-5 p-0">
+					@include('layouts.listaCardsRecursosSemPaginacao',['recursosTA' => $recursosMaisAcessados ])
+					</div>
+				</div>
 				<a class="btn btn-secondary bg-transparent" href="{{ route('filtroTag', ['tecnologia assistiva']) }}">Ver mais<span class="sr-only">Ver mais recursos de tecnologia assistiva</span><i class="fa fa-chevron-right mr-1" aria-hidden="true" style="margin-left: 12px;font-size: 16px;"></i></a>
 			</div>
 		</div>

@@ -189,7 +189,11 @@
 	
 	<div id="recursosRelacionados" class="card col-md-12 my-5 bg-transparent p-0">
 		<h2 class="mt-3 text-center">Recursos Relacionados</h2>
-		@include('layouts.listaCardsRecursosVertical')
+		<div class="mt-5">
+    		<div class="listagem_recursos_sem_paginacao row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-4 col-12 p-0">
+			@include('layouts.listaCardsRecursosSemPaginacao')
+			</div>
+		</div>
 	</div>
 </div>
 <!-- Modal -->

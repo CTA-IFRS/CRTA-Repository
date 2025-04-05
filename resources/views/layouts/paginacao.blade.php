@@ -9,7 +9,7 @@
 
 <script>
     let itens = document.querySelectorAll("#listagem_recursos_paginacao .col");
-    let itensPorPagina = 4;
+    let itensPorPagina = 12;
     let paginaAtual = 1;
 
     const ativar = (elemento) => {
@@ -36,26 +36,16 @@
         let anteriorBtn = document.querySelector(".pagination .anterior");
         let proximaBtn = document.querySelector(".pagination .proxima");
 
-        if (paginaAtual === 1) {
-            anteriorBtn.classList.add("disabled");
-            anteriorBtn.setAttribute("aria-disabled", "true");
-            anteriorBtn.setAttribute("tabindex", "-1");
-        } else {
-            anteriorBtn.classList.remove("disabled");
-            anteriorBtn.setAttribute("aria-disabled", "false");
-            anteriorBtn.setAttribute("tabindex", "0");
-        }
+        anteriorBtn.classList.toggle("disabled", paginaAtual === 1);
+        anteriorBtn.setAttribute("aria-disabled", paginaAtual === 1);
+        anteriorBtn.setAttribute("tabindex", paginaAtual === 1 ? "-1" : "0");
 
-        if (paginaAtual === totalPaginas) {
-            proximaBtn.classList.add("disabled");
-            proximaBtn.setAttribute("aria-disabled", "true");
-            proximaBtn.setAttribute("tabindex", "-1");
-        } else {
-            proximaBtn.classList.remove("disabled");
-            proximaBtn.setAttribute("aria-disabled", "false");
-            proximaBtn.setAttribute("tabindex", "0");
-        }
+        proximaBtn.classList.toggle("disabled", paginaAtual === totalPaginas);
+        proximaBtn.setAttribute("aria-disabled", paginaAtual === totalPaginas);
+        proximaBtn.setAttribute("tabindex", paginaAtual === totalPaginas ? "-1" : "0");
     };
+
+    const maxBotoesVisiveis = 4;
 
     const gerarPaginacao = () => {
         let totalPaginas = Math.ceil(itens.length / itensPorPagina);
@@ -68,7 +58,7 @@
             }
         });
 
-        for (let i = 1; i <= totalPaginas; i++) {
+        const criarBotao = (i) => {
             let li = document.createElement('li');
             li.classList.add('page-item');
             li.setAttribute('onclick', `mudarPagina(${i})`);
@@ -83,39 +73,63 @@
                     li.click();
                 }
             });
-            
             paginationContainer.insertBefore(li, paginationContainer.querySelector('.proxima'));
+        };
+
+        const criarElipse = () => {
+            let li = document.createElement('li');
+            li.classList.add('page-item', 'disabled');
+            li.innerHTML = `<a class="page-link">...</a>`;
+            paginationContainer.insertBefore(li, paginationContainer.querySelector('.proxima'));
+        };
+
+        if (totalPaginas <= 5) {
+            for (let i = 1; i <= totalPaginas; i++) {
+                criarBotao(i);
+            }
+        } else {
+            criarBotao(1);
+
+            if (paginaAtual <= 2) {
+                criarBotao(2);
+                criarBotao(3);
+                criarElipse();
+            } else if (paginaAtual >= totalPaginas - 1) {
+                criarElipse();
+                criarBotao(totalPaginas - 2);
+                criarBotao(totalPaginas - 1);
+            } else {
+                criarElipse();
+                criarBotao(paginaAtual);
+                criarBotao(paginaAtual + 1);
+                criarElipse();
+            }
+
+            criarBotao(totalPaginas);
         }
 
-        let itensPagina = document.querySelectorAll(".pagination .page-item");
-        if (itensPagina.length > 1) {
-            itensPagina[1].classList.add("active");
-        }
-
-        document.querySelector(".pagination .anterior").classList.add("disabled");
+        let botoes = document.querySelectorAll(".pagination .page-item");
+        botoes.forEach((btn) => {
+            if (btn.innerText == paginaAtual) {
+                btn.classList.add("active");
+            }
+        });
     };
+
 
     const mudarPagina = (pagina) => {
         let totalPaginas = Math.ceil(itens.length / itensPorPagina);
 
-        if (pagina === 'anterior') {
-            if (paginaAtual > 1) {
-                paginaAtual--;
-            }
-        } else if (pagina === 'proxima') {
-            if (paginaAtual < totalPaginas) {
-                paginaAtual++;
-            }
-        } else {
+        if (pagina === 'anterior' && paginaAtual > 1) {
+            paginaAtual--;
+        } else if (pagina === 'proxima' && paginaAtual < totalPaginas) {
+            paginaAtual++;
+        } else if (typeof pagina === 'number') {
             paginaAtual = pagina;
         }
 
         atualizarPaginacao();
-
-        let itensPagina = document.querySelectorAll(".pagination .page-item");
-        itensPagina.forEach(item => item.classList.remove("active"));
-        itensPagina[paginaAtual].classList.add("active");
-
+        gerarPaginacao();
         window.scrollTo(0, 280);
     };
 
@@ -141,9 +155,6 @@
                     }
                 });
             }
-        });
-
-        item.addEventListener('blur', () => {
         });
     });
 

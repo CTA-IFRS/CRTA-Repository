@@ -10,7 +10,9 @@
 				<div class="card card-recurso-ta d-flex flex-column h-100">
 					@foreach($recursoTA->fotos as $foto)
 					@if($foto->destaque==true)
-					<img class="card-img-top m-auto p-2 pt-3" src="{{url(Storage::url('public/'.$foto->caminho_thumbnail))}}" alt="{{$foto->texto_alternativo}}">
+					<div class="hoverImageWrapper m-2">
+						<img class="hoverImage card-img-top" src="{{url(Storage::url('public/'.$foto->caminho_thumbnail))}}" alt="{{$foto->texto_alternativo}}">
+					</div>
 					@endif
 					@endforeach
 					<div class="card-body">
@@ -54,13 +56,16 @@
 
 		links.forEach(link => {
 			const h3 = link.closest('.card-title');
+			const card = link.closest('.card-recurso-ta');
 	
 			link.addEventListener('focus', () => {
 				h3.classList.add('focused');
+				card.classList.add('hover');
 			});
 	
 			link.addEventListener('blur', () => {
 				h3.classList.remove('focused');
+				card.classList.remove('hover');
 			});
 		});
 	});
