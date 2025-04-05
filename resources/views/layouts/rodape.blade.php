@@ -1,8 +1,8 @@
 <footer class="page-footer font-small bg-primary mt-3">
 	<div class="container">
 		<!-- Grid row -->
-		<div class="row d-flex flex-wrap align-items-center mt-4">
-			<div class="col-md-9">
+		<div class="row d-flex flex-wrap align-items-center mt-4 pt-4 pt-sm-5 pt-lg-0">
+			<div class="col-lg-9 col-12">
 				<h2 class="h5">Entre em Contato</h2>
 				<p>
 					Para conhecer mais sobre os trabalhos e projetos desenvolvidos pelo CTA acesse nosso site ou redes sociais disponíveis na lista abaixo.
@@ -26,13 +26,13 @@
 				</ul>
 			</div>
 
-			<div class="bg-white col-md-3 col-10 pt-md-5 pt-2 logos">
+			<div class="bg-white col-lg-3 col-12 pt-lg-5 pt-2 logos">
 				<div class="row">
-					<div class="col-12 p-0 pr-3">
+					<div class="col-12 col-sm-8 col-lg-12 p-0 pr-3">
 						<img class="w-100 rounded" alt="Logo do CTA" src="{{url('/imagens/logo-cta-cor.png')}}">
 					</div>
-					<div class="col-12 p-0 pr-3 mt-3 logos-menores">
-						<img class="w-100 rounded mb-4" alt="Logo da PROEN" src="{{url('/imagens/logo-proen-cor.png')}}">
+					<div class="col-12 col-sm-4 col-lg-12 p-0 pr-3 mt-3 logos-menores">
+						<img class="w-100 rounded mb-lg-4" alt="Logo da PROEN" src="{{url('/imagens/logo-proen-cor.png')}}">
 						<img class="w-100 rounded" alt="Logo do IFRS" src="{{url('/imagens/logo-ifrs-cor.png')}}">
 					</div>
 				</div>
