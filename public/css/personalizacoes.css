@@ -30,17 +30,15 @@ footer a:focus
   box-shadow: 0 0 0 3px #d0e4ea;
 }
 
-.card .card-title.focused a {
+.card.card-recurso-ta.focused a {
   outline-color: transparent !important;
   box-shadow: none !important;
 }
 
-.card .card-title.focused {
-  border: 2px solid black;
+.card.card-recurso-ta.focused {
+  outline: 2px solid black;
   box-shadow: 0 0 0 3px #d0e4ea;
   border-radius: 5px;
-  margin: -2px;
-  margin-bottom: 11px;
 }
 
 .form-control:focus,
@@ -402,6 +400,8 @@ button.bg-secondary:focus {
 }
 .menuTelaPrincipal {
   background-color: #f2f2f2 !important;
+  position: fixed !important;
+  top: 50px;
 }
 .banner {
   background: url(../imagens/fundo_banner.jpg) center no-repeat;
@@ -422,6 +422,7 @@ button.bg-secondary:focus {
   width: 112px;
   height: 23px;
   text-indent: -9999px;
+  margin-bottom: 0;
 }
 body {
   background-color: #f6f0e9;
@@ -534,7 +535,7 @@ header .navbar {
 }
 #navegacaoCategorias.navbar-light .navbar-nav .nav-link:hover {
   background-color: #383838;
-  color: #f9efe4 !important;
+  color: #ffffff !important;
 }
 .navbar-light .navbar-nav .nav-link:hover, .navbar-light .navbar-nav .nav-link:focus {
   color: #000 !important;
@@ -599,16 +600,20 @@ ol.breadcrumb a {
 .card.card-recurso-ta {
   overflow: hidden;
 }
-.card-link {
+.card-link,
+.card-title {
   font-family: "Source Sans 3", sans-serif;
-  font-weight: 700;
-  font-size: 20px;
+  font-weight: 700 !important;
+  font-size: 20px !important;
   line-height: 22px;
   color: #383838;
 }
 .card-text {
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
   font-size: 16px;
   line-height: 22px;
+  color: #383838;
 }
 .breadcrumb {
   margin-bottom: 0;
@@ -716,9 +721,6 @@ details[open] summary::before {
   font-size: 20px !important;
   line-height: 32px;
   color: #2f2f30;
-}
-.card-img-top {
-  object-fit: contain;
 }
 .card-title {
   font-size: 20px;
@@ -1305,9 +1307,6 @@ ul.lSPager.lSGallery::-webkit-scrollbar-track {
 }
 .hoverImage {
   position: relative;
-  align-self: stretch;
-  height: auto;
-  flex-shrink: 0;
   object-fit: cover;
   border-radius: 10px;
   max-width: 100%;
@@ -1316,6 +1315,10 @@ ul.lSPager.lSGallery::-webkit-scrollbar-track {
 .card-recurso-ta:hover .hoverImageWrapper .hoverImage,
 .card-recurso-ta.hover .hoverImageWrapper .hoverImage {
   transform: scale(1.2);
+}
+.card-recurso-ta:hover,
+.card-recurso-ta.hover {
+  box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.1);
 }
 .rating-container .badge-primary {
   background-color: #3E67B1 !important;
@@ -1456,6 +1459,11 @@ ul.lSPager.lSGallery::-webkit-scrollbar-track {
   }
   .high-contrast #navegacaoPrincipal .navbar-nav .nav-link.selected {
     border-bottom: none !important;
+  }
+  #colunaEsquerda iframe {
+    width: 100%;
+    height: unset;
+    aspect-ratio: 16 / 9
   }
 }
 @media(max-width: 600px) {
@@ -1910,7 +1918,7 @@ ul.lSPager.lSGallery::-webkit-scrollbar-track {
   border: none !important;
 }
 
-.high-contrast .card .card-title.focused {
+.high-contrast .card.card-recurso-ta.focused {
   box-shadow: 0 0 0 3px yellow;
 }
 
@@ -1935,4 +1943,11 @@ ul.lSPager.lSGallery::-webkit-scrollbar-track {
 }
 .high-contrast .card-recurso-ta .card-title .card-link {
   background-color: transparent !important;
+}
+.high-contrast .card.card-recurso-ta {
+  background-color: #222222 !important;
+}
+.high-contrast .card.card-recurso-ta .card-title,
+.high-contrast .card.card-recurso-ta .card-text {
+  color: #ffffff !important;
 }
