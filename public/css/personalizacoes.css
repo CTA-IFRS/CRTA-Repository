@@ -1463,7 +1463,7 @@ ul.lSPager.lSGallery::-webkit-scrollbar-track {
   #colunaEsquerda iframe {
     width: 100%;
     height: unset;
-    aspect-ratio: 16 / 9
+    aspect-ratio: 16 / 9;
   }
 }
 @media(max-width: 600px) {

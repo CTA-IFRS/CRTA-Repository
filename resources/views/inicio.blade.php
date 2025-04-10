@@ -29,11 +29,11 @@
 	<div class="contaier mt-5 contribute-strip row" id="aprender_contribuir">
 		<div id="aprender" class="bg-blue my-4">
 			<h3><a href="{{ url('/aprender')}}"> <u>Aprender</u> </a> </h3>
-			<p> Acesse cursos, artigos, publicações e outros materiais relacionados à inclusão e tecnologia assistiva </p>
+			<p>Acesse cursos e publicações relacionados à tecnologia assistiva no contexto educacional.</p>
 		</div>
 		<div id="contribuir" class="bg-blue my-4">
 			<h3> <a href="{{ route('cadastrarTA')}}"> <u> Contribuir </u></a> </h3>
-			<p> Disponibilize neste repositório seu recurso de TA, metodologia, material pedagógico acessível e outros </p>
+			<p>Disponibilize no RETACE seu recurso de tecnologia assistiva ou material pedagógico acessível.</p>
 		</div>
 	</div>
 	<div class="container cardsInicial mt-5 mb-5">

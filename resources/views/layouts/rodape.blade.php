@@ -5,7 +5,7 @@
 			<div class="col-lg-9 col-12">
 				<h2 class="h5">Entre em Contato</h2>
 				<p>
-					Para conhecer mais sobre os trabalhos e projetos desenvolvidos pelo CTA acesse nosso site ou redes sociais disponíveis na lista abaixo.
+					Para conhecer mais sobre os trabalhos e projetos desenvolvidos pelo CTA acesse nosso site ou redes sociais:
 				</p>
 				<ul class="list-unstyled">
 					<li class="">
