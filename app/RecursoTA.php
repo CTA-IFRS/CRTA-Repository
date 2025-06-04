@@ -24,6 +24,10 @@ class RecursoTa extends Model
         'visualizacoes'
     ];
 
+    protected $attributes = [
+        'produto_comercial' => false // Esta opção está sendo removida. Valor padrão = false
+    ];
+
 	//define o nome da tabela do DB porque o padrão do Laravel resultaria em recurso_tas
     protected $table = 'recursos_ta';
 

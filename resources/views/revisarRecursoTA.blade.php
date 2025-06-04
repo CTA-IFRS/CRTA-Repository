@@ -54,36 +54,7 @@
 				</div>
 			</div>
 			
-			<fieldset class="form-group required">
-				<div class="row">
-					<legend class="col-form-label col-md-2 pt-0 text-md-left" id="label-legend-text">
-						É um produto comercial?
-						<span class="sr-only">&nbsp;(Campo requerido)</span>
-						<div id="legend-label-produtoComercial" class="sr-only"></div>
-					</legend>
-					<div class="col-md-2">
-						<label class="form-check-label pl-4">
-							<input class="form-check-input" type="radio" id="comercial" name="produtoComercial" 
-								value="true" aria-labelledby="label-legend-text label-sim"
-								{{ $recursoTA->produto_comercial ? 'checked' : '' }}>
-							<span id="label-sim">{{ __('Sim') }}</span>
-						</label>
-					</div>
-					<div class="col-md-2">                            
-						<label class="form-check-label">
-							<input class="form-check-input" type="radio" id="naoComercial" name="produtoComercial" 
-							value="false" aria-labelledby="label-legend-text label-nao"
-							{{ $recursoTA->produto_comercial ? '' : 'checked' }}>
-							<span id="label-nao">{{ __('Não') }}</span>
-						</label>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<span id="produtoComercial"></span>
-					</div>
-				</div>
-			</fieldset>
+			
 
 			<div class="form-group required">
 				<label for="siteFabricante" class="text-md-right">
@@ -108,6 +79,7 @@
 				<label for="tags" id="tags-label" class="text-md-right">
 					{{ __('Tags') }}
 					<span class="sr-only">&nbsp;(Campo requerido)</span>
+					<span class="small">(Informe tags relacionadas as características do recurso e da licença(ex: Pago, Gratuito, ...), priorize a utilização de tags já existentes)</span>
 				</label>
 				<div class="">
 					<input type="text" class="form-control" name="tags" id="tags" value="{{$tagsDoRecursoTA}}"/>

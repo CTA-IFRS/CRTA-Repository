@@ -28,7 +28,7 @@ class RecursoTAController extends Controller{
      'titulo' => 'required|max:255',
      'descricao' => 'required',
      'siteFabricante' => [/*'required',*/ 'nullable', 'url'],
-     'produtoComercial' => 'required',
+     //'produtoComercial' => 'required',
      'licenca' => 'max:255',
      //'tags' => 'required',
      'videos.*.url' => ['sometimes','url'],
@@ -55,7 +55,7 @@ class RecursoTAController extends Controller{
     'descricao.required'  => 'Descreva brevemente o que está cadastrando',
     // 'siteFabricante.required' => 'Informe o site do recurso',
     'siteFabricante.url' => 'Informe um endereço válido (ex: https://www.meusite.com.br)',
-    'produtoComercial.required' => 'Marque se é um produto comercial ou não',
+    //'produtoComercial.required' => 'Marque se é um produto comercial ou não',
     'licenca.max' => 'Informe a licença em usando menos de 256 caracteres',
     // 'licenca.required_if' => 'Informe a licença de distribuição desse recurso',
     //'tags.required' => 'Informe ao menos uma tag',
@@ -99,13 +99,13 @@ class RecursoTAController extends Controller{
   }
 
       //Caso esteja tudo ok, prepara para criar no DB
-  $isProdutoComercial = (int)filter_var(request('produtoComercial'), FILTER_VALIDATE_BOOLEAN);
+  //$isProdutoComercial = (int)filter_var(request('produtoComercial'), FILTER_VALIDATE_BOOLEAN);
 
   $recursoTA = new RecursoTA();
   $recursoTA->titulo = request('titulo');
   $recursoTA->descricao = nl2br(htmlspecialchars(strip_tags(request('descricao')), ENT_QUOTES, 'UTF-8'));
 
-  $recursoTA->produto_comercial = $isProdutoComercial;
+  //$recursoTA->produto_comercial = $isProdutoComercial;
   $recursoTA->licenca = request('licenca');  
 
   $recursoTA->site_fabricante = request('siteFabricante');
