@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-	DB::table('users')->insert([
-            'name' => 'Admin',
-            'email' => 'admin@admin.com',
-            'password' => Hash::make('admin123'),
-        ]);
-
+        $adminUser = DB::table('users')->where('email', '=', 'admin@admin.com')->first();
+        if ($adminUser == null) {
+            DB::table('users')->insert([
+                    'name' => 'Admin',
+                    'email' => 'admin@admin.com',
+                    'password' => Hash::make('admin123'),
+                ]);
+            }
     }
 
     /**
