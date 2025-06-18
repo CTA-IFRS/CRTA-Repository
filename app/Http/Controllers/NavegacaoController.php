@@ -48,8 +48,9 @@ class NavegacaoController extends Controller{
 
 		$tags = Tag::where('publicacao_autorizada', true)->get()->pluck('nome');
 
-		$temp = str_replace(['?', '%', '_'], ['\?', '\%', '\_'], $texto);
-		$termos = explode(' ', preg_replace('/((\s+)((a|o|e|de|do|da|de|das|por|para|com|ou|como)(\s+))*)/', ' ', $temp));
+		$temp = preg_replace('/(\s+)/', ' ', strtolower(trim(str_replace(['?', '%', '_'], ['\?', '\%', '\_'], $texto))));
+		$temp = preg_replace('/((\s+)((a|o|e|de|do|da|de|das|por|para|com|ou|como|um|uns)(\s+))*)/', ' ', $temp);
+		$termos = explode(' ', $temp);
 
 		$idsTagsPublicadas = Tag::where('publicacao_autorizada', true)
 							->where(function ($query) use ($termos) {
@@ -87,7 +88,7 @@ class NavegacaoController extends Controller{
 	private function createWhereOptionsArray($likeLeftOperand, $likeRightOperands) {
 		$result = [];
 		for ($i = 0; $i < count($likeRightOperands); $i++) {
-			$result[] = [$likeLeftOperand, 'like', '%' . $likeRightOperands[$i] . '%'];
+			$result[] = ['LOWER(' . $likeLeftOperand . ')', 'like', '%' . $likeRightOperands[$i] . '%'];
 		}
 		return $result;
 	}
@@ -95,7 +96,8 @@ class NavegacaoController extends Controller{
 	private function apppendOrWhere($query, $columnName,  $terms) {
 		$options = $this->createWhereOptionsArray($columnName, $terms);
 		foreach ($options as $option) {
-			$query->orWhere($option[0], $option[1], $option[2]);
+			//$query->orWhere($option[0], $option[1], $option[2]);
+			$query->orWhereRaw("{$option[0]} {$option[1]} ?", [$option[2]]);
 		}
 	}
 
