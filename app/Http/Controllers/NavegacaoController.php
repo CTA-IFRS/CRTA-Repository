@@ -38,8 +38,15 @@ class NavegacaoController extends Controller{
 	}
 
 	
+	private function sanitizarDados($texto) {
+		$temp = preg_replace('/(\s+)/', ' ', strtolower(trim(str_replace(['?', '%', '_'], ['\?', '\%', '\_'], $texto))));
+		$temp = preg_replace('/((\s+)((a|o|e|de|do|da|de|das|por|para|com|ou|como|um|uns)(\s+))*)/', ' ', $temp);
+		return $temp;
+	}
 	public function buscarPorTexto(Request $request) {
 		$texto = request('texto');
+		$filtros = request('filtros');
+		
 		if ($texto === null) return Redirect::back();
 		
 		$RANK_TAG_POINTS = 70;
@@ -48,9 +55,12 @@ class NavegacaoController extends Controller{
 
 		$tags = Tag::where('publicacao_autorizada', true)->get()->pluck('nome');
 
-		$temp = preg_replace('/(\s+)/', ' ', strtolower(trim(str_replace(['?', '%', '_'], ['\?', '\%', '\_'], $texto))));
-		$temp = preg_replace('/((\s+)((a|o|e|de|do|da|de|das|por|para|com|ou|como|um|uns)(\s+))*)/', ' ', $temp);
-		$termos = explode(' ', $temp);
+		$termos = explode(' ', $this->sanitizarDados($texto));
+
+		if ($filtros != NULL) {
+			$saniFiltros = array_map(array($this, 'sanitizarDados'), $filtros);
+			$termos = array_merge($saniFiltros, $termos);
+		}
 
 		$idsTagsPublicadas = Tag::where('publicacao_autorizada', true)
 							->where(function ($query) use ($termos) {

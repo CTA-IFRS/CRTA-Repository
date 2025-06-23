@@ -6,22 +6,19 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav flex-wrap">
             <li class="nav-item">
-                <a class="nav-link" href="{{route('filtroTag', ['mobilidade'])}}">Mobilidade</a>
+                <a class="nav-link" href="{{route('filtroTag', ['software'])}}">Software</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{route('filtroTag', ['comunicação'])}}">Comunicação</a>
+                <a class="nav-link" href="{{route('filtroTag', ['deficiência visual'])}}">Deficiência visual</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{route('filtroTag', ['audição'])}}">Audição</a>
+                <a class="nav-link" href="{{route('filtroTag', ['mouse adaptado'])}}">Mouse adaptado</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{route('filtroTag', ['visão'])}}">Visão</a>
+                <a class="nav-link" href="{{route('filtroTag', ['deficiência física'])}}">Deficiência física</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{route('filtroTag', ['cognitivas'])}}">Cognitivas</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{route('filtroTag', ['acessibilidade digital'])}}">Acessibilidade Digital</a>
+                <a class="nav-link" href="{{route('filtroTag', ['baixo custo'])}}">Baixo custo</a>
             </li>
         </ul>
     </div>
