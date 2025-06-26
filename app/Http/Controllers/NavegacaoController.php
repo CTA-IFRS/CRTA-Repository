@@ -38,16 +38,18 @@ class NavegacaoController extends Controller{
 	}
 
 	
-	private function sanitizarDados($texto) {
+	private function sanitizarDados($texto, $removerPreposicao = false) {
 		$temp = preg_replace('/(\s+)/', ' ', strtolower(trim(str_replace(['?', '%', '_'], ['\?', '\%', '\_'], $texto))));
-		$temp = preg_replace('/((\s+)((a|o|e|de|do|da|de|das|por|para|com|ou|como|um|uns)(\s+))*)/', ' ', $temp);
+		if ($removerPreposicao) {
+			$temp = preg_replace('/((\s+)((a|o|e|de|do|da|de|das|por|para|com|ou|como|um|uns)(\s+))*)/', ' ', $temp);
+		}
 		return $temp;
 	}
 	public function buscarPorTexto(Request $request) {
 		$texto = request('texto');
 		$filtros = request('filtros');
 		
-		if ($texto === null) return Redirect::back();
+		if ($texto === null && $filtros === null) return Redirect::back();
 		
 		$RANK_TAG_POINTS = 70;
 		$RANK_TITULO_POINTS = 25;
@@ -55,16 +57,16 @@ class NavegacaoController extends Controller{
 
 		$tags = Tag::where('publicacao_autorizada', true)->get()->pluck('nome');
 
-		$termos = explode(' ', $this->sanitizarDados($texto));
-
-		if ($filtros != NULL) {
-			$saniFiltros = array_map(array($this, 'sanitizarDados'), $filtros);
-			$termos = array_merge($saniFiltros, $termos);
-		}
+		$termos = explode(' ', $this->sanitizarDados($texto, true));
 
 		$idsTagsPublicadas = Tag::where('publicacao_autorizada', true)
-							->where(function ($query) use ($termos) {
-								$this->apppendOrWhere($query, 'nome', $termos);
+							->where(function ($query) use ($termos, $filtros) {
+								if ($filtros == NULL) { // Tags que contenham alguns dos termos da pesquisa
+									$this->apppendOrWhere($query, 'nome', $termos);
+								} else { // Tags com os nomes iguais aos filtros da pesquisa
+									$saniFiltros = array_map(array($this, 'sanitizarDados'), $filtros);
+									$this->apppendOrWhere($query, 'nome', $saniFiltros);
+								}
 							})
 							->select('id')
 							->get()
@@ -73,17 +75,28 @@ class NavegacaoController extends Controller{
 
 		$idsRecursosPorTags = DB::table('recurso_ta_tag')
 							->whereIn('tag_id', $idsTagsPublicadas)
-							->select('recurso_ta_id')
-							->get()
+							->select('recurso_ta_id');
+		if ($filtros != NULL) { // Somente recursos com todas as tags definidas no filtro
+			$idsRecursosPorTags = $idsRecursosPorTags->groupBy('recurso_ta_id')
+									->havingRaw('COUNT(DISTINCT tag_id) = ?', [count($filtros)]);
+		}
+		$idsRecursosPorTags = $idsRecursosPorTags->get()
 							->map(function ($item) { return $item->recurso_ta_id;})
 							->toArray();
 
 		$idsRecursosPorTagsString = (count($idsRecursosPorTags) > 0) ? ('(' . implode(',', $idsRecursosPorTags) . ')') : '(0)';
 		$recursosPublicados = RecursoTA::where('publicacao_autorizada', true)
-								->where(function ($query) use ($termos, $idsRecursosPorTags) {
+								->where(function ($query) use ($termos, $idsRecursosPorTags, $filtros) {
 									$query->whereIn('id', $idsRecursosPorTags);
-									$this->apppendOrWhere($query, 'titulo', $termos);
-									$this->apppendOrWhere($query, 'descricao', $termos);
+									if ($filtros == NULL) { // WHERE IN () OR ...
+										$this->apppendOrWhere($query, 'titulo', $termos);
+										$this->apppendOrWhere($query, 'descricao', $termos);
+									} else { // WHERE IN () AND ...
+										$query->where(function ($query2) use ($termos) {
+											$this->apppendOrWhere($query2, 'titulo', $termos);
+											$this->apppendOrWhere($query2, 'descricao', $termos);
+										});
+									}
 								})
 								->select(['*', 
 										  DB::raw("(CASE WHEN id IN $idsRecursosPorTagsString THEN $RANK_TAG_POINTS ELSE 0 END) AS rank_tag"),
@@ -91,8 +104,9 @@ class NavegacaoController extends Controller{
 										  DB::raw($this->createTextCase('descricao', $termos, $RANK_DESCRICAO_POINTS, 'rank_descricao'))
 										 ])
 								->orderByRaw('(rank_tag + rank_titulo + rank_descricao) DESC');
+								
 
-		return view('buscaRecursoTA',['tags' => $tags,'parametro' => $texto, 'recursosTA' => $recursosPublicados->get()]);
+		return view('buscaRecursoTA',['tags' => $tags,'parametro' => $texto, 'filtros' => $filtros, 'recursosTA' => $recursosPublicados->get()]);
 	}
 
 	private function createWhereOptionsArray($likeLeftOperand, $likeRightOperands) {
@@ -135,7 +149,7 @@ class NavegacaoController extends Controller{
 	 */	
 	public function buscaRecursoTAPorTag(Request $request, $tag = null){
 		if ($tag === null) return Redirect::back();
-
+		
 		$tags = Tag::where('publicacao_autorizada', true)->get()->pluck('nome');
 
 		$arrayTagsInformadas = explode(",",$tag);
@@ -152,7 +166,7 @@ class NavegacaoController extends Controller{
 		//Remove duplicatas originadas por TAs em mais de uma tag
 		$conjuntoOrdenado = $resultadoBusca->unique('id')->sortBy('attributes.visualizacoes');
 
-		return view('buscaRecursoTA',['tags' => $tags, 'parametro' => $tag, 'recursosTA' => $conjuntoOrdenado]);
+		return view('buscaRecursoTA',['tags' => $tags, 'parametro' => '', 'filtros' => [$tag], 'recursosTA' => $conjuntoOrdenado]);
 	}
 
 

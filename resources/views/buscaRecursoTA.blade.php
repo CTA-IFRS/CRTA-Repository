@@ -26,8 +26,6 @@
     <div id="resultadoBusca" class="mt-4 mt-sm-5">
 		@if(strlen($parametro)!=0)
 			<h2 class="h3"> Resultado da busca por <i>{{$parametro}}</i> </h2>
-		@else
-			<h2 class="h3"> Buscando por todos os recursos, exibindo os mais acessados primeiro </h2>
 		@endif
 		@include('layouts.listaCardsRecursos')
 	</div>
