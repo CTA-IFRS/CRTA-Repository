@@ -65,20 +65,23 @@ class NavegacaoController extends Controller{
 									$this->apppendOrWhere($query, 'nome', $termos);
 								} else { // Tags com os nomes iguais aos filtros da pesquisa
 									$saniFiltros = array_map(array($this, 'sanitizarDados'), $filtros);
-									$this->apppendOrWhere($query, 'nome', $saniFiltros);
+									//$this->apppendOrWhere($query, 'nome', $saniFiltros);
+									foreach ($saniFiltros as $f) {
+										$query->orWhereRaw('LOWER(nome) = ?', $f);
+									}
 								}
 							})
-							->select('id')
-							->get()
-							->map(function ($item) { return $item->id;})
-							->toArray();
+							->select('id');
+							// ->get()
+							// ->map(function ($item) { return $item->id;})
+							// ->toArray();
 
 		$idsRecursosPorTags = DB::table('recurso_ta_tag')
 							->whereIn('tag_id', $idsTagsPublicadas)
 							->select('recurso_ta_id');
 		if ($filtros != NULL) { // Somente recursos com todas as tags definidas no filtro
 			$idsRecursosPorTags = $idsRecursosPorTags->groupBy('recurso_ta_id')
-									->havingRaw('COUNT(DISTINCT tag_id) = ?', [count($filtros)]);
+									->havingRaw('COUNT(DISTINCT tag_id) >= ?', [count($filtros)]);
 		}
 		$idsRecursosPorTags = $idsRecursosPorTags->get()
 							->map(function ($item) { return $item->recurso_ta_id;})

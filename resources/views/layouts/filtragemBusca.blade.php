@@ -48,7 +48,7 @@
             $tamTipos = count($tipos);
             $condicoes = ["Baixa visão", "Cegueira", "Deficiência auditiva", "Surdez", 
                           "Surdocegueira", "Deficiência física", "Deficiência intelectual",
-                          "Austismo", "Neurodivergência"];
+                          "Autismo", "Neurodivergência"];
           ?>
           @foreach ($condicoes as $k => $condicao) 
             <li>
