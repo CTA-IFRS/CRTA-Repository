@@ -15,7 +15,7 @@
     </div>
     <hr class="mt-0">
     <div class="row custom-container2">
-        <div class="col-md-12">
+        <div class="col-md-12 p-0">
             <div class="card border-light bg-transparent">
                 <div class="card-header bg-transparent p-0 sem-borda">
                     <h2 class="h1 mt-4">
@@ -52,7 +52,7 @@
         </div>
     
     <div class="row custom-container2">
-        <div class="col-md-12 position-relative">
+        <div class="col-md-12 p-0">
             <div class="card border-light bg-transparent">
 
                 <div class="card-body p-0">
