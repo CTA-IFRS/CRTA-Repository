@@ -820,7 +820,12 @@ details[open] summary::before {
 }
 #conteudo_aprender.custom-container,
 #app.custom_content {
+  max-width: 1658px;
+  width: calc(100% - 80px);
+}
+.custom-container2 {
   max-width: 944px;
+  margin: 0 auto;
 }
 #conteudo_aprender h2 {
   font-size: 36px;
@@ -856,8 +861,7 @@ details[open] summary::before {
   font-size: 16px;
   text-transform: uppercase;
   top: 20px;
-  right: 20px;
-  padding: 7px 12px;
+  left: 20px;
 }
 #app h2 {
   font-weight: 700;
@@ -1323,11 +1327,57 @@ ul.lSPager.lSGallery::-webkit-scrollbar-track {
 .rating-container .badge-primary {
   background-color: #3E67B1 !important;
 }
+#formCadastroRecursoTA :target {
+  scroll-margin-top: 130px;
+}
+#menu_flutuante {
+  position: sticky;
+  height: fit-content;
+  top: 130px;
+  margin-top: -175px;
+  margin-bottom: 45px;
+}
+#menu_flutuante .navbar-nav {
+  border-left: 2px solid #383838;
+}
+#menu_flutuante a {
+  color: #383838;
+  max-width: fit-content;
+}
+#formularios_contribuir {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  padding-right: 300px;
+}
+#listagem_aprender {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
 @media (min-width: 1500px) {
   /*exibir 4 recursos na listagem somente em resolução maior que 1500px*/
   #listagem_recursos_paginacao.row-cols-xl-3 > * {
     flex: 0 0 25%;
     max-width: 25%;
+  }
+}
+@media(max-width: 1625px) {
+  #formularios_contribuir {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    padding-right: 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+  #formularios_contribuir .custom-container2 {
+    margin-left: 0;
+  }
+  #menu_flutuante {
+    margin-top: 0;
+  }
+  .custom-container2:not(#formularios_contribuir .custom-container2) {
+    max-width: 1200px;
   }
 }
 @media(max-width: 1550px) {
@@ -1359,6 +1409,9 @@ ul.lSPager.lSGallery::-webkit-scrollbar-track {
   #contribuir {
     background: #d0e4ea url(../imagens/img_contrubuir.png) center left 30px no-repeat;
     background-size: 230px;
+  }
+  #listagem_aprender {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 @media(max-width: 1000px) {
@@ -1465,6 +1518,17 @@ ul.lSPager.lSGallery::-webkit-scrollbar-track {
     height: unset;
     aspect-ratio: 16 / 9;
   }
+  #listagem_aprender {
+    grid-template-columns: 1fr;
+  }
+}
+@media(max-width: 992px) {
+  #menu_flutuante {
+    display: none;
+  }
+  #formularios_contribuir {
+    grid-template-columns: 1fr;
+  }
 }
 @media(max-width: 600px) {
   .container {
@@ -1561,10 +1625,6 @@ ul.lSPager.lSGallery::-webkit-scrollbar-track {
   }
   .custom_content #aprender_contribuir p {
     line-height: 25px;
-  }
-  .custom_content .card .badge {
-    right: unset;
-    left: 17px;
   }
   #conteudo_aprender .col-12 {
     padding: 0;
@@ -1948,6 +2008,10 @@ ul.lSPager.lSGallery::-webkit-scrollbar-track {
   background-color: #222222 !important;
 }
 .high-contrast .card.card-recurso-ta .card-title,
-.high-contrast .card.card-recurso-ta .card-text {
+.high-contrast .card.card-recurso-ta .card-text,
+.high-contrast #menu_flutuante a {
   color: #ffffff !important;
+}
+.high-contrast #menu_flutuante .navbar-nav {
+  border-left: 2px solid #fff;
 }

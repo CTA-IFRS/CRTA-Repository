@@ -14,7 +14,7 @@
         </div>
     </div>
     <hr class="mt-0">
-    <div class="row ">
+    <div class="row custom-container2">
         <div class="col-md-12">
             <div class="card border-light bg-transparent">
                 <div class="card-header bg-transparent p-0 sem-borda">
@@ -23,6 +23,37 @@
                     </h2>
                     <p class="h1 mt-3 mb-5">Utilize o formulário a seguir para cadastrar um recurso de tecnologia assistiva ou material pedagógico acessível, com aplicação no contexto educacional. Os recursos cadastrados passarão por moderação de nossa equipe antes de serem incluídos no repositório.</p>
                 </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="formularios_contribuir">
+        <div id="menu_flutuante">
+            <ul class="navbar-nav pl-4">
+                <li class="nav-item">
+                    <a class="nav-link " href="#link-infos-basicas" >1. Informações básicas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="#link-fotos">2. Fotos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#link-videos-relacionados">3. Vídeos relacionados</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="#link-arquivos">4. Arquivos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="#link-manuais">5. Manuais</a>
+                </li>  
+                <li class="nav-item">
+                    <a class="nav-link " href="#link-infos-contato">6. Informações para contato</a>
+                </li>
+            </ul>
+        </div>
+    
+    <div class="row custom-container2">
+        <div class="col-md-12 position-relative">
+            <div class="card border-light bg-transparent">
 
                 <div class="card-body p-0">
                     <div id="alert-erros-formulario" tabindex="-1" class="alert alert-danger d-none">
@@ -31,7 +62,7 @@
 
                     <form id="formCadastroRecursoTA" method="POST" action="{{ route('salvaTA') }}" enctype="multipart/form-data">
                         @csrf
-                        <fieldset class="bg-white py-4 px-3 px-sm-4 rounded-lg">
+                        <fieldset class="bg-white py-4 px-3 px-sm-4 rounded-lg" id="link-infos-basicas">
                             <div>
                                 <legend class="h3">1. Informações básicas</legend>
                             </div>
@@ -42,7 +73,7 @@
                                     <span class="sr-only">&nbsp;(Campo requerido)</span>
                                 </label>
                                 <div>
-                                    <input id="titulo" type="text" class="form-control bg-gray" name="titulo" value="{{ old('titulo') }}" autofocus spellcheck="true">
+                                    <input id="titulo" type="text" class="form-control bg-gray" name="titulo" value="{{ old('titulo') }}"  spellcheck="true">
                                 </div>
                             </div>
 
@@ -91,7 +122,7 @@
 
                         <br>
                         
-                        <fieldset class="bg-white py-4 px-3 px-sm-4 rounded-lg">
+                        <fieldset class="bg-white py-4 px-3 px-sm-4 rounded-lg" id="link-fotos">
                             <div>
                                 <legend id="fotos-label-cab" class="obrigatorio h3">
                                     2. Fotos
@@ -129,7 +160,7 @@
                         <div id="status-adicao-links" class="sr-only" role="status">
                         </div>
 
-                        <fieldset class="bg-white py-4 px-3 px-sm-4 rounded-lg">
+                        <fieldset class="bg-white py-4 px-3 px-sm-4 rounded-lg" id="link-videos-relacionados">
                             <div>
                                 <legend id="videos-label" class="h3">3. Vídeos relacionados</legend>
                             </div>
@@ -159,7 +190,7 @@
 
                         <br>
 
-                        <fieldset class="bg-white py-4 px-3 px-sm-4 rounded-lg">
+                        <fieldset class="bg-white py-4 px-3 px-sm-4 rounded-lg" id="link-arquivos">
                             <div>
                                 <legend id="arquivos-label" class="h3">4. Arquivos</legend>
                             </div>
@@ -188,7 +219,7 @@
 
                         <br>
 
-                        <fieldset class="bg-white py-4 px-3 px-sm-4 rounded-lg">
+                        <fieldset class="bg-white py-4 px-3 px-sm-4 rounded-lg" id="link-manuais">
                             <div>
                                 <legend id="manual-label" class="h3">5. Manuais</legend>
                             </div>
@@ -217,7 +248,7 @@
 
                         <br>
 
-                        <fieldset class="bg-white py-4 px-3 px-sm-4 rounded-lg">
+                        <fieldset class="bg-white py-4 px-3 px-sm-4 rounded-lg" id="link-infos-contato">
                             <div>
                                 <legend class="h3">6. Informações para contato</legend>
                             </div>
@@ -231,7 +262,7 @@
                                     <span class="sr-only">&nbsp;(Campo requerido)</span>
                                 </label>
                                 <div>
-                                    <input id="contato_nome" type="text" class="form-control bg-gray" name="contato_nome" value="{{ old('contato_nome') }}" autofocus>
+                                    <input id="contato_nome" type="text" class="form-control bg-gray" name="contato_nome" value="{{ old('contato_nome') }}" >
                                 </div>
                             </div>
 
@@ -241,7 +272,7 @@
                                     <span class="sr-only">&nbsp;(Campo requerido)</span>
                                 </label>
                                 <div>
-                                    <input id="contato_email" type="text" class="form-control bg-gray" name="contato_email" value="{{ old('contato_email') }}" autofocus>
+                                    <input id="contato_email" type="text" class="form-control bg-gray" name="contato_email" value="{{ old('contato_email') }}" >
                                 </div>
                             </div>
 
@@ -251,7 +282,7 @@
                                     <span class="sr-only">&nbsp;(Campo requerido)</span>
                                 </label>
                                 <div>
-                                    <input id="contato_telefone" type="text" class="form-control bg-gray" name="contato_telefone" value="{{ old('contato_telefone') }}" autofocus>
+                                    <input id="contato_telefone" type="text" class="form-control bg-gray" name="contato_telefone" value="{{ old('contato_telefone') }}" >
                                 </div>
                             </div>
 
@@ -261,7 +292,7 @@
                                     <span class="sr-only">&nbsp;(Campo opcional)</span>
                                 </label>
                                 <div>
-                                    <input id="contato_instituicao" type="text" class="form-control bg-gray" name="contato_instituicao" value="{{ old('contato_instituicao') }}" autofocus>
+                                    <input id="contato_instituicao" type="text" class="form-control bg-gray" name="contato_instituicao" value="{{ old('contato_instituicao') }}" >
                                 </div>
                             </div>
 
@@ -283,6 +314,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </div>
 <!-- The Modal -->
