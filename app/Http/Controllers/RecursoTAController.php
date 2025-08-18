@@ -165,9 +165,9 @@ class RecursoTAController extends Controller{
 
       // Gera uma imagem com fundo transparente
       // Se for necessário uma cor no background, informe no terceiro parâmetro (e.g: '#000000')
-      $fotoRedimensionada = Image::canvas(640, 480);
+      $fotoRedimensionada = Image::canvas(800, 600); // old 640x480
       
-      $fotoEmProcessamento  = Image::make($foto)->resize(640, 480, function($constraint) {
+      $fotoEmProcessamento  = Image::make($foto)->resize(800, 600, function($constraint) {
         $constraint->aspectRatio();
       })->encode('jpg');
       
@@ -183,8 +183,8 @@ class RecursoTAController extends Controller{
       //Processa a imagem para criar a thumbnail
       $thumbnailFoto = Image::make($foto);
 
-      $larguraMaximaThumbail = 200; //px_close(pxdoc)
-      $alturaMaximaThumbnail = 150; //px
+      $larguraMaximaThumbail = 400;  //200; //px_close(pxdoc)
+      $alturaMaximaThumbnail = 300;  //150; //px
 
       $thumbnailFoto->resize($larguraMaximaThumbail, $alturaMaximaThumbnail, function ($constraint) {
         $constraint->aspectRatio();

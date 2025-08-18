@@ -454,9 +454,9 @@ class HomeController extends Controller
 
             // This will generate an image with transparent background
             // If you need to have a background you can pass a third parameter (e.g: '#000000')
-            $fotoRedimensionada = Image::canvas(640, 480);
+            $fotoRedimensionada = Image::canvas(800, 600);
 
-            $fotoEmProcessamento  = Image::make($foto)->resize(640, 480, function($constraint)
+            $fotoEmProcessamento  = Image::make($foto)->resize(800, 600, function($constraint)
             {
                 $constraint->aspectRatio();
             })->encode('jpg');
@@ -470,8 +470,8 @@ class HomeController extends Controller
             //Processa a imagem para criar a thumbnail
             $thumbnailFoto = Image::make($foto);
 
-            $larguraMaximaThumbail = 200; //px_close(pxdoc)
-            $alturaMaximaThumbnail = 150; //px
+            $larguraMaximaThumbail = 400; //px_close(pxdoc)
+            $alturaMaximaThumbnail = 300; //px
 
             $thumbnailFoto->resize($larguraMaximaThumbail, $alturaMaximaThumbnail, function ($constraint) {
                 $constraint->aspectRatio();
@@ -795,9 +795,9 @@ class HomeController extends Controller
     
           // Gera uma imagem com fundo transparente
           // Se for necessário uma cor no background, informe no terceiro parâmetro (e.g: '#000000')
-          $fotoRedimensionada = Image::canvas(640, 480);
+          $fotoRedimensionada = Image::canvas(800, 600);
           
-          $fotoEmProcessamento  = Image::make($foto)->resize(640, 480, function($constraint) {
+          $fotoEmProcessamento  = Image::make($foto)->resize(800, 600, function($constraint) {
             $constraint->aspectRatio();
           })->encode('jpg');
           
@@ -813,8 +813,8 @@ class HomeController extends Controller
           //Processa a imagem para criar a thumbnail
           $thumbnailFoto = Image::make($foto);
     
-          $larguraMaximaThumbail = 200; //px_close(pxdoc)
-          $alturaMaximaThumbnail = 150; //px
+          $larguraMaximaThumbail = 400; //px_close(pxdoc)
+          $alturaMaximaThumbnail = 300; //px
     
           $thumbnailFoto->resize($larguraMaximaThumbail, $alturaMaximaThumbnail, function ($constraint) {
             $constraint->aspectRatio();
