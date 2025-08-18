@@ -502,10 +502,10 @@
 				   '{ID_FOTO_NOVA}' : '{ID_FOTO_NOVA}'
 				 "  !!}
 		},
-		initialPreview: [@foreach($recursoTA->fotos as $foto)'<img src="{{url(Storage::url('public/'.$foto->caminho_arquivo))}}" class="file-preview-image kv-preview-data" alt="{{$foto->texto_alternativo}}">',@endforeach],
+		initialPreview: [@foreach($recursoTA->fotos as $foto)'<img src="{{url(Storage::url('public/'.$foto->caminho_arquivo))}}" class="file-preview-image kv-preview-data" alt="{{htmlspecialchars($foto->texto_alternativo)}}">',@endforeach],
 		initialPreviewConfig: [
 		@foreach($recursoTA->fotos as $foto) 
-			{!! '{ caption: "'.$foto->texto_alternativo.'",
+			{!! '{ caption: "'.htmlspecialchars($foto->texto_alternativo).'",
 				  size:"'.filesize(storage_path('app/public/'.$foto->caminho_arquivo)).'", 
 				  url:"'.url('/remover/foto/'.$foto->id).'" }'
 				  !!},
@@ -687,9 +687,9 @@
 
         // Preenche os campos de cada foto já cadastrada com as informações do banco
 		@foreach($recursoTA->fotos as $foto)
-		$('input[name*="{!!$foto->texto_alternativo!!}"]').val({!!'"'.$foto->texto_alternativo.'"'!!});
+		$('input[name*="{!!htmlspecialchars($foto->texto_alternativo)!!}"]').val({!!'"'.htmlspecialchars($foto->texto_alternativo).'"'!!});
 		@if($foto->destaque)
-		$('input[value*="{!!$foto->texto_alternativo!!}"]').prop('checked', true);
+		$('input[value*="{!!htmlspecialchars($foto->texto_alternativo)!!}"]').prop('checked', true);
 		@endif
 		@endforeach
 
