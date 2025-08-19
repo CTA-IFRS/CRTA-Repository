@@ -3,7 +3,7 @@
 	{{ csrf_field() }}
 	<div class="row col-sm-12 col-12 justify-content-center justify-content-sm-center no-gutters input-group mb-3" id="box-form">
 		<div class="col-sm-12">
-			<input type="text" name="texto" class="form-control" placeholder="Busque recursos de tecnologia assistiva" aria-label="Campo de busca com seletor para optar entre buscar por TAGs ou termos">
+			<input type="text" name="texto" class="form-control" placeholder="Busque recursos de tecnologia assistiva" aria-label="Pesquise o termo desejado">
 		</div>
 		<div class="input-group-append">
 			<button class="btn btn-primary" type="submit" id="btnSearch">
@@ -22,9 +22,9 @@
 				noResults: 'Sem resultados',
 				results: function(amount) {
 					if (amount > 1) {
-						return 'Foram encontrados ' + amount + ' resultados';
+						return 'Foram encontrados ' + amount + ' resultados. Pressione seta para baixo para navegar e escolher a opção e em seguida submeta a pesquisa.';
 					} else {
-						return 'Foi encontrado 1 resultado';
+						return 'Foi encontrado 1 resultado. Pressione seta para baixo para navegar e escolher a opção e em seguida submeta a pesquisa';
 					}
 				}
     		}

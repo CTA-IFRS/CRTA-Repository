@@ -29,10 +29,9 @@
    @include('layouts.menuNavegacaoPrincipal')
    </header>
 
-   <a href="#" id="conteudo-principal" class="sr-only">Início do conteúdo</a>
    <main>
    @yield('bannerTelaInicial')
-
+   <a href="#" id="conteudo-principal" class="sr-only">Início do conteúdo</a>
    @yield('conteudo')
    </main>
    <a href="#" class="sr-only">Final do conteúdo</a>

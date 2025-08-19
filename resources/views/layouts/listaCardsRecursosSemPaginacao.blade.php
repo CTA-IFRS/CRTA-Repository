@@ -11,7 +11,7 @@
             @endif
             @endforeach
             <div class="card-body">
-                <h3 class="card-title">{{ $recursoTA->titulo }}</h3>
+                <h4 class="card-title">{{ $recursoTA->titulo }}</h4>
                 <p class="card-text">{{ html_entity_decode(substr(strip_tags($recursoTA->descricao), 0, 150), ENT_QUOTES, 'UTF-8')." ..." }}</p>
             </div>
         </a>

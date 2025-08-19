@@ -1,9 +1,10 @@
 <div id="listagemRecursos" class="mt-2">
-	<h3>{{ count($recursosTA) }} resultados</h3>
+	<h3 aria-hidden="true">{{ count($recursosTA) }} resultados</h3>
 	<div id="listagem_filtros" class="row">
 		<div class="col-md-2_5 col-12 p-0">
 		@include('layouts.filtragemBusca')
 		</div>
+		<h3 class="sr-only">{{ count($recursosTA) }} resultados</h3>
 		<div id="listagem_recursos_paginacao" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-3 col-md-7_5 col-12 p-0">
 			@foreach($recursosTA as $recursoTA)
 			<div class="col mb-4" >
@@ -17,7 +18,7 @@
 						@endif
 						@endforeach
 						<div class="card-body">
-							<h3 class="card-title">{{ $recursoTA->titulo }}</h3>
+							<h4 class="card-title">{{ $recursoTA->titulo }}</h4>
 							<p class="card-text">{{ html_entity_decode(substr(strip_tags($recursoTA->descricao), 0, 150), ENT_QUOTES, 'UTF-8')." ..." }}</p>
 						</div>
 					</a>

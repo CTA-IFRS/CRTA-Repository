@@ -1,7 +1,8 @@
 <!-- Menu a ser exibido na tela principal, contendo imagem -->
-<nav class="menuTelaPrincipal navbar navbar-expand-lg navbar-light shadow-sm"
+<div class="menuTelaPrincipal d-flex flex-row justify-content-between shadow-sm">
+<h1><a class="navbar-brand" href="{{ url('/') }}"><span class="h4">RETACE</span></a></h1>
+<nav class="navbar navbar-expand-lg navbar-light p-0"
 	aria-label="Menu de navegação principal">
-	<h1><a class="navbar-brand" href="{{ url('/') }}"><span class="h4">RETACE</span></a></h1>
 	<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navegacaoPrincipal" aria-controls="navegacaoPrincipal" aria-expanded="false" aria-label="{{ __('Expandir menu') }}">
     	<span class="navbar-toggler-icon"></span>
   	</button>
@@ -28,3 +29,4 @@
 	</div>
 	<a href="#" class="sr-only">Final do menu</a>
 </nav>
+</div>

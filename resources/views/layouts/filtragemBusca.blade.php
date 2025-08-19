@@ -19,7 +19,7 @@
   <form class="box-filtros bg-white rounded p-4" method="post" action="{{route('filtroPost')}}">
     {{ csrf_field() }}
     <input type="hidden" name="texto" value="{{$parametro}}" />
-    <h4 class="d-none d-lg-block">Filtros</h4>
+    <h3 class="d-none d-lg-block">Filtros</h3>
     <hr class="d-none d-lg-block">
     <details class="filter-category">
       <summary class="mb-2">Tipo</summary>

@@ -3,7 +3,7 @@
 		<!-- Grid row -->
 		<div class="row d-flex flex-wrap align-items-center mt-4 pt-4 pt-sm-5 pt-lg-0">
 			<div class="col-lg-9 col-12">
-				<h2 class="h5">Entre em Contato</h2>
+				<h3 class="h5">Entre em Contato</h3>
 				<p>
 					Para conhecer mais sobre os trabalhos e projetos desenvolvidos pelo CTA acesse nosso site ou redes sociais:
 				</p>
