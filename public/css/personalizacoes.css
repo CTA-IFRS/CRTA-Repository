@@ -1016,7 +1016,8 @@ details[open] summary::before {
   padding-left: 8px;
 }
 #listagemRecursos .card-img-top {
-  height: 12rem;
+  aspect-ratio: 770 / 480;
+  height: auto;
 }
 .col-2_5 {
   flex: 0 0 21%;
@@ -1128,7 +1129,7 @@ ul.lSPager.lSGallery {
   overflow-y: scroll !important;
 }
 ul.lSPager.lSGallery li {
-  width: 135px !important;
+  width: 184.5px !important;/*135*/
   height: 115px;
   min-height: 115px;
   margin-bottom: 12px;
@@ -1176,8 +1177,8 @@ ul.lSPager.lSGallery::-webkit-scrollbar-track {
   justify-content: center;
 }
 .lSPager {
-  flex: 0 0 150px;
-  max-width: 150px;
+  flex: 0 0 199.5px;
+  max-width: 199.5px;
   position: relative;
   width: 100%;
 }
@@ -1286,7 +1287,8 @@ ul.lSPager.lSGallery::-webkit-scrollbar-track {
 }
 .card-img-top {
   object-fit: cover;
-  height: 12rem;
+  aspect-ratio: 770 / 480;
+  height: auto;
 }
 .cardsInicial .btn-secondary {
   font-family: "Source Sans 3", sans-serif;

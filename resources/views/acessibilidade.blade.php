@@ -66,19 +66,6 @@
                         </div>
                     </div>
                 </li>
-                <li class="bg-white d-flex rounded-lg">
-                    <div class="row w-100 m-0 py-3 py-sm-4 px-1 px-sm-3">
-                        <div class="col-md-7 col-12 d-flex flex-column">
-                            <strong class="mb-2">Mapa do site</strong>
-                            Disponibiliza todas as p&aacute;ginas do site de 
-                            forma hier&aacute;rquica, permitindo que o usu&aacute;rio conhe&ccedil;a toda a estrutura 
-                            do site e acesse diretamente a p&aacute;gina desejada.
-                        </div>
-                        <div class="col-md-5 col-12 mt-3 mt-md-0">
-                            <img src="{{url('/imagens/mapa_site.png')}}" alt="imagem mostrando o menu com o mapa do site" class="img-fluid rounded">
-                        </div>
-                    </div>
-                </li>
             </ul>
 
             <h3 class="mt-5 mb-3">Utilizando os atalhos</h3>

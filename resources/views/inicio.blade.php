@@ -22,7 +22,7 @@
 					@include('layouts.listaCardsRecursosSemPaginacao',['recursosTA' => $recursosMaisRecentes ])
 					</div>
 				</div>
-				<a class="btn btn-secondary bg-transparent" href="{{ route('filtroTag', ['tecnologia assistiva']) }}">Ver mais<span class="sr-only">Ver mais recursos de tecnologia assistiva</span><i class="fa fa-chevron-right mr-1" aria-hidden="true" style="margin-left: 12px;font-size: 16px;"></i></a>
+				<a class="btn btn-secondary bg-transparent" href="{{ route('filtroTag', ['tecnologia assistiva']) }}">Ver mais <span class="sr-only">recursos de tecnologia assistiva</span><i class="fa fa-chevron-right mr-1" aria-hidden="true" style="margin-left: 12px;font-size: 16px;"></i></a>
 			</div>
 		</div>
 	</div>
@@ -45,7 +45,7 @@
 					@include('layouts.listaCardsRecursosSemPaginacao',['recursosTA' => $recursosMaisAcessados ])
 					</div>
 				</div>
-				<a class="btn btn-secondary bg-transparent" href="{{ route('filtroTag', ['tecnologia assistiva']) }}">Ver mais<span class="sr-only">Ver mais recursos de tecnologia assistiva</span><i class="fa fa-chevron-right mr-1" aria-hidden="true" style="margin-left: 12px;font-size: 16px;"></i></a>
+				<a class="btn btn-secondary bg-transparent" href="{{ route('filtroTag', ['tecnologia assistiva']) }}">Ver mais <span class="sr-only">recursos de tecnologia assistiva</span><i class="fa fa-chevron-right mr-1" aria-hidden="true" style="margin-left: 12px;font-size: 16px;"></i></a>
 			</div>
 		</div>
 	</div>

@@ -21,13 +21,15 @@
 					<h2 class="my-1 h1">
 						{{ __($recursoTA->titulo) }}
 					</h2>
+				</div>
+				<div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center w-100 px-3">
 					<div id="avaliacoes">
 						<input id="avaliacaoMediaRecurso" name="avaliacaoMediaRecurso" value="{{$mediaAvaliacao}}"  class="rating-loading" aria-label="Avaliação média do recurso">				
 					</div>
-				</div>
-				<div id="acessos" class="col-12 col-md-2" style="height: fit-content;margin-top: auto;">
-					<i class="fa fa-eye" aria-hidden="true"></i>
-					<span> Visitado {{$recursoTA->visualizacoes}} vezes</span>	
+					<div id="acessos">
+						<i class="fa fa-eye" aria-hidden="true"></i>
+						<span> Visitado {{$recursoTA->visualizacoes}} vezes</span>	
+					</div>
 				</div>
 			</div>
 		</div>
