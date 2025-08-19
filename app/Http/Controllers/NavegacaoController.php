@@ -169,7 +169,7 @@ class NavegacaoController extends Controller{
 		//Remove duplicatas originadas por TAs em mais de uma tag
 		$conjuntoOrdenado = $resultadoBusca->unique('id')->sortBy('attributes.visualizacoes');
 
-		return view('buscaRecursoTA',['tags' => $tags, 'parametro' => '', 'filtros' => [$tag], 'recursosTA' => $conjuntoOrdenado]);
+		return view('buscaRecursoTA',['tags' => $tags, 'parametro' => $tag, 'filtros' => [$tag], 'recursosTA' => $conjuntoOrdenado]);
 	}
 
 
