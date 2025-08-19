@@ -1715,14 +1715,38 @@ h3.h3-strong {
   ul.lSPager.lSGallery li {
     min-width: 90px !important;
     width: 90px !important;
-    height: 75px;
-    min-height: 75px;
+    height: 56px;
+    min-height: 56px;
   }
   .lSAction > .lSPrev {
     left: 0;
   }
   .lSAction > .lSNext {
     right: 0;
+  }
+  .listagem_recursos_sem_paginacao .col, #listagem_recursos_paginacao .col {
+    padding-right: 0;
+    padding-left: 0;
+  }
+  #conteudo_aprender.custom-container, #app.custom_content {
+    width: calc(100% - 40px);
+  }
+  #conteudo_aprender .navbar-expand-lg .navbar-nav {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+  #listagem_aprender {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+@media(max-width: 430px) {
+  #conteudo_aprender #navegacaoCategorias {
+    justify-content: center;
+  }
+  #conteudo_aprender #navegacaoCategorias li,
+  #conteudo_aprender #navegacaoCategorias button {
+    width: 100%;
   }
 }
 
