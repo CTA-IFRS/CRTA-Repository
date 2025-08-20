@@ -5,9 +5,10 @@
 	<?php 
         $data = [
             ['name' => 'RETACE', 'link' => url('/')],
-			['name' => 'Recursos'],
+			['name' => 'Recursos', 'go-back' => true],
             ['name' => __($recursoTA->titulo), 'current' => true]
-        ]
+        ];
+
     ?>
     <div class="row breadcrumb-clear-pad">
         <div class="col">

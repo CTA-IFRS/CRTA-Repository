@@ -7,6 +7,12 @@
                 <li class="breadcrumb-item {{ (isset($item['active'])) ? 'active' : '' }}">
                     <a href="{{$item['link']}}">{{$item['name']}}</a>
                 </li>        
+            @elseif (isset($item['go-back']))
+                <li class="breadcrumb-item {{ (isset($item['active'])) ? 'active' : '' }}">
+                    <a href="#" class="go-back-link" 
+                       onclick="window.history.back()" >
+                        {{$item['name']}}</a>
+                </li>        
             @else
                 <li class="breadcrumb-item {{ isset($item['active']) ? 'active' : ''}}" 
                    >
