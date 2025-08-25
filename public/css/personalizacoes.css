@@ -1673,7 +1673,8 @@ h3.h3-strong {
   .pagination .proxima .page-link {
     position: relative;
     width: 44px;
-    text-indent: -9999px;
+    text-indent: -999px;
+    color: transparent !important;
   }
   .pagination .anterior .page-link::before,
   .pagination .proxima .page-link::before {
