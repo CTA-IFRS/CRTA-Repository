@@ -11,10 +11,10 @@
 	<div id="navegacaoPrincipal" class="collapse navbar-collapse">
 		<ul class="navbar-nav col-xs-9">
 			  <li class="nav-item">
-				<a class="nav-link {{ Request::is('filtro/tag/tecnologia assistiva') ? 'selected' : '' }}" href="{{ route('filtroTag', ['tecnologia assistiva']) }}">Tecnologia assistiva</a>
+				<a class="nav-link {{ Request::is('filtro/tag/tecnologia assistiva') ? 'selected' : '' }}" href="{{ route('filtroTag', ['Tecnologia assistiva']) }}">Tecnologia assistiva</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link {{ Request::is('filtro/tag/material pedagógico') ? 'selected' : '' }}" href="{{ route('filtroTag', ['material pedagógico']) }}">Material pedagógico</a>
+				<a class="nav-link {{ Request::is('filtro/tag/material pedagógico') ? 'selected' : '' }}" href="{{ route('filtroTag', ['Material pedagógico']) }}">Material pedagógico</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link {{ Request::is('contribuir-ta') ? 'selected' : '' }}" href="{{ route('cadastrarTA') }}">Contribuir</a>

@@ -6,19 +6,19 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav flex-wrap">
             <li class="nav-item">
-                <a aria-describedby="buscaRapida" class="nav-link" href="{{route('filtroTag', ['software'])}}">Software</a>
+                <a aria-describedby="buscaRapida" class="nav-link" href="{{route('filtroTag', ['Software'])}}">Software</a>
             </li>
             <li class="nav-item">
-                <a aria-describedby="buscaRapida" class="nav-link" href="{{route('filtroTag', ['deficiência visual'])}}">Deficiência visual</a>
+                <a aria-describedby="buscaRapida" class="nav-link" href="{{route('filtroTag', ['Deficiência visual'])}}">Deficiência visual</a>
             </li>
             <li class="nav-item">
-                <a aria-describedby="buscaRapida" class="nav-link" href="{{route('filtroTag', ['mouse adaptado'])}}">Mouse adaptado</a>
+                <a aria-describedby="buscaRapida" class="nav-link" href="{{route('filtroTag', ['Mouse adaptado'])}}">Mouse adaptado</a>
             </li>
             <li class="nav-item">
-                <a aria-describedby="buscaRapida" class="nav-link" href="{{route('filtroTag', ['deficiência física'])}}">Deficiência física</a>
+                <a aria-describedby="buscaRapida" class="nav-link" href="{{route('filtroTag', ['Deficiência física'])}}">Deficiência física</a>
             </li>
             <li class="nav-item">
-                <a aria-describedby="buscaRapida" class="nav-link" href="{{route('filtroTag', ['baixo custo'])}}">Baixo custo</a>
+                <a aria-describedby="buscaRapida" class="nav-link" href="{{route('filtroTag', ['Baixo custo'])}}">Baixo custo</a>
             </li>
         </ul>
     </div>

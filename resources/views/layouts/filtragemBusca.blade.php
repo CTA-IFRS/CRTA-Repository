@@ -46,7 +46,7 @@
         <ul>
           <?php 
             $tamTipos = count($tipos);
-            $condicoes = ["Baixa visão", "Cegueira", "Deficiência auditiva", "Surdez", 
+            $condicoes = ["Baixa visão", "Deficiência visual", "Cegueira", "Deficiência auditiva", "Surdez", 
                           "Surdocegueira", "Deficiência física", "Deficiência intelectual",
                           "Autismo", "Neurodivergência"];
           ?>
@@ -67,8 +67,8 @@
         <ul>
           <?php 
             $tamCondicoes = count($condicoes) + count($tipos);
-            $necessidades = ["Comunicação", "Mobilidade", "Braille", "Libras", "Leitor de tela", "Mouse", "Teclado",
-                          "Material tátil", "Objeto de Aprendizagem"];
+            $necessidades = ["Comunicação", "Mobilidade", "Braille", "Libras", "Leitor de tela", "Mouse", "Mouse adaptado", "Teclado",
+                          "Material tátil", "Objeto de Aprendizagem", "Software"];
           ?>
           @foreach ($necessidades as $k => $necessidade) 
             <li>

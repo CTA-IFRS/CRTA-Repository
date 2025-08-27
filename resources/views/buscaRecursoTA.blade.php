@@ -25,8 +25,17 @@
 <div class="container-xl">
     <div id="resultadoBusca" class="mt-4 mt-sm-5">
 		@if(strlen($parametro)!=0)
-			<h2 class="h3"> Resultado da busca por <i>{{$parametro}}</i> </h2>
-		@endif
+			<h2 class="h3"> 
+                <span>Resultado da busca por <i>{{$parametro}}</i></span>
+                @if (isset($filtros) && count($filtros) > 0)
+                    @foreach ($filtros as $t)
+                        <span>, {{$t}}</span> 
+                    @endforeach
+                @endif
+            </h2>
+		@elseif (count($filtros) != 0)
+			<h2 class="h3"> Resultado da busca por {{implode(', ', $filtros)}} </h2>
+        @endif
 		@include('layouts.listaCardsRecursos')
 	</div>
 </div>
