@@ -106,7 +106,7 @@ class NavegacaoController extends Controller{
 										  DB::raw($this->createTextCase('titulo', $termos, $RANK_TITULO_POINTS, 'rank_titulo')),
 										  DB::raw($this->createTextCase('descricao', $termos, $RANK_DESCRICAO_POINTS, 'rank_descricao'))
 										 ])
-								->orderByRaw('(rank_tag + rank_titulo + rank_descricao) DESC');
+								->orderByRaw('(rank_tag + rank_titulo + rank_descricao) DESC, id DESC');
 								
 
 		return view('buscaRecursoTA',['tags' => $tags,'parametro' => $texto, 'filtros' => $filtros, 'recursosTA' => $recursosPublicados->get()]);

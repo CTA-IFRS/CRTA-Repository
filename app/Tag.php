@@ -26,6 +26,9 @@ class Tag extends Model
     }    
 
     public function recursosTAAprovados() {
-        return $this->recursosTA()->where('publicacao_autorizada', true)->get();
+        return $this->recursosTA()
+            ->where('publicacao_autorizada', true)
+            ->orderBy('id', 'desc')
+            ->get();
     }
 }
