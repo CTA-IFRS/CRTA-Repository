@@ -8,6 +8,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <?php $envGTag = env('APP_GATAG', false); ?>
+    @if ($envGTag)
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{$envGTag}}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', '{{ $envGTag }}');
+        </script>
+    @endif
+
     <script>
         (function () {
             var contrast = localStorage.getItem("contrast");
