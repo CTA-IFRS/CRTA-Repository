@@ -1,0 +1,35 @@
+services:
+  db:
+    image: docker.io/mariadb:lts
+    container_name: retace-mariadb
+    environment:
+      - MARIADB_ROOT_PASSWORD=${DB_PASSWORD}
+      - MARIADB_USER=${DB_USERNAME}
+      - MARIADB_PASSWORD=${DB_PASSWORD}
+      - MARIADB_DATABASE=${DB_DATABASE}
+    networks:
+      - retace-network
+    volumes:
+      - mariadb-data:/var/lib/mysql
+
+  retace:
+    build:
+      context: .
+      dockerfile: docker-php-8.dockerfile
+    image: localhost/retace:latest
+    container_name: retace
+    networks:
+      - retace-network
+    ports:
+      - "8888:80"
+    depends_on:
+      - db
+    volumes:
+      - ..:/var/www/html
+
+volumes:
+  mariadb-data:
+
+networks:
+  retace-network:
+    name: retace-network
