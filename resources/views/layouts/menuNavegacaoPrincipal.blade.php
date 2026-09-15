@@ -17,6 +17,9 @@
 				<a class="nav-link {{ Request::is('filtro/tag/material pedagógico') ? 'selected' : '' }}" href="{{ route('filtroTag', ['Material pedagógico']) }}">Material pedagógico</a>
 			</li>
 			<li class="nav-item">
+				<a class="nav-link {{ Request::is('filtro/tag/publicação') ? 'selected' : '' }}" href="{{ route('filtroTag', ['Publicação']) }}">Publicações</a>
+			</li>
+			<li class="nav-item">
 				<a class="nav-link {{ Request::is('contribuir-ta') ? 'selected' : '' }}" href="{{ route('cadastrarTA') }}">Contribuir</a>
 			</li>
 			<li class="nav-item">
@@ -24,7 +27,7 @@
 			</li>
 			<li class="nav-item">
 				<a class="nav-link {{ Request::is('sobre') ? 'selected' : '' }}" href="{{ url('/sobre') }}">Sobre</a>
-			</li>  
+			</li>
       	</ul>
 	</div>
 	<a href="#" class="sr-only">Final do menu</a>

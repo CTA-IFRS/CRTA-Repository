@@ -4,12 +4,12 @@
   <i class="fa fa-filter" aria-hidden="true"></i>
 </button>
 
-<?php 
+<?php
     $isTagInArray = function ($tag, $array) {
       $tag = strtolower($tag);
       foreach ($array as $value) {
         if (strtolower($value) == $tag) return true;
-      }    
+      }
       return false;
     }
 ?>
@@ -25,11 +25,11 @@
       <summary class="mb-2">Tipo</summary>
       <div class="filter-options">
         <ul>
-          <?php 
+          <?php
             $filtrosAplicados = (isset($filtros)) ? $filtros : [];
-            $tipos = ["Tecnologia assistiva", "Material pedagógico"];
+            $tipos = ["Tecnologia assistiva", "Material pedagógico", "Publicação"];
           ?>
-          @foreach ($tipos as $k => $tipo) 
+          @foreach ($tipos as $k => $tipo)
             <li>
               <div class="custom-control custom-checkbox mr-2">
                 <input type="checkbox" name="filtros[]" value="{{$tipo}}" class="custom-control-input" id="filter{{$k}}" {{$isTagInArray($tipo, $filtrosAplicados) ? 'checked' : ''}}>
@@ -44,13 +44,13 @@
       <summary class="mb-2">Condição</summary>
       <div class="filter-options">
         <ul>
-          <?php 
+          <?php
             $tamTipos = count($tipos);
-            $condicoes = ["Baixa visão", "Deficiência visual", "Cegueira", "Deficiência auditiva", "Surdez", 
+            $condicoes = ["Baixa visão", "Deficiência visual", "Cegueira", "Deficiência auditiva", "Surdez",
                           "Surdocegueira", "Deficiência física", "Deficiência intelectual",
                           "Autismo", "Neurodivergência"];
           ?>
-          @foreach ($condicoes as $k => $condicao) 
+          @foreach ($condicoes as $k => $condicao)
             <li>
               <div class="custom-control custom-checkbox mr-2">
                 <input type="checkbox" name="filtros[]" value="{{$condicao}}" class="custom-control-input" id="filter{{$tamTipos+$k}}" {{$isTagInArray($condicao, $filtrosAplicados) ? 'checked' : ''}}>
@@ -65,12 +65,12 @@
       <summary class="mb-2">Necessidade</summary>
       <div class="filter-options">
         <ul>
-          <?php 
+          <?php
             $tamCondicoes = count($condicoes) + count($tipos);
             $necessidades = ["Comunicação", "Mobilidade", "Braille", "Libras", "Leitor de tela", "Mouse", "Mouse adaptado", "Teclado",
                           "Material tátil", "Objeto de Aprendizagem", "Software"];
           ?>
-          @foreach ($necessidades as $k => $necessidade) 
+          @foreach ($necessidades as $k => $necessidade)
             <li>
               <div class="custom-control custom-checkbox mr-2">
                 <input type="checkbox" name="filtros[]" value="{{$necessidade}}" class="custom-control-input" id="filter{{$k + $tamCondicoes}}" {{$isTagInArray($necessidade, $filtrosAplicados) ? 'checked' : ''}}>
@@ -78,7 +78,7 @@
               </div>
             </li>
           @endforeach
-          
+
         </ul>
       </div>
     </details>
@@ -86,11 +86,11 @@
       <summary class="mb-2">Outros</summary>
       <div class="filter-options">
         <ul>
-         <?php 
+         <?php
             $tamCondNess = count($tipos) + count($condicoes) + count($necessidades);
             $outros = ["Gratuito", "Baixo custo", "Comercial"];
           ?>
-          @foreach ($outros as $k => $outro) 
+          @foreach ($outros as $k => $outro)
             <li>
               <div class="custom-control custom-checkbox mr-2">
                 <input type="checkbox" name="filtros[]" value="{{$outro}}" class="custom-control-input" id="filter{{$k + $tamCondNess}}" {{$isTagInArray($outro, $filtrosAplicados) ? 'checked' : ''}}>
