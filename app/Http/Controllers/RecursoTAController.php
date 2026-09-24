@@ -9,6 +9,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 //use Intervention\Image\Laravel\Facades\Image as Image;
@@ -221,7 +222,14 @@ class RecursoTAController extends Controller
         $this->saveUpload($request, $recursoTA, 'manual');
         $this->saveUpload($request, $recursoTA, 'arquivo');
 
-        $this->enviaEmailAdminContribuicao($recursoTA->titulo);
+        try {
+            $this->enviaEmailAdminContribuicao($recursoTA->titulo);
+        } catch (\Exception $e) {
+            Log::warning('Falha no envio do e-mail para nova contribuição', [
+                'RecursoTA(id)' => $recursoTA->id,
+                'Exception' => $e->getMessage(),
+            ]);
+        }
 
         return response()->json("Recurso cadastrado com sucesso!");
     }
