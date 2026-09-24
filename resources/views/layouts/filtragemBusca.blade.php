@@ -67,7 +67,7 @@
         <ul>
           <?php
             $tamCondicoes = count($condicoes) + count($tipos);
-            $necessidades = ["Comunicação", "Mobilidade", "Braille", "Libras", "Leitor de tela", "Mouse", "Mouse adaptado", "Teclado",
+            $necessidades = ["Comunicação", "Mobilidade", "Braille", "Libras", "Leitor de tela", "Mouse adaptado", "Teclado",
                           "Material tátil", "Objeto de Aprendizagem", "Software"];
           ?>
           @foreach ($necessidades as $k => $necessidade)
