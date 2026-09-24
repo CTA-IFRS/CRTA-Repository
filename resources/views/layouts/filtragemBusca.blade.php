@@ -21,7 +21,7 @@
     <input type="hidden" name="texto" value="{{$parametro}}" />
     <h3 class="d-none d-lg-block">Filtros</h3>
     <hr class="d-none d-lg-block">
-    <details class="filter-category">
+    <details class="filter-category" open="">
       <summary class="mb-2">Tipo</summary>
       <div class="filter-options">
         <ul>
@@ -40,7 +40,7 @@
         </ul>
       </div>
     </details>
-    <details class="filter-category">
+    <details class="filter-category" open="">
       <summary class="mb-2">Condição</summary>
       <div class="filter-options">
         <ul>
@@ -61,7 +61,7 @@
         </ul>
       </div>
     </details>
-    <details class="filter-category">
+    <details class="filter-category" open="">
       <summary class="mb-2">Necessidade</summary>
       <div class="filter-options">
         <ul>
@@ -82,7 +82,7 @@
         </ul>
       </div>
     </details>
-    <details class="filter-category">
+    <details class="filter-category" open="">
       <summary class="mb-2">Outros</summary>
       <div class="filter-options">
         <ul>
