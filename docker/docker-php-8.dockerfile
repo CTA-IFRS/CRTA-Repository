@@ -1,4 +1,5 @@
-FROM php:8.2-apache-bullseye
+#FROM php:8.2-apache-bullseye
+FROM php:8.5-apache
 
 RUN apt-get update && apt-get install libzip-dev -y \
     && docker-php-ext-install zip
